@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.content-size-m {
+	width: 600px;
+}
+.content-size-w {
+	width: 300px;
+	/* padding-left: 10em; */
+}
+.writer-1{
+	padding: 5em 5em 5em 5em;
+}
+.writer-1 div{
+	padding: 15px;
+}
+
+.write-title{
+	padding: 10px;
+}

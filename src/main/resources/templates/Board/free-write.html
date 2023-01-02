@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/board/board-write.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript" src="https://livejs.com/live.js"></script>
+<style type="text/css">
+</style>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+   		<div class="wrap writer-1">
+   			<div class="flex center">
+   				<p>공지사항 작성</p>
+   			</div>
+	   		<div>
+	    		<form>
+	    			<table>
+	    				<tr>
+	    					<td class="write-title flex center">
+	    						<input type="text" name="title" placeholder="제목입력">
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<td>
+	    						<textarea rows="27" cols="63" name="content" placeholder="내용을 입력하세요"></textarea>
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<td class="flex center">
+								<button>등록</button>
+	    					</td>
+	    				</tr>
+	    			</table>
+	    		</form>
+	   		</div>
+   		</div>
+    </main>
+</body>
+</html>

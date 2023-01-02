@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/board/board-list.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript" src="https://livejs.com/live.js"></script>
+<style type="text/css">
+</style>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div>
+		<section>
+		<div>NOTICE</div>
+			<div>
+					<a href="/Board/notice-write">글쓰기</a>
+				</div>
+			<div>
+				<table>
+					<div>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>날짜</th>
+							<th>조회수</th>
+						</tr>
+					</div>
+					<div>
+						<tr>
+							<td>1</td>
+							<td>공지사항 게시판 입니다.</td>
+							<td>관리자</td>
+							<td>2023.01.02</td>
+							<td>0</td>
+						</tr>
+					</div>
+				</table>
+				<!-- <div th:if="${p.getNumberOfElements()>0}">
+	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
+	    			<span th:text="${p.getNumber()+1}">현재페이지</span>
+	    			/
+	    			<span th:text="${p.getTotalPages()}">총페이지수</span> 
+	    			<a th:if="${p.hasNext()}" th:href="|/comm/board-list?page=${p.getNumber()+2}|">&gt;</a>
+    			</div> -->
+			</div>
+		</section>
+	</div>
+</main>
+</html>
