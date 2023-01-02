@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.mypage-1{
+	padding: 1.5em;
+}
+.mypage-1 div p{
+	padding: 10px;
+    display: inline-block;
+    background-color: #4b99da;
+    border-radius: 15px;
+    font-size: 20px;
+    color: white;
+}
+.mypage-1 div{
+	padding-bottom: 1.5em;
+}
+.mypage-table{
+	border-collapse: collapse;
+    
+}
+.mypage-table tr td{
+	border-bottom: 3px solid #a4cdf2;
+	text-align: center;
+	 padding: 10px;
+}

@@ -40,4 +40,9 @@ public class BoardController {
     public String freeWrite() {
         return "Board/free-write";
     }
+	//잠시 여기 둡니다!! 마이페이지
+	@GetMapping("/employeeMgmt/mypage")
+    public String mypage() {
+        return "employeeMgmt/mypage";
+    }
 }

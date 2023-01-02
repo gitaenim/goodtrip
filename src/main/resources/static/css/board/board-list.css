@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .list-1{
-	padding: 5em 5em 5em 5em;
+	padding: 1.5em;
 }
 .right {
 	justify-content: flex-end;
@@ -15,27 +15,23 @@
     color: white;
 }
 
-.back-list{
-	display: inline-block;
-	background: #a4cdf2;
-	border-radius: 10px;
-	padding: 10px;
-}
-
-.list-table tr th, .list-table tr td{
-	text-align: center;
-	padding: 0 10px 0 10px;
-	color: white;
-	
-}
 .list-table{
-	border: 2px solid white;
+	 border-collapse: collapse;
+     width: 100%;
+}
+tr.list-2 th, .list-table tr td{
+	 text-align: center;
+	 padding: 10px;
+     border-bottom: 3px solid #a4cdf2;
+}
+tr.list-2 th{
+	background: #a4cdf2;
+	color: white;
+}
+.list-table tr td{
+	color: #6f6f6f;
 }
 
-.list-table tr th{
-	font-size: 15px;
-	font-weight: 600;
-}
 .list-button{
 	display:inline-block;
 	padding:10px;

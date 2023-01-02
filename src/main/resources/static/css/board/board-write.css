@@ -2,14 +2,14 @@
 
 
 .writer-1{
-	padding: 5em 5em 5em 5em;
+	padding: 1.5em;
 }
 .writer-1 div{
 	padding: 15px;
 }
 .writer-back{
 	display: inline-block;
-	background: #a4cdf2;
+	border: 5px solid #a4cdf2;
 	border-radius: 20px;
 }
 .writer-1 div p{
@@ -25,7 +25,9 @@
 	text-align: center;
 }
 .writer-title{
-	padding-bottom: 30px;
+	padding-bottom: 13px;
+	border-bottom: 5px solid #a4cdf2;
+	
 }
 .writer-title input{
 	border: none;
@@ -39,24 +41,25 @@
 	font-weight: 700;
 }
 .writer-title input:focus{
-	outline: 1px solid #a4cdf2;
+	outline: none;
 }
 .writer-content textarea{
 	border: none;
 	text-align: center;
-	border-radius: 20px;
+	padding-top: 30px;
 }
 .writer-content textarea::placeholder{
 	color: #8c8c8c;
 	font-size: 20px;
 	font-weight: 600;
+	
 }
 .writer-content textarea:focus{
-	outline: 1px solid #a4cdf2;
+	outline: none;
 }
 .writer-button{
 	display:inline-block;
-	background-color:white;
+	background-color:#a4cdf2;
 	padding:10px;
 	border-radius: 20px;
 	font-size: 16px;
