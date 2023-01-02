@@ -1,1 +1,46 @@
 @charset "UTF-8";
+
+.list-1{
+	padding: 5em 5em 5em 5em;
+}
+.right {
+	justify-content: flex-end;
+}
+.list-1 section div p{
+	padding: 10px;
+    display: inline-block;
+    background-color: #4b99da;
+    border-radius: 15px;
+    font-size: 20px;
+    color: white;
+}
+
+.back-list{
+	display: inline-block;
+	background: #a4cdf2;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.list-table tr th, .list-table tr td{
+	text-align: center;
+	padding: 0 10px 0 10px;
+	color: white;
+	
+}
+.list-table{
+	border: 2px solid white;
+}
+
+.list-table tr th{
+	font-size: 15px;
+	font-weight: 600;
+}
+.list-button{
+	display:inline-block;
+	padding:10px;
+	border-radius: 20px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #4b99da;
+}

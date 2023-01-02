@@ -11,32 +11,42 @@
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
-	<div>
+	<div class="wrap list-1">
 		<section>
-		<div>NOTICE</div>
-			<div>
-					<a href="/Board/suggestion-write">글쓰기</a>
-				</div>
-			<div>
-				<table>
-					<div>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>날짜</th>
-							<th>조회수</th>
-						</tr>
-					</div>
-					<div>
-						<tr>
-							<td>1</td>
-							<td>건의 게시판 입니다.</td>
-							<td>관리자</td>
-							<td>2023.01.02</td>
-							<td>0</td>
-						</tr>
-					</div>
+			<div class="flex center">
+				<p>건의게시판</p>
+			</div>
+			<a class="flex right list-button" href="/Board/free-write">글쓰기</a>
+			<div class="flex center back-list">
+				<table class="list-table">
+					<tr class="list-2">
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>날짜</th>
+						<th>조회수</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>건의 게시판 입니다.</td>
+						<td>관리자</td>
+						<td>2023.01.02</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>예시 입니다~!</td>
+						<td>관리자</td>
+						<td>2023.01.02</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>지울거에요~~</td>
+						<td>관리자</td>
+						<td>2023.01.02</td>
+						<td>0</td>
+					</tr>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
 	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>

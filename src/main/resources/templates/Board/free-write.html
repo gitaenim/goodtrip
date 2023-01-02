@@ -13,24 +13,24 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
    		<div class="wrap writer-1">
    			<div class="flex center">
-   				<p>공지사항 작성</p>
+   				<p>자유게시판</p>
    			</div>
-	   		<div>
+	   		<div class="writer-back">
 	    		<form>
-	    			<table>
+	    			<table class="writer-2">
 	    				<tr>
-	    					<td class="write-title flex center">
+	    					<td class="writer-title">
 	    						<input type="text" name="title" placeholder="제목입력">
 	    					</td>
 	    				</tr>
 	    				<tr>
-	    					<td>
-	    						<textarea rows="27" cols="63" name="content" placeholder="내용을 입력하세요"></textarea>
+	    					<td class="writer-content">
+	    						<textarea rows="30" cols="70" name="content" placeholder="내용을 입력하세요"></textarea>
 	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td class="flex center">
-								<button>등록</button>
+								<button class="writer-button">등록</button>
 	    					</td>
 	    				</tr>
 	    			</table>
