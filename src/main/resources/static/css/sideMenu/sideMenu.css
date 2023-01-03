@@ -1,11 +1,16 @@
 @charset "UTF-8";
 
+main { /* 해상도가 달라질때마다 너무 이동하길래! 쌤한테 물어보고 고쳤습니다!  */
+	min-height: 100vh;
+	display: flex;
+}
+
 header {
 	color: #222222;
 	position: fixed;
 	left: 0px;
 	top: 0px;
-	height: 100%;
+	height: 100vh;
 	background-color: white;
 	position: fixed;
 }
