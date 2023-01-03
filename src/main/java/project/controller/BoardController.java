@@ -45,4 +45,19 @@ public class BoardController {
     public String mypage() {
         return "employeeMgmt/mypage";
     }
+	//임시 자유게시판 조회 페이지!
+	@GetMapping("/Board/free-detail")
+    public String freeDetail() {
+        return "Board/free-detail";
+    }
+	//임시 공지사항 조회 페이지!
+	@GetMapping("/Board/notice-detail")
+    public String noticeDetail() {
+        return "Board/notice-detail";
+    }
+	//임시 건의사항 조회 페이지!
+	@GetMapping("/Board/suggestion-detail")
+    public String suggestionDetail() {
+        return "Board/suggestion-detail";
+    }
 }
