@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/sideMenu/mypage.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript" src="https://livejs.com/live.js"></script>
+<style type="text/css">
+</style>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="wrap mypage-1">
+		<div class="flex center">
+			<p>마이페이지</p>
+		</div>
+		<table class="mypage-table">
+			<tr><td>사진</td>
+				<td><img src="/image/icon/logo1.png"></td>
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td>test01</td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td>****</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>김대리</td>
+			</tr>
+			<tr>
+				<td>나이</td>
+				<td>40세</td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>여자</td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td>test01@test.com</td>
+			</tr>
+			<tr>
+				<td>입사일</td>
+				<td>2022.01.05</td>
+			</tr>
+		</table>
+	</div>
+</main>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/board/board-detail.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript" src="https://livejs.com/live.js"></script>
+<style type="text/css">
+</style>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+   	<div class="detail-1">
+   		<p>조회</p>
+   		<form>
+   			<div>   			
+   				<table class="detail-table table-1" border="1" >
+	    			<tr>
+	    				<td>글번호</td>
+	    				<td>1</td>
+	    			</tr>
+	    			<tr>
+	    				<td>작성일</td>
+	    				<td>2022.1.1</td>
+	    			</tr>
+	    			<tr>
+	    				<td>최종수정일</td>
+	    				<td>2022.1.2</td>
+	    			</tr>
+	    			<tr>
+	    				<td>조회수</td>
+	    				<td>3</td>
+	    			</tr>
+	    			<tr>
+	    				<td>작성자</td>
+	    				<td>김대리</td>
+	    			</tr>
+	    			<tr>
+	    				<td>제목</td>
+	    				<td>
+	    					<input type="text">
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td>내용</td>
+	    				<td >
+	    					<textarea rows="5" cols="50"></textarea>
+	    				</td>
+	    			</tr>
+	    			<!-- <tr>
+	    				<td>
+	    					<input>
+	    					<button>수정완료</button>
+	    					<button>취소</button>
+	    				</td>
+	    			</tr> -->
+	    		</table>
+    		</div>
+   		</form>
+   		<!-- //////////////////////////////////////// -->
+   		</div>
+   </main>
+</body>
+</html>
+</body>
+</html>
