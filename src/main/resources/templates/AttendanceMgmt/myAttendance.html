@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
+<head>
+	<meta charset="UTF-8">
+	<title>근태리스트</title>
+	<link rel="stylesheet" href="/css/attendance/my-attendance.css">
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="wrap list-1">
+		<section>
+			<div class="flex center title">
+				<p>내 근태 및 휴가</p>
+			</div>
+			<div class="flex att-btn">
+				<button><span class="small-circle-selected"></span>근태</button>
+				<button onclick="location.href = 'myWorkingDay'"><span class="small-circle"></span>근무</button>
+				<button onclick="location.href = 'myDayOff'"><span class="small-circle"></span>휴가</button>
+			</div>
+			<div class="flex center back-list">
+				<table class="list-table">
+					<thead>
+						<tr class="list-2">
+							<th></th>
+							<th>일자</th>
+							<th>출근시간</th>
+							<th>퇴근시간</th>
+							<th>일근무시간</th>
+							<th>지정근무시간</th>
+							<th>근태항목</th>
+							<th>근태기간</th>
+							<th>근태일수</th>
+							<th>적요</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>4</td>
+							<td>2023-01-09</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>휴가</td>
+							<td>2023-01-09 ~ 2023-01-11</td>
+							<td>3</td>
+							<td>우수사원포상휴가</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>2023-01-06</td>
+							<td>09:01</td>
+							<td>18:49</td>
+							<td>8:48</td>
+							<td>8시간</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>2023-01-04</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>연차</td>
+							<td>2023-01-04 ~ 2023-01-05</td>
+							<td>2</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>2023-01-03</td>
+							<td>07:53</td>
+							<td>18:22</td>
+							<td>9:29</td>
+							<td>8시간</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</div>
+</main>
+</html>
