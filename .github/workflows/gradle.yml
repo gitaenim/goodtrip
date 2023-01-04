@@ -54,5 +54,9 @@ jobs:
         
      # 빌드 결과물을 S3 버킷에 업로드
     - name: Upload to AWS S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$BUCKET_NAME/$GITHUB_SHA.zip
-	
+      run: |
+        aws deploy push \
+          --application-name ${{ secrets.CODEDEPLOY_APPLICATION_NAME }} \
+          --ignore-hidden-files \
+          --s3-location s3://$S3_LOCATION_BUCKET/$GITHUB_SHA.zip \
+          --source .    
