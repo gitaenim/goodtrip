@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/board/board-list.css">
+<link rel="stylesheet" href="/css/organizationChart/groupList.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
@@ -14,39 +14,42 @@
 	<div class="wrap list-1">
 		<section>
 			<div class="flex center">
-				<p>건의게시판</p>
+				<p>조직도</p>
 			</div>
-			<a class="flex right list-button" href="/Board/suggestion-write">글쓰기</a>
-			<a class="flex right list-button" href="/Board/suggestion-detail">디테일페이지</a>
+		<form class="flex center group-form">
+	      <select>
+	        <option>부서</option>
+	        <option>경영지원팀</option>
+	        <option>상품기획팀</option>
+	        <option>예시입니다</option>
+	      </select>
+	    </form>
+			<a class="flex right list-button" href="/ozc/groupDetail">디테일페이지</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>날짜</th>
-						<th>조회수</th>
+						<th>사원 명</th>
+						<th>직급</th>
+						<th>부서</th>
+						<th>내선번호</th>
 					</tr>
 					<tr>
-						<td>1</td>
-						<td>건의 게시판 입니다.</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
-						<td>0</td>
+						<td>김사탕</td>
+						<td>부장</td>
+						<td>경영지원팀</td>
+						<td>4050</td>
 					</tr>
 					<tr>
-						<td>2</td>
-						<td>예시 입니다~!</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
-						<td>0</td>
+						<td>김예시</td>
+						<td>대리</td>
+						<td>예시입니다</td>
+						<td>4050</td>
 					</tr>
 					<tr>
-						<td>3</td>
-						<td>지울거에요~~</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
-						<td>0</td>
+						<td>김사탕</td>
+						<td>부장</td>
+						<td>경영지원팀</td>
+						<td>4050</td>
 					</tr>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">

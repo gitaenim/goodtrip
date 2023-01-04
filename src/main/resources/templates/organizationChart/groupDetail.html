@@ -12,8 +12,8 @@
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap mypage-1">
-		<div class="flex center">
-			<p>마이페이지</p>
+		<div class="flex center page-title">
+			<p>사원 상세페이지</p>
 		</div>
 		<table class="mypage-table">
 			<tr><td>사진</td>
@@ -36,10 +36,6 @@
 				<td>test01@test.com</td>
 			</tr>
 			<tr>
-				<td>비밀번호</td>
-				<td>****</td>
-			</tr>
-			<tr>
 				<td>직급</td>
 				<td>부장</td>
 			</tr>
@@ -60,10 +56,6 @@
 				<td>4050</td>
 			</tr>
 			<tr>
-				<td>급여</td>
-				<td>10,000원</td>
-			</tr>
-			<tr>
 				<td>생년월일</td>
 				<td>1930.02.29</td>
 			</tr>
@@ -72,6 +64,9 @@
 				<td>밥묵기</td>
 			</tr>
 		</table>
+		<div class="back-1">
+			<a class="flex center" href="/ozc/groupList">뒤로가기</a>
+		</div>
 	</div>
 </main>
 </html>

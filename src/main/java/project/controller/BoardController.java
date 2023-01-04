@@ -7,57 +7,53 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BoardController {
 	
 	//공지사항 게시판 리스트
-	@GetMapping("/Board/notice-list")
+	@GetMapping("/Board/noticeList")
     public String noticeList() {
-        return "Board/notice-list";
+        return "Board/noticeList";
     }
 	
 	//공지사항 글쓰기 페이지
-	@GetMapping("/Board/notice-write")
+	@GetMapping("/Board/noticeWrite")
     public String noticeWrite() {
-        return "Board/notice-write";
+        return "Board/noticeWrite";
     }
 	
 	//건의 게시판 리스트
-	@GetMapping("/Board/suggestion-list")
+	@GetMapping("/Board/suggestionList")
     public String suggestionList() {
-        return "Board/suggestion-list";
+        return "Board/suggestionList";
     }
 	
 	//건의사항 글쓰기 페이지
-	@GetMapping("/Board/suggestion-write")
+	@GetMapping("/Board/suggestionWrite")
     public String suggestionWrite() {
-        return "Board/suggestion-write";
+        return "Board/suggestionWrite";
     }
-	//자유 게시판 리스트
-	@GetMapping("/Board/free-list")
+	//경조사 리스트 페이지
+	@GetMapping("/Board/cncList")
     public String freeList() {
-        return "Board/free-list";
+        return "Board/cncList";
     }
 	
-	//자유게시판 글쓰기 페이지
-	@GetMapping("/Board/free-write")
+	//경조사 글쓰기 페이지
+	@GetMapping("/Board/cncWrite")
     public String freeWrite() {
-        return "Board/free-write";
+        return "Board/cncWrite";
     }
-	//잠시 여기 둡니다!! 마이페이지
-	@GetMapping("/employeeMgmt/mypage")
-    public String mypage() {
-        return "employeeMgmt/mypage";
-    }
-	//임시 자유게시판 조회 페이지!
-	@GetMapping("/Board/free-detail")
+	
+	//임시 경조사 조회 페이지!
+	@GetMapping("/Board/cncDetail")
     public String freeDetail() {
-        return "Board/free-detail";
+        return "Board/cncDetail";
     }
 	//임시 공지사항 조회 페이지!
-	@GetMapping("/Board/notice-detail")
+	@GetMapping("/Board/noticeDetail")
     public String noticeDetail() {
-        return "Board/notice-detail";
+        return "Board/noticeDetail";
     }
 	//임시 건의사항 조회 페이지!
-	@GetMapping("/Board/suggestion-detail")
+	@GetMapping("/Board/suggestionDetail")
     public String suggestionDetail() {
-        return "Board/suggestion-detail";
+        return "Board/suggestionDetail";
     }
 }
