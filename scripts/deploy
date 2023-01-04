@@ -1,6 +1,6 @@
 #!/bin/bash
 # my-script
-mv ./build/libs/*.war ~/src/webapp/
+mv /home/ec2-user/src/deploy/build/libs/*.war ~/src/webapp/
 cd ~/src/webapp/
 rm -r META-INF/
 rm -r WEB-INF/
