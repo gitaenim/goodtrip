@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/approvalMgmt/dayOff.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript" src="https://livejs.com/live.js"></script>
+<style type="text/css">
+</style>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="day-off-main">
+		<p>휴가 신청서</p>
+		<form action="#">
+			<section class="flex between">
+				<table id="table-1">
+					<tr>
+						<td>기안자</td>
+						<td>[작성자]</td>
+					</tr>
+					<tr>
+						<td>기안부서</td>
+						<td>[작성자 그룹]</td>
+					</tr>
+					<tr>
+						<td>기안일</td>
+						<td>[YYYY-MM-DD(요일)]</td>
+					</tr>
+					<tr>
+						<td>문서 번호</td>
+						<td>[결제번호]</td>
+					</tr>
+					<tr>
+						<td>기안자</td>
+						<td>[작성자]</td>
+					</tr>
+				</table>
+				<table id="table-2">
+					<tr>
+						<td colspan="3">결제라인</td>
+					</tr>
+					<tr>
+						<td>기안자</td>
+						<td>부서장</td>
+						<td>대표이사</td>
+					</tr>
+					<tr>
+						<td>[기안자 승인]</td>
+						<td>[부서장 승인]</td>
+						<td>[대표이사 승인]</td>
+					</tr>
+				</table>
+			</section>
+			<table id="table-3">
+				<tr>
+					<td>휴가종류</td>
+					<td><select name="select"><option value="연차">연차</option>
+							<option value="경조사">경조사</option>
+							<option value="공가">공가</option>
+							<option value="병가">병가</option>
+							<option value="출산휴가">출산휴가</option></select></td>
+				</tr>
+				<tr>
+					<td>기간 및 일시</td>
+					<td><input type="date" name="startDate"> - <input
+						type="date" name="endDate"></td>
+				</tr>
+				<tr>
+					<td>연차 일수</td>
+					<td>신청연차 : <input name="useDate" type="number"></td>
+				</tr>
+				<tr>
+					<td>휴가 사유</td>
+					<td><textarea rows="10" cols="128" name="content"
+							placeholder="휴가 사유를 입력해주세요"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
+						사용함을 원칙으로 한다.<br> 단, 최초 입사시에는 근로 기준법에 따라 발생 예정된 연차를 차용하여 월 1회
+						사용할 수 있다.<br> 2. 경조사 휴가는 행사일을 증명할 수 있는 가족 관계증며서 또는 등본, 청첩장 등을
+						제출 하여야 한다.
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</main>
+</body>
+</html>
