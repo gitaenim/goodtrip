@@ -18,17 +18,6 @@ public class BoardController {
         return "Board/noticeWrite";
     }
 	
-	//건의 게시판 리스트
-	@GetMapping("/Board/suggestionList")
-    public String suggestionList() {
-        return "Board/suggestionList";
-    }
-	
-	//건의사항 글쓰기 페이지
-	@GetMapping("/Board/suggestionWrite")
-    public String suggestionWrite() {
-        return "Board/suggestionWrite";
-    }
 	//경조사 리스트 페이지
 	@GetMapping("/Board/cncList")
     public String freeList() {
@@ -50,10 +39,5 @@ public class BoardController {
 	@GetMapping("/Board/noticeDetail")
     public String noticeDetail() {
         return "Board/noticeDetail";
-    }
-	//임시 건의사항 조회 페이지!
-	@GetMapping("/Board/suggestionDetail")
-    public String suggestionDetail() {
-        return "Board/suggestionDetail";
     }
 }

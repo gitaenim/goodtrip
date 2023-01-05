@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 //230104 안나 생성
-public class BoardEventEntity {
+public class BoardCNCEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
