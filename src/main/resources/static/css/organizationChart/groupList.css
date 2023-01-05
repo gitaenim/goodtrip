@@ -6,6 +6,7 @@
 .right {
 	justify-content: flex-end;
 }
+
 .list-1 section div p{
 	padding: 10px;
     display: inline-block;
@@ -39,4 +40,17 @@ tr.list-2 th{
 	font-size: 16px;
 	font-weight: 600;
 	color: #4b99da;
+}
+.group-form{
+	padding-top: 10px;
+}
+.group-form select{
+	height: 25px;
+	border: 3px solid #a4cdf2;
+	font-weight: 600;
+	color: #606060;
+}
+.group-form select option{
+	color: #606060;
+	font-weight: 600;
 }

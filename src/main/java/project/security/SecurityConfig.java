@@ -20,6 +20,7 @@ public class SecurityConfig {
 				.formLogin(formLogin -> formLogin.loginPage("/signin").loginProcessingUrl("/signin") // form action
 						.usernameParameter("email").passwordParameter("pass").permitAll())
 				.csrf(t -> t.disable())
+				.headers().frameOptions().sameOrigin()
 
 		;
 		return http.build();
