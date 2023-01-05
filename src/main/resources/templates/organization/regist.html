@@ -6,9 +6,11 @@
 	<link rel="stylesheet" href="/css/commons/common.css" />
 	<link rel="stylesheet" href="/css/commons/reset.css" />
 	<link rel="stylesheet" href="/css/regist/register.css"/>
+	<th:block th:insert="~{/layout/sideMenu :: head}" />
 	<title>사원등록</title>
 	</head>
-	<body>
+	<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap-regist">
 		<div class="center">
 			<p>신입 사원 등록</p>
@@ -119,5 +121,5 @@
 				</table>
 			</form>
 		</div>
-	</body>
+	</main>
 </html>
