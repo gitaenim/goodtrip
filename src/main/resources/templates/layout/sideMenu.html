@@ -15,51 +15,65 @@
 			<li>[사원 사진 넣을 곳]</li>
 			<li>[이름]/[사번]</li>
 			<li>[담당부서]/[직급]</li>
-			<li sec:authorize="isAnonymous()"><a href="#">로그인</a></li>
+			<li sec:authorize="isAnonymous()"><a href="/login/login">로그인</a></li>
 			<li sec:authorize="hasRole('ROLE_USER')"><a href="#">로그아웃</a></li>
-
 			<li>
 				<dl class="menuList">
 					<dt>인사 관리</dt>
 					<dd>
-						<a href="#">조직도</a>
+						<a href="#">일정관리</a>
+					</dd>
 					<dd>
+						<a href="#">업무관리</a>
+					</dd>
 					<dd>
-						<a href="#">신규사원 등록</a>
-					<dd>
-					<dd>
-						<a href="#">부제목3</a>
-					<dd>
+						<a href="#">인사관리</a>
+					</dd>
 				</dl>
 			</li>
 			<li>
 				<dl class="menuList">
 					<dt>근태 및 휴가 신청</dt>
 					<dd>
-						<a href="#">근태관리 리스트</a>
+						<a href="#">근태사항 확인</a>
+					</dd>
 					<dd>
-					<dd>
-						<a href="#">개인별 근태 관리</a>
-					<dd>
+						<a href="#">결제관리</a>
+					</dd>
 					<dd>
 						<a href="/dayoff">휴가신청 작성</a>
-					<dd>
+					</dd>
 				</dl>
 			</li>
 			<li>
 				<dl class="menuList">
-					<dt>통합 게시판</dt>
-					<dd><a href="/Board/notice-list">공지사항</a>
+					<dt>게시판</dt>
+					<dd><a href="/Board/noticeList">공지사항</a>
+					</dd>
+					<dd><a href="/Board/cncList">경조사</a>
+					</dd>
+					<dd><a href="/Board/suggestionList">건의 게시판</a>
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<dl class="menuList">
+					<dt>마이페이지</dt>
+					<dd><a href="/employeeMgmt/mypage">마이페이지</a>
+					</dd>
+				</dl>
+      </li>
+      <li>
+				<dl class="menuList">
+					<dt>조직도</dt>
 					<dd>
-					<dd><a href="/Board/suggestion-list">건의 게시판</a>
+						<a href="/ozc/groupList">리스트</a>
 					<dd>
-					<dd><a href="/Board/free-list">자유 게시판</a>
 					<dd>
-					<dd><a href="/employeeMgmt/mypage">잠시 여기 둡니다 마이페이지</a>
+						<a href="#">등록</a>
 					<dd>
 				</dl>
 			</li>
-
 		</ul>
 	</div>
 </header>
