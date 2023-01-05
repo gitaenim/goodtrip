@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/commons/common.css" />
+	<link rel="stylesheet" href="/css/commons/reset.css" />
+	<link rel="stylesheet" href="/css/regist/register.css"/>
+	<th:block th:insert="~{/layout/sideMenu :: head}" />
+	<title>사원등록</title>
+	</head>
+	<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="wrap-regist">
+		<div class="center">
+			<p>신입 사원 등록</p>
+		</div>
+		<br>
+		<form>
+			<table cellpadding="8" cellspacing="0" border="1" class="new">
+				<tr class="form">
+					<th>신입사원 작성 </th>
+				</tr>
+				<!--  <tr>
+					<td>
+						<input type="checkbox"> <input
+									class="cartItemNo" th:id="${'ci-no-' + dtoStat.index}"
+									type="hidden" th:value="${dto.no}">
+					</td>
+					<td>
+						<img alt="사진이미지" th:src="${dto.item.defImgUrl}"
+									height="100px">
+					</td>
+					</tr> -->	
+					<tr>
+						<td>
+							이름: <input type= "text" name="name" size= "9">
+							생년월일:<input type="text" name="birthday" size="9" placeholder="YYYY/MM/DD">
+						</td>
+					</tr>
+							
+					<tr>
+						<td>
+						사원번호: <input type= "text" name="personalno" size= "9">
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+						부서번호: <input type= "text" name="departno" size ="9" maxlength="3">
+						</td>
+					</tr>
+					
+
+					<tr>
+						<td>
+							이메일: <input type= "text" name="email" size ="9">
+							@
+							<select name="email" placeholder="직접입력">
+								<option value="1" selected>naver.com</option>
+								<option value="2" >daum.net</option>
+								<option value="3" >gmail.com</option>
+								<option value="4" >nate.com</option>
+						</select>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							비밀번호  : <input type="text" name="password" size="9">
+						</td>
+					</tr>
+
+					<tr>
+					<td>
+						직급<select name="position">
+							<option value="1" selected>사원</option>
+							<option value="2" >대리</option>
+							<option value="3" >과장</option>
+							<option value="4" >차장</option>
+							<option value="4" >부장</option>
+						</select>
+					
+					</td>
+					</tr>
+					
+					<tr>
+						<td>
+							주업무 : <input type="text" name="regist" size="9">
+						</td>
+					</tr>
+
+					<tr>
+					<td>
+						연락처: <input type= "text" name=phone1 size= "9" maxlength="11" placeholder="핸드폰번호">     
+				   </td>
+					</tr>
+					
+					<tr>
+						<td> 
+						내선번호: <input type= "text" name=phone1 size= "9" maxlength="11">
+					   </td>
+					</tr>
+					
+					<tr>
+						<td>
+							입사일 : <input type="month" name="regist" size="9">
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							급여: <input type= "text" name="salary" size= "9" placeholder="0000만원">
+						</td>
+					</tr>
+					
+					<tr class="btn">
+						<th colspan="1"><input type="submit" value="등록">
+										<input type="reset" value="취소"></th>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</main>
+</html>
