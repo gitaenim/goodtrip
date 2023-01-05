@@ -11,10 +11,59 @@
 <header>
 	<div class="wrap">
 		<ul class="menuForm">
-			<li></li>
-			<li><a href="#">HOME</a></li>
-			<li><a href="/login/login">login</a></li> <!--임시로 여기에 둘게요~!-->
+			<li><a href="#" class="logoImg"><!-- 로고이미지 --></a></li>
+			<li>[사원 사진 넣을 곳]</li>
+			<li>[이름]/[사번]</li>
+			<li>[담당부서]/[직급]</li>
+			<li sec:authorize="isAnonymous()"><a href="/login/login">로그인</a></li>
+			<li sec:authorize="hasRole('ROLE_USER')"><a href="#">로그아웃</a></li>
 			<li>
+				<dl class="menuList">
+					<dt>관리</dt>
+					<dd>
+						<a href="#">일정관리</a>
+					</dd>
+					<dd>
+						<a href="#">업무관리</a>
+					</dd>
+					<dd>
+						<a href="#">인사관리</a>
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<dl class="menuList">
+					<dt>근태 및 결제</dt>
+					<dd>
+						<a href="#">근태사항 확인</a>
+					</dd>
+					<dd>
+						<a href="#">결제관리</a>
+					</dd>
+					<dd>
+						<a href="#">지출결의서 작성</a>
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<dl class="menuList">
+					<dt>게시판</dt>
+					<dd><a href="/Board/noticeList">공지사항</a>
+					</dd>
+					<dd><a href="/Board/cncList">경조사</a>
+					</dd>
+					<dd><a href="/Board/suggestionList">건의 게시판</a>
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<dl class="menuList">
+					<dt>마이페이지</dt>
+					<dd><a href="/employeeMgmt/mypage">마이페이지</a>
+					</dd>
+				</dl>
+      </li>
+      <li>
 				<dl class="menuList">
 					<dt>조직도</dt>
 					<dd>
@@ -25,54 +74,6 @@
 					<dd>
 				</dl>
 			</li>
-			<li>
-				<dl class="menuList">
-					<dt>직원관리</dt>
-					<dd>
-						<a href="#">부제목1</a>
-					<dd>
-					<dd>
-						<a href="#">부제목2</a>
-					<dd>
-					<dd>
-						<a href="#">부제목3</a>
-					<dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>직원 근태 관리</dt>
-					<dd>
-						<a href="#">부제목1</a>
-					<dd>
-					<dd>
-						<a href="#">부제목2</a>
-					<dd>
-					<dd>
-						<a href="#">부제목3</a>
-					<dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>게시판</dt>
-					<dd><a href="/Board/noticeList">공지사항</a>
-					<dd>
-					<dd><a href="/Board/cncList">경조사</a>
-					<dd>
-					<dd><a href="/Board/suggestionList">건의 게시판</a>
-					<dd>
-					
-					<dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>마이페이지</dt>
-					<dd><a href="/employeeMgmt/mypage">마이페이지</a>
-					<dd>
-				</dl>
-
 		</ul>
 	</div>
 </header>

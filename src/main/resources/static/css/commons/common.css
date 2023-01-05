@@ -36,35 +36,3 @@
 	width: 800px;
 	margin: 0 auto;
 }
-
-input[type=checkbox] {
-	display: none;
-}
-
-input[type=checkbox]:checked+label::before {
-	background-color: #FA0050;
-	border: none;
-	width: 22px;
-	height: 22px;
-}
-
-input[type=checkbox]+label:hover {
-	cursor: pointer;
-}
-
-input[type=checkbox]+label::before {
-	content: "";
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	background-image: url("/images/icon/img_order_checkW.png");
-	background-color: white;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 70%;
-	border-radius: 2px;
-	position: relative;
-	top: 5px;
-	margin-right: 1em;
-	border: 1px #ddd solid;
-}
