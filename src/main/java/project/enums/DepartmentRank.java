@@ -3,8 +3,9 @@ package project.enums;
 import lombok.Getter;
 
 @Getter
-public enum Rank {
+public enum DepartmentRank {
 	
+	CEO("대표이사"),
 	DepartmentManager("부장"),
 	DeputyGeneralManager("차장"),
 	GeneralManager("실장"),
@@ -17,7 +18,7 @@ public enum Rank {
 	
 	private final String label;
 	
-	Rank(String label) {
+	DepartmentRank(String label) {
         this.label = label;
     }
 
