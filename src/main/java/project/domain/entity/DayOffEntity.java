@@ -50,4 +50,10 @@ public class DayOffEntity {
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호
 
+	
+	public DayOffEntity employeeNo(EmployeesEntity employeeNo) {
+		this.employeeNo = employeeNo;
+		return this;
+	}
+	
 }

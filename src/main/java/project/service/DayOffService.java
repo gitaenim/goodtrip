@@ -1,0 +1,9 @@
+package project.service;
+
+import project.domain.DTO.DayOffInsertDTO;
+
+public interface DayOffService {
+
+	void save(DayOffInsertDTO dto, Long no);
+
+}

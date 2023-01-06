@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
-<script type="text/javascript" src="https://livejs.com/live.js"></script>
 <style type="text/css">
 </style>
 </head>
@@ -13,7 +12,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form action="#">
+		<form action="/dayoff/{no}" method="post">
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
@@ -39,7 +38,7 @@
 				</table>
 				<table id="table-2">
 					<tr>
-						<td colspan="3">결제라인</td>
+						<td colspan="3">결재라인</td>
 					</tr>
 					<tr>
 						<td>기안자</td>
@@ -55,12 +54,16 @@
 			</section>
 			<table id="table-3">
 				<tr>
-					<td>휴가종류</td>
-					<td><select name="select"><option value="연차">연차</option>
+					<td>휴가 종류</td>
+					<td>
+						<select name="type">
+							<option value="연차">연차</option>
 							<option value="경조사">경조사</option>
 							<option value="공가">공가</option>
 							<option value="병가">병가</option>
-							<option value="출산휴가">출산휴가</option></select></td>
+							<option value="출산휴가">출산휴가</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
@@ -73,7 +76,7 @@
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128" name="content"
+					<td><textarea rows="10" cols="128" name="reason"
 							placeholder="휴가 사유를 입력해주세요"></textarea></td>
 				</tr>
 				<tr>
@@ -84,6 +87,10 @@
 					</td>
 				</tr>
 			</table>
+			<div>
+				<button class="btn-day-off">신청</button>
+				<button class="btn-day-off">취소</button>
+			</div>
 		</form>
 	</div>
 </main>
