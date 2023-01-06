@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 	
+	//경조사는  CncBoardController 게시판 컨트롤러로 옮겼습니다  1/5 수민 
+	
 	//공지사항 게시판 리스트
 	@GetMapping("/Board/noticeList")
     public String noticeList() {
@@ -29,23 +31,7 @@ public class BoardController {
     public String suggestionWrite() {
         return "Board/suggestionWrite";
     }
-	//경조사 리스트 페이지
-	@GetMapping("/Board/cncList")
-    public String freeList() {
-        return "Board/cncList";
-    }
 	
-	//경조사 글쓰기 페이지
-	@GetMapping("/Board/cncWrite")
-    public String freeWrite() {
-        return "Board/cncWrite";
-    }
-	
-	//임시 경조사 조회 페이지!
-	@GetMapping("/Board/cncDetail")
-    public String freeDetail() {
-        return "Board/cncDetail";
-    }
 	//임시 공지사항 조회 페이지!
 	@GetMapping("/Board/noticeDetail")
     public String noticeDetail() {

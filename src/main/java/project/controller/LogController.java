@@ -4,11 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class mypageController{
+public class LogController {
 
-	//마이페이지 
-	@GetMapping("/employeeMgmt/mypage")
-    public String mypage() {
-        return "employeeMgmt/mypage";
+	//로그인 페이지
+	@GetMapping("/login/login")
+    public String login() {
+        return "login/login";
     }
+		
 }
