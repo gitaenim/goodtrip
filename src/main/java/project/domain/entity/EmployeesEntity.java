@@ -1,10 +1,22 @@
 package project.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.ColumnDefault;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +47,7 @@ public class EmployeesEntity {
 	@Column(nullable = false)
 	private String password;//비밀번호
 	
-	@Enumerated(EnumType.STRING)//1:N 즉시로딩
-	private DepartmentRank position;//직급
+	
 	
 	@Column(nullable = true)
 	private long phone;//연락처
@@ -63,6 +74,16 @@ public class EmployeesEntity {
 	@JoinColumn(name = "department_no")
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
+	
+	@Builder.Default
+	@CollectionTable(name = "employees_position")
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<DepartmentRank> positions = new HashSet<>();
+	public EmployeesEntity addposition(DepartmentRank position) {
+		positions.add(position);
+		return this;
+	}
 	
 
 }
