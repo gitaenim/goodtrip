@@ -1,5 +1,6 @@
 package project.service.proc;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import project.domain.DTO.EmployeesInsertDTO;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.ImagesEntity;
 import project.domain.repository.EmployeesEntityRepository;
 import project.domain.repository.ImagesEntityRepository;
 import project.service.EmployeesService;
@@ -46,9 +48,23 @@ public class EmployeesServiceProcess implements EmployeesService {
 	//직원 등록, 이미지 정보 등록, temp->실제 upload위치로 이동
 	@Override
 	public void save(EmployeesInsertDTO dto) {
+		//dto.toImagesEntity(upload).forEach(imgReposiroty::save);
+		ImagesEntity imgs = imgReposiroty.save(dto.toImageEntity(upload));
+		long imgNo = imgs.getImageNo();
+		System.out.println("이미지번호 가져와지나?"+imgNo);
+		employeesRepository.save(dto.toEntity(pe, imgNo));
+		
+	}
+	/* 230109 한아 수정 : OneToOne으로 변경
+	//직원 등록, 이미지 정보 등록, temp->실제 upload위치로 이동
+	@Override
+	public void save(EmployeesInsertDTO dto) {
 		EmployeesEntity entity =  employeesRepository.save(dto.toEntity(pe));
 		dto.toImagesEntity(entity, upload).forEach(imgReposiroty::save);;
 		
 	}
+	*/
+	
+	
 
 }
