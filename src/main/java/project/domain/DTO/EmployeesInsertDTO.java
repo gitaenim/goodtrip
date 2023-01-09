@@ -1,8 +1,9 @@
 package project.domain.DTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -10,7 +11,6 @@ import lombok.Data;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
-import project.domain.repository.EmployeesEntityRepository;
 import project.enums.DepartmentRank;
 import project.utils.MyFileUtils;
 
@@ -34,7 +34,7 @@ public class EmployeesInsertDTO {
 	private String oldName;
 	private String newName;
 	
-	
+	//employee 저장
 	public EmployeesEntity toEntity(PasswordEncoder pe) {
 		return EmployeesEntity.builder()
 				.name(name)
@@ -52,16 +52,20 @@ public class EmployeesInsertDTO {
 				.addposition(position);
 	}
 	
-	public void toImagesEntity(EmployeesEntity employees, String url) {
-		ImagesEntity images = ImagesEntity.builder()
-				.url(url)
-				.oldName(oldName)
-				.newName(newName)
-				.employeeNo(employees)
-				.build();
-		
+	//이미지 저장
+	public List<ImagesEntity> toImagesEntity(EmployeesEntity employees, String url) {
+		List<ImagesEntity> imgs = new ArrayList<>();
+		ImagesEntity ent = ImagesEntity.builder()
+									.url(url)
+									.oldName(oldName)
+									.newName(newName)
+									.employeeNo(employees)
+									.build();
+		imgs.add(ent); //이미지 저장
+			
 		//temp 폴더에서 상위폴더인 upload로 이동시킴
 		MyFileUtils.moveUploadLocationFromTemp(newName, url);
+		return imgs;
 		
 	}
 	

@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import project.domain.DTO.EmployeesInsertDTO;
+import project.domain.entity.EmployeesEntity;
 import project.domain.repository.EmployeesEntityRepository;
-import project.enums.DepartmentRank;
+import project.domain.repository.ImagesEntityRepository;
 import project.service.EmployeesService;
 import project.utils.MyFileUtils;
 
@@ -36,16 +37,17 @@ public class EmployeesServiceProcess implements EmployeesService {
 	
 	
 	@Autowired
-	private EmployeesEntityRepository repository;
+	private EmployeesEntityRepository employeesRepository;
+	@Autowired
+	private ImagesEntityRepository imgReposiroty;
 	@Autowired
 	private PasswordEncoder pe;
 
-	//직원 등록
+	//직원 등록, 이미지 정보 등록, temp->실제 upload위치로 이동
 	@Override
 	public void save(EmployeesInsertDTO dto) {
-		repository.save(dto.toEntity(pe)
-				//.addposition(DepartmentRank.Staff)
-				);
+		EmployeesEntity entity =  employeesRepository.save(dto.toEntity(pe));
+		dto.toImagesEntity(entity, upload).forEach(imgReposiroty::save);;
 		
 	}
 
