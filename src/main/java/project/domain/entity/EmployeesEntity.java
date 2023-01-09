@@ -1,9 +1,7 @@
 package project.domain.entity;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -18,8 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -55,20 +51,22 @@ public class EmployeesEntity {
 	private DepartmentRank position;//직급
 	
 	@Column(nullable = true)
-	private long phone;//연락처
+	private String phone;//연락처
+	/* 230109 한아 수정 : 데이터 타입 변경 long -> String */
 	
 	@Column(name = "join_date")
-	private LocalDateTime joinDate;//입사일
+	private LocalDate joinDate;//입사일
 	
 	@Column(name = "resign_date")
-	private LocalDateTime resignDate;//퇴사일
+	private LocalDate resignDate;//퇴사일
 	
-	private long extension;//내선번호
+	private String extension;//내선번호
+	/* 230109 한아 수정 : 데이터 타입 변경 long -> String */
 	
 	private long salary;//급여
 	
 	@Column(name = "birth_date")
-	private LocalDateTime birthDate;//생년월일
+	private LocalDate birthDate;//생년월일
 	
 	@Column(name = "main_work")
 	private String mainWork;//주 업무

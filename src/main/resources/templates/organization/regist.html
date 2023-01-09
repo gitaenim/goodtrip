@@ -10,6 +10,7 @@
 	<title>사원등록</title>
 	<script type="text/javascript">
 	
+		//이미지 파일을 선택하면 이미지 데이터가 전송됩니다
 		function gimgChanged(el){ //230109 한아 작성
 			var fileData=$(el)[0].files[0];
 			
@@ -70,14 +71,7 @@
 								
 						<tr>
 							<td>
-								이메일 : <input type= "text" name="email" size ="9">
-								@
-								<select name="">
-									<option value="1" selected>naver.com</option>
-									<option value="2" >daum.net</option>
-									<option value="3" >gmail.com</option>
-									<option value="4" >nate.com</option>
-								</select>
+								이메일 : <input type= "text" name="email" size ="15">
 							</td>
 						</tr>
 						
@@ -86,9 +80,11 @@
 								부서 :
 								<select name="departmentNo">
 									<option value="1" selected>영업부</option>
-									<option value="2" ></option>
-									<option value="3" ></option>
-									<option value="4" ></option>
+									<option value="2" >총무부</option>
+									<option value="3" >인사부</option>
+									<option value="4" >기획부</option>
+									<option value="5" >회계부</option>
+									<option value="6" >개발부</option>
 								</select> 
 								직급 : <select name="position">
 									<option value="Staff" selected>사원</option>
@@ -146,6 +142,13 @@
 						<tr>
 							<td>
 								입사일 : <input type="date" name="joinDate" size="9">
+							</td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td>
+								퇴사일 : <input type="date" name="resignDate" size="9">
 							</td>
 							<td></td>
 						</tr>
