@@ -15,6 +15,6 @@ public class organizationChartController {
 	@GetMapping("ozc/groupDetail")
     public String groupDetail() {
         return "organizationChart/groupDetail";
-    } 
+    }
 }
 

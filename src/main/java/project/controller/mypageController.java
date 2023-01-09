@@ -1,3 +1,4 @@
+
 package project.controller;
 
 import org.springframework.stereotype.Controller;
@@ -11,4 +12,4 @@ public class mypageController{
     public String mypage() {
         return "employeeMgmt/mypage";
     }
-} 
+}
