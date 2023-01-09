@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="/css/board/board-write.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -15,7 +15,7 @@
    				<p>경조사</p>
    			</div>
 	   		<div class="writer-back">
-	    		<form action="/Board/cncWrite" method="post">
+	    		<form>
 	    			<table class="writer-2">
 	    				<tr>
 	    					<td class="writer-title">
@@ -35,7 +35,6 @@
 	    				</tr>
 	    				<tr>
 	    					<td class="flex center">
-	    						<input type="hidden" name="no" value="1">
 								<button class="writer-button">등록</button>
 	    					</td>
 	    				</tr>

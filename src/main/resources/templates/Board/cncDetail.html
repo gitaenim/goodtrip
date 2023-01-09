@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="/css/board/board-detail.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -17,31 +17,32 @@
    				<table class="detail-table table-1" border="1" >
 	    			<tr>
 	    				<td>글번호</td>
-	    				<td th:text=${cncDetail.cncNo}>1</td>
+	    				<td>1</td>
 	    			</tr>
 	    			<tr>
 	    				<td>작성자</td>
-	    				<td th:text=${cncDetail.registNo.name}>김대리</td>
+	    				<td>김대리</td>
 	    			</tr>
 	    			<tr>
 	    				<td>제목</td>
-	    				<td
-	    					th:text=${cncDetail.title}>
+	    				<td>
+	    					<input type="text">
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td>내용</td>
-	    				<td th:text=${cncDetail.content}>
+	    				<td >
+	    					<textarea rows="5" cols="50"></textarea>
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td>작성일</td>
-	    				<td th:text=${cncDetail.createDate}>2022.1.1</td>
+	    				<td>2022.1.1</td>
 	    			</tr>
-	    		<!-- 	<tr>
+	    			<tr>
 	    				<td>경조사일</td>
-	    				<td th:text=${CNCDetail.eventDate}>2022.1.2</td>
-	    			</tr> -->
+	    				<td>2022.1.2</td>
+	    			</tr>
 	    			
 	    			<!-- <tr>
 	    				<td>
