@@ -15,9 +15,9 @@
     color: white;
 }
 
-.list-table{/* 크기 늘렸습니다 1.5 수민 */
+.list-table{
 	 border-collapse: collapse;
-     width: 1200px;
+     width: 100%;
 }
 tr.list-2 th, .list-table tr td{
 	 text-align: center;

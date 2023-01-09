@@ -18,7 +18,7 @@
 
 .list-table{
 	 border-collapse: collapse;
-     width: 1200px;
+     width: 100%;
 }
 tr.list-2 th, .list-table tr td{
 	 text-align: center;

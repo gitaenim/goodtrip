@@ -12,3 +12,4 @@ public class RegisterController {
         return "organization/regist.html";
     }
 }
+ 

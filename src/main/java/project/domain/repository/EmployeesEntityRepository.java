@@ -8,4 +8,6 @@ import project.domain.entity.EmployeesEntity;
 @Repository
 public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity, Long>{
 
+	EmployeesEntity findByEmail(String username);
+
 }

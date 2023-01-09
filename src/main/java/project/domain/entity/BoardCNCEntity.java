@@ -23,16 +23,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "board_cnc")
+@Table(name = "board_events")
 @Entity
 @Getter
 //230104 안나 생성
-public class BoardCNCEntity { //수민 클래스명수정  BoardEventEntity -> BoardCNCEntity  1/5
+public class BoardCNCEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cnc_no", unique = true, nullable = false)
-	private long cncNo; //글번호
+	@Column(name = "event_no", unique = true, nullable = false)
+	private long eventNo; //글번호
 	
 	@JoinColumn(name = "regist_no", nullable = false)
 	@ManyToOne
