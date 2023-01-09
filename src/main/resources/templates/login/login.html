@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="/css/log/login.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -15,7 +15,7 @@
 		</div>
 		<div class="login-2">
 			<p>로그인 후 이용 가능합니다.</p>
-			<form action="/login/login">
+			<form action="/login" method="post">
 				<ul class="login-3">
 					<li>
 						<input type="email" name="email" placeholder="이메일을 입력하세요.">

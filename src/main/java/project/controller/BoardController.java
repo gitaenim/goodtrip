@@ -10,7 +10,7 @@ public class BoardController {
 	@GetMapping("/Board/noticeList")
     public String noticeList() {
         return "Board/noticeList";
-    }
+    } 
 	
 	//공지사항 글쓰기 페이지
 	@GetMapping("/Board/noticeWrite")

@@ -27,7 +27,7 @@ public class SuggestionBoardController {
 	public String suggestionList(Model model) {
 		suggestionservice.findAllList(model);
 		return "Board/suggestionList";
-	}
+	} 
 
 	// 건의사항 글쓰기 페이지 이동
 	@GetMapping("/Board/suggestionWrite")

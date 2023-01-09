@@ -10,6 +10,7 @@
 </head>
 <header>
 	<div class="wrap">
+	<input type="text" th:id="userID" th:value="1">
 		<ul class="menuForm">
 			<li><a href="#" class="logoImg">
 					<!-- 로고이미지 -->
@@ -17,8 +18,8 @@
 			<li>[사원 사진 넣을 곳]</li>
 			<li>[이름]/[사번]</li>
 			<li>[담당부서]/[직급]</li>
-			<li sec:authorize="isAnonymous()"><a href="/login/login">로그인</a></li>
-			<li sec:authorize="hasRole('ROLE_USER')"><a href="#">로그아웃</a></li>
+			<li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
+			<li sec:authorize="isAuthenticated()"><a href="#">로그아웃</a></li>
 			<li>
 				<dl class="menuList">
 					<dt>조직도</dt>

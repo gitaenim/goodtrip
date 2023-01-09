@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -8,9 +8,41 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#start-time").click(function(){
+			
+			const now = new Date();
+			const hours = now.getHours();
+			const minutes = now.getMinutes();
+			
+			var result = confirm("현재 시각은 " + hours + "시" + minutes + "분입니다. \n출근하시겠습니까?");
+			
+			if(result){
+			    $.ajax({
+			    	type:"post",
+			    	url:"/attendance/in",
+			    	contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			    	dataType:"json",
+			    	success:"",
+			    	error:""
+			    })
+			}
+			else
+			{
+			    
+			}
+
+			
+		})
+	});
+</script>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	테스트
+	<button id="start-time">출근</button>
+	<button>퇴근</button>
 </main>
 </html>

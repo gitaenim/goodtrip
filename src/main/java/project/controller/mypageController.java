@@ -11,4 +11,4 @@ public class mypageController{
     public String mypage() {
         return "employeeMgmt/mypage";
     }
-}
+} 
