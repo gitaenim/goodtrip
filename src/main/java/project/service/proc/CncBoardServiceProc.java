@@ -53,10 +53,10 @@ public class CncBoardServiceProc implements CNCBoardService {
 		
 		BoardCNCEntity entityData = CNCRepository.findById(cncNo).orElseThrow();
 		//BoardCNCDTO date= new BoardCNCDTO(entityData);
-		BoardCNCDTO date=new BoardCNCDTO(1,"titleasdf","contentasdf");
+		//BoardCNCDTO date=new BoardCNCDTO(1,"titleasdf","contentasdf");
 				
-		model.addAttribute("cncDetail", date);
-		//model.addAttribute("cncDetail", entityData);
+		//model.addAttribute("cncDetail", date);
+		model.addAttribute("cncDetail", entityData);
 	}
 	
 	

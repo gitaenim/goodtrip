@@ -1,5 +1,9 @@
 package project.domain.DTO;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import project.domain.entity.BoardCNCEntity;
 import project.domain.entity.EmployeesEntity;
@@ -12,32 +16,22 @@ public class BoardCNCDTO {
 	private String title;
 
 	private String content;
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate eventDate;
 	
 	public BoardCNCEntity toEntityForSave(EmployeesEntity registNo) {
 		return BoardCNCEntity.builder()
-				.title(title).content(content).registNo(registNo)
+				.title(title).content(content).registNo(registNo).eventDate(eventDate)
 				.build();
 	}
 
 	
 	public BoardCNCEntity toEntityForUpdate(long cncNo, EmployeesEntity registNo) {
 		return BoardCNCEntity.builder()
-				.cncNo(cncNo).title(title).content(content).registNo(registNo)
+				.cncNo(cncNo).title(title).content(content).registNo(registNo).eventDate(eventDate)
 				.build();
 	}
 
 
-	public BoardCNCDTO(BoardCNCEntity entityData) {
-		no=entityData.getCncNo();
-		title=entityData.getTitle();
-		content=entityData.getContent();
-	}
-
-
-	public BoardCNCDTO(int no, String title, String content) {
-		this.no=no;
-		this.title=title;
-		this.content=content;
-	}
 }

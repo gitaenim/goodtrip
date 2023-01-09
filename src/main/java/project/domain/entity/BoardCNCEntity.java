@@ -1,6 +1,7 @@
 package project.domain.entity;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -49,6 +50,6 @@ public class BoardCNCEntity { //수민 클래스명수정  BoardEventEntity -> B
 	private LocalDateTime createDate; //작성일
 	
 	@Column(name = "event_date", nullable = false)
-	private LocalDateTime eventDate; //경조사일
+	private LocalDate eventDate; //경조사일
 
 }

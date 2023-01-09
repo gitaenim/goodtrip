@@ -32,8 +32,7 @@
 					<tr th:if="${nullcheck == false}" th:each="list : ${list}">
 						<td th:text="${list.cncNo}">번호</td>
 						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
-						<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td>
-						
+					<!-- 	<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td> -->
 						<td th:text="${list.registNo.name}">관리자</td>
 						<td th:text="${list.createDate}">2023.01.02</td>
 						<td th:text="${list.eventDate}">2023.01.02</td>
