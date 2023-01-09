@@ -25,6 +25,19 @@ public class NoticeBoardServiceProc implements NoticeBoardService{
 
 	@Override
 	public void detial(long suggestNo, Model model) {
+		
+			
+
+	@Override
+	public void save(BoardNoticeDTO dto) {
+		//사번 서원정보 조회
+		EmployeesEntity ee = employeesRepository.findById(dto.getNo()).orElseThrow();
+		
+		noticeRepository.save(dto.toEntityForSave(ee));
+	}
+
+	@Override
+	public void findAllList(long suggestNo, Model model) {
 		List<BoardNoticeEntity> list = noticeRepository.findAll();
 
 		// false : 조회한 데이터가 있음
@@ -38,15 +51,16 @@ public class NoticeBoardServiceProc implements NoticeBoardService{
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("suggestionList", list);
 	}
-			
+		
+	}
+
 
 	@Override
 	public void save(BoardNoticeDTO dto) {
-		//사번 서원정보 조회
-		EmployeesEntity ee = employeesRepository.findById(dto.getNo()).orElseThrow();
+		// TODO Auto-generated method stub
 		
-		noticeRepository.save(dto.toEntityForSave(ee));
 	}
+
 
 	@Override
 	public void findAllList(long suggestNo, Model model) {

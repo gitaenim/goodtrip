@@ -15,11 +15,15 @@ public class BoardNoticeDTO {
 	private String content;// 내용
 
 	
-	//글쓰고 저장
-public BoardNoticeEntity toEntityForSave(EmployeesEntity registNo) {
-	return BoardNoticeEntity.builder()
-		.title(title).content(content).registNo(registNo)
-		.build();
+		// 저장 메서드
+	public BoardNoticeEntity toEntityForSave(EmployeesEntity registNo) {
+		return BoardNoticeEntity.builder()
+			.title(title).content(content).registNo(registNo)
+			.build();
 }
+
+	
+
+
 	}
 
