@@ -1,7 +1,5 @@
 package project.domain.DTO;
 
-import java.time.LocalDateTime;
-
 import lombok.Data;
 import project.domain.entity.BoardNoticeEntity;
 import project.domain.entity.EmployeesEntity;
@@ -17,10 +15,11 @@ public class BoardNoticeDTO {
 	private String content;// 내용
 
 	
+	//글쓰고 저장
 public BoardNoticeEntity toEntityForSave(EmployeesEntity registNo) {
 	return BoardNoticeEntity.builder()
-			.title(title).content(content).registNo(registNo)
-			.build();
+		.title(title).content(content).registNo(registNo)
+		.build();
 }
 	}
 
