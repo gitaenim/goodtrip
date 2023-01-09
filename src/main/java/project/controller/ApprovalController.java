@@ -22,10 +22,16 @@ public class ApprovalController {
         return "approvalMgmt/dayOff";
     }
 	
-	//휴가 신청 save
+	//휴가신청 save
 	@PostMapping("/dayoff/{no}")
 	public String dayOff(DayOffInsertDTO dto,@PathVariable Long no) {
 		service.save(dto, no);
 		return "approvalMgmt/dayOff";
 	}
+	
+	//휴가결재
+	@GetMapping("/dayoffApp")
+    public String dayOffApp() {
+        return "approvalMgmt/dayOffApp";
+    }
 }
