@@ -1,19 +1,31 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import project.domain.DTO.AttendanceRegDTO;
+import project.security.MyUserDetails;
+import project.service.AttendanceService;
 
 @Controller
 public class AttendanceController {
 	
+	@Autowired
+	private AttendanceService service;  
+	
+	//출근데이터 전송
 	@ResponseBody
-	@PostMapping("/attendance/in")
-//	public String attendanceIn(@RequestBody) {
-//		
-//	}
+	@PostMapping("/attendance/in/{timeData}")
+	public String attendanceIn(@PathVariable String timeData, @AuthenticationPrincipal MyUserDetails myUserDetails, AttendanceRegDTO attendanceRegDTO) {
+		//System.out.println("timeData: " + timeData);
+		service.saveAttIn(timeData, myUserDetails.getNo(), attendanceRegDTO);
+		return "index";
+	}
 	
 	@GetMapping("/attendanceList")
 	public String attendenceList() {

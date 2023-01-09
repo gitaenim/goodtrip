@@ -1,10 +1,10 @@
-package project.domain.security;
+package project.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import project.repository.EmployeesEntityRepository;
+import project.domain.repository.EmployeesEntityRepository;
 
 public class MyUserDetailService {
 	

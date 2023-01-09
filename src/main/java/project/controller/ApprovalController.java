@@ -12,4 +12,4 @@ public class ApprovalController {
     public String noticeList() {
         return "approvalMgmt/dayOff";
     }
-}
+} 
