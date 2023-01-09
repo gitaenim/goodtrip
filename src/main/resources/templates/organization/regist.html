@@ -17,7 +17,7 @@
 			formData.append('gimg',fileData);
 			
 			$.ajax({
-				url:"/employees/temp-up",
+				url:"/employees/temp-upload",
 				type:"post",
 				contentType:false,
 	    		processData:false,
@@ -72,7 +72,7 @@
 							<td>
 								이메일 : <input type= "text" name="email" size ="9">
 								@
-								<select name="email">
+								<select name="">
 									<option value="1" selected>naver.com</option>
 									<option value="2" >daum.net</option>
 									<option value="3" >gmail.com</option>
@@ -85,17 +85,17 @@
 							<td>
 								부서 :
 								<select name="departmentNo">
-									<option value="1" selected>인사팀</option>
-									<option value="2" >회계팀</option>
-									<option value="3" >마케팅팀</option>
-									<option value="4" >개발팀</option>
+									<option value="1" selected>영업부</option>
+									<option value="2" ></option>
+									<option value="3" ></option>
+									<option value="4" ></option>
 								</select> 
 								직급 : <select name="position">
-									<option value="1" selected>사원</option>
-									<option value="2" >대리</option>
-									<option value="3" >과장</option>
-									<option value="4" >차장</option>
-									<option value="4" >부장</option>
+									<option value="Staff" selected>사원</option>
+									<option value="SeniorClerk">주임</option>
+									<option value="AssistantManager">대리</option>
+									<option value="Chief">계장</option>
+									<option value="Manager">과장</option>
 								</select>
 							</td>
 						</tr>
@@ -117,7 +117,7 @@
 						</tr>
 						<tr>
 							<td>
-								생년월일 : <input type="text" name="birthDate" size="9" placeholder="YYYY/MM/DD">
+								생년월일 : <input type="date" name="birthDate" size="9" placeholder="YYYY/MM/DD">
 							</td>
 							<td></td>
 						</tr>

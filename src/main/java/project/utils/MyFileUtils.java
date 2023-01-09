@@ -12,16 +12,17 @@ public class MyFileUtils {
 	/* 230106 한아 작성 */
 	
 	//upload 폴더로 이동
-	public static void moveUploadLocFromTemp(String[] newName, String url) {
+	public static void moveUploadLocationFromTemp(String newName, String url) {
 		ClassPathResource cpr=new ClassPathResource("static"+url+"temp/");
 		
-		for(String name:newName) {
 			try {
-				File file=new File(cpr.getFile(), name);
-				file.renameTo(new File(cpr.getFile().getParent(),name));
-			}catch (Exception e) {
+				File file = new File(cpr.getFile(), newName);
+				file.renameTo(new File(cpr.getFile().getParent(), newName));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		}
+		
+		
 	}
 	
 
@@ -38,26 +39,26 @@ public class MyFileUtils {
 			oldName=gimg.getOriginalFilename();
 			
 			int idx = oldName.lastIndexOf("."); //인덱스번호찾기 - 파일 이름 중에서 마지막(.)의 인덱스번호
-			//String extension = oldName.substring(idx); // .확장자
+			String extension = oldName.substring(idx); // .확장자
 			fileName=oldName.substring(0, idx)
 					+"_"+(System.nanoTime()/1000000)
-					+oldName.substring(idx);
+					+extension;
 			//fileName = UUID.randomUUID().toString()+extension; //파일이름 랜덤으로 생성
 			
 			//원본.이름_3515315315.jpg
 			gimg.transferTo(new File(folder, fileName)); //업로드
-			
 			System.out.println("임시폴더에 파일업로드 : "+location+fileName);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		Map<String, String> tempfile = new HashMap<>();
 		//tempfile.put("location", location);
 		tempfile.put("newName", fileName);
 		tempfile.put("oldName", oldName);
 		tempfile.put("url", location+fileName);
-		System.out.println(">>>>>>>>>>>>>>"+tempfile);
+		//System.out.println(">>>>>>>>>>>>>>"+tempfile);
 		return tempfile;
 	}
 	

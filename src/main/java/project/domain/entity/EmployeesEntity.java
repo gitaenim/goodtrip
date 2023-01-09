@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import project.enums.DepartmentRank;
 
 @Builder
@@ -47,7 +48,8 @@ public class EmployeesEntity {
 	@Column(nullable = false)
 	private String password;//비밀번호
 	
-	
+	@Enumerated(EnumType.STRING)
+	private DepartmentRank position;//직급
 	
 	@Column(nullable = true)
 	private long phone;//연락처
@@ -75,10 +77,11 @@ public class EmployeesEntity {
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
 	
+	//230109 한아 수정
 	@Builder.Default
 	@CollectionTable(name = "employees_position")
-	@Enumerated(EnumType.STRING)
-	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING) //설정하지 않으면 숫자(ORDINAL)
+	@ElementCollection(fetch = FetchType.EAGER) //1:N 즉시로딩
 	private Set<DepartmentRank> positions = new HashSet<>();
 	public EmployeesEntity addposition(DepartmentRank position) {
 		positions.add(position);

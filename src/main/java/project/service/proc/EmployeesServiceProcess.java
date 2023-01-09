@@ -21,7 +21,7 @@ public class EmployeesServiceProcess implements EmployeesService {
 	
 	//이미지 temp 폴더 지정
 	@Value("${file.location.temp}")
-	private String tempUp;
+	private String tempUpload; //파일 업로드 위치
 	
 	//이미지 upload 폴더 지정
 	@Value("${file.location.upload}")
@@ -29,8 +29,8 @@ public class EmployeesServiceProcess implements EmployeesService {
 	
 	//직원 이미지 temp 업로드
 	@Override
-	public Map<String, String> fileTempUp(MultipartFile gimg) {
-		return MyFileUtils.fileUpload(gimg, tempUp);
+	public Map<String, String> fileTempUpload(MultipartFile gimg) {
+		return MyFileUtils.fileUpload(gimg, tempUpload);
 	}
 	
 	
@@ -44,7 +44,8 @@ public class EmployeesServiceProcess implements EmployeesService {
 	@Override
 	public void save(EmployeesInsertDTO dto) {
 		repository.save(dto.toEntity(pe)
-				.addposition(DepartmentRank.Staff));
+				//.addposition(DepartmentRank.Staff)
+				);
 		
 	}
 

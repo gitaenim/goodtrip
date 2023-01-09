@@ -20,13 +20,15 @@ public class EmployeesController {
 	//EmployeesService service = new EmployeesServiceProcess();
 
 	@ResponseBody
-	@PostMapping("/employees/temp-up")
-	public Map<String, String> tempUp(MultipartFile gimg){
-		return service.fileTempUp(gimg);
+	@PostMapping("/employees/temp-upload")
+	public Map<String, String> tempUpload(MultipartFile gimg){
+		//System.out.println(" >>>>> "+gimg.getOriginalFilename());
+		return service.fileTempUpload(gimg);
 	}
 	
 	@PostMapping("/employees/reg")
 	public String employeesReg(EmployeesInsertDTO dto) {
+		System.out.println(dto);
 		service.save(dto);
 		return "organization/regist";
 		
