@@ -8,12 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AttendanceController {
 	
-	@ResponseBody
-	@PostMapping("/attendance/in")
-//	public String attendanceIn(@RequestBody) {
-//		
-//	}
-	
 	@GetMapping("/attendanceList")
 	public String attendenceList() {
 		return "AttendanceMgmt/attendanceList";
