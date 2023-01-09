@@ -16,7 +16,7 @@
 				<p>경조사</p>
 			</div>
 			<a class="flex right list-button" href="/Board/cncWrite">글쓰기</a>
-			<a class="flex right list-button" href="/Board/cncDetail">디테일페이지</a>
+			<a class="flex right list-button" th:href="|/Board/cncDetail?cncNo=${1}|">디테일페이지</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -26,26 +26,17 @@
 						<th>작성일</th>
 						<th>경조사일</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>관리자</td>
-						<td>자유 게시판 입니다.</td>
-						<td>2023.01.02</td>
-						<td>2023.01.01</td>
+					<tr th:if="${nullcheck == true}">
+						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-						<tr>
-						<td>2</td>
-						<td>관리자</td>
-						<td>예시입니다</td>
-						<td>2023.01.02</td>
-						<td>2023.01.01</td>
-					</tr>
-						<tr>
-						<td>3</td>
-						<td>관리자</td>
-						<td>지울거에요~!</td>
-						<td>2023.01.02</td>
-						<td>2023.01.01</td>
+					<tr th:if="${nullcheck == false}" th:each="list : ${list}">
+						<td th:text="${list.cncNo}">번호</td>
+						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
+						<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td>
+						
+						<td th:text="${list.registNo.name}">관리자</td>
+						<td th:text="${list.createDate}">2023.01.02</td>
+						<td th:text="${list.eventDate}">2023.01.02</td>
 					</tr>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">

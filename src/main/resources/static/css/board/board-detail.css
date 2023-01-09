@@ -12,9 +12,9 @@
     justify-content: center;
     font-weight: 600;
 }
-.table-1{
+.table-1{ /* 크기 늘렸습니다 1.5 수민 */
 	 border-collapse: collapse;
-     width: 100%;
+     width: 1200px;
 }
 
 .table-1 tr td{

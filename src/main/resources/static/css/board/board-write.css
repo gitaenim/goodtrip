@@ -21,8 +21,9 @@
     color: white;
 }
 
-.writer-2{
+.writer-2{/* 크기 늘렸습니다 1.5 수민 */
 	text-align: center;
+	width: 1200px;
 }
 .writer-title{
 	padding-bottom: 13px;
