@@ -18,8 +18,17 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	//organizationChart 모든 리스트 조회
 	@Override
 	public void findAllList(Model model) {
-		model.addAttribute("employeesList", employeesRepo.findAll(Sort.by(Direction.ASC,"departmentNo")));
+		model.addAttribute("list1", employeesRepo.findAll(Sort.by(Direction.ASC,"departmentNo")));
 
+		
+	}
+
+	//organizationChart 부서별 리스트 조회
+	@Override
+	public void findAllByDepartmentNo(Model model, Long department) {
+		System.out.println("department : "+department);
+		model.addAttribute("list2", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
+		System.out.println("여기까지 성공?");
 		
 	}
 

@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
+<script src="/js/organization/organizationList.js"></script>
 </head>
 <main>
 	<!-- 230110 한아 수정 -->
@@ -15,11 +16,14 @@
 				<p>조직도</p>
 			</div>
 		<form class="flex center group-form">
-	      <select>
-	        <option>부서</option>
-	        <option>경영지원팀</option>
-	        <option>상품기획팀</option>
-	        <option>예시입니다</option>
+	      <select id="selectbox" onchange="departmentClicked()">
+	        <option selected disabled value="0">부서</option>
+	        <option value="1">영업부</option>
+	        <option value="2">총무부</option>
+	        <option value="3">인사부</option>
+	        <option value="4">기획부</option>
+	        <option value="5">회계부</option>
+	        <option value="6">개발부</option>
 	      </select>
 	    </form>
 			<a class="flex right list-button" href="/ozc/groupDetail">디테일페이지</a>
@@ -32,13 +36,28 @@
 						<th>내선번호</th>
 						<th>주업무</th>
 					</tr>
-					<tr th:each="list : ${employeesList}">
+					<!-- <tr th:each="list : ${list1}"> -->
+					<th:block th:switch="${#selectbox option:selected.val()}" >
+					<th:block th:case="0">
+					<tr th:each="list : ${list1}">
 						<td th:text="${list.name}">사원명</td>
 						<td th:text="${list.departmentNo.departmentName}">부서</td>
 						<td th:text="${list.position.label}">직급</td>
 						<td th:text="${list.extension}">내선번호</td>
 						<td th:text="${list.mainWork}">주업무</td>
 					</tr>
+					</th:block>
+					<th:block th:case="*">
+					<tr th:each="list : ${list2}">
+						<td th:text="${list.name}">사원명</td>
+						<td th:text="${list.departmentNo.departmentName}">부서</td>
+						<td th:text="${list.position.label}">직급</td>
+						<td th:text="${list.extension}">내선번호</td>
+						<td th:text="${list.mainWork}">주업무</td>
+					</tr>
+					</th:block>
+					</th:block>
+					
 				
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
