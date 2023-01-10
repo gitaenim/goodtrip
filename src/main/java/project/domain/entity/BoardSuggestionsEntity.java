@@ -48,4 +48,6 @@ public class BoardSuggestionsEntity {
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate; //작성일
 
+
 }
+

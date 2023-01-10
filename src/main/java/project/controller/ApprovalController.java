@@ -21,6 +21,7 @@ public class ApprovalController {
     public String noticeList() {
         return "approvalMgmt/dayOff";
     }
+
 	
 	//휴가신청 save
 	@PostMapping("/dayoff/{no}")
@@ -35,3 +36,4 @@ public class ApprovalController {
         return "approvalMgmt/dayOffApp";
     }
 }
+

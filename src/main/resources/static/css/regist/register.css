@@ -21,7 +21,7 @@ table.new {
 	
 } 
 
-th, td {
+tr, td {
 	border: 1px solid #a4cdf2; padding:7px 2px;
 	}
 	

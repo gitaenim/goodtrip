@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="/css/board/board-list.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -26,25 +26,14 @@
 						<th>날짜</th>
 						<th>조회수</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>건의 게시판 입니다.</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
-						<td>0</td>
+					<tr th:if="${nullcheck == true}">
+						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>예시 입니다~!</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>지울거에요~~</td>
-						<td>관리자</td>
-						<td>2023.01.02</td>
+					<tr th:if="${nullcheck == false}" th:each="list : ${list}">
+						<td th:text="${list.suggestNo}">번호</td>
+						<td><a th:href="@{/suggestDetail(suggestNo=${list.suggestNo})}">[[${list.title}]]</a></td>
+						<td th:text="${list.registNo.name}">관리자</td>
+						<td th:text="${list.createDate}">2023.01.02</td>
 						<td>0</td>
 					</tr>
 				</table>

@@ -66,3 +66,4 @@ public class DayOffEntity {
 	@CreationTimestamp
 	private LocalDate draftDate; //기안일
 }
+

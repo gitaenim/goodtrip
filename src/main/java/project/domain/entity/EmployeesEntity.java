@@ -2,6 +2,9 @@ package project.domain.entity;
 
 import java.time.LocalDateTime;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -11,6 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.enums.DepartmentRank;
+import project.enums.MyRole;
+
 
 @Builder
 @AllArgsConstructor
@@ -63,6 +68,18 @@ public class EmployeesEntity {
 	@JoinColumn(name = "department_no")
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
+	
+	@Builder.Default
+	@CollectionTable(name = "my_role")
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<MyRole> roles = new HashSet<>();
+
+	//role 적용
+	public EmployeesEntity addRole(MyRole role) {
+		roles.add(role);
+		return this;
+	}
 	
 
 }
