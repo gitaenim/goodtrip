@@ -24,9 +24,9 @@ public class ApprovalController {
 
 	
 	//휴가신청 save
-	@PostMapping("/dayoff/{no}")
-	public String dayOff(DayOffInsertDTO dto,@PathVariable Long no) {
-		service.save(dto, no);
+	@PostMapping("/dayoff")
+	public String dayOff(DayOffInsertDTO dto) {
+		service.save(dto);
 		return "approvalMgmt/dayOff";
 	}
 	

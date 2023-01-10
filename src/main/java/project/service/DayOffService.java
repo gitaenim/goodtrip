@@ -4,6 +4,6 @@ import project.domain.DTO.DayOffInsertDTO;
 
 public interface DayOffService {
 
-	void save(DayOffInsertDTO dto, Long no);
+	void save(DayOffInsertDTO dto);
 
 }

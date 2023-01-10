@@ -30,15 +30,19 @@ import lombok.NoArgsConstructor;
 public class DaysOffNumbersEntity implements Serializable{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long dno;
+	
 	@JoinColumn(name = "no", unique = true, nullable = false)
 	@ManyToOne
 	private EmployeesEntity no; //사원번호
 	
 	@Column(name = "total_days")
-	private String totalDays; //총 휴가일수
+	private long totalDays; //총 휴가일수
 	
 	@Column(name = "use_days")
-	private String useDays; //사용일수
+	private long useDays; //사용일수
+	
 	
 
 }

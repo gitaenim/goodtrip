@@ -38,6 +38,8 @@ public class ImagesEntity {
 	@Column(nullable = false)
 	private String url; //이미지 url
 
+	@Column(name = "imgkey")
+	private String imgkey;
 	/* 230109 한아 수정 : OneToOne으로 변경
 	@JoinColumn(name = "employee_no", nullable = false)
 	@ManyToOne
