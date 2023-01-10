@@ -7,6 +7,7 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 </head>
 <main>
+	<!-- 230110 한아 수정 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
 		<section>
@@ -25,29 +26,20 @@
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
-						<th>사원 명</th>
-						<th>직급</th>
+						<th>사원명</th>
 						<th>부서</th>
+						<th>직급</th>
 						<th>내선번호</th>
+						<th>주업무</th>
 					</tr>
-					<tr>
-						<td>김사탕</td>
-						<td>부장</td>
-						<td>경영지원팀</td>
-						<td>4050</td>
+					<tr th:each="list : ${employeesList}">
+						<td th:text="${list.name}">사원명</td>
+						<td th:text="${list.departmentNo.departmentName}">부서</td>
+						<td th:text="${list.position.label}">직급</td>
+						<td th:text="${list.extension}">내선번호</td>
+						<td th:text="${list.mainWork}">주업무</td>
 					</tr>
-					<tr>
-						<td>김예시</td>
-						<td>대리</td>
-						<td>예시입니다</td>
-						<td>4050</td>
-					</tr>
-					<tr>
-						<td>김사탕</td>
-						<td>부장</td>
-						<td>경영지원팀</td>
-						<td>4050</td>
-					</tr>
+				
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
 	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
