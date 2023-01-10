@@ -20,7 +20,8 @@ public class NoticeBoardController {
 	
 	//공지사항 게시판 리스트 이동
 	@GetMapping("/Board/noticeList")
-    public String noticeList() {
+    public String noticeList(Model model) {
+		noticeservice.findAll(model);
         return "Board/noticeList";
     }
 	
@@ -30,12 +31,6 @@ public class NoticeBoardController {
         return "Board/noticeWrite";
         
     }
-
-	// 임시 공지사항 조회 페이지!
-	@GetMapping("/Board/noticeDetail")
-	public String noticeDetail() {
-		return "Board/noticeDetail";
-	}
 	
 	//글쓰기 작성
 	 @PostMapping("/Board/noticeWrite")   
@@ -51,5 +46,6 @@ public class NoticeBoardController {
 		 noticeservice.detail(noticeNo, model);
 		 return "Board/noticeDetail";
 	 }
+	 
 		
 }

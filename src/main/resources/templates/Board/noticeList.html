@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="stylesheet" href="/css/board/board-list.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -15,8 +16,8 @@
 			<div class="flex center">
 				<p>공지사항</p>
 			</div>
-			<a class="flex right list-button" href="/Board/noticeWrite">글쓰기</a>
-			<a class="flex right list-button" href="|/Board/noticeDetail?noticeNo=${1}|">디테일페이지</a>
+			<div class="block" sec:authorize="isAnonymous()"></div>
+			<a sec:authorize="isAuthenticated()" class="flex right list-button" href="/Board/noticeWrite">글쓰기</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -28,7 +29,7 @@
 					<tr th:if="${nullcheck == true }">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${list}">
+					<tr th:if="${nullcheck == false}" th:each="list : ${noticeList}">
 						<td th:text="${list.noticetNo}">번호</td>
 						<td><a th:href="@{/noticeDetail(noticetNo=${list.noticeNo})}">[[${list.title}]]</a>관리자</td>
 						<td th:text="${list.registNo.name}">관리자</td>

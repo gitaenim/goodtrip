@@ -17,27 +17,27 @@
    				<table class="detail-table table-1" border="1" >
 	    			<tr>
 	    				<td>글번호</td>
-	    				<td>1</td>
+	    				<td th:text=${notcieDetail.noticeNo}>1</td>
 	    			</tr>
 	    			<tr>
 	    				<td>작성자</td>
-	    				<td>김대리</td>
+	    				<td th:text=${noticeDetail.registNo.name}>김대리</td>
 	    			</tr>
 	    			<tr>
 	    				<td>제목</td>
-	    				<td>
-	    					<input type="text">
+	    				<td
+	    					th:text=${noticeDetail.title}>
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td>내용</td>
-	    				<td >
-	    					<textarea rows="5" cols="50"></textarea>
+	    				<td 
+	    					th:text=${noticeDetail.content}>
 	    				</td>
 	    			</tr>
 	    			<tr>
 	    				<td>작성일</td>
-	    				<td>2022.1.1</td>
+	    				<td th:text=${noticeDetail.createDate}>2022.1.1</td>
 	    			</tr>
 	    			<!-- <tr>
 	    				<td>

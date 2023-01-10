@@ -10,7 +10,7 @@ public interface NoticeBoardService {
 
 	void save(BoardNoticeDTO dto);
 	
-	void findAllList(long noticeNo, Model model);
-
 	void detail(long noticeNo, Model model);
+
+	void findAll(Model model);
 }
