@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "board_notices")
+@Table(name = "board_suggestions")
 @Entity
 @Getter
 //230104 안나 생성
