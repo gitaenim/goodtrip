@@ -52,4 +52,6 @@ public class BoardCNCEntity { //수민 클래스명수정  BoardEventEntity -> B
 	@Column(name = "event_date", nullable = false)
 	private LocalDate eventDate; //경조사일
 
+
 }
+

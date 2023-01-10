@@ -25,24 +25,17 @@
 						<th>제목</th>
 						<th>작성일</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>관리자</td>
-						<td>공지사항입니다</td>
-						<td>23.01.02</td>
+					<tr th:if="${nullcheck == true }">
+						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>관리자</td>
-						<td>예시에요~!</td>
-						<td>23.01.02</td>
+					<tr th:if="${nullcheck == false} th:each=list : ${list}">
+						<td th:text="${list.suggestNo}">번호</td>
+						<td><a th:href="@{/noticeDetail(suggestNo=${list.suggestNo})}">[[${list.title}]]</a>관리자</td>
+						<td th:text="${list.registNo.name}">관리자</td>
+						<td th:text="${list.createDate}">2023.01.02</td>
+						<td>0</td>
 					</tr>
-					<tr>
-						<td>3</td>
-						<td>관리자</td>
-						<td>예시에요~!</td>
-						<td>23.01.02</td>
-					</tr>
+					
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
 	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>

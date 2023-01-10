@@ -19,4 +19,6 @@ public enum AuthorizeStatus {
         return label;
     }
 
+
 }
+

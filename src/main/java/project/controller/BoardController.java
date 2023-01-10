@@ -16,6 +16,7 @@ public class BoardController {
 	@GetMapping("/Board/noticeWrite")
 	public String noticeWrite() {
 		return "Board/noticeWrite";
+
 	}
 
 	// 임시 공지사항 조회 페이지!
