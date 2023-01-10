@@ -6,6 +6,7 @@ import project.domain.entity.EmployeesEntity;
 
 @Data
 public class BoardNoticeDTO {
+	
 	private long no; //사원번호
 	
 	private String title; //글 제목
