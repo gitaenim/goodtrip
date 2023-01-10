@@ -51,4 +51,6 @@ public class BoardCNCEntity {
 	@Column(name = "event_date", nullable = false)
 	private LocalDateTime eventDate; //경조사일
 
+
 }
+
