@@ -34,7 +34,7 @@ public class CNCBoardController {
 	@PostMapping("/Board/cncWrite")
 	public String CNCWriting(BoardCNCDTO cdto) {
 		CNCservice.save(cdto);
-		return "Board/cncList";
+		return "redirect:/Board/cncList";
 	}
 
 	//경조사 게시글에서 상세페이지로 이동
