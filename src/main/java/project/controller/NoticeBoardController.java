@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import project.domain.DTO.BoardNoticeDTO;
 import project.service.proc.NoticeBoardService;
-import project.service.proc.NoticeBoardServiceProc;
+
 
 @Controller
 public class NoticeBoardController {
