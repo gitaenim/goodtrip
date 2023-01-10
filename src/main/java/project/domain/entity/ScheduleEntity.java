@@ -1,6 +1,7 @@
 package project.domain.entity;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class ScheduleEntity {
 	private String scheduleName; //일정명
 
 	@Column(nullable = false)
-	private LocalDateTime date;
+	private LocalDate date; //LocalDate로 변경!! 1/10 수민
 	
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
