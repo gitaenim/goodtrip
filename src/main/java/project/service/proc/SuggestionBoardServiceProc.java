@@ -35,10 +35,6 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 		if (list.isEmpty()) {
 			nullcheck = true;
 		}
-
-		for (BoardSuggestionsEntity boardSuggestionsEntity : list) {
-			System.out.println(list);
-		}
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("suggestionList", list);
 	}

@@ -15,8 +15,8 @@
 			<div class="flex center">
 				<p>건의게시판</p>
 			</div>
-			<a class="flex right list-button" href="/Board/suggestionWrite">글쓰기</a>
-			<a class="flex right list-button" href="/Board/suggestionDetail">디테일페이지</a>
+			<div class="block" sec:authorize="isAnonymous()"></div>
+			<a sec:authorize="isAuthenticated()" class="flex right list-button" href="/Board/suggestionWrite">글쓰기</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -29,7 +29,7 @@
 					<tr th:if="${nullcheck == true}">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${list}">
+					<tr th:if="${nullcheck == false}" th:each="list : ${suggestionList}">
 						<td th:text="${list.suggestNo}">번호</td>
 						<td><a th:href="@{/suggestDetail(suggestNo=${list.suggestNo})}">[[${list.title}]]</a></td>
 						<td th:text="${list.registNo.name}">관리자</td>
