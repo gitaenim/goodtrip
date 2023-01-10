@@ -37,13 +37,6 @@ public class NoticeBoardController {
 	    	return "redirect:/Board/noticeWrite";
     }
 	 
-	 @GetMapping("/noticeDetail")
-	 public String noticeDetail(@RequestParam long suggestNo, Model model) {
+
 		
-		 //게시글 정보
-		 noticeservice.detial(suggestNo,model);
-		 
-		 return "Board/noticeDetail";
-		 
-	 }
 }
