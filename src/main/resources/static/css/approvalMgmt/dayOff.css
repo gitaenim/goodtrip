@@ -107,3 +107,45 @@
 #table-3 tr:nth-child(4)>td:nth-child(2)>textarea:focus {
 	outline: none;
 }
+.btn-day-off {
+	width: 180px;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+.btn-day-off li {
+	line-height: 36px;
+	background-color: #4b99da;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 20px;
+}
+.btn-day-off li button {
+	width: 5em;
+	color: #fff;
+}
+.btn-day-off li a {
+	width: 5em;
+	color: #fff;
+	display: block;
+}
+.btn-approval {
+	width: 280px;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+.btn-approval li {
+	line-height: 36px;
+	background-color: #4b99da;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 20px;
+}
+.btn-approval li button {
+	width: 5em;
+	color: #fff;
+}
+.btn-approval li a {
+	width: 5em;
+	color: #fff;
+	display: block;
+}

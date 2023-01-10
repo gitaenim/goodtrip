@@ -56,5 +56,12 @@ tr.list-2 th{
 	margin-left: 10px;
 }
 
+table.new {
+	border: 3px solid #a4cdf2; border-collapse: collapse;
+	
+} 
 
-
+tr, td {
+	border: 1px solid #a4cdf2; padding:7px 2px;
+	}
+	
