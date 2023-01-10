@@ -15,7 +15,7 @@
    				<p>경조사</p>
    			</div>
 	   		<div class="writer-back">
-	    		<form>
+	    		<form action="/Board/cncWrite" method="post">
 	    			<table class="writer-2">
 	    				<tr>
 	    					<td class="writer-title">
@@ -25,7 +25,7 @@
 	    				<tr>
 	    					<td class="writer-date">
 	    						<a>경조사일</a>
-	    						<input type="date" value="xxx" min="yyy" max="zzz">
+	    						<input type="date" name="eventDate" value="xxx" min="yyy" max="zzz">
 	    					</td>
 	    				</tr>
 	    				<tr>
@@ -35,6 +35,7 @@
 	    				</tr>
 	    				<tr>
 	    					<td class="flex center">
+	    						<input type="hidden" name="no" value="1">
 								<button class="writer-button">등록</button>
 	    					</td>
 	    				</tr>
