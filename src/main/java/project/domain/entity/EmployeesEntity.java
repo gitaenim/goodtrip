@@ -1,6 +1,8 @@
 package project.domain.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,13 +21,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.enums.DepartmentRank;
+import project.enums.MyRole;
+
 
 @Builder
 @AllArgsConstructor
@@ -80,13 +82,20 @@ public class EmployeesEntity {
 	@JoinColumn(name = "department_no")
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
-	
+
+	@Builder.Default
+	@CollectionTable(name = "my_role")
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<MyRole> roles = new HashSet<>();
+
 	//230109 한아 수정
 	@Builder.Default
 	@CollectionTable(name = "employees_position")
 	@Enumerated(EnumType.STRING) //설정하지 않으면 숫자(ORDINAL)
-	@ElementCollection(fetch = FetchType.EAGER) //1:N 즉시로딩
+	@ElementCollection(fetch = FetchType.EAGER) 
 	private Set<DepartmentRank> positions = new HashSet<>();
+	
 	public EmployeesEntity addposition(DepartmentRank position) {
 		positions.add(position);
 		return this;
@@ -95,5 +104,12 @@ public class EmployeesEntity {
 	@JoinColumn(name = "image_no", nullable = true)
 	@OneToOne
 	private ImagesEntity imageNo; //이미지번호
+
+	//role 적용
+	public EmployeesEntity addRole(MyRole role) {
+		roles.add(role);
+		return this;
+	}
+	
 
 }

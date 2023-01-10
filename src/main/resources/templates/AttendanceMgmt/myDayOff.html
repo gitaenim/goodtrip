@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<html xmlns:th="https://www.thymeleaf.org" 
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
 th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 <head>
 	<meta charset="UTF-8">
@@ -22,7 +22,7 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 					<button><span class="small-circle-selected"></span>휴가</button>
 				</div>
 				<div>
-					<button class="get-approval">결재신청</button>
+					<button class="get-approval" onclick="location.href = 'dayoff'">결재신청</button>
 				</div>
 			</div>
 			<div class="flex center back-list">
