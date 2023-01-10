@@ -39,17 +39,17 @@ public class DayOffEntity {
 	private String reason; //휴가사유
 	
 	@Column(name = "start_date", nullable = false)
-	private LocalDateTime startDate; //휴가시작일
+	private LocalDate startDate; //휴가시작일
 	
 	@Column(name = "end_date", nullable = false)
-	private LocalDateTime EndDate; //휴가종료일
+	private LocalDate EndDate; //휴가종료일
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean approval; //결재 승인여부
 	
-	@JoinColumn(name = "employee_no")
+	@JoinColumn(name = "employee_no", nullable = false)
 	@ManyToOne
-	private EmployeesEntity employeeNo; //사원번호
+	private EmployeesEntity employeeNo; //기안자:사원번호
 
 	//230106 재근 생성
 	public DayOffEntity employeeNo(EmployeesEntity employeeNo) {
@@ -62,7 +62,7 @@ public class DayOffEntity {
 	private DaysOffNumbersEntity useDays; //신청일수
 	
 	//230109 재근 생성
-	@Column(name = "draft_date", nullable = false)
+	@Column(name = "draft_date")
 	@CreationTimestamp
 	private LocalDate draftDate; //기안일
 }
