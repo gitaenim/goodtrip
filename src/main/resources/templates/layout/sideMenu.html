@@ -10,16 +10,18 @@
 </head>
 <header>
 	<div class="wrap">
-	<input type="hidden" th:id="userID" th:value="1">
+		<input sec:authorize="isAuthenticated()" type="hidden" th:id="userID" th:value="${#authentication.principal.no}">
 		<ul class="menuForm">
-			<li><a href="#" class="logoImg">
-					<!-- 로고이미지 -->
+			<li><a href="/" class="logoImg"> <!-- 로고이미지 -->
 			</a></li>
-			<li>[사원 사진 넣을 곳]</li>
-			<li>[이름]/[사번]</li>
-			<li>[담당부서]/[직급]</li>
+			<li sec:authorize="isAnonymous()">[사원 사진 넣을 곳]</li>
+			<li sec:authorize="isAnonymous()">[이름]/[사번]</li>
+			<li sec:authorize="isAnonymous()">[담당부서]/[직급]</li>
 			<li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
-			<li sec:authorize="isAuthenticated()"><a href="#">로그아웃</a></li>
+			<li sec:authorize="isAuthenticated()">[사원 사진 넣을 곳]</li>
+			<li sec:authorize="isAuthenticated()" th:text="${#authentication.principal.name} + '/' + ${#authentication.principal.no}">[이름]/[사번]</li>
+			<li sec:authorize="isAuthenticated()" th:text="${#authentication.principal.departmentNo.departmentName} + '/' + ${#authentication.principal.position.label}">[담당부서]/[직급]</li>
+			<li sec:authorize="isAuthenticated()"><a href="/logout">로그아웃</a></li>
 			<li>
 				<dl class="menuList">
 					<dt>조직도</dt>

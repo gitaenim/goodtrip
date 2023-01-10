@@ -1,5 +1,6 @@
 package project.domain.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -50,5 +51,19 @@ public class DayOffEntity {
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호
 
+	//230106 재근 생성
+	public DayOffEntity employeeNo(EmployeesEntity employeeNo) {
+		this.employeeNo = employeeNo;
+		return this;
+	}
+	
+	//230109 재근 생성
+	@JoinColumn(name = "use_days")
+	private DaysOffNumbersEntity useDays; //신청일수
+	
+	//230109 재근 생성
+	@Column(name = "draft_date", nullable = false)
+	@CreationTimestamp
+	private LocalDate draftDate; //기안일
 }
 

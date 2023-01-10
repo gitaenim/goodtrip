@@ -19,6 +19,7 @@
 .mypage-table{
 	border-collapse: collapse;
 	padding-bottom: 1em;
+	 width: 600px;
     
 }
 .mypage-table tr td{

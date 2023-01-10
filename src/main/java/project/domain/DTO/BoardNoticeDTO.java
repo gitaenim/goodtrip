@@ -4,8 +4,6 @@ import lombok.Data;
 import project.domain.entity.BoardNoticeEntity;
 import project.domain.entity.EmployeesEntity;
 
-
-
 @Data
 public class BoardNoticeDTO {
 	private long no; //사원번호
