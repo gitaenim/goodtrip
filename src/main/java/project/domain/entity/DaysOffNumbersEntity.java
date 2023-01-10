@@ -40,4 +40,6 @@ public class DaysOffNumbersEntity implements Serializable{
 	@Column(name = "use_days")
 	private String useDays; //사용일수
 	
+
 }
+

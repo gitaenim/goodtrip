@@ -54,4 +54,6 @@ public class AuthorizeEntity {
 	@ManyToOne
 	private DayOffEntity dayOffNo; //휴가번호
 
+
 }
+
