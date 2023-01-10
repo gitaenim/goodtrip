@@ -19,21 +19,22 @@ public class DayOffListDTO {
 	private String type; //휴가종류
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime startDate; //휴가시작일
+	private LocalDate startDate; //휴가시작일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDateTime EndDate; //휴가종료일
-	
-	private DaysOffNumbersEntity useDays; //휴가일수
+	private LocalDate EndDate; //휴가종료일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
+
+	public DayOffListDTO(DayOffEntity e) {
+		this.dayOffNo = e.getDayOffNo();
+		this.type = e.getType();
+		this.startDate = e.getStartDate();
+		this.EndDate = e.getEndDate();
+		this.draftDate = e.getDraftDate();
+	}
 	
-	/*
-	 * public DayOffListDTO(DayOffEntity e) { this.dayOffNo = e.getDayOffNo();
-	 * this.type = e.getType(); this.startDate = e.getStartDate(); this.EndDate =
-	 * e.getEndDate(); this.useDays = e.getUseDays(); this.draftDate =
-	 * e.getDraftDate(); }
-	 */
+	
 	
 }

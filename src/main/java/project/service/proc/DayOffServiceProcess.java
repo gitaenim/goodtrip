@@ -24,7 +24,7 @@ public class DayOffServiceProcess implements DayOffService {
 	@Autowired
 	private DaysOffNumbersEntityRepository daysOffNumbersRepo;
 	
-	
+	//휴가 등록
 	@Override
 	public void save(DayOffInsertDTO dto) {
 		EmployeesEntity emp=employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
@@ -33,17 +33,11 @@ public class DayOffServiceProcess implements DayOffService {
 		
 		if(daysOffNumbers==null){
 		daysOffNumbers=daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
-				 .no(emp).totalDays(15).useDays(dto.getUseDays()) .build()); }
-		 
-		
-		/*
-		 * DayOffEntity entity=DayOffEntity.builder() .type(dto.getType())
-		 * .reason(dto.getReason()) .startDate(dto.getStartDate())
-		 * .EndDate(dto.getEndDate())
-		 * .employeeNo(employeesRepo.findById(no).orElseThrow()) .build();
-		 */
+				 .no(emp).totalDays(15).useDays(dto.getUseDays()).build()); 
+		}
 				
-		dayOffRepo.save(dto.toDayOffEntity(daysOffNumbers, emp));
+		dayOffRepo.save(dto.toDayOffEntity(emp, daysOffNumbers));
 	}
-
+	
+	
 }

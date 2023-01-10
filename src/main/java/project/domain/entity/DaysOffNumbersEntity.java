@@ -31,9 +31,10 @@ public class DaysOffNumbersEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dno", unique = true, nullable = false)
 	private long dno;
 	
-	@JoinColumn(name = "no", unique = true, nullable = false)
+	@JoinColumn(name = "no", nullable = false)
 	@ManyToOne
 	private EmployeesEntity no; //사원번호
 	

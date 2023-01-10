@@ -58,12 +58,18 @@ public class DayOffEntity {
 	}
 	
 	//230109 재근 생성
-	@JoinColumn(name = "use_days")
-	private DaysOffNumbersEntity useDays; //신청일수
-	
-	//230109 재근 생성
 	@Column(name = "draft_date")
 	@CreationTimestamp
 	private LocalDate draftDate; //기안일
+	
+	//230110 재근 수정
+	@JoinColumn(name = "dno", nullable = false)
+	private long useDays; //휴가일수
+	
+	public DayOffEntity useDays(DaysOffNumbersEntity e) {
+		this.useDays = e.getUseDays();
+		return this;
+	}
+	
 }
 
