@@ -12,7 +12,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form action="/dayoff/{no}" method="post">
+		<form>
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
@@ -55,29 +55,19 @@
 			<table id="table-3">
 				<tr>
 					<td>휴가 종류</td>
-					<td>
-						<select name="type">
-							<option value="연차">연차</option>
-							<option value="경조사">경조사</option>
-							<option value="공가">공가</option>
-							<option value="병가">병가</option>
-							<option value="출산휴가">출산휴가</option>
-						</select>
-					</td>
+					<td>[휴가 종류]</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
-					<td><input type="date" name="startDate"> - <input
-						type="date" name="endDate"></td>
+					<td>[StartDate]-[EndDate]</td>
 				</tr>
 				<tr>
 					<td>연차 일수</td>
-					<td>신청연차 : <input name="useDays" type="number" min="0"></td>
+					<td>신청연차 : [신청일수]</td>
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128" name="reason"
-							placeholder="휴가 사유를 입력해주세요"></textarea></td>
+					<td><textarea rows="10" cols="128">[휴가 사유]</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
@@ -87,9 +77,10 @@
 					</td>
 				</tr>
 			</table>
-			<ul class="btn-day-off flex">
-				<li><button>신청하기</button></li>
-				<li><a href="/myDayOff">뒤로가기</a></li>
+			<ul class="btn-approval flex">
+				<li><button>승인하기</button></li>
+				<li><button>반려하기</button></li>
+				<li><a href="/personalDayOff">뒤로가기</a></li>
 			</ul>
 		</form>
 	</div>
