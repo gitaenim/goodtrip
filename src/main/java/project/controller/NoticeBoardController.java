@@ -41,9 +41,15 @@ public class NoticeBoardController {
 	 @PostMapping("/Board/noticeWrite")   
 	    public String noticeWriting(BoardNoticeDTO dto) {
 		 noticeservice.save(dto);
-	    	return "redirect:/Board/noticeWrite";
+	    	return "Board/noticeWrite";
     }
-	 
-
+	
+	 @GetMapping("/noticeDetail")
+	 public String boardDetail(@RequestParam long noticeNo, Model model) {
+		 
+		 //게시글 정보를 가져오는 기능
+		 noticeservice.detail(noticeNo, model);
+		 return "Board/noticeDetail";
+	 }
 		
 }
