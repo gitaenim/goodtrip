@@ -12,7 +12,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form action="/dayoff/{no}" method="post">
+		<form action="/dayoff" method="post">
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
@@ -68,7 +68,7 @@
 				<tr>
 					<td>기간 및 일시</td>
 					<td><input type="date" name="startDate"> - <input
-						type="date" name="endDate"></td>
+						type="date" name="EndDate"></td>
 				</tr>
 				<tr>
 					<td>연차 일수</td>
@@ -88,7 +88,7 @@
 				</tr>
 			</table>
 			<ul class="btn-day-off flex">
-				<li><button>신청하기</button></li>
+				<li><input type="hidden" th:name="employeeNo" th:value="${#authentication.principal.no}"><button>신청하기</button></li>
 				<li><a href="/myDayOff">뒤로가기</a></li>
 			</ul>
 		</form>
