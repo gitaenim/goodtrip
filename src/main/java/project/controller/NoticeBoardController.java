@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import project.domain.DTO.BoardNoticeDTO;
-import project.service.proc.NoticeBoardService;
+import project.service.NoticeBoardService;
 
 
 @Controller
 public class NoticeBoardController {
+	
 	@Autowired
 	private NoticeBoardService noticeservice;
 	
@@ -29,6 +30,12 @@ public class NoticeBoardController {
         return "Board/noticeWrite";
         
     }
+
+	// 임시 공지사항 조회 페이지!
+	@GetMapping("/Board/noticeDetail")
+	public String noticeDetail() {
+		return "Board/noticeDetail";
+	}
 	
 	//글쓰기 작성
 	 @PostMapping("/Board/noticeWrite")   

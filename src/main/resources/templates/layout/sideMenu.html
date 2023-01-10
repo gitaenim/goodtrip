@@ -7,27 +7,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/sideMenu/sideMenu.css">
 <script src="/js/sideMenu/sideMenu.js"></script>
-<script type="text/javascript">
-	/* $(function() {
-
-		var info = $("#userID").val();
-
-		console.log(info);
-		
-		$.ajax({
-			url : "/loginInfo/" + info,
-			success : function(result) {
-			}
-		});
-
-	});  */
-</script>
 </head>
 <header>
 	<div class="wrap">
 		<input sec:authorize="isAuthenticated()" type="hidden" th:id="userID" th:value="${#authentication.principal.no}">
 		<ul class="menuForm">
-			<li><a href="#" class="logoImg"> <!-- 로고이미지 -->
+			<li><a href="/" class="logoImg"> <!-- 로고이미지 -->
 			</a></li>
 			<li sec:authorize="isAnonymous()">[사원 사진 넣을 곳]</li>
 			<li sec:authorize="isAnonymous()">[이름]/[사번]</li>

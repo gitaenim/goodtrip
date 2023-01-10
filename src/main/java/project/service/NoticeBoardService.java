@@ -1,4 +1,4 @@
-package project.service.proc;
+package project.service;
 
 
 import org.springframework.ui.Model;
