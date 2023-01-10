@@ -3,12 +3,15 @@ package project.security;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import lombok.Getter;
+import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
+import project.enums.DepartmentRank;
 
 @Getter
 public class MyUserDetails extends User{
@@ -16,6 +19,8 @@ public class MyUserDetails extends User{
 	private long no;
 	private String email;
 	private String name;
+	private DepartmentsEntity departmentNo;
+	private DepartmentRank position;
 	
 	//extends User
 	public MyUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -30,6 +35,9 @@ public class MyUserDetails extends User{
 		this.no = entity.getNo();
 		this.email = entity.getEmail();
 		this.name = entity.getName();
+		this.departmentNo = entity.getDepartmentNo();
+		this.position = entity.getPosition();
+		
 	}
 	
 	
