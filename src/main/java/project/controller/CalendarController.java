@@ -20,7 +20,7 @@ public class CalendarController {
 	//캘린더 페이지로 이동 기능
 	@GetMapping("/calendar")
 	public String calendar() {
-		return "/calendar";
+		return "/calendar/calendar";
 	}
 	
 	//Ajax로 캘린더에 출력할 이벤트 데이터들 전송 해 주는 기능
