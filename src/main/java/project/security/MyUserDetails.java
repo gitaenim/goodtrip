@@ -11,16 +11,20 @@ import org.springframework.security.core.userdetails.User;
 import lombok.Getter;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.ImagesEntity;
 import project.enums.DepartmentRank;
 
 @Getter
 public class MyUserDetails extends User{
 
-	private long no;
-	private String email;
-	private String name;
-	private DepartmentsEntity departmentNo;
-	private DepartmentRank position;
+	/* 20230110 문대현 수정 */
+	
+	private long no; //사원번호
+	private String email; //이메일주소
+	private String name; //이름
+	private DepartmentsEntity departmentNo; //부서명
+	private DepartmentRank position; //직급
+	private ImagesEntity imageNo; //사원 이미지
 	
 	//extends User
 	public MyUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -37,7 +41,7 @@ public class MyUserDetails extends User{
 		this.name = entity.getName();
 		this.departmentNo = entity.getDepartmentNo();
 		this.position = entity.getPosition();
-		
+		this.imageNo = entity.getImageNo();
 	}
 	
 	

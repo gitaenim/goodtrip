@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+<script src="/js/calendar/calendar.js"></script>
+<link rel="stylesheet" href="/css/calendar/calendar.css">
+<title>캘린더</title>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<!-- calendar 태그 -->
+	<div id='calendar-container'>
+		<div id='calendar'></div>
+	</div>
+</main>
+</html>

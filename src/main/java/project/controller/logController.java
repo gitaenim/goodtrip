@@ -16,4 +16,7 @@ public class logController {
 	public String home() {
 		return "/index";
 	}
+
+	
+	
 }

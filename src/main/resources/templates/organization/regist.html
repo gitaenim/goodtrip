@@ -29,6 +29,7 @@
 	    			$(".img").css("background-image", "url("+map.url+")");
 	    			$(el).siblings(".newName").val(map.newName);
 	    			$(el).siblings(".oldName").val(map.oldName);
+	    			$(el).siblings(".imgkey").val(map.key);
 	    			
 	    		}
 			});
@@ -89,8 +90,9 @@
 							<td class="flex">
 								이미지 :
 								<input id="defimg" class="gimg" type="file" name="gimg" onchange="gimgChanged(this)">
-								<input type="hidden" class="newName" name="newName">
-								<input type="hidden" class="oldName" name="oldName">
+								<input type="text" class="newName" name="newName">
+								<input type="text" class="oldName" name="oldName">
+								<input type="text" class="imgkey" name="imgkey">
 							</td>
 						</tr>
 						
