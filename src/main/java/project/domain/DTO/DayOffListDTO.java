@@ -26,6 +26,8 @@ public class DayOffListDTO {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
+	
+	private long useDays; //휴가일수
 
 	public DayOffListDTO(DayOffEntity e) {
 		this.dayOffNo = e.getDayOffNo();
@@ -33,6 +35,7 @@ public class DayOffListDTO {
 		this.startDate = e.getStartDate();
 		this.EndDate = e.getEndDate();
 		this.draftDate = e.getDraftDate();
+		this.useDays = e.getUseDays();
 	}
 	
 	

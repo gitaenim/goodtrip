@@ -34,14 +34,17 @@ public class DayOffInsertDTO {
 	
 	private long useDays; //휴가일수
 	
-	public DayOffEntity toDayOffEntity(EmployeesEntity no, DaysOffNumbersEntity use) {
-		//long calc=use.getUseDays()+useDays;
-		//System.err.println(calc);
-		//use=use.builder().useDays(calc).build();
-		return DayOffEntity.builder()
-				.type(type).reason(reason).startDate(startDate).EndDate(EndDate).useDays(getUseDays()).draftDate(draftDate).employeeNo(no)
-				.build();
+	public DayOffEntity toDayOffEntity(EmployeesEntity no) {
 		
+		return DayOffEntity.builder()
+				.type(type)
+				.reason(reason)
+				.startDate(startDate)
+				.EndDate(EndDate)
+				.useDays(useDays)
+				.draftDate(draftDate)
+				.employeeNo(no)
+				.build();		
 	}
 	
 }

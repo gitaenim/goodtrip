@@ -8,5 +8,6 @@ import project.domain.entity.EmployeesEntity;
 public interface DaysOffNumbersEntityRepository extends JpaRepository<DaysOffNumbersEntity, Long>{
 
 	DaysOffNumbersEntity findByNo(EmployeesEntity emp);
+	
 
 }

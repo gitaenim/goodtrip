@@ -6,4 +6,7 @@ public interface DayOffService {
 
 	void save(DayOffInsertDTO dto);
 
+	void update(DayOffInsertDTO dto);
+
+
 }

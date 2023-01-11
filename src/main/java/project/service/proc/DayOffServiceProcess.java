@@ -1,5 +1,9 @@
 package project.service.proc;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,17 +31,32 @@ public class DayOffServiceProcess implements DayOffService {
 	//휴가 등록
 	@Override
 	public void save(DayOffInsertDTO dto) {
+		
 		EmployeesEntity emp=employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
-		
-		DaysOffNumbersEntity daysOffNumbers=daysOffNumbersRepo.findByNo(emp);		
-		
-		if(daysOffNumbers==null){
-		daysOffNumbers=daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
+		DaysOffNumbersEntity numbers=daysOffNumbersRepo.findByNo(emp);		
+		if(numbers==null) {
+			numbers=daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
 				 .no(emp).totalDays(15).useDays(dto.getUseDays()).build()); 
 		}
-				
-		dayOffRepo.save(dto.toDayOffEntity(emp, daysOffNumbers));
+		
+		dayOffRepo.save(dto.toDayOffEntity(emp));		
 	}
 	
+	//휴가 신청일수 업데이트
+	@Override
+	public void update(DayOffInsertDTO dto) {
+		//findAllByEmployeeNo(dto.getEmployeeNo());
+		EmployeesEntity emp = employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
+		List<DayOffEntity> day = dayOffRepo.findByEmployeeNo(emp);
+		DaysOffNumbersEntity use = daysOffNumbersRepo.findByNo(emp);
+		long tot = 0;
+		for (DayOffEntity dayOffEntity : day) {
+			tot += dayOffEntity.getUseDays();
+		}
+		
+		daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
+				.dno(use.getDno()).useDays(tot).totalDays(15).no(emp).build());
+	}
 	
 }
+

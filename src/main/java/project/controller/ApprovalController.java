@@ -26,9 +26,12 @@ public class ApprovalController {
 	//휴가신청 save
 	@PostMapping("/dayoff")
 	public String dayOff(DayOffInsertDTO dto) {
-		service.save(dto);
+		service.save(dto); //휴가등록
+		service.update(dto); //휴가일수 업데이트
 		return "redirect:/myDayOff";
 	}
+	
+	
 	
 	//휴가결재
 	@GetMapping("/dayoffApp")
