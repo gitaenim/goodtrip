@@ -7,7 +7,7 @@
 	justify-content: flex-end;
 }
 
-.list-1 section div p{
+.list-1>section>div>a{
 	padding: 10px;
     display: inline-block;
     background-color: #4b99da;
@@ -20,21 +20,26 @@
 	 border-collapse: collapse;
      width: 800px;
 }
-tr.list-2 th, .list-table tr td{
-	 text-align: center;
-	 padding: 10px;
-     border-bottom: 3px solid #a4cdf2;
-}
-tr.list-2 th{
+.list-2>th{
+	width: 150px ;
 	background: #a4cdf2;
 	color: white;
+	text-align: center;
+	padding: 10px;
+    border-bottom: 3px solid #a4cdf2;
+}
+.list-2>th:last-child{
+	width: 200px ;
 }
 .list-table tr td{
+	text-align: center;
+	padding: 10px;
+	border-bottom: 3px solid #a4cdf2;
 	color: #6f6f6f;
 }
 
 .list-button{
-	display:inline-block;
+	display:flex;
 	padding:10px;
 	border-radius: 20px;
 	font-size: 16px;
@@ -43,6 +48,7 @@ tr.list-2 th{
 }
 .group-form{
 	padding-top: 10px;
+	padding-bottom: 15px;
 }
 .group-form select{
 	height: 25px;
@@ -53,4 +59,12 @@ tr.list-2 th{
 .group-form select option{
 	color: #606060;
 	font-weight: 600;
+}
+.group-form>button{
+	font-size: 13px;
+	color: #fff;
+	border: solid 1px #a4cdf2;
+	border-radius: 5px;
+	padding: 0px 5px;
+	background-color: #a4cdf2;
 }

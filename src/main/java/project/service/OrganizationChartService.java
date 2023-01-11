@@ -8,4 +8,6 @@ public interface OrganizationChartService {
 
 	void findAllByDepartmentNo(Model model, Long department);
 
+	void findById(Model model, Long no);
+
 }

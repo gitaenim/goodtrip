@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.OrganizationChartService;
 
@@ -28,8 +29,17 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	public void findAllByDepartmentNo(Model model, Long department) {
 		System.out.println("department : "+department);
 		model.addAttribute("list2", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
-		System.out.println("여기까지 성공?");
 		
 	}
 
+	//조직도 디테일 페이지
+	@Override
+	public void findById(Model model, Long no) {
+		model.addAttribute("list", employeesRepo.findById(no)
+				.map(EmployeesDetailDTO::new)
+				.orElseThrow());
+		
+	}
+
+	
 }

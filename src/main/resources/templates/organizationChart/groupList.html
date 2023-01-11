@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/organizationChart/groupList.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
+<link rel="stylesheet" href="/css/organizationChart/groupList.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script src="/js/organization/organizationList.js"></script>
 </head>
@@ -13,20 +13,19 @@
 	<div class="wrap list-1">
 		<section>
 			<div class="flex center">
-				<p>조직도</p>
+				<a href="/ozc/groupList">조직도</a>
 			</div>
-		<form class="flex center group-form">
-	      <select id="selectbox" onchange="departmentClicked()">
-	        <option selected disabled value="0">부서</option>
-	        <option value="1">영업부</option>
-	        <option value="2">총무부</option>
-	        <option value="3">인사부</option>
-	        <option value="4">기획부</option>
-	        <option value="5">회계부</option>
-	        <option value="6">개발부</option>
+		<form class="flex center group-form" >
+	      <select id="department" onchange="departmentClicked()">
+	        <option selected value="0">전체</option>
+	        <option th:value="1">영업부</option>
+	        <option th:value="2">총무부</option>
+	        <option th:value="3">인사부</option>
+	        <option th:value="4">기획부</option>
+	        <option th:value="5">회계부</option>
+	        <option th:value="6">개발부</option>
 	      </select>
 	    </form>
-			<a class="flex right list-button" href="/ozc/groupDetail">디테일페이지</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -36,29 +35,16 @@
 						<th>내선번호</th>
 						<th>주업무</th>
 					</tr>
-					<!-- <tr th:each="list : ${list1}"> -->
-					<th:block th:switch="${#selectbox option:selected.val()}" >
-					<th:block th:case="0">
-					<tr th:each="list : ${list1}">
-						<td th:text="${list.name}">사원명</td>
-						<td th:text="${list.departmentNo.departmentName}">부서</td>
-						<td th:text="${list.position.label}">직급</td>
-						<td th:text="${list.extension}">내선번호</td>
-						<td th:text="${list.mainWork}">주업무</td>
-					</tr>
-					</th:block>
-					<th:block th:case="*">
-					<tr th:each="list : ${list2}">
-						<td th:text="${list.name}">사원명</td>
-						<td th:text="${list.departmentNo.departmentName}">부서</td>
-						<td th:text="${list.position.label}">직급</td>
-						<td th:text="${list.extension}">내선번호</td>
-						<td th:text="${list.mainWork}">주업무</td>
-					</tr>
-					</th:block>
-					</th:block>
-					
-				
+					<tbody id="emp-list">
+						<tr th:each="list : ${list1}">
+							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
+							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
+							<td th:text="${list.departmentNo.departmentName}">부서</td>
+							<td th:text="${list.position.label}">직급</td>
+							<td th:text="${list.extension}">내선번호</td>
+							<td th:text="${list.mainWork}">주업무</td>
+						</tr>
+					</tbody>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
 	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
