@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.calender-1{
+	padding: 1.5em;
+}
+
+.calender-1 div p{
+	padding: 10px;
+    display: inline-block;
+    background-color: #4b99da;
+    border-radius: 15px;
+    font-size: 20px;
+    color: white;
+}
+
+table#calendar{
+	border-collapse: collapse;
+	padding-bottom: 1em;
+	width: 400px;
+}
+

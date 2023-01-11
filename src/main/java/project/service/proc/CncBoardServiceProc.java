@@ -39,6 +39,7 @@ public class CncBoardServiceProc implements CNCBoardService {
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("cncList", list);
 	}
+	
 	@Override
 	public void save(BoardCNCDTO cdto) {
 			
