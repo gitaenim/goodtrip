@@ -1,17 +1,30 @@
 package project.domain.DTO;
 
+import java.time.LocalDateTime;
+
+
 import lombok.Data;
+import project.domain.entity.DailyWorkingHoursEntity;
 
 @Data
 public class AttendanceRegDTO {
 	
-	private long work_No;//근태번호
+	private long workNo;//근태번호
 	
-	private String name;
+	private LocalDateTime date; //날짜
 	
-	private String department;
+	private String clockIn;
 	
-	private String position;
+	private String clockOut;
 	
-	
+	private long employeeNo;
+
+	public DailyWorkingHoursEntity toDailyWorkingHoursEntity() {
+		return DailyWorkingHoursEntity.builder()
+				.workNo(workNo)
+				.date(date)
+				.build();
+	}
+
+
 }

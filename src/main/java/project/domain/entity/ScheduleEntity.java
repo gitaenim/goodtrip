@@ -36,7 +36,7 @@ public class ScheduleEntity {
 	private String scheduleName; //일정명
 
 	@Column(nullable = false)
-	private LocalDateTime date;
+	private LocalDateTime date; //일정날짜
 	
 	@JoinColumn(name = "employee_no")
 	@ManyToOne

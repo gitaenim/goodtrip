@@ -11,6 +11,8 @@ import project.domain.repository.EmployeesEntityRepository;
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
+	/* 20230109 문대현 수정 */
+	
 	// DB 테이블에서 인증처리하기 위한 메서드
 	@Autowired
 	private EmployeesEntityRepository emRepo;

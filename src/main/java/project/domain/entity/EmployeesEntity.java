@@ -1,8 +1,6 @@
 package project.domain.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -106,8 +105,12 @@ public class EmployeesEntity {
 	@CollectionTable(name = "my_role")
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(fetch = FetchType.EAGER)
+
 	private Set<MyRole> roles = new HashSet<>();
-	public EmployeesEntity addRole(MyRole role) { //role 적용
+
+	//role 적용
+	public EmployeesEntity addRole(MyRole role) {
+
 		roles.add(role);
 		return this;
 	}

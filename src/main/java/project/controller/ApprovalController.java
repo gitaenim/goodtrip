@@ -16,7 +16,7 @@ public class ApprovalController {
 	@Autowired
 	private DayOffService service;
 	
-	//휴가신청 리스트
+	//휴가신청 페이지
 	@GetMapping("/dayoff")
     public String noticeList() {
         return "approvalMgmt/dayOff";
@@ -26,14 +26,19 @@ public class ApprovalController {
 	//휴가신청 save
 	@PostMapping("/dayoff")
 	public String dayOff(DayOffInsertDTO dto) {
-		service.save(dto);
-		return "approvalMgmt/dayOff";
+		service.save(dto); //휴가등록
+		service.update(dto); //휴가일수 업데이트
+		return "redirect:/myDayOff";
 	}
+	
+	
 	
 	//휴가결재
 	@GetMapping("/dayoffApp")
     public String dayOffApp() {
         return "approvalMgmt/dayOffApp";
     }
+	
+	
 }
 
