@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
@@ -18,8 +19,8 @@
 		<form class="flex center group-form" >
 	      <select id="department" onchange="departmentClicked()">
 	        <option selected value="0">전체</option>
-	        <option th:value="1">영업부</option>
-	        <option th:value="2">총무부</option>
+	        <option th:value="1">총무부</option>
+	        <option th:value="2">영업부</option>
 	        <option th:value="3">인사부</option>
 	        <option th:value="4">기획부</option>
 	        <option th:value="5">회계부</option>

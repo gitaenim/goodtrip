@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <tr th:each="list : ${list2}">
 	<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
 	<td th:text="${list.departmentNo.departmentName}">부서</td>

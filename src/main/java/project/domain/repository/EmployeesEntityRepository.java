@@ -2,6 +2,7 @@ package project.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,11 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	EmployeesEntity findByEmail(String username);
 
+	EmployeesEntity findAllByNo(long employeeNo);
+
 	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
 
-	EmployeesEntity findAllByNo(long employeeNo);
+	List<EmployeesEntity> findAllByDepartmentNoDepartmentNoOrderBySalaryDesc(Long department);
 
 
 

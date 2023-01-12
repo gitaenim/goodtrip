@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.EmployeesUpdateDTO;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
@@ -91,6 +92,7 @@ public class EmployeesEntity {
 	@OneToOne
 	private ImagesEntity imageNo; //이미지번호
 	
+	
 	//직급 position Enum
 	@Builder.Default
 	@CollectionTable(name = "employees_position")
@@ -102,6 +104,7 @@ public class EmployeesEntity {
 		return this;
 	}
 	
+	
 	//권한 role Enum
 	@Builder.Default
 	@CollectionTable(name = "my_role")
@@ -112,13 +115,25 @@ public class EmployeesEntity {
 
 	//role 적용
 	public EmployeesEntity addRole(MyRole role) {
-
+		roles.clear();
 		roles.add(role);
 		return this;
 	}
 	
 	@Enumerated(EnumType.STRING)
 	private MyRole editAuthority;//수정권한
+	
+	//수정 권한 부여
+	public EmployeesEntity updateManager(EmployeesUpdateDTO dto) {
+		this.editAuthority = MyRole.PERSONALMANAGER;
+		return null;
+	}
+	//수정 권한 제거
+	public EmployeesEntity updateEmployee(EmployeesUpdateDTO dto) {
+		this.editAuthority = MyRole.EMPLOYEE;
+		return null;
+	}
+	
 	
 
 }

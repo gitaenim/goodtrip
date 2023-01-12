@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
-public class logController {
+public class LogController {
 	
 	@Autowired
 	private AttendanceService service;  

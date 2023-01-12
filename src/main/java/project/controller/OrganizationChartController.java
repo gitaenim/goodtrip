@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import project.service.OrganizationChartService;
 
 @Controller
-public class organizationChartController {
+public class OrganizationChartController {
 
 	@Autowired
 	OrganizationChartService organizationChartService; 
