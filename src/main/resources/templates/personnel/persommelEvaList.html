@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/board/board-list.css">
+<link rel="stylesheet" href="/css/organizationChart/groupList.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
-<style type="text/css">
-</style>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
 		<section>
 			<div class="flex center">
-				<p>경조사</p>
+				<p>인사 평가 리스트</p>
 			</div>
-			<div class="block" sec:authorize="isAnonymous()"></div>
-			<a sec:authorize="isAuthenticated()" class="flex right list-button" href="/Board/cncWrite">글쓰기</a>
+		<form class="flex center group-form">
+	      <select>
+	        <option>부서</option>
+	        <option>경영지원팀</option>
+	        <option>상품기획팀</option>
+	        <option>예시입니다</option>
+	      </select>
+	    </form>
+			<a class="flex right list-button" href="/personnelEva">임시로 여기 둔 인사 평가</a>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
-						<th>글번호</th>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>작성일</th>
-						<th>경조사일</th>
+						<th>사원 명</th>
+						<th>직급</th>
+						<th>부서</th>
+						<th>내선번호</th>
 					</tr>
-					<tr th:if="${nullcheck == true}">
-						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
+					<tr>
+						<td>김사탕</td>
+						<td>부장</td>
+						<td>경영지원팀</td>
+						<td>4050</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${cncList}">
-						<td th:text="${list.cncNo}">번호</td>
-						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
-					<!-- 	<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td> -->
-						<td th:text="${list.registNo.name}">관리자</td>
-						<td th:text="${list.createDate}">2023.01.02</td>
-						<td th:text="${list.eventDate}">2023.01.02</td>
+					<tr>
+						<td>김예시</td>
+						<td>대리</td>
+						<td>예시입니다</td>
+						<td>4050</td>
+					</tr>
+					<tr>
+						<td>김사탕</td>
+						<td>부장</td>
+						<td>경영지원팀</td>
+						<td>4050</td>
 					</tr>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">

@@ -35,7 +35,7 @@
 	    				</tr>
 	    				<tr>
 	    					<td class="flex center">
-	    						<input type="hidden" name="no" value="1">
+	    						<input type="hidden" name="no" th:value="${#authentication.principal.no}">
 								<button class="writer-button">등록</button>
 	    					</td>
 	    				</tr>
