@@ -4,7 +4,15 @@
 <link rel="stylesheet" href="/css/sideMenu/mypage.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
-	<th:block th:insert="~{/layout/sideMenu :: head}" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<style type="text/css">
+.imggg{background-size: 100px;
+	background-size: cover;
+    background-position: center center;
+    display: inline-block;
+    width: 100px;
+    height: 100px;}
+</style>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
@@ -13,52 +21,49 @@
 			<p>사원 상세페이지</p>
 		</div>
 		<table class="mypage-table">
-			<tr><td>사진</td>
-				<td><img src="/image/icon/profile.jpg"></td>
+			<tr>
+				<td>사진</td>
+				<td><img class="imggg" th:style="|background-image: url('${list.imgUrl}');|" ></td>
 			</tr>
 			<tr>
 				<td>사원번호</td>
-				<td>00001</td>
+				<td>[[${list.no}]]</td>
 			</tr>
 			<tr>
-				<td>부서번호</td>
-				<td>02</td>
+				<td>부서이름</td>
+				<td>[[${list.departmentName}]]</td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td>김대리</td>
+				<td>[[${list.name}]]</td>
 			</tr>
 			<tr>
 				<td>이메일</td>
-				<td>test01@test.com</td>
+				<td>[[${list.email}]]</td>
 			</tr>
 			<tr>
 				<td>직급</td>
-				<td>부장</td>
+				<td>[[${list.position}]]</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td>010-9999-0000</td>
+				<td>[[${list.phone}]]</td>
 			</tr>
 			<tr>
 				<td>입사일</td>
-				<td>2022.01.05</td>
-			</tr>
-			<tr>
-				<td>퇴사일</td>
-				<td>2022.01.05</td>
+				<td>[[${list.joinDate}]]</td>
 			</tr>
 			<tr>
 				<td>내선번호</td>
-				<td>4050</td>
+				<td>[[${list.extension}]]</td>
 			</tr>
 			<tr>
 				<td>생년월일</td>
-				<td>1930.02.29</td>
+				<td>[[${list.birthDate}]]</td>
 			</tr>
 			<tr>
 				<td>주업무</td>
-				<td>밥묵기</td>
+				<td>[[${list.mainWork}]]</td>
 			</tr>
 		</table>
 		<div class="back-1">
