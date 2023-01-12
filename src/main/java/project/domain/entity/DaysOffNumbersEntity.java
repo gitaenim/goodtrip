@@ -13,13 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+@DynamicUpdate
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,9 +32,10 @@ public class DaysOffNumbersEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dno", unique = true, nullable = false)
 	private long dno;
 	
-	@JoinColumn(name = "no", unique = true, nullable = false)
+	@JoinColumn(name = "no", nullable = false)
 	@ManyToOne
 	private EmployeesEntity no; //사원번호
 	
@@ -43,7 +45,10 @@ public class DaysOffNumbersEntity implements Serializable{
 	@Column(name = "use_days")
 	private long useDays; //사용일수
 	
-	
+	//public DaysOffNumbersEntity updateUseDays() {
+	//	this.useDays += useDays;
+	//	return this;
+	//}
 
 }
 

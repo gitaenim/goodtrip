@@ -15,5 +15,8 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
 
+	EmployeesEntity findAllByNo(long employeeNo);
+
+
 
 }

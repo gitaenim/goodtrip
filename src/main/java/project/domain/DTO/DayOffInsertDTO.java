@@ -27,21 +27,24 @@ public class DayOffInsertDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate EndDate; //휴가종료일
 	
-	private long useDays; //휴가일수
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
 	
 	private long employeeNo; //사원번호
 	
-	public DayOffEntity toDayOffEntity(DaysOffNumbersEntity use, EmployeesEntity no) {
-		long calc=use.getUseDays()+useDays;
-		System.err.println(calc);
-		use=use.builder().useDays(calc).build();
-		return DayOffEntity.builder()
-				.type(type).reason(reason).startDate(startDate).EndDate(EndDate).useDays(use).draftDate(draftDate).employeeNo(no)
-				.build();
+	private long useDays; //휴가일수
+	
+	public DayOffEntity toDayOffEntity(EmployeesEntity no) {
 		
+		return DayOffEntity.builder()
+				.type(type)
+				.reason(reason)
+				.startDate(startDate)
+				.EndDate(EndDate)
+				.useDays(useDays)
+				.draftDate(draftDate)
+				.employeeNo(no)
+				.build();		
 	}
 	
 }
