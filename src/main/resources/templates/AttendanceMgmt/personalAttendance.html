@@ -8,20 +8,24 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 	<link rel="stylesheet" href="/css/attendance/personal-attendance.css">
 </head>
 <main>
-	<!-- 230104 한아 작성 -->
+	<!-- 230104 한아 작성 230111 안나 thymeleaf 수정 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
 		<section>
 			<div class="">
 				<a href="attendanceList" class="attendance-list"><span></span>전사 근태 리스트</a>
 				<div class="flex center title">
-					<p>[김여행]님 근태 및 휴가</p>
+					<th:block th:each="attListEmp:${attListEmp}">
+						<p>[[${attListEmp.name}]]님 근태 및 휴가</p>
+					</th:block>
 				</div>
 			</div>
 			<div class="flex att-btn">
-				<button><span class="small-circle-selected"></span>근태</button>
-				<button onclick="location.href = 'personalWorkingDay'"><span class="small-circle"></span>근무</button>
-				<button onclick="location.href = 'personalDayOff'"><span class="small-circle"></span>휴가</button>
+				<th:block th:each="attListEmp:${attListEmp}">
+					<button><span class="small-circle-selected"></span>근태</button>
+					<a th:href="|/personalWorkingDay/${attListEmp.no}|"><button><span class="small-circle"></span>근무</button></a>
+					<button onclick="location.href = 'personalDayOff'"><span class="small-circle"></span>휴가</button>
+				</th:block>
 			</div>
 			<div class="flex center back-list">
 				<table class="list-table">
@@ -40,53 +44,17 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>4</td>
-							<td>2023-01-09</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>휴가</td>
+						<tr th:each="attList:${attList}">
+							<td th:text="${attListStat.count}">4</td>
+							<td th:text="${attList.date}">2023-01-09</td>
+							<td th:text="${#temporals.format(attList.clockIn, 'HH:mm:SS')}"></td>
+							<td th:text="${#temporals.format(attList.clockOut, 'HH:mm:SS')}"></td>
+							<td th:text="${attList.workingHour}"></td>
+							<td th:text="${attList.designatedWorkingHour}"></td>
+							<td th:text="${attList.status}">휴가</td>
 							<td>2023-01-09 ~ 2023-01-11</td>
 							<td>3</td>
 							<td>우수사원포상휴가</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>2023-01-06</td>
-							<td>09:01</td>
-							<td>18:49</td>
-							<td>8:48</td>
-							<td>8시간</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>2023-01-04</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>연차</td>
-							<td>2023-01-04 ~ 2023-01-05</td>
-							<td>2</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>2023-01-03</td>
-							<td>07:53</td>
-							<td>18:22</td>
-							<td>9:29</td>
-							<td>8시간</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
 						</tr>
 					</tbody>
 				</table>
