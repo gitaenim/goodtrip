@@ -1,6 +1,7 @@
 package project.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,13 +39,14 @@ public class DailyWorkingHoursEntity {
 	private LocalDateTime date; //날짜
 	
 	@Column(name = "clock_in")
-	private LocalDateTime clockIn; //출근시간
+	private String clockIn; //출근시간
 	
 	@Column(name = "clock_out")
-	private LocalDateTime clockOut; //퇴근시간
+	private String clockOut; //퇴근시간
 	
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호
+
 
 }
