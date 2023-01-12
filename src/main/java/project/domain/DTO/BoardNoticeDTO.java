@@ -22,6 +22,11 @@ public class BoardNoticeDTO {
 }
 
 	
+	public BoardNoticeEntity toEntityForUpdate(long noticeNo, EmployeesEntity registNo) {
+		return BoardNoticeEntity.builder()
+				.noticeNo(noticeNo).title(title).content(content).registNo(registNo)
+				.build();
+	}
 
 
 	}
