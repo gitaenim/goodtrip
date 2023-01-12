@@ -1,6 +1,8 @@
 package project.domain.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +29,7 @@ import lombok.NoArgsConstructor;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,6 +37,8 @@ import project.enums.MyRole;
 @Entity
 @Getter
 //230104 안나 생성
+//230109 한아 수정 : phone, extension 데이터 타입 변경 long -> String
+//230109 한아 수정 : joinDate, resignDate, birthDate 데이터 타입 변경 LocalDateTime -> LocalDate
 public class EmployeesEntity {
 	
 	@Id
@@ -48,24 +55,24 @@ public class EmployeesEntity {
 	@Column(nullable = false)
 	private String password;//비밀번호
 	
-	@Enumerated(EnumType.STRING)//1:N 즉시로딩
+	@Enumerated(EnumType.STRING)
 	private DepartmentRank position;//직급
 	
 	@Column(nullable = true)
-	private long phone;//연락처
+	private String phone;//연락처
 	
 	@Column(name = "join_date")
-	private LocalDateTime joinDate;//입사일
+	private LocalDate joinDate;//입사일
 	
 	@Column(name = "resign_date")
-	private LocalDateTime resignDate;//퇴사일
+	private LocalDate resignDate;//퇴사일
 	
-	private long extension;//내선번호
+	private String extension;//내선번호
 	
 	private long salary;//급여
 	
 	@Column(name = "birth_date")
-	private LocalDateTime birthDate;//생년월일
+	private LocalDate birthDate;//생년월일
 	
 	@Column(name = "main_work")
 	private String mainWork;//주 업무
@@ -76,17 +83,42 @@ public class EmployeesEntity {
 	@JoinColumn(name = "department_no")
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
+
+	//---------------230109 한아 수정---------------
 	
+	//이미지
+	@JoinColumn(name = "image_no", nullable = true)
+	@OneToOne
+	private ImagesEntity imageNo; //이미지번호
+	
+	//직급 position Enum
+	@Builder.Default
+	@CollectionTable(name = "employees_position")
+	@Enumerated(EnumType.STRING) //설정하지 않으면 숫자(ORDINAL)
+	@ElementCollection(fetch = FetchType.EAGER) 
+	private Set<DepartmentRank> positions = new HashSet<>();
+	public EmployeesEntity addposition(DepartmentRank position) { 
+		positions.add(position);
+		return this;
+	}
+	
+	//권한 role Enum
 	@Builder.Default
 	@CollectionTable(name = "my_role")
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(fetch = FetchType.EAGER)
+
 	private Set<MyRole> roles = new HashSet<>();
 
 	//role 적용
 	public EmployeesEntity addRole(MyRole role) {
+
 		roles.add(role);
 		return this;
 	}
 	
+	@Enumerated(EnumType.STRING)
+	private MyRole editAuthority;//수정권한
+	
+
 }

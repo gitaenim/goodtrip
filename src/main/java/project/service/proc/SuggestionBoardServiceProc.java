@@ -35,7 +35,6 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 		if (list.isEmpty()) {
 			nullcheck = true;
 		}
-
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("suggestionList", list);
 	}

@@ -12,7 +12,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form action="#">
+		<form action="/dayoff" method="post">
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
@@ -38,7 +38,7 @@
 				</table>
 				<table id="table-2">
 					<tr>
-						<td colspan="3">결제라인</td>
+						<td colspan="3">결재라인</td>
 					</tr>
 					<tr>
 						<td>기안자</td>
@@ -54,25 +54,29 @@
 			</section>
 			<table id="table-3">
 				<tr>
-					<td>휴가종류</td>
-					<td><select name="select"><option value="연차">연차</option>
+					<td>휴가 종류</td>
+					<td>
+						<select name="type">
+							<option value="연차">연차</option>
 							<option value="경조사">경조사</option>
 							<option value="공가">공가</option>
 							<option value="병가">병가</option>
-							<option value="출산휴가">출산휴가</option></select></td>
+							<option value="출산휴가">출산휴가</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
 					<td><input type="date" name="startDate"> - <input
-						type="date" name="endDate"></td>
+						type="date" name="EndDate"></td>
 				</tr>
 				<tr>
 					<td>연차 일수</td>
-					<td>신청연차 : <input name="useDate" type="number"></td>
+					<td>신청연차 : <input name="useDays" type="number" min="0"></td>
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128" name="content"
+					<td><textarea rows="10" cols="128" name="reason"
 							placeholder="휴가 사유를 입력해주세요"></textarea></td>
 				</tr>
 				<tr>
@@ -83,6 +87,10 @@
 					</td>
 				</tr>
 			</table>
+			<ul class="btn-day-off flex">
+				<li><input type="hidden" th:name="employeeNo" th:value="${#authentication.principal.no}"><button>신청하기</button></li>
+				<li><a href="/myDayOff">뒤로가기</a></li>
+			</ul>
 		</form>
 	</div>
 </main>

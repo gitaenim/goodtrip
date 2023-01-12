@@ -60,7 +60,7 @@
 				<tr th:if="${nullcheck == true}" class="table-tr2">
 					<td colspan="5">해당 게시글에는 댓글이 없습니다</td>
 				</tr>
-				<tr th:if="${nullcheck == false}" th:each="replyList : ${list}" class="table-tr2">
+				<tr th:if="${nullcheck == false}" th:each="list : ${replyList}  " class="table-tr2">
 					<td th:text="${list.suggestNo.suggestNo}">1</td>
 					<td th:text="${list.replySuggestNo}">1</td>
 					<td th:text="${list.registNo.name}">수민</td>
@@ -68,7 +68,7 @@
 					<td th:text="${list.createDate}">23.01.03</td>
 				</tr>
 			</table>
-			<div>
+			<div sec:authorize="isAuthenticated()">
 				<p>댓글 쓰기</p>
 				<form action="/ReplySuggestionWrite" method="post">
 				<div class="table-2">

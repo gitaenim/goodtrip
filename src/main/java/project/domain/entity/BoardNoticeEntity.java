@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "board_suggestions")
+@Table(name = "board_notices")
 @Entity
 @Getter
 //230104 안나 생성
@@ -31,8 +31,8 @@ public class BoardNoticeEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "suggest_no", unique = true, nullable = false)
-	private long suggestNo; //글번호
+	@Column(name = "notice_no", unique = true, nullable = false)
+	private long noticeNo; //글번호
 	
 	@JoinColumn(name = "regist_no", nullable = false)
 	@ManyToOne
@@ -48,4 +48,6 @@ public class BoardNoticeEntity {
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate; //작성일
 
+
 }
+

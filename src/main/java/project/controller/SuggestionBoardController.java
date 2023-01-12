@@ -39,7 +39,7 @@ public class SuggestionBoardController {
 	@PostMapping("/Board/suggestionWrite")
 	public String suggestionWriting(BoardSuggestionsDTO dto) {
 		suggestionservice.save(dto);
-		return "Board/suggestionList";
+		return "redirect:/Board/suggestionList";
 	}
 
 	// 건의사항 게시글에서 제목이 눌렀을 경우 해당 게시글 상세 페이지로 이동
@@ -52,13 +52,6 @@ public class SuggestionBoardController {
 		// 해당 게시글의 댓글정보를 가져오는 기능
 		replySuggestionService.findAllList(suggestNo, model);
 
-		return "Board/suggestionDetail";
-	}
-
-	// 임시 건의사항 조회 페이지
-
-	@GetMapping("/Board/suggestionDetail")
-	public String suggestionDetail() {
 		return "Board/suggestionDetail";
 	}
 
