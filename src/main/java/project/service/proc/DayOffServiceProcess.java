@@ -6,8 +6,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import project.domain.DTO.DayOffInsertDTO;
+import project.domain.DTO.DayOffListDTO;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 import project.domain.entity.EmployeesEntity;
@@ -57,6 +59,10 @@ public class DayOffServiceProcess implements DayOffService {
 		daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
 				.dno(use.getDno()).useDays(tot).totalDays(15).no(emp).build());
 	}
+
+	
+
+	
 	
 }
 
