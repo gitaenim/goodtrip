@@ -1,5 +1,6 @@
 package project.service.proc;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import project.domain.DTO.EmployeesInsertDTO;
+import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
 import project.domain.repository.EmployeesEntityRepository;
 import project.domain.repository.ImagesEntityRepository;
@@ -17,25 +19,12 @@ import project.utils.MyFileUtils;
 
 @Service
 public class EmployeesServiceProcess implements EmployeesService {
-	/* 230106 한아 작성 */
 
+	/* 230106 한아 작성 */
+	/* 230110 문대현 수정*/
 	
-	//이미지 temp 폴더 지정
-	@Value("${file.location.temp}")
-	private String tempUpload; //파일 업로드 위치
-	
-	//이미지 upload 폴더 지정
-	@Value("${file.location.upload}")
-	private String upload;
-	
-	//직원 이미지 temp 업로드
-	@Override
-	public Map<String, String> fileTempUpload(MultipartFile gimg) {
-		return MyFileUtils.fileUpload(gimg, tempUpload);
-	}
-	
-	
-	
+	@Autowired
+	private MyFileUtils utils;
 	@Autowired
 	private EmployeesEntityRepository employeesRepository;
 	@Autowired
@@ -43,17 +32,36 @@ public class EmployeesServiceProcess implements EmployeesService {
 	@Autowired
 	private PasswordEncoder pe;
 
-	//직원 등록, 이미지 정보 등록, temp->실제 upload위치로 이동
+	private String tempPath = "employees/temp/";
+	private String uploadPath = "employees/upload/";
+
+	// 직원 이미지 AWS S3 Employee/temp 업로드
+	@Override
+	public Map<String, String> fileTempUpload(MultipartFile gimg) {
+
+		return utils.store(tempPath, gimg);
+	}
+
+	// 직원 등록, 이미지 정보 등록, S3 내에 temp->실제 upload위치로 이동
 	@Override
 	public void save(EmployeesInsertDTO dto) {
-		//dto.toImagesEntity(upload).forEach(imgReposiroty::save);
-		ImagesEntity imgs = imgReposiroty.save(dto.toImageEntity(upload));
-		long imgNo = imgs.getImageNo();
-		System.out.println("이미지번호 가져와지나? "+imgNo);
-		employeesRepository.save(dto.toEntity(pe, imgNo));
 		
+		//S3내 Temp 파일 upload파일로 복사후 Temp 파일에 있는 이미지는 삭제
+		//위의 과정 처리 후 해당 파일의 url 주소 반환(외부 접근 가능)
+		String url = utils.upload(uploadPath, dto.getImgkey(), dto.getNewName());
+		
+		//ImgesEntity에 저장할 데이터를 생성
+		ImagesEntity imgs = dto.toImageEntity(uploadPath, url);
+		imgReposiroty.save(imgs);
+		employeesRepository.save(dto.toEntity(pe, imgs));
+
 	}
-	
-	
+	//캘린더에서 사용할 임직원 정보 조회 기능 
+	//임직원 정보를 모두 검색한후 리스트 형식으로 반환
+	@Override
+	public List<EmployeesEntity> findAll() {
+		List<EmployeesEntity> list = employeesRepository.findAll();
+		return list;
+	}
 
 }

@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.LastModified;
 
 import lombok.Data;
+import lombok.ToString;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
@@ -20,7 +22,9 @@ import project.utils.MyFileUtils;
 
 @Data
 public class EmployeesInsertDTO {
+
 	/* 230109 한아 작성 */
+	/* 20230110 문대현 수정 */
 	
 	private String name;//이름
 	private String email;//이메일
@@ -35,17 +39,17 @@ public class EmployeesInsertDTO {
 	private String mainWork;//주 업무
 	private long departmentNo; //부서번호
 	
-	private String oldName;
-	private String newName;
+	private String oldName; //원본 이미지 파일이름
+	private String newName;	//새로운 이미지 파일이름
+	private String imgkey; //S3 내 임시 파일 경로
 	
 	private MyRole edit_authority;
 	
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	//employee 저장
-	public EmployeesEntity toEntity(PasswordEncoder pe, long imgNo) {
-		//System.out.println(birthDate);
-		System.out.println("직원 저장 속 이미지 번호 "+imgNo);
+	public EmployeesEntity toEntity(PasswordEncoder pe, ImagesEntity imgNo) {
+
 		edit_authority = departmentNo==3 ? MyRole.PERSONALMANAGER : MyRole.EMPLOYEE;
 		
 		return EmployeesEntity.builder()
@@ -60,25 +64,22 @@ public class EmployeesInsertDTO {
 				.extension(extension)
 				.joinDate(LocalDate.parse(joinDate, formatter))
 				.salary(salary)
-				.imageNo(ImagesEntity.builder().imageNo(imgNo).build())
+				.imageNo(imgNo)
 				.editAuthority(edit_authority)
 				.build()
 				.addposition(position)
 				.addRole(edit_authority);
 	}
 
-	public ImagesEntity toImageEntity(String url) {
-		
-		//temp 폴더에서 상위폴더인 upload로 이동시킴
-		MyFileUtils.moveUploadLocationFromTemp(newName, url);
+	//이미지 데이터 저장 편의 메서드
+	public ImagesEntity toImageEntity(String uploadPath, String url) {
 		
 		return ImagesEntity.builder()
-				.url(url)
-				.oldName(oldName)
-				.newName(newName)
+				.url(url) //실제 데이터 경로(외부 적근 가능)
+				.imgkey(uploadPath+newName) //S3내에 업로드한 이미지 파일 최종 위치
+				.oldName(oldName) //원본 파일 이름
+				.newName(newName) //새로운 파일 이름
 				.build();
-		
-		
 	}
 
 	

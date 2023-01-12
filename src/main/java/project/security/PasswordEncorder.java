@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class PasswordEncorder {
 	
+	/* 20230109 문대현 생성 */
+	
 	  @Bean
 	  PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();

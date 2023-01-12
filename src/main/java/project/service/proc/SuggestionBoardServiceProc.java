@@ -15,6 +15,8 @@ import project.service.SuggestionBoardService;
 
 @Service
 public class SuggestionBoardServiceProc implements SuggestionBoardService {
+	
+	/* 20230110 문대현 생성 */
 
 	@Autowired
 	BoardSuggestionsEntityRepository suggestionsRepository;
