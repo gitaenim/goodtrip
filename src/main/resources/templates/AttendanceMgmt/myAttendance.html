@@ -8,7 +8,7 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 	<link rel="stylesheet" href="/css/attendance/my-attendance.css">
 </head>
 <main>
-	<!-- 230104 한아 작성 -->
+	<!-- 230104 한아 작성 230111 안나 thymeleaf 수정 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
 		<section>
@@ -17,7 +17,7 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 			</div>
 			<div class="flex att-btn">
 				<button><span class="small-circle-selected"></span>근태</button>
-				<button onclick="location.href = 'myWorkingDay'"><span class="small-circle"></span>근무</button>
+				<a><button onclick="location.href = 'myWorkingDay'"><span class="small-circle"></span>근무</button>
 				<button onclick="location.href = 'myDayOff'"><span class="small-circle"></span>휴가</button>
 			</div>
 			<div class="flex center back-list">
@@ -31,59 +31,23 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 							<th>일근무시간</th>
 							<th>지정근무시간</th>
 							<th>근태항목</th>
-							<th>근태기간</th>
-							<th>근태일수</th>
+							<th>휴가기간</th>
+							<th>휴가일수</th>
 							<th>적요</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>4</td>
-							<td>2023-01-09</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>휴가</td>
+						<tr th:each="myAttList:${myAttList}">
+							<td th:text="${myAttListStat.count}">4</td>
+							<td th:text="${myAttList.date}">2023-01-09</td>
+							<td th:text="${#temporals.format(myAttList.clockIn, 'HH:mm:SS')}"></td>
+							<td th:text="${#temporals.format(myAttList.clockOut, 'HH:mm:SS')}"></td>
+							<td th:text="${myAttList.workingHour}"></td>
+							<td th:text="${myAttList.designatedWorkingHour}"></td>
+							<td th:text="${myAttList.status}">휴가</td>
 							<td>2023-01-09 ~ 2023-01-11</td>
 							<td>3</td>
 							<td>우수사원포상휴가</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>2023-01-06</td>
-							<td>09:01</td>
-							<td>18:49</td>
-							<td>8:48</td>
-							<td>8시간</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>2023-01-04</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>연차</td>
-							<td>2023-01-04 ~ 2023-01-05</td>
-							<td>2</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>2023-01-03</td>
-							<td>07:53</td>
-							<td>18:22</td>
-							<td>9:29</td>
-							<td>8시간</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
 						</tr>
 					</tbody>
 				</table>
