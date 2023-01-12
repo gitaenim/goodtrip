@@ -26,90 +26,85 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 			<p class="Eva-logo">인사평가</p>
 		</div>
 		<div class="flex center Eva-2">
-			<form>
-				평가 대상자:
-				<select>
-				    <option>사원명</option>
-				    <option>김사원</option>
-				    <option>김사원</option>
-				    <option>김사원</option>
-				    <option>김사원</option>
-				</select>
-			</form>
+			<span class="Eva-span1">평가대상자:</span>
+			<span class="Eva-span2">멍멍</span>
 		</div>
+			<a class="flex right back-1" href="/personnelEvaList">뒤로가기</a>
 		<div class="wrap flex center Eva-3">
 			<form name=score method=POST>
-				<p>주 업무 수행에 필요한 필수직업능력의 준비도</p>
-				<div class="wrap flex center Eva-4">
-					<select class="Eva-select" size="1" name="select1" onChange="assessment()">
-					    <option value="0">선택하세요</option>
-					    <option value="1">매우 낮음</option>
-					    <option value="2">낮음</option>
-					    <option value="3">보통</option>
-					    <option value="4">높음</option>
-					    <option value="5">매우 높음</option>
-					</select><br>
-				</div>
-				<hr>
-				<p>주 업무의 독자적인 수행능력</p>
-				<div class="wrap flex center Eva-4">
-					<select size="1" name="select2" onChange="assessment()">
-						<option value="0">선택하세요</option>
-					    <option value="1">매우 낮음</option>
-					    <option value="2">낮음</option>
-					    <option value="3">보통</option>
-					    <option value="4">높음</option>
-					    <option value="5">매우 높음</option>
-					</select><br>
-				</div>
-				<hr>
-				<p>부수업무 수행력</p>
-				<div class="wrap flex center Eva-4">
-					<select size="1" name="select3" onChange="assessment()">
-					    <option value="0">선택하세요</option>
-					    <option value="1">매우 낮음</option>
-					    <option value="2">낮음</option>
-					    <option value="3">보통</option>
-					    <option value="4">높음</option>
-					    <option value="5">매우 높음</option>
-					</select><br>
-				</div>
-				<hr>
-				<p>부수업무 수행력</p>
-				<div class="wrap flex center Eva-4">
-					<select size="1" name="select4" onChange="assessment()">
-					    <option value="0">선택하세요</option>
-					    <option value="1">매우 낮음</option>
-					    <option value="2">낮음</option>
-					    <option value="3">보통</option>
-					    <option value="4">높음</option>
-					    <option value="5">매우 높음</option>
-					</select><br>
-				</div>
-				<hr>
-				<p>부수업무 수행력</p>
-				<div class="wrap flex center Eva-4">
-					<select size="1" name="select5" onChange="assessment()">
-					    <option value="0">선택하세요</option>
-					    <option value="1">매우 낮음</option>
-					    <option value="2">낮음</option>
-					    <option value="3">보통</option>
-					    <option value="4">높음</option>
-					    <option value="5">매우 높음</option>
-					</select><br>
-				</div>
-				<hr>
+				<table class="Eva-table">
+					<tr>
+						<th>주 업무 수행에 필요한 필수직업능력의 준비도</th>
+						<th><select class="Eva-select" size="1" name="select1" onChange="assessment()">
+						    <option value="0">선택하세요</option>
+						    <option value="1">매우 낮음</option>
+						    <option value="2">낮음</option>
+						    <option value="3">보통</option>
+						    <option value="4">높음</option>
+						    <option value="5">매우 높음</option>
+						</select>
+						</th>
+					</tr>
+					<tr>
+						<th>주 업무의 독자적인 수행능력</th>
+						<th><select class="Eva-select" size="1" name="select2" onChange="assessment()">
+						    <option value="0">선택하세요</option>
+						    <option value="1">매우 낮음</option>
+						    <option value="2">낮음</option>
+						    <option value="3">보통</option>
+						    <option value="4">높음</option>
+						    <option value="5">매우 높음</option>
+						</select>
+						</th>
+					</tr>
+					<tr>
+						<th>부수업무 수행력</th>
+						<th><select class="Eva-select" size="1" name="select3" onChange="assessment()">
+						    <option value="0">선택하세요</option>
+						    <option value="1">매우 낮음</option>
+						    <option value="2">낮음</option>
+						    <option value="3">보통</option>
+						    <option value="4">높음</option>
+						    <option value="5">매우 높음</option>
+						</select>
+						</th>
+					</tr>
+					<tr>
+						<th>하루 여가시간</th>
+						<th><select class="Eva-select" size="1" name="select4" onChange="assessment()">
+						    <option value="0">선택하세요</option>
+						    <option value="1">매우 낮음</option>
+						    <option value="2">낮음</option>
+						    <option value="3">보통</option>
+						    <option value="4">높음</option>
+						    <option value="5">매우 높음</option>
+						</select>
+						</th>
+					</tr>
+						<tr>
+						<th>하루 식사량</th>
+						<th><select class="Eva-select" size="1" name="select5" onChange="assessment()">
+						    <option value="0">선택하세요</option>
+						    <option value="1">매우 낮음</option>
+						    <option value="2">낮음</option>
+						    <option value="3">보통</option>
+						    <option value="4">높음</option>
+						    <option value="5">매우 높음</option>
+						</select>
+						</th>
+					</tr>
+					</table>
 			<div class="wrap flex center Eva-all">
-				총점<input type=text name=rescore size=2 value =>점<br>
-			</div>
-			<div class="wrap flex center Eva-reset">
-				<input type=reset value="리셋">
-			</div>
-			<div class="wrap flex center Eva-store">
-				<input type="button" value="평가하기">
+				총점&nbsp;<input type=text name=rescore size=2 disabled value =>&nbsp;점
+			</div>	
+			<div class="wrap flex center Eva-button">
+					<input type=reset value="리셋">
+				<div class="Eva-button2">
+					<input type="button" value="평가하기">
+				</div>
 			</div>
 		</form>
-	</div>
+		</div>
 	</div>
 </main>
 </html>

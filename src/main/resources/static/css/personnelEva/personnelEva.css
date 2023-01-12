@@ -1,7 +1,6 @@
 @charset "UTF-8";
-hr{
-	height: 1px;
- 	background-color: #4b99da;
+.right {
+	justify-content: flex-end;
 }
 .Eva-1{
 	padding: 1.5em;
@@ -15,23 +14,48 @@ hr{
     color: white;
 }
 .Eva-2{
-	padding-top: 20px;
+	padding: 20px;
 }
-.Eva-3{
-	padding-top: 3em;
-	width: 400px;
+.Eva-span1{
+	font-size: 16px;
+	color: #817e83;
+	font-weight: 600;
 }
-.Eva-3 form p{
-	text-align:center;
-	padding-bottom: 10px;
+.Eva-span2{
+	padding-left: 10px;
 }
-
-.Eva-reset{
+.Eva-table{
 	padding: 10px;
+	border-collapse: collapse;
+	
+}
+.Eva-table tr th{
+	padding: 1.5em;
+	border: 3px solid  #bbbbbb;
 }
 .Eva-all{
-	padding-top: 10px;
+	padding-top: 3em;
 }
-.Eva-4{
-	padding-bottom: 10px;
+.Eva-button{
+	padding-top: 3em;
+}
+.Eva-button input{
+	background: #4b99da;
+	padding: 10px;
+	border:none;
+	border-radius: 25px;
+	color: #f0f0f0;
+	font-weight: 600;
+	font-size: 16px;
+}
+.Eva-button2{
+	padding-left: 10px;
+}
+th select option, div input{
+	text-align: center;
+}
+
+.back-1{
+	 padding-bottom: 10px;
+	 color: #4b99da;
 }

@@ -15,22 +15,22 @@
    				<p>경조사</p>
    			</div>
 	   		<div class="writer-back">
-	    		<form action="/Board/cncWrite" method="post">
+	    		<form action="/Board/cncWrite" id="CNC_form" method="post">
 	    			<table class="writer-2">
 	    				<tr>
 	    					<td class="writer-title">
-	    						<input type="text" name="title" placeholder="제목입력">
+	    						<input type="text" id="title" name="title" placeholder="제목입력">
 	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td class="writer-date">
 	    						<a>경조사일</a>
-	    						<input type="date" name="eventDate" value="xxx" min="yyy" max="zzz">
+	    						<input type="date" id="CNCdate" name="eventDate" value="xxx" min="yyy" max="zzz">
 	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td class="writer-content">
-	    						<textarea rows="20" cols="50" name="content" placeholder="내용을 입력하세요"></textarea>
+	    						<textarea rows="20" cols="50" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
 	    					</td>
 	    				</tr>
 	    				<tr>
