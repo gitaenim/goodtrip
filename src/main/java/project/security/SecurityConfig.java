@@ -17,7 +17,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(
 
 				authorize -> authorize
-					.antMatchers("/js/**", "/images/**", "/css/**", "/","/**")
+					.antMatchers("/js/**", "/image/**", "/css/**")
 					.permitAll() // 허용해야하는 url
 					.anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin

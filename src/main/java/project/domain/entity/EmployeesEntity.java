@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +29,7 @@ import lombok.NoArgsConstructor;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
-
+@DynamicUpdate
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
