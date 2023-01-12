@@ -14,6 +14,7 @@ import project.service.EmployeesService;
 
 @Controller
 public class EmployeesController {
+	
 	/* 230106 한아 작성 */
 	
 	@Autowired
@@ -31,7 +32,6 @@ public class EmployeesController {
 	//신입 사원 등록
 	@PostMapping("/employees/reg")
 	public String employeesReg(EmployeesInsertDTO dto) {
-		System.out.println(dto);
 		service.save(dto);
 		return "organization/regist";
 		

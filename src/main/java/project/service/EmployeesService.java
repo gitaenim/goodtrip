@@ -1,10 +1,12 @@
 package project.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import project.domain.DTO.EmployeesInsertDTO;
+import project.domain.entity.EmployeesEntity;
 
 public interface EmployeesService {
 	/* 230106 한아 작성 */
@@ -12,5 +14,7 @@ public interface EmployeesService {
 	Map<String, String> fileTempUpload(MultipartFile gimg);
 
 	void save(EmployeesInsertDTO dto);
+
+	List<EmployeesEntity> findAll();
 
 }

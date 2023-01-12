@@ -20,8 +20,12 @@ public class logController {
 	@GetMapping("/loginInfo/{info}")
 	public void loginInfo(@PathVariable long info, Model model) {
 
+	}
 	@GetMapping("/")
 	public String home() {
 		return "/index";
 	}
+
+	
+	
 }

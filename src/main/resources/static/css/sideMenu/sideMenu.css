@@ -106,3 +106,8 @@ header>.wrap ul>li dl>dd {
 main {
 	padding-left: 241px;
 }
+.employeesImg{
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
