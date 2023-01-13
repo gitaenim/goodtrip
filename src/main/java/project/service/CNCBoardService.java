@@ -16,6 +16,8 @@ public interface CNCBoardService {
 
 	void delete(long cncNo);
 
+	void updateProc(long cncNo, BoardCNCDTO cdto);
+
 
 
 }

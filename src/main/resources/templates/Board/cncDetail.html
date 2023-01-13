@@ -7,16 +7,36 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
+ <script type="text/javascript">
+    $(function(){
+    	$("#btn-edit").click(editMode);
+    	$("#btn-cancel").click(function(){
+    		$("#edit-mode").hide();
+        	$("#def-mode").show();
+    	});
+    });
+   
+    
+    function editMode(){
+    	$("#edit-mode").show();
+    	$("#def-mode").hide();
+    }
+    
+    </script>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
    	<div class="detail-1">
    		<p>조회</p>
-	    			<form th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
-						<input type="hidden" name="_method" value="DELETE">
-						<button class="bu-a" id="btn-cancel">삭제</button>
-					</form>
-   		<form>
+   			<form th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
+				<input type="hidden" name="_method" value="DELETE">
+				<button class="bu-a" id="btn-cancel">삭제</button>
+			</form>
+			<span th:if="${#authentication.name == cncDetail.registNo.name}">
+    				<button type="button" id="btn-edit">수정</button>
+    			</span>
+			
+   		<form id="edit-mode" th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
    			<div>   			
    				<table class="detail-table table-1" border="1" >
 	    			<tr>

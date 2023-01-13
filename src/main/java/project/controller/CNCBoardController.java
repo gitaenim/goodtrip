@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import project.domain.DTO.BoardCNCDTO;
@@ -45,10 +46,17 @@ public class CNCBoardController {
 		CNCservice.detail(cncNo, model);
 		return "Board/cncDetail";
 	}
-
+	//경조사 게시글 삭제
 	@DeleteMapping("/Board/cncList/{cncNo}")
 	public String delete(@PathVariable long cncNo) {
 		CNCservice.delete(cncNo);
 		return "redirect:/Board/cncList";
+	}
+	
+	//경조사 게시글 수정
+	@PutMapping("/Board/cncList/{cncNo}")                 //setter 있어야함.
+	public String update(@PathVariable long cncNo, BoardCNCDTO cdto) {
+		CNCservice.updateProc(cncNo, cdto);
+		return "redirect:/Board/cncList/{cncNo}";
 	}
 }
