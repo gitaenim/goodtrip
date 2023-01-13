@@ -12,6 +12,10 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
    	<div class="detail-1">
    		<p>조회</p>
+	    			<form th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="bu-a" id="btn-cancel">삭제</button>
+					</form>
    		<form>
    			<div>   			
    				<table class="detail-table table-1" border="1" >

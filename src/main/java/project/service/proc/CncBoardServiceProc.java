@@ -59,6 +59,11 @@ public class CncBoardServiceProc implements CNCBoardService {
 		//model.addAttribute("cncDetail", date);
 		model.addAttribute("cncDetail", entityData);
 	}
+
+	@Override
+	public void delete(long cncNo) {
+		CNCRepository.deleteById(cncNo);
+	}
 	
 	
 

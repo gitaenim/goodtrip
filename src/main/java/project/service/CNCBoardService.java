@@ -14,6 +14,8 @@ public interface CNCBoardService {
 
 	void detail(long cncNo, Model model);
 
+	void delete(long cncNo);
+
 
 
 }

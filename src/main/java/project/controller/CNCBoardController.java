@@ -4,7 +4,9 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -43,10 +45,10 @@ public class CNCBoardController {
 		CNCservice.detail(cncNo, model);
 		return "Board/cncDetail";
 	}
-	
-	//임시 경조사 조회 페이지!
-	@GetMapping("/Board/cncDetail")
-    public String CNCDetail() {
-        return "Board/cncDetail";
-    }
+
+	@DeleteMapping("/Board/cncList/{cncNo}")
+	public String delete(@PathVariable long cncNo) {
+		CNCservice.delete(cncNo);
+		return "redirect:/Board/cncList";
+	}
 }
