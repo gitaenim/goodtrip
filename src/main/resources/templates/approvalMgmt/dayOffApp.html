@@ -54,19 +54,19 @@
 			<table id="table-3">
 				<tr>
 					<td>휴가 종류</td>
-					<td></td>
+					<td>[[${result.type}]]</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
-					<td></td>
+					<td>[[${result.startDate}]] ~ [[${result.EndDate}]]</td>
 				</tr>
 				<tr>
 					<td>휴가 일수</td>
-					<td>신청일수 : </td>
+					<td>신청일수 : [[${result.useDays}]]</td>
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128"></textarea></td>
+					<td><textarea rows="10" cols="128" readonly="readonly">[[${result.reason}]]</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
