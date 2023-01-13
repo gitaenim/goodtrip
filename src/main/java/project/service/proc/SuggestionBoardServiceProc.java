@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import project.domain.DTO.BoardSuggestionsDTO;
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.ReplySuggestionsEntity;
 import project.domain.repository.BoardSuggestionsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
+import project.domain.repository.ReplySuggestionsEntityRepository;
+import project.service.ReplySuggestionService;
 import project.service.SuggestionBoardService;
 
 @Service
@@ -23,6 +26,9 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 
 	@Autowired
 	EmployeesEntityRepository employeesRepository;
+	
+	@Autowired
+	ReplySuggestionService replySuggestionService;
 
 	// 건의사항 게시글 리스트페이지에 출력할 모든 데이터 조회 서비스
 	@Override
@@ -52,13 +58,46 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 		suggestionsRepository.save(dto.toEntityForSave(emp));
 	}
 	
-	// 건의사항 디테일 데이터 조회하는 서비스
+	// 건의사항 게시글 내용 업데이트 기능
+		@Override
+		public void update(BoardSuggestionsDTO dto, long suggestNo) {
+			
+			// 사번으로 사원정보 조회
+			EmployeesEntity emp = employeesRepository.findById(dto.getNo()).orElseThrow();
+			
+			// 업데이트 기능
+			suggestionsRepository.save(dto.toEntityForUpdate(suggestNo, emp));
+		}
+	
+	// 건의사항 디테일 페이지 데이터 조회하는 서비스
 	@Override
 	public void detail(long suggestNo, Model model) {
 		
+		// 게시글번호로 해당 게시글 정보 조회
 		BoardSuggestionsEntity entityData = suggestionsRepository.findById(suggestNo).orElseThrow();
 		
 		model.addAttribute("suggestionDetail", entityData);
 	}
+
+	// 건의사항 게시글 삭제 기능
+	@Override
+	public void delete(long suggestNo) {
+		
+		// 게시글 번호로 게시글 정보 조회
+		BoardSuggestionsEntity suggestions = suggestionsRepository.findById(suggestNo).orElseThrow();
+		
+		// 조회된 게시글 번호로 해당 게시글을 참조하고 있는 모든 댓글리스트를 조회
+		List<ReplySuggestionsEntity> reply = replySuggestionService.findBySuggestNo(suggestions);
+	
+		// 해당 게시글의 댓글리스트를 모두 삭제해 주는 기능
+		for (ReplySuggestionsEntity list : reply) {
+			replySuggestionService.deleteById(list.getReplySuggestNo());
+		}
+		
+		// 해당 게시글을 삭제
+		suggestionsRepository.deleteById(suggestNo);
+	}
+
+	
 
 }

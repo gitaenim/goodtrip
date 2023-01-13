@@ -9,17 +9,12 @@
 <script src="/js/sideMenu/sideMenu.js"></script>
 </head>
 <header>
-	<div class="wrap">
+	<div class="wrap" id="calendarOnlyUse">
 		<input sec:authorize="isAuthenticated()" type="hidden" th:id="userID"
 			th:value="${#authentication.principal.no}">
 		<ul class="menuForm">
 			<li><a href="/" class="logoImg"> <!-- 로고이미지 -->
 			</a></li>
-			<li sec:authorize="isAnonymous()" class="employeesImg">[사원 사진 넣을
-				곳]</li>
-			<li sec:authorize="isAnonymous()">[이름]/[사번]</li>
-			<li sec:authorize="isAnonymous()">[담당부서]/[직급]</li>
-			<li sec:authorize="isAnonymous()"><a href="/login">로그인</a></li>
 			<li sec:authorize="isAuthenticated()" class="employeesImg"
 				th:style="|background-image: url('${#authentication.principal.imageNo.url}');|">
 				<!--[사원 사진 넣을 곳]-->

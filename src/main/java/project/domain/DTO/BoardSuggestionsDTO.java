@@ -1,5 +1,7 @@
 package project.domain.DTO;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.EmployeesEntity;
@@ -36,8 +38,10 @@ public class BoardSuggestionsDTO {
 	 * @return Update를 수행할 BoardSuggestionsEntity 타입 반환
 	 */
 	public BoardSuggestionsEntity toEntityForUpdate(long suggestNo, EmployeesEntity registNo) {
+		LocalDateTime today = LocalDateTime.now();
+		
 		return BoardSuggestionsEntity.builder()
-				.suggestNo(suggestNo).title(title).content(content).registNo(registNo)
+				.suggestNo(suggestNo).title(title).content(content).registNo(registNo).createDate(today)
 				.build();
 	}
 }

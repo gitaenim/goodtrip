@@ -41,7 +41,15 @@ public class SuggestionBoardController {
 		suggestionservice.save(dto);
 		return "redirect:/Board/suggestionList";
 	}
-
+	
+	// 건의사항 내용 수정 기능
+	@PostMapping("/suggestionEdit")
+	public String suggestionEdit(BoardSuggestionsDTO dto, long suggestNo, RedirectAttributes redirectAttributes) {
+		suggestionservice.update(dto,suggestNo);
+		redirectAttributes.addAttribute("suggestNo", suggestNo);
+		return "redirect:/suggestDetail";
+	}
+	
 	// 건의사항 게시글에서 제목이 눌렀을 경우 해당 게시글 상세 페이지로 이동
 	@GetMapping("/suggestDetail")
 	public String suggestDetail(@RequestParam long suggestNo, Model model) {
@@ -54,15 +62,43 @@ public class SuggestionBoardController {
 
 		return "Board/suggestionDetail";
 	}
+	
+	// 건의사항 게시글 삭제 기능
+	@PostMapping("/boardDelete")
+	public String boardDelete(long suggestNo) {
+		suggestionservice.delete(suggestNo);
+		return "redirect:/Board/suggestionList";
+	}
 
 	///// 댓글관련 //////
 
 	// 댓글 작성시 저장 후 해당 게시글의 디테일 페이지로 리다이렉트
 	@PostMapping("/ReplySuggestionWrite")
 	public String ReplySuggestionWrite(ReplySuggestionsDTO dto, RedirectAttributes redirect) {
-		replySuggestionService.save(dto);
-		redirect.addAttribute("suggestNo", dto.getSuggestNo());
+		
+		replySuggestionService.save(dto); // 댓글 저장 기능
+		redirect.addAttribute("suggestNo", dto.getSuggestNo()); // 리다이렉트 시에 데이터를 넘겨주는 기능
+		
 		return "redirect:/suggestDetail";
 	}
-
+	
+	// 댓글 내용 업데이트 완료 후 해당 게시글의 디테일 페이지로 리다이렉트
+	@PostMapping("/suggestionReplyEdit")
+	public String suggestionReplyEdit(ReplySuggestionsDTO dto, long replySuggestNo, RedirectAttributes redirectAttributes) {
+		
+		replySuggestionService.update(dto,replySuggestNo); // 댓글 업데이트 기능
+		redirectAttributes.addAttribute("suggestNo", dto.getSuggestNo()); // 리다이렉트 시에 데이터를 넘겨주는 기능
+		
+		return "redirect:/suggestDetail";
+	}
+	
+	//댓글 삭제 후 해당 게시글의 디테일 페이지로 리다이렉트
+	@PostMapping("/suggestionReplyDelete")
+	public String suggestionReplyDelete(long replySuggestNo, long suggestNo, RedirectAttributes redirectAttributes) {
+		
+		replySuggestionService.deleteById(replySuggestNo); // 댓글 삭제 기능
+		redirectAttributes.addAttribute("suggestNo", suggestNo); // 리다이렉트 시에 데이터를 넘겨주는 기능
+		
+		return "redirect:/suggestDetail";
+	}
 }
