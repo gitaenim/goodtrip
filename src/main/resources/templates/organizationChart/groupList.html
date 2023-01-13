@@ -16,17 +16,20 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			<div class="flex center">
 				<a href="/ozc/groupList">조직도</a>
 			</div>
-		<form class="flex center group-form" >
-	      <select id="department" onchange="departmentClicked()">
-	        <option selected value="0">전체</option>
-	        <option th:value="1">총무부</option>
-	        <option th:value="2">영업부</option>
-	        <option th:value="3">인사부</option>
-	        <option th:value="4">기획부</option>
-	        <option th:value="5">회계부</option>
-	        <option th:value="6">개발부</option>
-	      </select>
-	    </form>
+			<div class="wrap-1">
+				<form class="flex center group-form" >
+			      <select id="department" onchange="departmentClicked()">
+			        <option selected value="0">전체</option>
+			        <option th:value="1">총무부</option>
+			        <option th:value="2">영업부</option>
+			        <option th:value="3">인사부</option>
+			        <option th:value="4">기획부</option>
+			        <option th:value="5">회계부</option>
+			        <option th:value="6">개발부</option>
+			      </select>
+			    </form>
+			    <a class="retired" href="/ozc/groupList/retirement">퇴직한 사원 조회</a>
+		    </div>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">

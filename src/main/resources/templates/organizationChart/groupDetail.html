@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
-<link rel="stylesheet" href="/css/sideMenu/mypage.css">
+<link rel="stylesheet" href="/css/organizationChart/groupDetail.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
@@ -22,10 +22,13 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 		<div class="flex center page-title">
 			<p>사원 상세페이지</p>
 		</div>
-		<table class="mypage-table">
+		<h2 th:if="${list.deleteStatus}">
+			퇴직처리되었습니다
+		</h2>
+		<table class="mypage-table" th:classappend="${ list.deleteStatus ? 'deleted' : ''}">
 			<tr>
 				<td>사진</td>
-				<td><img class="imggg" th:style="|background-image: url('${list.imgUrl}');|" ></td>
+				<td><img class="imggg" th:style="|background-image: url('${list.imgUrl}');|"></td>
 			</tr>
 			<tr>
 				<td>사원번호</td>
@@ -52,13 +55,18 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<td>[[${list.phone}]]</td>
 			</tr>
 			<tr>
-				<td>입사일</td>
-				<td>[[${list.joinDate}]]</td>
-			</tr>
-			<tr>
 				<td>내선번호</td>
 				<td>[[${list.extension}]]</td>
 			</tr>
+			<tr>
+				<td>입사일</td>
+				<td>[[${list.joinDate}]]</td>
+			</tr>
+			<tr th:if="${list.deleteStatus}">
+				<td>퇴사일</td>
+				<td>[[${list.resignDate}]]</td>
+			</tr>
+			
 			<tr>
 				<td>생년월일</td>
 				<td>[[${list.birthDate}]]</td>
@@ -67,16 +75,26 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<td>주업무</td>
 				<td>[[${list.mainWork}]]</td>
 			</tr>
+			<tr th:if="${list.yesorno}==Y">
+				<td>급여</td>
+				<td>[[${list.salary}]]</td>
+			</tr>
+			<tr>
+				<td>수정권한</td>
+				<td>[[${list.yesorno}]]</td>
+			</tr>
 		</table>
 		<div class="back-1 flex between">
 			<div class="">
-				<a class="" href="/ozc/groupList">뒤로가기</a>
+				<a class="" href="/ozc/groupList">전체목록</a>
+				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}">퇴직사원목록</a>
+				<a th:href="|/ozc/groupDetail/edit/${list.no}|">수정</a>
 			</div>
 			<div sec:authorize="hasRole('ROLE_PERSONAL')">
-				<a th:href="|/role/manager/${list.no}|">수정권한부여</a>
-				<a th:href="|/role/employee/${list.no}|">수정권한제거</a>
-				<a href="/ozc/groupList">퇴직처리</a>
-				<a href="/ozc/groupList">퇴직취소</a>
+				<a th:href="|/role/manager/${list.no}|" th:if="${list.yesorno}==N">수정권한부여</a>
+				<a th:href="|/role/employee/${list.no}|" th:if="${list.yesorno}==Y">수정권한제거</a>
+				<a th:href="|/retirement/delete/${list.no}|" th:if="!${list.deleteStatus}">퇴직처리</a>
+				<a th:href="|/retirement/rollback/${list.no}|" th:if="${list.deleteStatus}">퇴직취소</a>
 			</div>
 		</div>
 	</div>

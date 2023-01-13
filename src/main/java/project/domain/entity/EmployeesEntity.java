@@ -1,9 +1,11 @@
 package project.domain.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,15 +19,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
@@ -105,7 +108,7 @@ public class EmployeesEntity {
 	}
 	
 	
-	//권한 role Enum
+	//수정권한 role Enum
 	@Builder.Default
 	@CollectionTable(name = "my_role")
 	@Enumerated(EnumType.STRING)
@@ -132,6 +135,35 @@ public class EmployeesEntity {
 	public EmployeesEntity updateEmployee(EmployeesUpdateDTO dto) {
 		this.editAuthority = MyRole.EMPLOYEE;
 		return null;
+	}
+	//퇴직 처리
+	public EmployeesEntity updateDeleteStatus(EmployeesDeleteDTO dto) {
+		this.deleteStatus = true;
+		this.resignDate = LocalDate.now();
+		return null;
+	}
+	//퇴직 처리 취소
+	public EmployeesEntity updateRollbackStatus(EmployeesUpdateDTO dto) {
+		this.deleteStatus = false;
+		this.resignDate = null;
+		return null;
+	}
+	//사원 정보 수정
+	public EmployeesEntity updateInfo(EmployeesUpdateDTO dto) {
+		this.departmentNo=DepartmentsEntity.builder().departmentNo(dto.getDepartmentNo()).build();
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.position = dto.getPosition();
+		this.phone = dto.getPhone();
+		this.extension = dto.getExtension();
+		this.mainWork = dto.getMainWork();
+		this.joinDate = LocalDate.parse(dto.getJoinDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.birthDate = LocalDate.parse(dto.getBirthDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.salary = dto.getSalary();
+		if(resignDate==null) return null; //퇴사일 입력안하면 method 종료
+		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		return null;
+		
 	}
 	
 	
