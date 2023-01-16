@@ -26,7 +26,6 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
-						<th>조회수</th>
 					</tr>
 					<tr th:if="${nullcheck == true}">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
@@ -35,8 +34,7 @@
 						<td th:text="${list.noticeNo}">번호</td>
 						<td><a th:href="@{/noticeDetail(noticeNo=${list.noticeNo})}">[[${list.title}]]</a></td>
 						<td th:text="${list.registNo.name}">관리자</td>
-						<td th:text="${list.createDate}">2023.01.02</td>
-						<td>0</td>
+						<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}"></td>
 					</tr>
 
 				</table>

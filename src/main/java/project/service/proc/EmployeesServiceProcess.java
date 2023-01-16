@@ -2,13 +2,17 @@ package project.service.proc;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.EmployeesInsertDTO;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
@@ -62,6 +66,14 @@ public class EmployeesServiceProcess implements EmployeesService {
 	public List<EmployeesEntity> findAll() {
 		List<EmployeesEntity> list = employeesRepository.findAll();
 		return list;
+	}
+	
+	//로그인한 사원정보 마이페이지에 조회 기능
+	@Override
+	public void findemployee(long no , Model model) {
+		Optional<EmployeesEntity> list = employeesRepository.findById(no);
+		List<EmployeesDetailDTO> dto = list.stream().map(EmployeesDetailDTO::new).collect(Collectors.toList());
+		model.addAttribute("mypage",dto);
 	}
 
 }

@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.BoardNoticeDTO;
 
 @DynamicUpdate
 @Builder
@@ -48,6 +49,23 @@ public class BoardNoticeEntity {
 	@CreationTimestamp
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate; //작성일
+
+	//수정처리 메서드
+	public BoardNoticeEntity update(BoardNoticeDTO dto) {
+		this.title=dto.getTitle();
+		this.content=dto.getContent();
+		return this;
+	}
+
+	public void setTitle(String title2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setContent(String content2) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

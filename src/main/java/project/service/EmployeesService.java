@@ -3,6 +3,7 @@ package project.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import project.domain.DTO.EmployeesInsertDTO;
@@ -17,4 +18,9 @@ public interface EmployeesService {
 
 	List<EmployeesEntity> findAll();
 
+	void findemployee(long no, Model model);
+
+	
+	
+	
 }

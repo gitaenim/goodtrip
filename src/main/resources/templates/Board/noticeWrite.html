@@ -7,7 +7,31 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
+<script type="text/javascript">
+	function chkWrite() {
+		frm = document.forms["form1"];
+		
+		var title = frm["title"].value.trim();
+		var content = frm["subject"].value.trim();
+		
+		if(name == "") {
+			alert("제목을 반드시 입력해야 합니다!!")
+			frm["frm"].focus();
+			return false;
+		}
+		
+		if(content == "") {
+			alert("내용을 반드시 입력해야 합니다.");
+			frm["content"].focus();
+			return false;
+		}
+		
+		return true;
+	}
+
+</script>
 </head>
+<body>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
    		<div class="wrap writer-1">
@@ -15,16 +39,16 @@
    				<p>공지사항</p>
    			</div>
 	   		<div class="writer-back">
-	    		<form action="/Board/noticeWrite" method="post">
+	    		<form name="form1" action="/Board/noticeWrite"  onsubmit="chkWrite()" method="post">
 	    			<table class="writer-2">
 	    				<tr>
 	    					<td class="writer-title">
-	    						<input type="text" name="title" placeholder="제목입력">
+	    						<input type="text" name="title" placeholder="제목입력" >
 	    					</td>
 	    				</tr>
 	    				<tr>
 	    					<td class="writer-content">
-	    						<textarea rows="20" cols="50" name="content" placeholder="내용을 입력하세요"></textarea>
+	    						<textarea rows="20" cols="50" name="content" placeholder="내용을 입력하세요" ></textarea>
 	    					</td>
 	    				</tr>
 	    				<tr>

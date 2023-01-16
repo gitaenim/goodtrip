@@ -13,4 +13,8 @@ public interface NoticeBoardService {
 	void detail(long noticeNo, Model model);
 
 	void findAll(Model model);
+
+	void delete(long noticeNo);
+
+	void update(BoardNoticeDTO dto, long suggestNo);
 }

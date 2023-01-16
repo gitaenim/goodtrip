@@ -1,6 +1,7 @@
 package project.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
 
 	EmployeesEntity findAllByNo(long employeeNo);
+
 
 
 

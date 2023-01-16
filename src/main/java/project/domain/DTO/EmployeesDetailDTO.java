@@ -23,7 +23,7 @@ public class EmployeesDetailDTO {
 	private String extension;//내선번호
 	private LocalDate birthDate;//생년월일
 	private String mainWork;//주 업무
-	
+	private Long salary; // 급여
 	
 	public EmployeesDetailDTO(EmployeesEntity ent) {
 		this.imgUrl = ent.getImageNo().getUrl();
@@ -37,6 +37,7 @@ public class EmployeesDetailDTO {
 		this.extension = ent.getExtension();
 		this.birthDate = ent.getBirthDate();
 		this.mainWork = ent.getMainWork();
+		this.salary = ent.getSalary();
 	}
 	
 	

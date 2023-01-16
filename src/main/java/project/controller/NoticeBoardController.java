@@ -1,11 +1,25 @@
 package project.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project.domain.DTO.BoardNoticeDTO;
 import project.service.NoticeBoardService;
@@ -32,13 +46,7 @@ public class NoticeBoardController {
         
     }
 	
-	//글쓰기 작성
-	 @PostMapping("/Board/noticeWrite")   
-	    public String noticeWriting(BoardNoticeDTO dto) {
-		 noticeservice.save(dto);
-	    	return "Board/noticeWrite";
-    }
-	
+	 //공지사항 디테일 페이지로 이동
 	 @GetMapping("/noticeDetail")
 	 public String boardDetail(@RequestParam long noticeNo, Model model) {
 		 
@@ -46,6 +54,52 @@ public class NoticeBoardController {
 		 noticeservice.detail(noticeNo, model);
 		 return "Board/noticeDetail";
 	 }
+	
+	//공지사항 글쓰기 기능
+	 @PostMapping("/Board/noticeWrite")   
+	    public String noticeWriting(@ModelAttribute("dto") @Valid BoardNoticeDTO dto, BindingResult result) {
+		 
+		 if(result.hasErrors()) {
+			 return "Board/noticeWrite";
+		 }else {
+			 noticeservice.save(dto);
+			 return "redirect:/Board/noticeList";
+		 }
+    }
 	 
-		
+	//공지사항 게시글 삭제
+	//spring.mvc.hiddenmethod.filter.enabled=true
+	//POST-> DELETE
+	@DeleteMapping("/Board/noticeList/{noticeNo}")
+	public String delete(@PathVariable long noticeNo) {
+		noticeservice.delete(noticeNo);
+		return "redirect:/Board/noticeList";
+	}
+	
+	//공지사항 게시글 수정
+	@PostMapping("/noticeEdit")
+	public String noticeEdit(BoardNoticeDTO dto, long noticeNo,RedirectAttributes redirectAttributes) {
+		noticeservice.update(dto, noticeNo);
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		return "redirect:/noticeDetail";
+	}
+
+	 
+	 //에러 관련된 메서드
+	 public void showErrors(Errors errors) {
+		 if(errors.hasErrors()) {
+			 System.out.println("에러 개수: "+ errors.getErrorCount());
+			 System.out.println("\t[filed]\t[code]");
+			 List<FieldError> errlist = errors.getFieldErrors();
+			 
+			 for(FieldError err : errlist) {
+				 System.out.println("\t" + err.getField() + "\t|" + err.getCode());
+			 }
+		 }else {
+			 System.out.println("에러 없음");
+		 }
+	 }
+	 
+	
+	 
 }
