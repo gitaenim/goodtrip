@@ -30,6 +30,7 @@ public class EmployeesInsertDTO {
 	private String email;//이메일
 	private String password;//비밀번호
 	private DepartmentRank position;//직급
+	private long positionRank;//직급순위
 	private String phone;//연락처
 	private String joinDate;//입사일
 	private String resignDate;//퇴사일
@@ -57,6 +58,7 @@ public class EmployeesInsertDTO {
 				.email(email)
 				.departmentNo(DepartmentsEntity.builder().departmentNo(departmentNo).build())
 				.position(position)
+				.positionRank(position.ordinal())
 				.password(pe.encode(password))
 				.birthDate(LocalDate.parse(birthDate, formatter))
 				.mainWork(mainWork)

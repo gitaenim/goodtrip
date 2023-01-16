@@ -20,9 +20,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	List<EmployeesEntity> findAllByDeleteStatus(boolean b); //한아 작성
 
-	//List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNo(boolean b); //한아 작성
-
-	List<EmployeesEntity> findAllByDeleteStatusOrderByPosition(boolean b); //한아 작성
+	List<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b); //한아 작성
 
 
 

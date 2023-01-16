@@ -59,9 +59,6 @@ public class EmployeesEntity {
 	@Column(nullable = false)
 	private String password;//비밀번호
 	
-	@Enumerated(EnumType.STRING)
-	private DepartmentRank position;//직급
-	
 	@Column(nullable = true)
 	private String phone;//연락처
 	
@@ -95,6 +92,12 @@ public class EmployeesEntity {
 	@OneToOne
 	private ImagesEntity imageNo; //이미지번호
 	
+	
+	@Enumerated(EnumType.STRING)
+	private DepartmentRank position;//직급
+	
+	@Column(name = "position_rank")
+	private long positionRank;//직급순위
 	
 	//직급 position Enum
 	@Builder.Default
@@ -154,6 +157,7 @@ public class EmployeesEntity {
 		this.name = dto.getName();
 		this.email = dto.getEmail();
 		this.position = dto.getPosition();
+		this.positionRank = dto.getPosition().ordinal();
 		this.phone = dto.getPhone();
 		this.extension = dto.getExtension();
 		this.mainWork = dto.getMainWork();
