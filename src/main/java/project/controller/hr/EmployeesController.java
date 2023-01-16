@@ -38,8 +38,7 @@ public class EmployeesController {
 	@PostMapping("/employees/reg")
 	public String employeesReg(EmployeesInsertDTO dto) {
 		employeesService.save(dto);
-		return "organization/regist";
-		
+		return "redirect:/Organization/regist";
 	}
 	
 	//신입 사원 등록 페이지

@@ -1,5 +1,6 @@
 package project.domain.DTO;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,7 +47,8 @@ public class EmployeesInsertDTO {
 	
 	private MyRole edit_authority;
 	
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private DateTimeFormatter dformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private DecimalFormat sformatter = new DecimalFormat("###,###");
 
 	//employee 저장
 	public EmployeesEntity toEntity(PasswordEncoder pe, ImagesEntity imgNo) {
@@ -60,12 +62,12 @@ public class EmployeesInsertDTO {
 				.position(position)
 				.positionRank(position.ordinal())
 				.password(pe.encode(password))
-				.birthDate(LocalDate.parse(birthDate, formatter))
+				.birthDate(LocalDate.parse(birthDate, dformatter))
 				.mainWork(mainWork)
 				.phone(phone)
 				.extension(extension)
-				.joinDate(LocalDate.parse(joinDate, formatter))
-				.salary(salary)
+				.joinDate(LocalDate.parse(joinDate, dformatter))
+				.salary(sformatter.format(salary))
 				.imageNo(imgNo)
 				.editAuthority(edit_authority)
 				.build()
