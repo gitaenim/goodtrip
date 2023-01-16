@@ -14,5 +14,9 @@ public interface DayOffService {
 
 	void mydayoff(long no, Model model);
 
+	//void findById(Long no, Model model);
+
+	void detail(long dayOffNo, Model model);
+
 
 }

@@ -3,8 +3,6 @@ package project.service.proc;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -80,6 +78,26 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("myDayOffList", dayOffRepo.findByEmployeeNo(employeesRepo.findById(no).orElseThrow())
 				.stream().map(DayOffMyListDTO::new).collect(Collectors.toList()));
 		
+	}
+
+	//결재용 휴가 디테일
+	/*
+	@Override
+	public void findById(Long no, Model model) {
+		model.addAttribute("dayOffDetail", dayOffRepo.findById(no)
+				.map(DayOffListDTO::new).orElseThrow()
+				);
+	}
+	*/
+	
+	@Override
+	public void detail(long dayOffNo, Model model) {
+		
+		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();
+		
+		model.addAttribute("dayOffDetail", ent);
+		
+		model.addAttribute("detailEmp", ent.getEmployeeNo());
 	}
 	
 	

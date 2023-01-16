@@ -11,28 +11,28 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form action="/dayoff" method="post">
+		<form>
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
 						<td>기안자</td>
-						<td th:text="${#authentication.principal.name}">[작성자]</td>
+						<td th:text="${detailEmp.name}">[작성자]</td>
 					</tr>
 					<tr>
 						<td>사원번호</td>
-						<td th:text="${#authentication.principal.no}">[사원번호]</td>
+						<td th:text="${detailEmp.no}">[사원번호]</td>
 					</tr>
 					<tr>
 						<td>기안부서</td>
-						<td th:text="${#authentication.principal.departmentNo.departmentName}">[작성자 그룹]</td>
+						<td th:text="${detailEmp.departmentNo.departmentName}">[작성자 그룹]</td>
 					</tr>
 					<tr>
 						<td>직 급</td>
-						<td th:text="${#authentication.principal.position.label}">[직급]</td>
+						<td th:text="${detailEmp.position.label}">[직급]</td>
 					</tr>
 					<tr>
 						<td>기안일</td>
-						<td th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd E요일')}">[YYYY-MM-DD(요일)]</td>
+						<td th:text="${dayOffDetail.draftDate}">[YYYY-MM-DD(요일)]</td>
 					</tr>
 				</table>
 				<table id="table-2">
@@ -45,28 +45,28 @@
 						<td>대표이사</td>
 					</tr>
 					<tr>
-						<td>[기안자 승인]</td>
-						<td>[부서장 승인]</td>
-						<td>[대표이사 승인]</td>
+						<td th:text="${detailEmp.name}"></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</table>
 			</section>
 			<table id="table-3">
 				<tr>
 					<td>휴가 종류</td>
-					<td>[[${result.type}]]</td>
+					<td>[[${dayOffDetail.type}]]</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
-					<td>[[${result.startDate}]] ~ [[${result.EndDate}]]</td>
+					<td>[[${dayOffDetail.startDate}]] ~ [[${dayOffDetail.EndDate}]]</td>
 				</tr>
 				<tr>
 					<td>휴가 일수</td>
-					<td>신청일수 : [[${result.useDays}]]</td>
+					<td>신청일수 : [[${dayOffDetail.useDays}]]</td>
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128" readonly="readonly">[[${result.reason}]]</textarea></td>
+					<td><textarea rows="10" cols="128" readonly="readonly">[[${dayOffDetail.reason}]]</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
@@ -77,8 +77,8 @@
 				</tr>
 			</table>
 			<ul class="btn-approval flex">
-				<li><button>승인하기</button></li>
-				<li><button>반려하기</button></li>
+				<li sec:authorize="hasRole('ROLE_PERSONAL')"><button>승인하기</button></li>
+				<li sec:authorize="hasRole('ROLE_PERSONAL')"><button>반려하기</button></li>
 				<li><a href="/personalDayOff">뒤로가기</a></li>
 			</ul>
 		</form>
