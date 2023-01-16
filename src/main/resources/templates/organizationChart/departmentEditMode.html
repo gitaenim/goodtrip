@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<link rel="stylesheet" href="/css/organizationChart/departmentEditMode.css">
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript">
+	$(function(){
+	});
+	
+</script>
+</head>
+<main>
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="wrap list-1">
+		<section>
+			<div class="flex center">
+				<p class="title">부서관리</p>
+			</div>
+				<a sec:authorize="hasRole('ROLE_PERSONAL')" class="list-button flex right"
+					onclick="location.href='/departments/manage'">돌아가기</a>
+			<div class="back-list">
+				<table class="list-table">
+					<tr class="list-2">
+						<th>부서번호</th>
+						<th>부서명</th>
+						<th>부서장</th>
+						<th>수정/삭제</th>
+					</tr>
+					<tr th:each="list : ${departmentList}">
+					<form th:action="|/departments/edit/${list.departmentNo}|">
+						<td th:text="${list.departmentNo}">번호</td>
+						<td><input type="text" name="departmentName" th:value="${list.departmentName}" size="15"></td>
+						<td><input type="text" name="departmentHead" th:value="${list.departmentHead}" size="15"></td>
+						<td class="">
+							<button onsubmit="showNotification()">수정완료</button>
+							<button th:onclick="|location.href='/departments/delete/${list.departmentNo}'|">삭제</button>
+						</td>
+					</form>
+					</tr>
+				</table>
+				<p class="delete-notice">부서에 속한 사원이 없을 때만 부서가 삭제됩니다.</p>
+			</div>
+		</section>
+	</div>
+</main>
+</html>

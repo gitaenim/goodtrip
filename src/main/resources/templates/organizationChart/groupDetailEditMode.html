@@ -39,13 +39,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					<td>부서이름</td>
 					<td>
 						<select name="departmentNo">
-							<option value="1" th:selected="${list.departmentName}==총무부">총무부</option>
-							<option value="2" th:selected="${list.departmentName}==영업부">영업부</option>
-							<option value="3" th:selected="${list.departmentName}==인사부">인사부</option>
-							<option value="4" th:selected="${list.departmentName}==기획부">기획부</option>
-							<option value="5" th:selected="${list.departmentName}==회계부">회계부</option>
-							<option value="6" th:selected="${list.departmentName}==개발부">개발부</option>
-						</select> 
+							<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}" th:selected="${list.departmentName}==${departments.departmentName}"></option>
+						</select>
 					</td>
 				</tr>
 				<tr>

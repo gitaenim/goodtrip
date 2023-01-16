@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import project.domain.DTO.EmployeesUpdateDTO;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.service.OrganizationChartService;
 
 @Controller
@@ -17,9 +18,13 @@ public class OrganizationChartController {
 	@Autowired
 	OrganizationChartService organizationChartService; 
 	
+	@Autowired
+	private DepartmentsEntityRepository departmentRepo;
+	
 	//조직도 리스트
 	@GetMapping("/ozc/groupList")
     public String groupList(Model model) {
+		model.addAttribute("department", departmentRepo.findAll());
 		organizationChartService.findAllByDeleteStatusFalse(model);
         return "organizationChart/groupList";
     }
@@ -34,7 +39,7 @@ public class OrganizationChartController {
 	@GetMapping("/ozc/groupList/{department}")
 	public String groupListByDepartmentNo(Model model, @PathVariable Long department) {
 		organizationChartService.findAllByDepartmentNo(model, department);
-		System.out.println("model : "+model);
+		//System.out.println("model : "+model);
 		return "organizationChart/groupListByDepartment";
 	}
 	//조직도 상세페이지
@@ -48,6 +53,7 @@ public class OrganizationChartController {
 	@GetMapping("/ozc/groupDetail/edit/{no}")
 	public String groupDetailEdit(Model model, @PathVariable Long no) {
 		organizationChartService.findById(model, no);
+		model.addAttribute("department", departmentRepo.findAll());
 		return "organizationChart/groupDetailEditMode";
 	}
 	//사원 상세페이지 수정완료
