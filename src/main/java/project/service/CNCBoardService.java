@@ -14,9 +14,9 @@ public interface CNCBoardService {
 
 	void detail(long cncNo, Model model);
 
-	void delete(long cncNo);
+	void update(BoardCNCDTO cdto, long cncNo);
 
-	void updateProc(long cncNo, BoardCNCDTO cdto);
+	void delete(long cncNo);
 
 
 

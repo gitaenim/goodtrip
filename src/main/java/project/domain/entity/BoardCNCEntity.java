@@ -55,12 +55,12 @@ public class BoardCNCEntity { //수민 클래스명수정  BoardEventEntity -> B
 	@Column(name = "event_date", nullable = false)
 	private LocalDate eventDate; //경조사일
 
-	public BoardCNCEntity updateProc(BoardCNCDTO cdto) {
+	/*public BoardCNCEntity updateProc(BoardCNCDTO cdto) {
 		this.title=cdto.getTitle();
 		this.content=cdto.getContent();
 		this.eventDate=cdto.getEventDate();
 		return this;
-	}
+	}*/
 		
 }
 

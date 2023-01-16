@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import project.domain.DTO.BoardCNCDTO;
 import project.service.CNCBoardService;
@@ -46,7 +47,24 @@ public class CNCBoardController {
 		CNCservice.detail(cncNo, model);
 		return "Board/cncDetail";
 	}
-	//경조사 게시글 삭제
+	//경조사 게시글 수정
+	@PostMapping("/cncEdit")
+	public String cncEdit(BoardCNCDTO cdto, long cncNo, RedirectAttributes redirectAttributes) {
+		CNCservice.update(cdto,cncNo);
+		redirectAttributes.addAttribute("cncNo", cncNo);
+		return "redirect:/cncDetail";
+	}
+	
+	// 경조사 글 삭제
+	@PostMapping("/cncboardDelete")
+	public String cncboardDelete(long cncNo) {
+		CNCservice.delete(cncNo);
+		return "redirect:/Board/cncList";
+	}
+	
+	
+	
+	/*	//경조사 게시글 삭제
 	@DeleteMapping("/Board/cncList/{cncNo}")
 	public String delete(@PathVariable long cncNo) {
 		CNCservice.delete(cncNo);
@@ -58,5 +76,5 @@ public class CNCBoardController {
 	public String update(@PathVariable long cncNo, BoardCNCDTO cdto) {
 		CNCservice.updateProc(cncNo, cdto);
 		return "redirect:/Board/cncList/{cncNo}";
-	}
+	}*/
 }

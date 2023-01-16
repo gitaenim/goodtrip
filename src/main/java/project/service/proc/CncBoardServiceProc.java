@@ -61,8 +61,29 @@ public class CncBoardServiceProc implements CNCBoardService {
 		//model.addAttribute("cncDetail", date);
 		model.addAttribute("cncDetail", entityData);
 	}
+	//게시글 수정
+	@Override
+	public void update(BoardCNCDTO cdto, long cncNo) {
+		// 사번으로 사원정보 조회
+		EmployeesEntity emp = employeesRepository.findById(cdto.getNo()).orElseThrow();
+		
+		// 업데이트 기능
+		CNCRepository.save(cdto.toEntityForUpdate(cncNo, emp));
+	}
+	//게시글 삭제
+	@Override
+	public void delete(long cncNo) {
+			// 게시글 번호로 게시글 정보 조회
+			BoardCNCEntity suggestions = CNCRepository.findById(cncNo).orElseThrow();
+			// 해당 게시글을 삭제
+			CNCRepository.deleteById(cncNo);
+		}
+
+}
 	
-	//삭제처리!
+	
+	
+/*	//삭제처리!
 	@Override
 	public void delete(long cncNo) {
 		CNCRepository.deleteById(cncNo);
@@ -83,10 +104,9 @@ public class CncBoardServiceProc implements CNCBoardService {
 					///원본-업데이트 반영
 					CNCRepository.save(entity);//이미 존재하는 Pk이면 수정반영됩니다.
 				}
-			}
+			}*/
 	
 	
 
 
 
-}

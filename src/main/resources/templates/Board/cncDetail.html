@@ -1,84 +1,105 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" href="/css/board/board-detail.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="/js/board/CNCEdit.js"></script>
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
- <script type="text/javascript">
-    $(function(){
-    	$("#btn-edit").click(editMode);
-    	$("#btn-cancel").click(function(){
-    		$("#edit-mode").hide();
-        	$("#def-mode").show();
-    	});
-    });
-   
-    
-    function editMode(){
-    	$("#edit-mode").show();
-    	$("#def-mode").hide();
-    }
-    
-    </script>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
-   	<div class="detail-1">
-   		<p>조회</p>
-   			<form th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
-				<input type="hidden" name="_method" value="DELETE">
-				<button class="bu-a" id="btn-cancel">삭제</button>
-			</form>
-			<span th:if="${#authentication.name == cncDetail.registNo.name}">
-    				<button type="button" id="btn-edit">수정</button>
-    			</span>
-			
-   		<form id="edit-mode" th:action="|/Board/cncList/${cncDetail.cncNo}|" method="post">
-   			<div>   			
-   				<table class="detail-table table-1" border="1" >
-	    			<tr>
-	    				<td>글번호</td>
-	    				<td th:text=${cncDetail.cncNo}>1</td>
-	    			</tr>
-	    			<tr>
-	    				<td>작성자</td>
-	    				<td th:text=${cncDetail.registNo.name}>김대리</td>
-	    			</tr>
-	    			<tr>
-	    				<td>제목</td>
-	    				<td th:text=${cncDetail.title}></td>
-	    			</tr>
-	    			<tr>
-	    				<td>내용</td>
-	    				<td th:text=${cncDetail.content}></td>
-	    			</tr>
-	    			<tr>
-	    				<td>작성일</td>
-	    				<td th:text=${cncDetail.createDate}>2022.1.1</td>
-	    			</tr>
-	    			 <tr>
+	<div class="detail-1">
+		<p>조회</p>
+		<form class="board-veiw-mode">
+			<div>
+				<table class="detail-table table-1" border="1">
+					<tr>
+						<td width="200px">글번호</td>
+						<td th:text="${cncDetail.cncNo}">1</td>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td th:text="${#temporals.format(cncDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td th:text="${cncDetail.registNo.name}">김대리</td>
+					</tr>
+					
+					<tr>
+						<td>제목</td>
+						<td th:text="${cncDetail.title}"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td th:text="${cncDetail.content}"></td>
+					</tr>
+					
+					<tr>
 	    				<td>경조사일</td>
-	    				<td th:text=${cncDetail.eventDate}>2022.1.2</td>
+	    				<td th:text="${cncDetail.eventDate}">2022.1.2</td>
 	    			</tr>
-	    			
-	    			<!-- <tr>
-	    				<td>
-	    					<input>
-	    					<button>수정완료</button>
-	    					<button>취소</button>
-	    				</td>
-	    			</tr> -->
-	    		</table>
-    		</div>
-   		</form>
-   		<!-- //////////////////////////////////////// -->
-   		<div class="back-1">
+				</table>
+			</div>
+			<button
+				th:if="${#authentication.principal.no} == ${cncDetail.registNo.no}"
+				type="button" class="veiw-mode detail-2" onclick="boardEditModeOn()">수정하기</button>
+		</form>
+		<form class="board-edit-mode" action="/cncEdit" method="post">
+			<div>
+				<table class="detail-table table-1" border="1">
+					<tr>
+						<td width="200px">글번호</td>
+						<td th:text="${cncDetail.cncNo}">1</td>
+					</tr>
+					<tr>
+						<td>작성일</td>
+						<td th:text="${#temporals.format(cncDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td th:text="${cncDetail.registNo.name}">김대리</td>
+					</tr>
+					<tr>
+						<td>제목</td>
+						<td><input th:value="${cncDetail.title}"
+							th:name="title"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td><input th:value="${cncDetail.content}"
+							th:name="content"></td>
+					</tr>
+					<tr>
+	    				<td>경조사일</td>
+	    				<td><input th:value="${cncDetail.eventDate}"
+	    					th:name="eventDate" id="Date" th:type="date" min="yyy" max="zzz">2022.1.2</td>
+	    			</tr>
+				</table>
+			</div>
+			<div class="flex between">
+				<button type="button" class="detail-2" onclick="boardEditModeOff()">취소</button>
+				<input type="hidden" th:value="${cncDetail.registNo.no}"
+					th:name="no"> <input type="hidden"
+					th:value="${cncDetail.cncNo}" th:name="cncNo">
+				<button class="detail-2" onclick="test()">수정완료</button>
+			</div>
+		</form>
+		<div th:if="${#authentication.principal.no} == ${cncDetail.registNo.no}">
+			<form action="/cncboardDelete" method="post">
+				<input type="hidden" th:value="${cncDetail.cncNo}" th:name="cncNo">
+				<button class="detail-2">삭제</button>
+			</form>
+		</div>
+<!-- //////////////////////////////////////// -->
+		<div class="back-1">
 			<a class="flex center" href="/Board/cncList">뒤로가기</a>
 		</div>
-   	</div>
-   </main>
+	</div>
+</main>
 </body>
 </html>
