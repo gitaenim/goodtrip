@@ -36,8 +36,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	@Override
 	public void findAllByDepartmentNo(Model model, Long department) {
 		System.out.println("department : "+department);
-		//model.addAttribute("list2", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
-		model.addAttribute("list2", employeesRepo.findAllByDepartmentNoDepartmentNoOrderBySalaryDesc(department));
+		model.addAttribute("list2", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderBySalaryDesc(department, false));
 		
 	}
 

@@ -11,6 +11,8 @@ import project.service.OrganizationChartService;
 
 @Controller
 public class OrganizationChartController {
+	
+	/* 230106 한아 작성 */
 
 	@Autowired
 	OrganizationChartService organizationChartService; 

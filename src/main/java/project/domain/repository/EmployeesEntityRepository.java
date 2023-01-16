@@ -16,13 +16,11 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	EmployeesEntity findAllByNo(long employeeNo);
 
-	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
+	List<EmployeesEntity> findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderBySalaryDesc(Long department, boolean b); //한아 작성
 
-	List<EmployeesEntity> findAllByDepartmentNoDepartmentNoOrderBySalaryDesc(Long department);
+	List<EmployeesEntity> findAllByDeleteStatus(boolean b); //한아 작성
 
-	List<EmployeesEntity> findAllByDeleteStatus(boolean b);
-
-	List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNo(boolean b);
+	List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNo(boolean b); //한아 작성
 
 
 
