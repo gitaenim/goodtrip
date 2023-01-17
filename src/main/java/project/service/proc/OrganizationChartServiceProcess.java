@@ -28,6 +28,10 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		List<EmployeesEntity> list1 = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false);
 		model.addAttribute("list1", list1);
 		
+		/*
+		 * List<EmployeesEntity> list2 = employeesRepo.findAllByOrderByEmpGradeDesc();
+		 */ //수민 잠깐 생성! 1/17
+		
 		boolean nullcheck = false;
 		if(list1.isEmpty()) {
 			nullcheck = true;

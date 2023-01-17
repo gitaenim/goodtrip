@@ -28,8 +28,10 @@ public class CncBoardServiceProc implements CNCBoardService {
 
 	@Override
 	public void findAllList(Model model) {
-		List<BoardCNCEntity> list = CNCRepository.findAll();
-
+		List<BoardCNCEntity> list = CNCRepository.findAllByOrderByEventDateAsc();
+		/*
+		 * List<BoardCNCEntity> list = CNCRepository.findAllByOrderByEventDateDesc(); -- > 내림차순
+		 */
 		// false : 조회한 데이터가 있음
 		// true : 조회한 데이터가 없음
 		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수

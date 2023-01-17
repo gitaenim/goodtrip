@@ -25,6 +25,8 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	Object findAllByDepartmentNoDepartmentNo(Long department);
 
+	/* List<EmployeesEntity> findAllByOrderByEmpGradeDesc(); //수민 잠깐 생성! 1/17*/
+
 
 
 }

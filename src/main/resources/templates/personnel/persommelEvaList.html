@@ -5,8 +5,10 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <link rel="stylesheet" href="/css/organizationChart/groupList.css">
+<link rel="stylesheet" href="/css/personnelEva/personnelEva.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script src="/js/personnerlEva/personnerlEva.js"></script>
+<script src="/js/board/CNCEdit.js"></script>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
@@ -31,16 +33,18 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						<th>직급</th>
 						<th>내선번호</th>
 						<th>주업무</th>
+						<th>등급</th> 
 						<th>인사평가</th>
 					</tr>
 					<tbody id="emp-list">
 						<tr th:if="${nullcheck == false}" th:each="list : ${list1}">
-							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
+							<td><a>[[${list.name}]]</a></td>
 							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
 							<td th:text="${list.mainWork}">주업무</td>
+							<td>A</td>
 							<td>
 								<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
 							</td>

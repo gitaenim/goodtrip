@@ -19,5 +19,12 @@ function getList(){
 	});
 }
 
+let arr = ["A","B","C","D","E"]
+
+arr.sort();
+console.log(arr);
+
+
+
 
 

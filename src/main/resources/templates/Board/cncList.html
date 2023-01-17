@@ -26,6 +26,7 @@
 						<th>작성일</th>
 						<th>경조사일</th>
 					</tr>
+					<tbody>
 					<tr th:if="${nullcheck == true}">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
@@ -37,6 +38,7 @@
 						<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}">2023.01.02</td>
 						<td th:text="${list.eventDate}">2023.01.02</td>
 					</tr>
+					</tbody>
 				</table>
 				<!-- <div th:if="${p.getNumberOfElements()>0}">
 	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
