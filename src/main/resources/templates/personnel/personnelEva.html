@@ -8,14 +8,111 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
+
+	$(function(){
+		var score =0;
+		var score1 =0;
+		var score2 =0;
+		var score3 =0;
+		var score4 =0;
+		var total=0;
+		                                                                                              
+		
+		$("#checkScore").on('change',function(){
+			alert(this.value)
+			score =this.value
+			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);		
+			console.log("dd",parseInt(total))
+			$("#totalScore").val(total)
+		})
+		
+		$("#checkScore1").on('change',function(){
+			score1 = this.value;
+			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);		
+			console.log("dd1",parseInt(total))
+			$("#totalScore").val(total)
+		})
+		
+		$("#checkScore2").on('change',function(){
+			score2 = this.value;
+			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);		
+			console.log("dd2",parseInt(total))
+			$("#totalScore").val(total)
+		})
+		$("#checkScore3").on('change',function(){
+			score3 = this.value;
+			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);		
+			console.log("dd3",parseInt(total))
+			$("#totalScore").val(total)
+		})
+		
+		$("#checkScore4").on('change',function(){
+			score4 = this.value;
+			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);	
+			console.log("dd4",parseInt(total))
+			$("#totalScore").val(total)
+		
+		})
+		
+	
+	
+	//	console.log(score, score1, score2, score3, score4);
+		
+		$("#checkResult").on('click',function(){
+			
+			const totalScore = $("#totalScore").val();
+			
+			var dto = {
+					"prepareScore":score,
+					"performAbility":score1,
+					"anotherAdility":score2,
+					"freeTime":score3,
+					"foodAmount":score4,
+					"totalScore":totalScore
+					
+				}
+			
+				console.log(dto)
+				
+				/*
+				$.ajax({
+					method:"POST",
+					url:"/personnelEva/save",
+					contentType:"application/json",
+					dataType:"json",
+					data:JSON.stringify(dto),
+					success:function(result){
+						//const res = JSON.parse(result);
+						if(result){
+							alert("등록 성공 ");
+							
+						}else{
+							alert("등록실패");
+						}
+					},
+					error:function(){
+						console.log("통신실패 ");
+					}
+					
+				});//ajax close
+			*/
+		})
+		
+	});
+/*
+ * 
 function assessment() {
-var mark1 = (new Function ('return '+ document.score.select1.value))();
-var mark2 = eval(document.score.select2.value);
-var mark3 = eval(document.score.select3.value);
-var mark4 = eval(document.score.select4.value);
-var mark5 = eval(document.score.select5.value);
-document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
-}
+	var mark1 = (new Function ('return '+ document.score.select1.value))();
+	var mark2 = eval(document.score.select2.value);
+	var mark3 = eval(document.score.select3.value);
+	var mark4 = eval(document.score.select4.value);
+	var mark5 = eval(document.score.select5.value);
+	document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
+	var totalScore = $("#totalScore").val();
+	
+	
+	s
+} */
 // -->
 </script>
 </head>
@@ -31,11 +128,11 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 		</div>
 			<a class="flex right back-1" href="/personnelEvaList">뒤로가기</a>
 		<div class="wrap flex center Eva-3">
-			<form name=score method=POST>
+			<div name=score>
 				<table class="Eva-table">
 					<tr>
 						<th>주 업무 수행에 필요한 필수직업능력의 준비도</th>
-						<th><select class="Eva-select" size="1" name="select1" onChange="assessment()">
+						<th><select id="checkScore" class="Eva-select" size="1" name="select1" onChange="assessment()">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -47,7 +144,7 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 					</tr>
 					<tr>
 						<th>주 업무의 독자적인 수행능력</th>
-						<th><select class="Eva-select" size="1" name="select2" onChange="assessment()">
+						<th><select id="checkScore1" class="Eva-select" size="1" name="select2" onChange="assessment()">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -59,7 +156,7 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 					</tr>
 					<tr>
 						<th>부수업무 수행력</th>
-						<th><select class="Eva-select" size="1" name="select3" onChange="assessment()">
+						<th><select id="checkScore2" class="Eva-select" size="1" name="select3" onChange="assessment()">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -71,7 +168,7 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 					</tr>
 					<tr>
 						<th>하루 여가시간</th>
-						<th><select class="Eva-select" size="1" name="select4" onChange="assessment()">
+						<th><select id="checkScore3" class="Eva-select" size="1" name="select4" onChange="assessment()">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -83,7 +180,7 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 					</tr>
 						<tr>
 						<th>하루 식사량</th>
-						<th><select class="Eva-select" size="1" name="select5" onChange="assessment()">
+						<th><select id="checkScore4" class="Eva-select" size="1" name="select5" onChange="assessment()">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -95,15 +192,15 @@ document.score.rescore.value = mark1 + mark2 + mark3 + mark4 + mark5;
 					</tr>
 					</table>
 			<div class="wrap flex center Eva-all">
-				총점&nbsp;<input type=text name=rescore size=2 disabled value =>&nbsp;점
+				총점&nbsp;<input id="totalScore" type="text" name="rescore" size=2 disabled value="">&nbsp;점
 			</div>	
 			<div class="wrap flex center Eva-button">
 					<input type=reset value="리셋">
 				<div class="Eva-button2">
-					<input type="button" value="평가하기">
+					<input type="button" id="checkResult" value="평가하기">
 				</div>
 			</div>
-		</form>
+		</div>
 		</div>
 	</div>
 </main>

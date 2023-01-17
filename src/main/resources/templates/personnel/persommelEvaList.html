@@ -34,6 +34,7 @@
 						<th>직급</th>
 						<th>내선번호</th>
 						<th>주업무</th>
+						<th>인사평가</th>
 					</tr>
 					<tbody id="emp-list">
 						<tr th:each="list : ${list1}">
@@ -43,6 +44,9 @@
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
 							<td th:text="${list.mainWork}">주업무</td>
+							<td>
+								<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
+							</td>
 						</tr>
 					</tbody>
 				</table>

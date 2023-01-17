@@ -37,9 +37,6 @@ public class ScheduleEntity {
 	@Column(name = "schedule_name", nullable = false)
 	private String scheduleName; //일정명
 
-	@Column(nullable = false)
-	private LocalDateTime date; //일정날짜
-	
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호
