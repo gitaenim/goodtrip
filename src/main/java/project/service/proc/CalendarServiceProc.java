@@ -94,7 +94,7 @@ public class CalendarServiceProc implements CalendarService {
 			JSONObject jsonObj = new JSONObject();
 
 			hash.put("start", scheduleList.get(i).getStartDate());
-			hash.put("end", scheduleList.get(i).getEndDate());
+			hash.put("end", scheduleList.get(i).getEndDate().plusDays(1));
 			hash.put("title",scheduleList.get(i).getScheduleName() + "-" + scheduleList.get(i).getEmployeeNo().getName());
 			hash.put("color", "#FF0000");
 			hash.put("textColor", "#000000");
