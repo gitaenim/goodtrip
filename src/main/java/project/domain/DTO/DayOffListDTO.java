@@ -12,11 +12,15 @@ import project.domain.entity.DaysOffNumbersEntity;
 @Data
 //230109 재근 생성
 public class DayOffListDTO {
-	//휴가 리스트 DTO
+	//전체 휴가 리스트 DTO
 	
 	private long dayOffNo; //휴가번호
 	
+	private long employeeNo; //사원번호
+	
 	private String type; //휴가종류
+	
+	private String reason; //휴가사유
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate; //휴가시작일
@@ -31,7 +35,9 @@ public class DayOffListDTO {
 
 	public DayOffListDTO(DayOffEntity e) {
 		this.dayOffNo = e.getDayOffNo();
+		this.employeeNo = e.getEmployeeNo().getNo();
 		this.type = e.getType();
+		this.reason = e.getReason();
 		this.startDate = e.getStartDate();
 		this.EndDate = e.getEndDate();
 		this.draftDate = e.getDraftDate();

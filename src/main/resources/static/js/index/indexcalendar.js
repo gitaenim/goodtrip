@@ -36,7 +36,7 @@ function calendar() {
 							console.log(obj);
 						},*/
 		select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-		console.log(arg);
+		location.href="/scheduleList?clickedDate=" + arg.startStr;
 		/*	var title = prompt('금일 일정을 넣어주세요:');
 			if (title) {
 				calendar.addEvent({

@@ -41,7 +41,7 @@ public class MyFileUtils {
 		System.err.println("업로드 >>>>> " + amazonS3Client.getUrl(this.bucket, uploadPath+newName));
 		String url = amazonS3Client.getUrl(this.bucket, uploadPath+newName).toString();
 		
-		return url;
+		return httpsToHttp(url);
 	}
 	
 	/**
@@ -89,6 +89,17 @@ public class MyFileUtils {
 		int idx = orgName.lastIndexOf(".");
 		String newName = orgName.substring(0, idx) + "_" + UUID.randomUUID().toString() + orgName.substring(idx);
 		return newName;
+	}
+	
+	/**
+	 * @param url 아마존 외부에서 접근가능한 https 타입의 url주소
+	 * @return https -> http로 변경후 반환
+	 */
+	private String httpsToHttp(String url) {
+		int colon = url.lastIndexOf(":");
+		String result = url.substring(colon);
+		String newURL = "http"+result;
+		return newURL;
 	}
 
 }

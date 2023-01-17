@@ -32,7 +32,7 @@ public class EmployeesDetailDTO {
 	      String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
 	      return number.replaceAll(regEx, "$1-$2-$3");
 	}
-	
+
 	public EmployeesDetailDTO(EmployeesEntity ent) {
 		this.imgUrl = ent.getImageNo().getUrl();
 		this.no = ent.getNo();

@@ -16,5 +16,8 @@ public interface OrganizationChartService {
 
 	void editmode(Long no, EmployeesUpdateDTO dto);
 
+	void findAllList(Model model);
+
 	void treelist(Model model, Long no);
+
 }

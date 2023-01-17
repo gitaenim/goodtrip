@@ -1,5 +1,7 @@
 package project.domain.DTO;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.EmployeesEntity;
@@ -38,13 +40,17 @@ public class ReplySuggestionsDTO {
 	 * 데이터 Update 용 편의 메서드
 	 * 
 	 * @param replySuggestNo : (long 타입) 댓글 번호
-	 * @param suggestNo : (BoardSuggestionsEntity타입) 게시글 번호
 	 * @param registNo : (EmployeesEntity타입) 사원 번호
+	 * @param suggestNo : (BoardSuggestionsEntity타입) 게시글 번호
 	 * @return Update를 수행할 ReplySuggestionsEntity 타입 반환
 	 */
 	public ReplySuggestionsEntity toEntityForUpdate(long replySuggestNo, EmployeesEntity registNo, BoardSuggestionsEntity suggestNo) {
+		
+		//업데이트를 수행한 날짜 정보
+		LocalDateTime today = LocalDateTime.now();
+		
 		return ReplySuggestionsEntity.builder()
-				.replySuggestNo(replySuggestNo).title(title).content(content).registNo(registNo).suggestNo(suggestNo)
+				.replySuggestNo(replySuggestNo).title(title).content(content).registNo(registNo).suggestNo(suggestNo).createDate(today)
 				.build();
 	}
 }

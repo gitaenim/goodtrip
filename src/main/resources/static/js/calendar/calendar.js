@@ -20,7 +20,7 @@ function calendar(data) {
 		slotMaxTime: '23:00', // Day 캘린더에서 종료 시간
 		// 해더에 표시할 툴바
 		headerToolbar: {
-			left: 'prev,next today',
+			left: 'prev,next today addEventButton',
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay'
 		},
@@ -32,27 +32,54 @@ function calendar(data) {
 		nowIndicator: true, // 현재 시간 마크
 		dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
 		locale: 'ko', // 한국어 설정
+		customButtons: {
+			addEventButton: { // 추가한 버튼 설정
+				text: "일정 추가",  // 버튼 내용
+				click: function() { // 버튼 클릭 시 이벤트 추가
+					$("#calendarModal").modal("show"); // modal 나타내기
 
-		/*eventAdd : function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-							console.log(obj);
-						},
-						eventChange : function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-							console.log(obj);
-						},
-						eventRemove : function(obj) { // 이벤트가 삭제되면 발생하는 이벤트
-							console.log(obj);
-						},*/
-		select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-			var title = prompt('금일 일정을 넣어주세요:');
-			if (title) {
-				calendar.addEvent({
-					title: title,
-					start: arg.start,
-					end: arg.end,
-					allDay: arg.allDay
-				})
+					$("#addCalendar").on("click", function() {  // modal의 추가 버튼 클릭 시
+						var select = $("#calendar_select").val()
+						var content = $("#calendar_content").val();
+						var start_date = $("#calendar_start_date").val();
+						var end_date = $("#calendar_end_date").val();
+
+						//내용 입력 여부 확인
+						if (content == null || content == "") {
+							alert("내용을 입력하세요.");
+						} else if (select == null || select == "") {
+							alert("일정 종류를 선택하세요.");
+						} else if (start_date == "" || end_date == "") {
+							alert("날짜를 입력하세요.");
+						} else if (new Date(end_date) - new Date(start_date) < 0) { // date 타입으로 변경 후 확인
+							alert("종료일이 시작일보다 먼저입니다.");
+						} else { // 정상적인 입력 시
+							var obj = {
+								"select" : select,
+								"title": content,
+								"start": start_date,
+								"end": end_date
+							}//전송할 객체 생성
+
+							console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+
+							$.ajax({
+								type: "post",
+								url: "/scheduleAdd",
+								dataType: "json",
+								cache: false,
+								async: false,
+								data: obj,
+								success: function() {
+								},
+								error: function() {
+									window.location.href = "/calendar";
+								}
+							}); 
+						}
+					});
+				}
 			}
-			calendar.unselect()
 		},
 		// 이벤트 
 

@@ -1,7 +1,7 @@
 package project.domain.entity;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 //230104 안나 생성
+//230113 문대현 수정
 public class ScheduleEntity {
 	
 	@Id
@@ -35,11 +36,17 @@ public class ScheduleEntity {
 	private long scheduleNo; //일정번호
 	
 	@Column(name = "schedule_name", nullable = false)
-	private String scheduleName; //일정명
+	private String scheduleName; //일정종류
 
-	@Column(nullable = false)
-	private LocalDateTime date; //일정날짜
+	private String title; //일정상세 내용
 	
+	@Column(nullable = false)
+	private LocalDate startDate; //일정시작날짜
+	
+	@Column(nullable = false)
+	private LocalDate endDate; //일정끝나는날짜
+	
+
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호

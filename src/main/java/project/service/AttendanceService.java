@@ -1,5 +1,6 @@
 package project.service;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 
 import project.domain.DTO.AttendanceRegClockInDTO;
@@ -17,13 +18,13 @@ public interface AttendanceService {
 
 	void listAtt(Model model);
 
-	void myListAtt(long no, Model model);
+	void myListAtt(long no, Model model, Pageable pageable);
 
-	void myListAttOnly(long no, Model model);
+	void myListAttOnly(long no, Model model, Pageable pageable);
 
-	void personalAtt(long no, Model model);
+	void personalAtt(long no, Model model, Pageable pageable);
 
-	void personalWork(long no, Model model);
+	void personalWork(long no, Model model, Pageable pageable);
 
 
 
