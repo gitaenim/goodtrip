@@ -15,6 +15,7 @@ import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
+import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
@@ -93,10 +94,28 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//내 결재 리스트
 	@Override
-	public void findByDepartmentNo(Long department, Model model) {
-		model.addAttribute("appList", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
+	public void appList(long department, Model model) {		
+		//EmployeesEntity emp=employeesRepo.findById(no).orElseThrow();
+		//List<DayOffEntity> ent=dayOffRepo.findByEmployeeNo(emp);
+		EmployeesEntity emp = employeesRepo.findByDepartmentNo(department);
+		List<DayOffEntity> dayoff = dayOffRepo.findAllByDayOffNo(emp);
+		model.addAttribute("appList", dayoff);
+	}
+
+	/*
+	@Override
+	public void appList2(DepartmentsEntity departmentNo, Model model) {
+		
+		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNo(employeesRepo.findByDepartmentNo(departmentNo)));		
+	}
+	*/
+	
+	@Override
+	public void appList2(long no, Model model) {
+		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNo(employeesRepo.findByDepartmentNo(no)));
 		
 	}
+	
 
 	
 }

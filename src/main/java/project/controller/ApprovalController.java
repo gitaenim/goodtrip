@@ -56,12 +56,20 @@ public class ApprovalController {
 	}
 	
 	//내 결재 리스트
-	@GetMapping("/approvalList")
-    public String approvalList(@PathVariable Long department, Model model) {
-		service.findByDepartmentNo(department, model); //no :  day off no
+	@GetMapping("/approvalList/{department}")
+    public String approvalList(@PathVariable long department, Model model) {
+		service.appList(department, model);
         return "approvalMgmt/approvalList";
     }
-		
+	
+	//내 결재 리스트
+	@GetMapping("/approvalList")
+    public String approvalList2(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
+		long no = myUserDetails.getNo();
+		service.appList2(no, model);
+        return "approvalMgmt/approvalList";
+    }
+	
 	//결재용 휴가 디테일
 	@GetMapping("/dayoffApp")
 	public String dayOffApp(@RequestParam long dayOffNo, Model model) {
