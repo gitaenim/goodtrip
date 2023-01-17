@@ -72,8 +72,10 @@ public class MyFileUtils {
 		System.err.println("임시파일 업로드 >>>>>" + amazonS3Client.getUrl(bucket, imgkey));
 
 		Map<String, String> tempFileInfo = new HashMap<>();
-
-		tempFileInfo.put("url", amazonS3Client.getUrl(bucket, imgkey).toString());
+		
+		String url = httpsToHttp(amazonS3Client.getUrl(bucket, imgkey).toString());
+		
+		tempFileInfo.put("url", url);
 		tempFileInfo.put("key", imgkey);
 		tempFileInfo.put("oldName", orgName);
 		tempFileInfo.put("newName", newName);
