@@ -41,7 +41,7 @@ public class ReplySuggestionServiceProc implements ReplySuggestionService{
 		replySuggestionsRepository.save(dto.toEntityForSave(emp, suggestion));
 	}
 
-
+	// 댓글 리스트 데이터 출력 기능
 	@Override
 	public void findAllList(long suggestNo, Model model) {
 		
@@ -60,6 +60,30 @@ public class ReplySuggestionServiceProc implements ReplySuggestionService{
 		
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("replyList", list);
+	}
+
+	// 댓글 수정 기능
+	@Override
+	public void update(ReplySuggestionsDTO dto, long replySuggestNo) {
+		
+		// 댓글 작성자 정보 조회
+		EmployeesEntity emp = employeesRepository.findById(dto.getRegistNo()).orElseThrow();
+		// 수정할 게시글 정보 조회
+		BoardSuggestionsEntity suggestion = boardSuggestionsRepository.findById(dto.getSuggestNo()).orElseThrow();
+		
+		replySuggestionsRepository.save(dto.toEntityForUpdate(replySuggestNo, emp, suggestion));
+	}
+
+	// 댓글 삭제 기능
+	@Override
+	public void deleteById(long replySuggestNo) {	
+		replySuggestionsRepository.deleteById(replySuggestNo);
+	}
+	
+	// 해당 게시글의 모든 댓글 정보를 조회해서 반환해 주는 기능
+	@Override
+	public List<ReplySuggestionsEntity> findBySuggestNo(BoardSuggestionsEntity suggestions) {		
+		return replySuggestionsRepository.findBySuggestNo(suggestions);
 	}
 
 }

@@ -59,6 +59,13 @@ public class CncBoardServiceProc implements CNCBoardService {
 		//model.addAttribute("cncDetail", date);
 		model.addAttribute("cncDetail", entityData);
 	}
+
+	/* 230113 문대현 생성 */
+	// 모든 경조사 데이터 조회 한 후에 반환해 주는 기능
+	@Override
+	public List<BoardCNCEntity> findAll() {
+		return CNCRepository.findAll();
+	}
 	
 	
 

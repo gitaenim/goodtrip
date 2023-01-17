@@ -43,7 +43,7 @@ public class ReplySuggestionsEntity {
 	@ManyToOne
 	private EmployeesEntity registNo; //작성자: 사원번호
 	
-	@Column(nullable = false)
+	@Column
 	private String title; //제목
 	
 	@Column(nullable = false)
