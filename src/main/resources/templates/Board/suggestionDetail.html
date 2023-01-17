@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="/css/board/board-reply.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="/js/board/suggestionEdit/suggestionEdit.js"></script>
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
@@ -15,9 +16,11 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="detail-1">
 		<p>조회</p>
-		<div class="flex right list-button" th:if="${#authentication.principal.no} == ${suggestionDetail.registNo.no}">
+		<div class="flex right list-button"
+			th:if="${#authentication.principal.no} == ${suggestionDetail.registNo.no}">
 			<form action="/boardDelete" method="post">
-				<input type="hidden" th:value="${suggestionDetail.suggestNo}" th:name="suggestNo">
+				<input type="hidden" th:value="${suggestionDetail.suggestNo}"
+					th:name="suggestNo">
 				<button class="flex right list-button">[삭제]</button>
 			</form>
 		</div>
@@ -42,7 +45,8 @@
 					</tr>
 					<tr>
 						<td>작성일</td>
-						<td th:text="${#temporals.format(suggestionDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
+						<td
+							th:text="${#temporals.format(suggestionDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
 					</tr>
 				</table>
 			</div>
@@ -50,7 +54,7 @@
 				th:if="${#authentication.principal.no} == ${suggestionDetail.registNo.no}"
 				type="button" class="list-button" onclick="boardEditModeOn()">[수정하기]</button>
 		</form>
-		
+
 		<form class="board-edit-mode" action="/suggestionEdit" method="post">
 			<div>
 				<table class="detail-table table-1" border="1">
@@ -80,17 +84,18 @@
 				</table>
 			</div>
 			<div class="flex between">
-				<button type="button" onclick="boardEditModeOff()" class="list-button">[취소]</button>
+				<button type="button" onclick="boardEditModeOff()"
+					class="list-button">[취소]</button>
 				<input type="hidden" th:value="${suggestionDetail.registNo.no}"
 					th:name="no"> <input type="hidden"
 					th:value="${suggestionDetail.suggestNo}" th:name="suggestNo">
 				<button class="list-button">[수정완료]</button>
 			</div>
 		</form>
-<!-- //////////////////////////////////////// -->
+		<!-- //////////////////////////////////////// -->
 		<div>
 			<p>댓글</p>
-			<table class="table-1 reply-veiw-mode" border="1">
+			<table class="table-1" border="1">
 				<tr class="table-tr1">
 					<td width="100px">작성자</td>
 					<td>내용</td>
@@ -102,43 +107,34 @@
 				</tr>
 				<tr th:if="${nullcheck == false}" th:each="list : ${replyList}  "
 					class="table-tr2">
+					<form action="/suggestionReplyEdit" method="post">
 					<td th:text="${list.registNo.name}">[댓글작성자]</td>
-					<td th:text="${list.content}">[댓글내용]</td>
-					<td
-						th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}">[최중수정일]</td>
-					<td th:if="${#authentication.principal.no} == ${list.registNo.no}">
-						<button type="button" onclick="replyEditModeOn()" class="list-button">[댓글수정]</button>
+					<td class="reply-edit-mode"><span
+						th:if="${#authentication.principal.no} != ${list.registNo.no}">[[${list.content}]]</span>
+						<input
+						th:if="${#authentication.principal.no} == ${list.registNo.no}"
+						type="text" th:value="${list.content}" th:name="content"></td>
+					<td class="reply-veiw-mode" th:text="${list.content}">[댓글내용]</td>
+					<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}">[최중수정일]</td>
+					<td class="reply-veiw-mode"
+						th:if="${#authentication.principal.no} == ${list.registNo.no}">
+						<button type="button" onclick="replyEditModeOn()"
+							class="list-button">[댓글수정]</button>
 						<form action="/suggestionReplyDelete" method="post">
-							<input type="hidden" th:value="${list.replySuggestNo}" th:name="replySuggestNo">
-							<input type="hidden" th:value="${suggestionDetail.suggestNo}" th:name="suggestNo">
+							<input type="hidden" th:value="${list.replySuggestNo}"
+								th:name="replySuggestNo"> <input type="hidden"
+								th:value="${suggestionDetail.suggestNo}" th:name="suggestNo">
 							<button class="list-button">[댓글삭제]</button>
 						</form>
 					</td>
-					<td th:if="${#authentication.principal.no} != ${list.registNo.no}">-</td>
-				</tr>
-			</table>
-
-			<table class="table-1 reply-edit-mode" border="1">
-				<tr class="table-tr1">
-					<td width="100px">작성자</td>
-					<td>내용</td>
-					<td width="100px">작성일</td>
-					<td width="100px">비고</td>
-				</tr>
-				<tr th:if="${nullcheck == true}" class="table-tr2">
-					<td colspan="5">해당 게시글에는 댓글이 없습니다</td>
-				</tr>
-				<tr th:if="${nullcheck == false}" th:each="list : ${replyList}" class="table-tr2">
-					<form action="/suggestionReplyEdit" method="post">
-					<td th:text="${list.registNo.name}">[댓글작성자]</td>
-					<td><span th:if="${#authentication.principal.no} != ${list.registNo.no}">[[${list.content}]]</span>
-						<input th:if="${#authentication.principal.no} == ${list.registNo.no}" type="text" th:value="${list.content}" th:name="content"></td>
-					<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}">[최종수정일]</td>
-					<td th:if="${#authentication.principal.no} == ${list.registNo.no}">
-						<button type="button" class="list-button" onclick="replyEditModeOff()">[수정취소]</button> 
-							<input type="hidden" th:value="${list.replySuggestNo}" th:name="replySuggestNo"> 
-							<input type="hidden" th:value="${suggestionDetail.suggestNo}" th:name="suggestNo">
-							<input type="hidden" th:value="${list.registNo.no}" th:name="registNo">
+					<td class="reply-edit-mode"
+						th:if="${#authentication.principal.no} == ${list.registNo.no}">
+						<button type="button" class="list-button"
+							onclick="replyEditModeOff()">[수정취소]</button> <input type="hidden"
+						th:value="${list.replySuggestNo}" th:name="replySuggestNo">
+						<input type="hidden" th:value="${suggestionDetail.suggestNo}"
+						th:name="suggestNo"> <input type="hidden"
+						th:value="${list.registNo.no}" th:name="registNo">
 						<button class="list-button">[수정완료]</button>
 					</td>
 					<td th:if="${#authentication.principal.no} != ${list.registNo.no}">-</td>
@@ -149,7 +145,8 @@
 			<div sec:authorize="isAuthenticated()">
 				<p>댓글 쓰기</p>
 				<form action="/ReplySuggestionWrite" method="post">
-					<div class="table-2">댓글 작성 : 
+					<div class="table-2">
+						댓글 작성 :
 						<textarea name=content rows="1" cols="165"
 							placeholder="댓글 내용을 작성해 주세요" required="required"></textarea>
 					</div>
