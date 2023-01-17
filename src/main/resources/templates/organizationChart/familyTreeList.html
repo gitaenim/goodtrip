@@ -1,0 +1,5 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+	<li th:each="list:${treelist}" th:utext="${list.name}"></li>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<link rel="stylesheet" href="/css/organizationChart/familyTree.css">
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript">
+$(function () {
+    $('.genealogy-tree ul').hide();
+    $('.genealogy-tree>ul').show();
+    $('.genealogy-tree ul.active').show();
+    $('.genealogy-tree li').on('click', function (e) {
+        var children = $(this).find('> ul');
+        if (children.is(":visible")) children.hide('fast').removeClass('active');
+        else children.show('fast').addClass('active'); 
+        e.stopPropagation();
+    });
+});
+
+function showlist(no){
+	alert(no);
+	$.ajax({
+		url:`/ozc/familytree/${no}`,
+		success:function(result){
+			$("#department-list:nth-child(2)").html(result);
+		},error:function(){
+			alert("error!");
+		}
+		
+	});
+}
+
+</script>
+</head>
+<main>
+	<!-- 230110 한아 작성 -->
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="body genealogy-body genealogy-scroll">
+	    <div class="genealogy-tree">
+	        <ul class="flex">
+	            <li>
+	                <a href="">
+	                    <div class="member-view-box">
+	                        <div class="">
+	                            <div class="member-details">
+	                                <h2>Good Trip</h2>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </a>
+	                <ul class="active flex">
+	                    <li class="lv1" th:each="department : ${department}" th:value="${department.departmentNo}">
+	                        <a th:onclick="|showlist(${department.departmentNo})|">
+	                        <!-- <a th:href="|/ozc/familytree/${department.departmentNo}|"> -->
+	                            <div class="member-view-box">
+	                                <div class="">
+	                                    <div class="member-details">
+	                                        <h3>[[${department.departmentName}]]</h3>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </a>
+		                    <ul id="department-list">
+		                    	<!-- 리스트가 들어갈 자리 -->
+		                    	<!-- <li th:each="list:${treelist}" th:utext="${list.name}"></li> -->
+		                    </ul>
+	                    </li>
+	                </ul>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+</main>
+</html>

@@ -47,7 +47,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	public void findAllByDepartmentNo(Model model, Long department) {
 		System.out.println("department : "+department);
 		
-		List<EmployeesEntity> list2 = employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderBySalaryDesc(department, false);
+		List<EmployeesEntity> list2 = employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(department, false);
 		model.addAttribute("list2", list2);
 		
 		boolean nullcheck = false;
@@ -72,6 +72,11 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	public void editmode(Long no, EmployeesUpdateDTO dto) {
 		employeesRepo.findById(no).map(entity->entity.updateInfo(dto));
 		
+	}
+
+	@Override
+	public void treelist(Model model, Long no) {
+		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 	}
 
 	
