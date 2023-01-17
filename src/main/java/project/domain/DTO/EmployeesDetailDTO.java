@@ -1,5 +1,6 @@
 package project.domain.DTO;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class EmployeesDetailDTO {
 	      String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
 	      return number.replaceAll(regEx, "$1-$2-$3");
 	}
+	public DecimalFormat sformatter = new DecimalFormat("###,###");
 
 	public EmployeesDetailDTO(EmployeesEntity ent) {
 		this.imgUrl = ent.getImageNo().getUrl();
@@ -43,11 +45,10 @@ public class EmployeesDetailDTO {
 		this.phone = phone_format(ent.getPhone());
 		this.joinDate = ent.getJoinDate();
 		this.resignDate = ent.getResignDate()==null ? LocalDate.now() : ent.getResignDate();
-		//this.resignDate = LocalDate.now();
 		this.extension = ent.getExtension();
 		this.birthDate = ent.getBirthDate();
 		this.mainWork = ent.getMainWork();
-		this.salary = ent.getSalary();
+		this.salary = sformatter.format(ent.getSalary());
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
 		if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
