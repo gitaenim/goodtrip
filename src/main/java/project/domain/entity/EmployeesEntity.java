@@ -1,12 +1,10 @@
 package project.domain.entity;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,7 +21,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,7 +41,7 @@ import project.enums.MyRole;
 //230104 안나 생성
 //230109 한아 수정 : phone, extension 데이터 타입 변경 long -> String
 //230109 한아 수정 : joinDate, resignDate, birthDate 데이터 타입 변경 LocalDateTime -> LocalDate
-//230116 한아 수정 : salary 데이터 타입 변경 long -> String / positionRank 칼럼 추가
+//230116 한아 수정 : positionRank 칼럼 추가
 public class EmployeesEntity {
 	
 	@Id
@@ -72,7 +69,7 @@ public class EmployeesEntity {
 	
 	private String extension;//내선번호
 	
-	private String salary;//급여
+	private long salary;//급여
 	
 	@Column(name = "birth_date")
 	private LocalDate birthDate;//생년월일
@@ -155,8 +152,6 @@ public class EmployeesEntity {
 	}
 	//사원 정보 수정
 	public EmployeesEntity updateInfo(EmployeesUpdateDTO dto) {
-		DecimalFormat sformatter = new DecimalFormat("###,###"); //형식을 변환하여 저장
-		
 		this.departmentNo=DepartmentsEntity.builder().departmentNo(dto.getDepartmentNo()).build();
 		this.name = dto.getName();
 		this.email = dto.getEmail();
@@ -167,7 +162,7 @@ public class EmployeesEntity {
 		this.mainWork = dto.getMainWork();
 		this.joinDate = LocalDate.parse(dto.getJoinDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.birthDate = LocalDate.parse(dto.getBirthDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		this.salary = sformatter.format(dto.getSalary());
+		this.salary = dto.getSalary();
 		if(resignDate==null) return null; //퇴사일 입력안하면 method 종료
 		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		return null;
