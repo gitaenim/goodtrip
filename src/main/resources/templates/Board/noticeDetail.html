@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/css/board/board-detail.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
+<script src="/js/notice/notice.js"></script>
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
@@ -12,7 +13,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
    	<div class="detail-1">
    		<p>조회</p>
-   		<form>
+   		<form class="board-veiw-mode">
    			<div>   			
    				<table class="detail-table table-1" border="1" >
 	    			<tr>
@@ -37,18 +38,53 @@
 	    			</tr>
 	    			<tr>
 	    				<td>작성일</td>
-	    				<td th:text=${noticeDetail.createDate}>2022.1.1</td>
+	    				<td th:text="${#temporals.format(noticeDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
 	    			</tr>
-	    			<!-- <tr>
-	    				<td>
-	    					<input>
-	    					<button>수정완료</button>
-	    					<button>취소</button>
-	    				</td>
-	    			</tr> -->
 	    		</table>
     		</div>
+    		<button
+    			th:if="${#authentication.principal.no} == ${noticeDetail.registNo.no}"
+				type="button" class="veiw-mode" onclick="boardEditModeOn()">[수정하기]</button>
    		</form>
+   		<form class="board-edit-mode" action="/notice" method="post">
+   			<div>   			
+   				<table class="detail-table table-1" border="1" >
+	    			<tr>
+	    				<td>글번호</td>
+	    				<td th:text=${noticeDetail.noticeNo}>1</td>
+	    			</tr>
+	    			<tr>
+	    				<td>작성자</td>
+	    				<td th:text=${noticeDetail.registNo.name}>김대리</td>
+	    			</tr>
+	    			<tr>
+						<td>제목</td>
+						<td><input th:value="${noticeDetail.title}"
+							th:name="title"></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td><input th:value="${noticeDetail.content}"
+							th:name="content"></td>
+					</tr>
+	    			<tr>
+	    				<td>작성일</td>
+	    				<td th:text="${#temporals.format(noticeDetail.createDate,'yyyy/MM/dd hh:mm')}">2022.1.1</td>
+	    			</tr>
+	    		</table>
+    		</div>
+   		<div class="flex between">
+				<button type="button" onclick="boardEditModeOff()">[취소]</button>
+				<input type="hidden" th:value="${noticeDetail.registNo.no}"
+					th:name="no"> <input type="hidden"
+					th:value="${noticeDetail.noticeNo}" th:name="noticeNo">
+				<button>[수정완료]</button>
+			</div>
+		</form>	
+			<form th:action="|/Board/noticeList/${noticeDetail.noticeNo}|" method="post">
+   					<input type="hidden" name="_method" value="DELETE">
+   					<button>삭제</button>
+   			</form>
    		<!-- //////////////////////////////////////// -->
    		<div class="back-1">
 			<a class="flex center" href="/Board/noticeList">뒤로가기</a>

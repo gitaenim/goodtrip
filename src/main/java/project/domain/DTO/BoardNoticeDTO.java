@@ -7,6 +7,7 @@ import project.domain.entity.EmployeesEntity;
 @Data
 public class BoardNoticeDTO {
 	
+	
 	private long no; //사원번호
 	
 	private String title; //글 제목
@@ -21,7 +22,7 @@ public class BoardNoticeDTO {
 			.build();
 }
 
-	
+	//업데이트 메서드
 	public BoardNoticeEntity toEntityForUpdate(long noticeNo, EmployeesEntity registNo) {
 		return BoardNoticeEntity.builder()
 				.noticeNo(noticeNo).title(title).content(content).registNo(registNo)
