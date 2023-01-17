@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.PersonnelEvaDTO;
-import project.domain.entity.PersonnelEvaEntity;
 import project.service.OrganizationChartService;
 import project.service.PersonnelEvaService;
 

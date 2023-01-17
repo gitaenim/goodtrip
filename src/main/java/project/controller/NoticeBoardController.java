@@ -1,14 +1,9 @@
 package project.controller;
 
-
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,7 +48,7 @@ public class NoticeBoardController {
 	
 	//공지사항 글쓰기 기능
 	 @PostMapping("/Board/noticeWrite")   
-	    public String noticeWriting(@ModelAttribute("dto") @Valid BoardNoticeDTO dto, BindingResult result) {
+	    public String noticeWriting(@ModelAttribute("dto") BoardNoticeDTO dto, BindingResult result) {
 		 
 		 if(result.hasErrors()) {
 			 return "Board/noticeWrite";

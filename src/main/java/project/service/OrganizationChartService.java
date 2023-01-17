@@ -15,4 +15,6 @@ public interface OrganizationChartService {
 	void findAllByDeleteStatusTrue(Model model);
 
 	void editmode(Long no, EmployeesUpdateDTO dto);
+
+	void findAllList(Model model);
 }
