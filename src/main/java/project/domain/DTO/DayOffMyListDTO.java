@@ -10,9 +10,12 @@ import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 
 @Data
+
+//230113 내 휴가리스트 재근 생성
 //230109 재근 생성
 public class DayOffMyListDTO {
 	//내 휴가 리스트 DTO
+
 	
 	private String type; //휴가종류
 	

@@ -8,7 +8,7 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 	<link rel="stylesheet" href="/css/attendance/personal-attendance.css">
 </head>
 <main>
-	<!-- 230104 한아 작성 230111 안나 thymeleaf 수정 -->
+	<!-- 230104 한아 작성 230111 안나 thymeleaf 수정 230113 링크수정 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
 		<section>
@@ -19,9 +19,11 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 				</div>
 			</div>
 			<div class="flex att-btn">
-				<button><span class="small-circle-selected"></span>근태</button>
-				<a th:href="|/personalWorkingDay/${emNo}|"><button><span class="small-circle"></span>근무</button></a>
-				<button onclick="location.href = 'personalDayOff'"><span class="small-circle"></span>휴가</button>
+				<th:block th:each="attListEmp:${attListEmp}">
+					<button><span class="small-circle-selected"></span>근태</button>
+					<a th:href="|/personalWorkingDay/${attListEmp.no}|"><button><span class="small-circle"></span>근무</button></a>
+					<a th:href="|/personalDayOff/${attListEmp.no}|"><button><span class="small-circle"></span>휴가</button></a>
+				</th:block>
 			</div>
 			<div class="flex center back-list">
 				<table class="list-table">

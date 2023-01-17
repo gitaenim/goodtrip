@@ -67,7 +67,14 @@ public class AttendanceController {
 			service.myListAttOnly(myUserDetails.getNo(), model, pageable);
 			return "AttendanceMgmt/myWorkingDay";
 		}
-
+	
+	/* 230113 재근 내 휴가 ApprovalController에 작업
+	// 내 휴가
+	@GetMapping("/myDayOff")
+	public String myDayOff() {
+			return "AttendanceMgmt/myDayOff";
+	}
+	*/
 
 	//직원별 근태+휴가 뿌려주기 230111 수정 안나 - 휴가 미설정 230117 페이징 추가 안나
 		@GetMapping("/personalAttendance/{no}")
@@ -82,4 +89,13 @@ public class AttendanceController {
 			service.personalWork(no, model, pageable);
 			return "AttendanceMgmt/personalWorkingDay";
 		}
+
+	/* 230113 재근 직원별 휴가 ApprovalController에 작업
+	// [김트립]님 휴가
+	@GetMapping("/personalDayOff")
+	public String personalDayOff() {
+		return "AttendanceMgmt/personalDayOff";
+	}
+	*/
+
 }

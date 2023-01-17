@@ -56,6 +56,9 @@ tr.list-2 th{
 .list-table tr td{
 	color: #6f6f6f;
 }
+.list-table tr td a{
+	color: #6f6f6f;
+}
 .list-table>tbody>tr>td>button{
 	border: solid 1px;
 	border-radius: 5px;
