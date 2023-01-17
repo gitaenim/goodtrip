@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesInsertDTO;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;

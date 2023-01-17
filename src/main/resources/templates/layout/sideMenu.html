@@ -36,6 +36,9 @@
 					<dd>
 						<a href="/calendar">캘린더</a>
 					</dd>
+					<dd>
+						<a href="/departments/manage">부서관리</a>
+					</dd>
 				</dl>
 			</li>
 			<li>
@@ -63,6 +66,9 @@
 					</dd>
 					<dd>
 						<a href="/dayoff">휴가신청 작성</a>
+					</dd>
+					<dd sec:authorize="hasRole('ROLE_PERSONAL')">
+						<a href="/">내 결재 리스트</a>
 					</dd>
 				</dl>
 			</li>
