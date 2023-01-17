@@ -55,21 +55,14 @@ public class ApprovalController {
 	    return "AttendanceMgmt/myDayOff";
 	}
 	
-	//결재 페이지
-	/*
-	@GetMapping("/dayoffApp")
-    public String dayoffApp() {
-        return "approvalMgmt/dayOffApp";
+	//내 결재 리스트
+	@GetMapping("/approvalList")
+    public String approvalList(@PathVariable Long department, Model model) {
+		service.findByDepartmentNo(department, model); //no :  day off no
+        return "approvalMgmt/approvalList";
     }
-    */
-	
+		
 	//결재용 휴가 디테일
-//	@GetMapping("/dayoffApp/{no}")
-//    public String dayOffApp(@PathVariable Long no, Model model) {
-//		service.findById(no, model); //no :  day off no
-//        return "approvalMgmt/dayOffApp";
-//    }
-	
 	@GetMapping("/dayoffApp")
 	public String dayOffApp(@RequestParam long dayOffNo, Model model) {
 		service.detail(dayOffNo, model); //no :  day off no

@@ -80,24 +80,20 @@ public class DayOffServiceProcess implements DayOffService {
 		
 	}
 
-	//결재용 휴가 디테일
-	/*
-	@Override
-	public void findById(Long no, Model model) {
-		model.addAttribute("dayOffDetail", dayOffRepo.findById(no)
-				.map(DayOffListDTO::new).orElseThrow()
-				);
-	}
-	*/
-	
+	//결재용 휴가 디테일	
 	@Override
 	public void detail(long dayOffNo, Model model) {
 		
-		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();
-		
-		model.addAttribute("dayOffDetail", ent);
-		
+		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();		
+		model.addAttribute("dayOffDetail", ent);		
 		model.addAttribute("detailEmp", ent.getEmployeeNo());
+	}
+
+	//내 결재 리스트
+	@Override
+	public void findByDepartmentNo(Long department, Model model) {
+		model.addAttribute("appList", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
+		
 	}
 	
 	
