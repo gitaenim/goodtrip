@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import lombok.Data;
 import project.domain.entity.DailyWorkingHoursEntity;
@@ -14,9 +15,9 @@ public class AttendanceMyListDTO {
 	
 	private LocalDate date; //일자
 	
-	private LocalDateTime clockIn; //출근시간
+	private String clockIn; //출근시간
 	
-	private LocalDateTime clockOut; //퇴근시간
+	private String clockOut; //퇴근시간
 	
 	private String workingHour; //일 근무 시간
 	
@@ -26,15 +27,24 @@ public class AttendanceMyListDTO {
 		
 	public AttendanceMyListDTO(DailyWorkingHoursEntity e) {
 		this.date = e.getDate().toLocalDate();
-		this.clockIn = e.getClockIn();
-		this.clockOut = e.getClockOut();
+		this.clockIn = e.getClockIn().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 		this.designatedWorkingHour = "8:00";
-		long workingHourH = Duration.between(clockIn, clockOut).toMinutes();
-		this.workingHour = Long.toString(workingHourH / 60) + ":" + Long.toString(workingHourH % 60);
+		long workingHourS = Duration.between(e.getClockIn(), e.getClockOut()).toSeconds(); //근무시간 초단위로 계산
+		if(e.getClockOut().equals(e.getClockIn())) { //출근시간 = 퇴근시간일 경우(퇴근 버튼을 안눌렀을 때)
+			this.workingHour = "-";
+			this.clockOut = "-";
+		} else { // 퇴근버튼을 눌렀을 때
+			this.clockOut = e.getClockOut().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+			if(workingHourS < 3600) {
+				this.workingHour = "-0시간" + Long.toString(59-(workingHourS % 3600 / 60)) + "분";
+			} else {
+				this.workingHour = Long.toString(workingHourS / 3600 - 1) + "시간" + Long.toString(workingHourS % 3600 / 60) + "분";
+			}
+		}
 		//휴가 넣어야함
 		if(clockIn==null) {
 			this.status = "미출근";
-		} else if(clockOut.equals(clockIn)){
+		} else if(e.getClockOut().equals(e.getClockIn())){
 			this.status = "근무중";
 		} else {
 			this.status = "근무종료";

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class personnelEvaController {
+public class PersonnelEvaController {
 	
 	// 인사관리 평가 메인리스트페이지
 		@GetMapping("/personnelEvaList")

@@ -68,6 +68,7 @@ public class ApprovalController {
 		service.detail(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp";
   }
+
 	
 }
 

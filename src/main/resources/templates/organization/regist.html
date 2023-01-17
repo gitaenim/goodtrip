@@ -69,19 +69,20 @@
 							<td>
 								부서 :
 								<select name="departmentNo">
-									<option value="1" selected>영업부</option>
-									<option value="2" >총무부</option>
-									<option value="3" >인사부</option>
-									<option value="4" >기획부</option>
-									<option value="5" >회계부</option>
-									<option value="6" >개발부</option>
-								</select> 
+									<option disabled selected>========</option>
+									<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
+								</select>
 								직급 : <select name="position">
+									<option value="Intern">인턴</option>
 									<option value="Staff" selected>사원</option>
 									<option value="SeniorClerk">주임</option>
 									<option value="AssistantManager">대리</option>
 									<option value="Chief">계장</option>
 									<option value="Manager">과장</option>
+									<option value="GeneralManager">실장</option>
+									<option value="DeputyGeneralManager">차장</option>
+									<option value="DepartmentManager">부장</option>
+									<option value="CEO">대표이사</option>
 								</select>
 							</td>
 						</tr>
@@ -111,14 +112,14 @@
 						
 						<tr>
 							<td>
-								주업무 : <input type="text" name="mainWork" size="9">
+								주업무 : <input type="text" name="mainWork" size="15">
 							</td>
 							<td></td>
 						</tr>
 	
 						<tr>
 							<td>
-								연락처 : <input type= "text" name=phone size= "9" maxlength="11" placeholder="핸드폰번호">     
+								연락처 : <input type= "text" name=phone size= "20" maxlength="11" placeholder="공백없이 숫자만 입력하세요">     
 						    </td>
 						    <td></td>
 						</tr>
@@ -136,17 +137,9 @@
 							</td>
 							<td></td>
 						</tr>
-						<!-- 
 						<tr>
 							<td>
-								퇴사일 : <input type="date" name="resignDate" size="9">
-							</td>
-							<td></td>
-						</tr>
-						 -->
-						<tr>
-							<td>
-								급여 : <input type= "text" name="salary" size= "9" placeholder="0000만원">
+								급여 : <input type= "text" name="salary" size= "20" placeholder="공백없이 숫자만 입력하세요">
 							</td>
 							<td></td>
 						</tr>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesInsertDTO;
 import project.domain.entity.EmployeesEntity;
 
@@ -16,5 +17,6 @@ public interface EmployeesService {
 	void save(EmployeesInsertDTO dto);
 
 	List<EmployeesEntity> findAll();
+
 
 }

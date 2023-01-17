@@ -2,6 +2,8 @@ package project.service.proc;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,7 +97,7 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("appList", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
 		
 	}
-	
+
 	
 }
 
