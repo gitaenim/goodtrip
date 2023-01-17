@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import project.domain.DTO.EmployeesDetailDTO;
+import project.domain.DTO.EmployeesDetailUpdateDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.EmployeesEntityRepository;
@@ -64,7 +65,13 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		model.addAttribute("list", employeesRepo.findById(no)
 				.map(EmployeesDetailDTO::new)
 				.orElseThrow());
-		
+	}
+	//조직도 디테일 수정 페이지
+	@Override
+	public void findByIdEditMode(Model model, Long no) {
+		model.addAttribute("list", employeesRepo.findById(no)
+				.map(EmployeesDetailUpdateDTO::new)
+				.orElseThrow());
 	}
 	//사원 정보 수정
 	@Transactional

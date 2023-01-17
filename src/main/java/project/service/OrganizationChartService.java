@@ -10,6 +10,8 @@ public interface OrganizationChartService {
 
 	void findById(Model model, Long no);
 
+	void findByIdEditMode(Model model, Long no);
+	
 	void findAllByDeleteStatusFalse(Model model);
 
 	void findAllByDeleteStatusTrue(Model model);
@@ -19,5 +21,6 @@ public interface OrganizationChartService {
 	void findAllList(Model model);
 
 	void treelist(Model model, Long no);
+
 
 }

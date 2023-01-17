@@ -52,7 +52,7 @@ public class OrganizationChartController {
 	//사원 상세페이지 수정모드
 	@GetMapping("/ozc/groupDetail/edit/{no}")
 	public String groupDetailEdit(Model model, @PathVariable Long no) {
-		organizationChartService.findById(model, no);
+		organizationChartService.findByIdEditMode(model, no);
 		model.addAttribute("department", departmentRepo.findAll());
 		return "organizationChart/groupDetailEditMode";
 	}

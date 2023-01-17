@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 
 import project.domain.DTO.DepartmentsDetailDTO;
 import project.domain.DTO.DepartmentsUpdateDTO;
-import project.domain.entity.DepartmentsEntity;
 import project.domain.repository.DepartmentsEntityRepository;
+import project.domain.repository.EmployeesEntityRepository;
 import project.service.DepartmentsService;
 
 @Service
@@ -18,6 +18,9 @@ public class DepartmentsServiceProcess implements DepartmentsService {
 	
 	@Autowired
 	DepartmentsEntityRepository departmentsRepo;
+	
+	@Autowired
+	EmployeesEntityRepository employeesRepo;
 	
 	//부서 정보 수정
 	@Transactional
@@ -32,8 +35,7 @@ public class DepartmentsServiceProcess implements DepartmentsService {
 	public void departmentEditMode(Long departmentNo, Model model) {
 		model.addAttribute("departmentInfo", departmentsRepo.findById(departmentNo)
 				.map(DepartmentsDetailDTO::new).orElseThrow());
-		;
-		
+		model.addAttribute("employeesByDepartment", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(departmentNo,false));
 	}
 
 
