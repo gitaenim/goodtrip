@@ -46,6 +46,7 @@ public class ScheduleEntity {
 	@Column(nullable = false)
 	private LocalDate endDate; //일정끝나는날짜
 	
+
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
 	private EmployeesEntity employeeNo; //사원번호

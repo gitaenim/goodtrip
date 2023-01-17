@@ -21,8 +21,8 @@
 				<table class="list-table">
 					<tr class="list-2">
 						<th>글번호</th>
-						<th>작성자</th>
 						<th>제목</th>
+						<th>작성자</th>
 						<th>작성일</th>
 						<th>경조사일</th>
 					</tr>
@@ -34,7 +34,7 @@
 						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
 					<!-- 	<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td> -->
 						<td th:text="${list.registNo.name}">관리자</td>
-						<td th:text="${list.createDate}">2023.01.02</td>
+						<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd hh:mm')}">2023.01.02</td>
 						<td th:text="${list.eventDate}">2023.01.02</td>
 					</tr>
 				</table>

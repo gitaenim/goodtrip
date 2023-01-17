@@ -2,7 +2,9 @@
 .detail-1{
 	padding: 1.5em;
 }
-
+.detail-2{
+	color: #4b99da;
+}
 .detail-1 p{
 	padding: 20px;
     display: flex;

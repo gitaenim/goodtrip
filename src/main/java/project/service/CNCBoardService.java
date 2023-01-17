@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import project.domain.DTO.BoardCNCDTO;
 import project.domain.entity.BoardCNCEntity;
 
-@Service
 public interface CNCBoardService {
 
 	void save(BoardCNCDTO cdto);
@@ -19,6 +18,9 @@ public interface CNCBoardService {
 
 	List<BoardCNCEntity> findAll();
 
+	void update(BoardCNCDTO cdto, long cncNo);
+
+	void delete(long cncNo);
 
 
 }

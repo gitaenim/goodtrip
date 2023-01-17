@@ -1,6 +1,7 @@
 package project.domain.DTO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,6 +21,7 @@ public class BoardCNCDTO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate eventDate;
 	
+	
 	public BoardCNCEntity toEntityForSave(EmployeesEntity registNo) {
 		return BoardCNCEntity.builder()
 				.title(title).content(content).registNo(registNo).eventDate(eventDate)
@@ -28,8 +30,9 @@ public class BoardCNCDTO {
 
 	
 	public BoardCNCEntity toEntityForUpdate(long cncNo, EmployeesEntity registNo) {
+		LocalDateTime today = LocalDateTime.now();
 		return BoardCNCEntity.builder()
-				.cncNo(cncNo).title(title).content(content).registNo(registNo).eventDate(eventDate)
+				.cncNo(cncNo).title(title).content(content).registNo(registNo).eventDate(eventDate).createDate(today)
 				.build();
 	}
 
