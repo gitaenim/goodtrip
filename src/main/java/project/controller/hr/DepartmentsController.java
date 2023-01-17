@@ -6,9 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import project.domain.DTO.DepartmentsDTO;
+import project.domain.DTO.DepartmentsUpdateDTO;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.service.DepartmentsService;
@@ -37,15 +36,15 @@ public class DepartmentsController {
 				.build());
 		return "redirect:/departments/manage";
 	}
-	//수정삭제모드
-	@GetMapping("/departments/edit")
-	public String editDepartments(Model model) {
-		model.addAttribute("departmentList", departmentRepo.findAll());
+	//부서수정삭제모드
+	@GetMapping("/departments/editdelete/{departmentNo}")
+	public String editDepartments(@PathVariable Long departmentNo, Model model) {
+		departmentsService.departmentEditMode(departmentNo, model);
 		return "organizationChart/departmentEditMode";
 	}
 	//수정완료
 	@GetMapping("/departments/edit/{departmentNo}")
-	public String editingDepartments(@PathVariable long departmentNo, DepartmentsDTO dto) {
+	public String editingDepartments(@PathVariable long departmentNo, DepartmentsUpdateDTO dto) {
 		departmentsService.editDepartment(departmentNo, dto);
 		return "redirect:/departments/manage";
 	}
@@ -53,6 +52,6 @@ public class DepartmentsController {
 	@GetMapping("/departments/delete/{departmentNo}")
 	public String deletingDepartments(Model model, @PathVariable long departmentNo) {
 		departmentRepo.deleteById(departmentNo);
-		return "redirect:/departments/edit";
+		return "redirect:/departments/manage";
 	}
 }

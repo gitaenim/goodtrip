@@ -8,7 +8,25 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
 	$(function(){
+		
 	});
+	
+	function removeCheck(no){
+		if (confirm("부서에 속한 사원이 없을 때만 부서가 삭제됩니다.\n정말 삭제하시겠습니까?")==true){    //확인
+			$.ajax({
+				url:`/departments/delete/${no}`
+			})
+			.done(function(){
+				alert("삭제가 완료되었습니다!");
+			})
+			.fail(function(){
+				alert("삭제에 실패하였습니다. 사원을 모두 제거한 후 부서 삭제가 가능합니다.")
+			})
+			
+		} else{   //취소
+			return ;
+		}
+	};
 	
 </script>
 </head>
@@ -29,19 +47,18 @@
 						<th>부서장</th>
 						<th>수정/삭제</th>
 					</tr>
-					<tr th:each="list : ${departmentList}">
-					<form th:action="|/departments/edit/${list.departmentNo}|">
-						<td th:text="${list.departmentNo}">번호</td>
-						<td><input type="text" name="departmentName" th:value="${list.departmentName}" size="15"></td>
-						<td><input type="text" name="departmentHead" th:value="${list.departmentHead}" size="15"></td>
+					<tr>
+					<form th:action="|/departments/edit/${departmentInfo.departmentNo}|">
+						<td th:text="${departmentInfo.departmentNo}">번호</td>
+						<td><input type="text" name="departmentName" th:value="${departmentInfo.departmentName}" size="15"></td>
+						<td><input type="text" name="departmentHead" th:value="${departmentInfo.departmentHead}" size="15"></td>
 						<td class="">
-							<button onsubmit="showNotification()">수정완료</button>
-							<button th:onclick="|location.href='/departments/delete/${list.departmentNo}'|">삭제</button>
+							<button type="submit">수정완료</button>
+							<button th:onclick="|removeCheck(${departmentInfo.departmentNo});|">삭제</button>
 						</td>
 					</form>
 					</tr>
 				</table>
-				<p class="delete-notice">부서에 속한 사원이 없을 때만 부서가 삭제됩니다.</p>
 			</div>
 		</section>
 	</div>

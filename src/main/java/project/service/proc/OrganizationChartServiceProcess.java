@@ -38,7 +38,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	//퇴직처리된 사원 조회
 	@Override
 	public void findAllByDeleteStatusTrue(Model model) {
-		model.addAttribute("list1", employeesRepo.findAllByDeleteStatus(true));
+		model.addAttribute("list1", employeesRepo.findAllByDeleteStatusOrderByPositionRank(true));
 		
 	}
 
@@ -77,8 +77,9 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	@Override
 	public void findAllList(Model model) {
 		// TODO Auto-generated method stub
+	}
 
-  @Override
+	@Override
 	public void treelist(Model model, Long no) {
 		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 

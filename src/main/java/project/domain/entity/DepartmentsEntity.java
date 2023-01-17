@@ -13,7 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.domain.DTO.DepartmentsDTO;
+import project.domain.DTO.DepartmentsDetailDTO;
+import project.domain.DTO.DepartmentsUpdateDTO;
 
 @DynamicUpdate
 @Builder
@@ -36,7 +37,7 @@ public class DepartmentsEntity {
 	@Column(name = "department_head", nullable = true) //한아 수정 nullable true
 	private String departmentHead; //부서장
 
-	public DepartmentsEntity updateDepartment(DepartmentsDTO dto) {
+	public DepartmentsEntity updateDepartment(DepartmentsUpdateDTO dto) {
 		this.departmentName = dto.getDepartmentName();
 		this.departmentHead = dto.getDepartmentHead();
 		return null;

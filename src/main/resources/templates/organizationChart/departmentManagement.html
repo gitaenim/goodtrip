@@ -8,6 +8,7 @@
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
 	$(function(){
+		$(".edit-mode").hide();
 		$("#insert-mode").hide();
 		$("#complete-mode").hide();
 	});
@@ -30,8 +31,6 @@
 			<div class="flex center">
 				<p>부서관리</p>
 			</div>
-				<a sec:authorize="hasRole('ROLE_PERSONAL')" class="list-button flex right"
-					onclick="location.href='/departments/edit'">수정/삭제모드</a>
 			<div class="flex center back-list">
 				<form action="/departments/reg" method="post">
 					<table class="list-table">
@@ -39,12 +38,16 @@
 							<th>부서번호</th>
 							<th>부서명</th>
 							<th>부서장</th>
+							<th>수정/삭제</th>
 						</tr>
-						<tr th:each="list : ${departmentList}">
+						<tr th:each="list : ${departmentList}" class="context-line">
 							<td th:text="${list.departmentNo}">번호</td>
 							<td>[[${list.departmentName}]]</td>
 							<!-- <a th:href="@{/noticeDetail(noticeNo=${list.noticeNo})}"></a> -->
 							<td th:text="${list.departmentHead}">관리자</td>
+							<td class="edit-button">
+								<a th:href="|/departments/editdelete/${list.departmentNo}|">수정/삭제</a>
+							</td>
 						</tr>
 						<tr id="insert-mode">
 							<td>부서등록</td>
@@ -54,6 +57,7 @@
 							<td>
 								<input type="text" name="departmentHead" placeholder="부서장을 입력하세요">
 							</td>
+							<td></td>
 						</tr>
 					</table>
 					<div class="flex right">
@@ -63,7 +67,6 @@
 							<input type="submit" class="list-button" value="등록">
 							<input type="reset" class="list-button" value="취소" onclick="resetDepartments()">
 						</div>
-						
 					</div>
 				</form>
 			</div>

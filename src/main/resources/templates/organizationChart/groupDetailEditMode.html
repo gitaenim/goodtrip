@@ -14,6 +14,9 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
     width: 100px;
     height: 100px;}
 </style>
+<script type="text/javascript">
+
+</script>
 </head>
 <main>
 	<!-- 230112 한아 수정 -->
@@ -92,7 +95,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					<td>주업무</td>
 					<td><input type="text" name="mainWork" th:value="${list.mainWork}" size="15"></td>
 				</tr>
-				<tr th:if="${list.yesorno}==Y">
+				<tr>
 					<td>급여</td>
 					<td><input type="text" name="salary" th:value="${list.salary}" size="15"></td>
 				</tr>

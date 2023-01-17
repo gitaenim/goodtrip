@@ -19,7 +19,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			<div class="wrap-1">
 				<form class="flex center group-form" >
 			      <select id="department" onchange="departmentClicked()">
-					<option value="0" selected>부서별조회</option>
+					<option value="0" selected>전체부서</option>
 					<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
 				</select>
 			      
