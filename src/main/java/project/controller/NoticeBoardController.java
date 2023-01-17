@@ -1,6 +1,6 @@
 package project.controller;
 
-import java.util.List;
+
 
 import javax.validation.Valid;
 
@@ -8,16 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -83,23 +79,5 @@ public class NoticeBoardController {
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
 		return "redirect:/noticeDetail";
 	}
-
-	 
-	 //에러 관련된 메서드
-	 public void showErrors(Errors errors) {
-		 if(errors.hasErrors()) {
-			 System.out.println("에러 개수: "+ errors.getErrorCount());
-			 System.out.println("\t[filed]\t[code]");
-			 List<FieldError> errlist = errors.getFieldErrors();
-			 
-			 for(FieldError err : errlist) {
-				 System.out.println("\t" + err.getField() + "\t|" + err.getCode());
-			 }
-		 }else {
-			 System.out.println("에러 없음");
-		 }
-	 }
-	 
-	
-	 
+ 
 }
