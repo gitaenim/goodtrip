@@ -37,10 +37,10 @@ public class PersonnelEvaController {
 	// 인사관리 평가 페이지
 	@GetMapping("/personnelEva/{no}")
 	public String personnelEva(Model model, @PathVariable Long no) {
-		personnelEvaService.getNo(no, model);
+		personnelEvaService.findById(no, model); //수정함 1/17 수민
 		return "personnel/personnelEva";
 	}
-
+	
 	
 	@PostMapping("/personnelEva/save")
 	@ResponseBody

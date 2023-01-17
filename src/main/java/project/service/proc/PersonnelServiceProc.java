@@ -3,6 +3,8 @@ package project.service.proc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.PersonnelEvaDTO;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.EmployeesEntityRepository;
@@ -33,7 +35,6 @@ public class PersonnelServiceProc implements PersonnelEvaService {
 					perRepo.save(dto.saveEntity(emp));
 				}
 				*/
-
 		
 		return 1;
 		
@@ -42,13 +43,19 @@ public class PersonnelServiceProc implements PersonnelEvaService {
 	@Override
 	public void findByEmpNo(long no, Model model) {
 	
-		
 	}
 
 	@Override
 	public void getNo(long no, Model model) {
 		
 		model.addAttribute("no", no);
+	}
+
+	@Override //인사평가페이지 
+	public void findById(Long no, Model model) {
+		model.addAttribute("list", empRepo.findById(no)
+				.map(EmployeesDetailDTO::new)
+				.orElseThrow());
 	}
 	
 	

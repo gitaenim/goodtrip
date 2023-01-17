@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="stylesheet" href="/css/personnelEva/personnelEva.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
@@ -123,9 +124,23 @@ function assessment() {
 			<p class="Eva-logo">인사평가</p>
 		</div>
 		<div class="flex center Eva-2">
-			<table>
-				
-			</table>
+			<span class="Eva-span1">평가대상자</span>
+			<div>
+				<table>
+					<tr>
+						<td>사원번호</td>
+						<td>[[${list.no}]]</td>
+					</tr>
+					<tr>
+						<td>부서이름</td>
+						<td>[[${list.departmentName}]]</td>
+					</tr>
+					<tr>
+						<td>이름</td>
+						<td>[[${list.name}]]</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 			<a class="flex right back-1" href="/personnelEvaList">뒤로가기</a>
 		<div class="wrap flex center Eva-3">
