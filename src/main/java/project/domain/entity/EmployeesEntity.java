@@ -69,7 +69,7 @@ public class EmployeesEntity {
 	
 	private String extension;//내선번호
 	
-	private long salary;//급여
+	private String salary;//급여
 	
 	@Column(name = "birth_date")
 	private LocalDate birthDate;//생년월일

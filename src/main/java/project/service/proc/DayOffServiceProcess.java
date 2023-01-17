@@ -1,13 +1,18 @@
 package project.service.proc;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import project.domain.DTO.DayOffInsertDTO;
+import project.domain.DTO.DayOffListDTO;
+import project.domain.DTO.DayOffListEmpDTO;
+import project.domain.DTO.DayOffMyListDTO;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 import project.domain.entity.EmployeesEntity;
@@ -39,7 +44,7 @@ public class DayOffServiceProcess implements DayOffService {
 				 .no(emp).totalDays(15).useDays(dto.getUseDays()).build()); 
 		}
 		
-		dayOffRepo.save(dto.toDayOffEntity(emp));		
+		dayOffRepo.save(dto.toDayOffEntity(emp));
 	}
 	
 	//휴가 신청일수 업데이트
@@ -57,6 +62,26 @@ public class DayOffServiceProcess implements DayOffService {
 		daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
 				.dno(use.getDno()).useDays(tot).totalDays(15).no(emp).build());
 	}
+
+	//사원별 휴가 리스트
+	@Override
+	public void personalDayOff(long no, Model model) {
+		//DayOffEntity detail = dayOffRepo.findAllByDayOffNo(no);
+		//model.addAttribute("result", detail);
+		model.addAttribute("dayOffListEmp", employeesRepo.findById(no)
+				.stream().map(DayOffListEmpDTO::new).collect(Collectors.toList()));
+		model.addAttribute("dayOffList", dayOffRepo.findByEmployeeNo(employeesRepo.findById(no).orElseThrow())
+				.stream().map(DayOffListDTO::new).collect(Collectors.toList()));
+	}
+
+	//내 휴가 리스트
+	@Override
+	public void mydayoff(long no, Model model) {
+		model.addAttribute("myDayOffList", dayOffRepo.findByEmployeeNo(employeesRepo.findById(no).orElseThrow())
+				.stream().map(DayOffMyListDTO::new).collect(Collectors.toList()));
+		
+	}
+	
 	
 }
 

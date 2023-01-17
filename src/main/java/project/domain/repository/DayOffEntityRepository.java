@@ -11,4 +11,6 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 
 	List<DayOffEntity> findByEmployeeNo(EmployeesEntity emp);
 
+	DayOffEntity findAllByDayOffNo(long no);
+
 }

@@ -59,7 +59,7 @@ public class DayOffEntity {
 	}
 	
 	//230109 재근 생성
-	@Column(name = "draft_date")
+	@Column(name = "draft_date", updatable = false)
 	@CreationTimestamp
 	private LocalDate draftDate; //기안일
 	
