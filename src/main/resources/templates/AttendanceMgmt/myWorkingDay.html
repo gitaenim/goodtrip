@@ -44,9 +44,8 @@
 						<tr th:each="myAttList:${myAttList}">
 							<td th:text="${myAttListStat.count}">2</td>
 							<td th:text="${myAttList.date}">2023-01-09</td>
-							<td th:text="${#temporals.format(myAttList.clockIn, 'HH:mm:SS')}"></td>
-							<td
-								th:text="${#temporals.format(myAttList.clockOut, 'HH:mm:SS')}"></td>
+							<td th:text="${myAttList.clockIn}"></td>
+							<td th:text="${myAttList.clockOut}"></td>
 							<td th:text="${myAttList.workingHour}"></td>
 							<td th:text="${myAttList.designatedWorkingHour}"></td>
 							<td th:text="${myAttList.status}">휴가</td>
@@ -55,6 +54,37 @@
 					</tbody>
 				</table>
 			</div>
+			<!-- 페이징 시작 230117 안나 작성-->
+			<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 한 페이지당 몇 개까지 보여줄건지 -->
+			<div th:if="${#lists.isEmpty(myAttList)}" style="text-align: center;">조회 결과가 없습니다.</div>
+			<div th:if="${!#lists.isEmpty(myAttList)}">
+				<ul th:with="start=${((pageNum-1)/endPage)*endPage+1}, end=${start + endPage - 1}" class="flex center">
+					<!-- 시작 페이지가 1보다 클 경우 -->
+					<li th:if="${start ne 1}">
+						<a th:href="|/myWorkingDay?page=0|">&lt;&lt;</a>
+					</li>
+					<!-- 시작 페이지가 1보다 클 경우 -->
+					<li th:if="${start ne 1}">
+						<a th:href="|/myWorkingDay?page=${start-endPage}|">&lt;</a>
+					</li>
+					<!-- 마지막 페이지가 아닐 경우 -->
+					<li th:if="${end lt pageTotal}" th:each="pageNo :${#numbers.sequence(start,end)}">
+						<a th:href="|/myWorkingDay?page=${pageNo-1}|">[[${pageNo}]]</a>
+					</li>
+					<!-- 마지막 페이지일 경우 -->
+					<li th:if="${end >= pageTotal}" th:each="pageNo :${#numbers.sequence(start,pageTotal)}">
+						<a th:href="|/myWorkingDay?page=${pageNo-1}|">[[${pageNo}]]</a>
+					</li>
+					<!-- 마지막 페이지가 아닐 경우 -->
+					<li th:if="${end lt pageTotal}">
+						<a th:href="|/myWorkingDay?page=${start+endPage}|">&gt;</a>
+					</li>
+					<li th:if="${end lt pageTotal}">
+						<a th:href="|/myWorkingDay?page=${pageTotal-1}|">&gt;&gt;</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 페이징 끝-->
 		</section>
 	</div>
 </main>

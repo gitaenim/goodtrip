@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" 
-xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
-th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+	th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 <head>
-	<meta charset="UTF-8">
-	<title>근태리스트</title>
-	<link rel="stylesheet" href="/css/attendance/attendance-list.css">
+<meta charset="UTF-8">
+<title>근태리스트</title>
+<link rel="stylesheet" href="/css/attendance/attendance-list.css">
+<!-- 
+<script type="text/javascript">
+	$(function(){
+		
+		var dataThWorkEmpty = $(".thWorkEmpty").text();
+		console.log("data: " + dataThWorkEmpty);
+		if(dataThWorkEmpty){
+			
+		} else{
+			$("thWorkEmpty").hide();
+		}
+	});
+</script> -->
+
+
 </head>
 <main>
 	<!-- 230104 한아 작성 230111 안나 thymeleaf 수정 -->
@@ -29,29 +44,19 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:each="attList:${attList}">
-						<tr th:each="attListEmp:${attListEmp}">
-							<td th:text="${attListEmp.no}">1</td>
-							<td><a th:href="|/personalAttendance/${attListEmp.no}|">[[${attListEmp.name}]]</a></td>
-							<td th:text="${attListEmp.department}">마케팅팀</td>
-							<td th:text="${attListEmp.position}">팀장</td>
-							<td th:if="${attListEmp.no == attList.employeeNo}" th:text="${attList.workingHour}"></td>
-							<td th:if="${attListEmp.no != attList.employeeNo}"></td>
-							<td th:if="${attListEmp.no == attList.employeeNo}" th:text="${attList.status}"></td>
-							<td th:if="${attListEmp.no != attList.employeeNo}">미출근</td>
+						<tr th:each="attListAll:${attListAll}">
+							<td th:text="${attListAll.no}">1</td>
+							<td><a th:href="|/personalAttendance/${attListAll.no}|">[[${attListAll.name}]]</a></td>
+							<td th:text="${attListAll.department}">마케팅팀</td>
+							<td th:text="${attListAll.position}">팀장</td>
+							<th:block th:each="list:${list}">				
+							<td th:if="${attListAll.no == list.employeeNo}" th:text="${list.workingHour}"></td>
+							<td th:if="${attListAll.no == list.employeeNo}" th:text="${list.status}"></td>
+							</th:block>
 							<td>${휴가시작일} ~ ${휴가종료일}</td>
 						</tr>
-						</th:block>
 					</tbody>
-					
 				</table>
-				<!-- <div th:if="${p.getNumberOfElements()>0}">
-	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
-	    			<span th:text="${p.getNumber()+1}">현재페이지</span>
-	    			/
-	    			<span th:text="${p.getTotalPages()}">총페이지수</span> 
-	    			<a th:if="${p.hasNext()}" th:href="|/comm/board-list?page=${p.getNumber()+2}|">&gt;</a>
-    			</div> -->
 			</div>
 		</section>
 	</div>

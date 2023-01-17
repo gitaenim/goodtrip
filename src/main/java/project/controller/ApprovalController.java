@@ -1,12 +1,15 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import project.domain.DTO.DayOffInsertDTO;
+import project.security.MyUserDetails;
 import project.service.DayOffService;
 import project.service.proc.DayOffServiceProcess;
 
@@ -22,6 +25,12 @@ public class ApprovalController {
         return "approvalMgmt/dayOff";
     }
 
+	/**
+	 * @author 재근
+	 * @param dto 휴가등록
+	 * @return 나의휴가일지
+	 * 등록 업데이트
+	 */
 	
 	//휴가신청 save
 	@PostMapping("/dayoff")
@@ -31,14 +40,19 @@ public class ApprovalController {
 		return "redirect:/myDayOff";
 	}
 	
-	
-	
-	//휴가결재
-	@GetMapping("/dayoffApp")
-    public String dayOffApp() {
-        return "approvalMgmt/dayOffApp";
+	//직원별 휴가리스트
+	@GetMapping("/personalDayOff/{no}")
+    public String personalDayOff(@PathVariable long no, Model model) {
+		service.personalDayOff(no, model); //no :  day off no
+        return "AttendanceMgmt/personalDayOff";
     }
 	
+	//내 휴가리스트
+	@GetMapping("/myDayOff")
+	public String myDayOff(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
+		service.mydayoff(myUserDetails.getNo(), model);
+	    return "AttendanceMgmt/myDayOff";
+	}
 	
 }
 

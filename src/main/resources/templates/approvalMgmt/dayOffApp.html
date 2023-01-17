@@ -5,35 +5,34 @@
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
-<style type="text/css">
-</style>
+
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form>
+		<form action="/dayoff" method="post">
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
 						<td>기안자</td>
-						<td>[작성자]</td>
+						<td th:text="${#authentication.principal.name}">[작성자]</td>
+					</tr>
+					<tr>
+						<td>사원번호</td>
+						<td th:text="${#authentication.principal.no}">[사원번호]</td>
 					</tr>
 					<tr>
 						<td>기안부서</td>
-						<td>[작성자 그룹]</td>
+						<td th:text="${#authentication.principal.departmentNo.departmentName}">[작성자 그룹]</td>
+					</tr>
+					<tr>
+						<td>직 급</td>
+						<td th:text="${#authentication.principal.position.label}">[직급]</td>
 					</tr>
 					<tr>
 						<td>기안일</td>
-						<td>[YYYY-MM-DD(요일)]</td>
-					</tr>
-					<tr>
-						<td>문서 번호</td>
-						<td>[결제번호]</td>
-					</tr>
-					<tr>
-						<td>기안자</td>
-						<td>[작성자]</td>
+						<td th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd E요일')}">[YYYY-MM-DD(요일)]</td>
 					</tr>
 				</table>
 				<table id="table-2">
@@ -55,19 +54,19 @@
 			<table id="table-3">
 				<tr>
 					<td>휴가 종류</td>
-					<td>[휴가 종류]</td>
+					<td>[[${result.type}]]</td>
 				</tr>
 				<tr>
 					<td>기간 및 일시</td>
-					<td>[StartDate]-[EndDate]</td>
+					<td>[[${result.startDate}]] ~ [[${result.EndDate}]]</td>
 				</tr>
 				<tr>
-					<td>연차 일수</td>
-					<td>신청연차 : [신청일수]</td>
+					<td>휴가 일수</td>
+					<td>신청일수 : [[${result.useDays}]]</td>
 				</tr>
 				<tr>
 					<td>휴가 사유</td>
-					<td><textarea rows="10" cols="128">[휴가 사유]</textarea></td>
+					<td><textarea rows="10" cols="128" readonly="readonly">[[${result.reason}]]</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
