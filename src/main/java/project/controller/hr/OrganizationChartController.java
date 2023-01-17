@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.repository.DepartmentsEntityRepository;
@@ -61,6 +62,18 @@ public class OrganizationChartController {
 	public String groupDetailEdited(@PathVariable Long no, EmployeesUpdateDTO dto) {
 		organizationChartService.editmode(no, dto);
 		return "redirect:/ozc/groupDetail/{no}";
+	}
+	//Family Tree
+	@GetMapping("/ozc/familytree")
+	public String familytree(Model model) {
+		model.addAttribute("department", departmentRepo.findAll());
+		return "organizationChart/familytree";
+	}
+	//Family Tree
+	@GetMapping("/ozc/familytree/{no}")
+	public String familytree(Model model, @PathVariable Long no) {
+		organizationChartService.treelist(model,no);
+		return "organizationChart/familyTreeList";
 	}
 	
 }
