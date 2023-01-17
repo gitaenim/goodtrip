@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
@@ -14,18 +15,14 @@
 			<div class="flex center">
 				<a href="/personnelEvaList">인사 평가 리스트</a>
 			</div>
-		<form class="flex center group-form" >
-	      <select id="department" onchange="departmentClicked()">
-	        <option selected value="0">전체</option>
-	        <option th:value="1">영업부</option>
-	        <option th:value="2">총무부</option>
-	        <option th:value="3">인사부</option>
-	        <option th:value="4">기획부</option>
-	        <option th:value="5">회계부</option>
-	        <option th:value="6">개발부</option>
-	      </select>
-	    </form>
-	    <a class="flex right list-button" href="/personnelEva">임시로 여기 둔 인사 평가</a>
+			<div class="wrap-1">
+				<form class="flex center group-form" >
+			      <select id="department" onchange="departmentClicked()">
+						<option value="0" selected>부서별조회</option>
+						<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
+					</select>
+	   			 </form>
+	   		</div>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -37,7 +34,7 @@
 						<th>인사평가</th>
 					</tr>
 					<tbody id="emp-list">
-						<tr th:each="list : ${list1}">
+						<tr th:if="${nullcheck == false}" th:each="list : ${list1}">
 							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
 							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
@@ -50,13 +47,6 @@
 						</tr>
 					</tbody>
 				</table>
-				<!-- <div th:if="${p.getNumberOfElements()>0}">
-	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
-	    			<span th:text="${p.getNumber()+1}">현재페이지</span>
-	    			/
-	    			<span th:text="${p.getTotalPages()}">총페이지수</span> 
-	    			<a th:if="${p.hasNext()}" th:href="|/comm/board-list?page=${p.getNumber()+2}|">&gt;</a>
-    			</div> -->
 			</div>
 		</section>
 	</div>

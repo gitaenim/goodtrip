@@ -10,5 +10,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	<td th:text="${list.position.label}">직급</td>
 	<td th:text="${list.extension}">내선번호</td>
 	<td th:text="${list.mainWork}">주업무</td>
-	</tr>
+	<td class="group-non"> <!-- 수민 추가! css 사용해서 조직도에는 안보이게 했습니다!  -->
+		<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
+	</td>
 </html>

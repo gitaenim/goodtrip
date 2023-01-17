@@ -77,6 +77,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	@Override
 	public void findAllList(Model model) {
 		// TODO Auto-generated method stub
+	}
 
   @Override
 	public void treelist(Model model, Long no) {

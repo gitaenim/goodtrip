@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.PersonnelEvaDTO;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.service.OrganizationChartService;
 import project.service.PersonnelEvaService;
 
@@ -20,12 +21,16 @@ public class PersonnelEvaController {
 	OrganizationChartService organizationChartService; 
 	
 	@Autowired
+	private DepartmentsEntityRepository departmentRepo;
+	
+	@Autowired
 	PersonnelEvaService personnelEvaService;
 	
-	// 인사관리 평가 메인리스트페이지
+	// 인사관리 평가 메인리스트페이지  //변경햇슴  1/17 수민
 	@GetMapping("/personnelEvaList")
 	public String personnelEvaMain(Model model) {
-		organizationChartService.findAllList(model);
+		model.addAttribute("department", departmentRepo.findAll());
+		organizationChartService.findAllByDeleteStatusFalse(model);	
 		return "personnel/persommelEvaList";
 	}
 	
