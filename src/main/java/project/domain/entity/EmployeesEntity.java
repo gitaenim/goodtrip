@@ -1,9 +1,12 @@
 package project.domain.entity;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,15 +20,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.EmployeesDeleteDTO;
+import project.domain.DTO.EmployeesUpdateDTO;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
@@ -39,6 +44,7 @@ import project.enums.MyRole;
 //230104 안나 생성
 //230109 한아 수정 : phone, extension 데이터 타입 변경 long -> String
 //230109 한아 수정 : joinDate, resignDate, birthDate 데이터 타입 변경 LocalDateTime -> LocalDate
+//230116 한아 수정 : salary 데이터 타입 변경 long -> String / positionRank 칼럼 추가
 public class EmployeesEntity {
 	
 	@Id
@@ -54,9 +60,6 @@ public class EmployeesEntity {
 	
 	@Column(nullable = false)
 	private String password;//비밀번호
-	
-	@Enumerated(EnumType.STRING)
-	private DepartmentRank position;//직급
 	
 	@Column(nullable = true)
 	private String phone;//연락처
@@ -91,6 +94,13 @@ public class EmployeesEntity {
 	@OneToOne
 	private ImagesEntity imageNo; //이미지번호
 	
+	
+	@Enumerated(EnumType.STRING)
+	private DepartmentRank position;//직급
+	
+	@Column(name = "position_rank")
+	private long positionRank;//직급순위
+	
 	//직급 position Enum
 	@Builder.Default
 	@CollectionTable(name = "employees_position")
@@ -102,7 +112,8 @@ public class EmployeesEntity {
 		return this;
 	}
 	
-	//권한 role Enum
+	
+	//수정권한 role Enum
 	@Builder.Default
 	@CollectionTable(name = "my_role")
 	@Enumerated(EnumType.STRING)
@@ -112,13 +123,57 @@ public class EmployeesEntity {
 
 	//role 적용
 	public EmployeesEntity addRole(MyRole role) {
-
+		roles.clear();
 		roles.add(role);
 		return this;
 	}
 	
 	@Enumerated(EnumType.STRING)
 	private MyRole editAuthority;//수정권한
+	
+	//수정 권한 부여
+	public EmployeesEntity updateManager(EmployeesUpdateDTO dto) {
+		this.editAuthority = MyRole.PERSONALMANAGER;
+		return null;
+	}
+	//수정 권한 제거
+	public EmployeesEntity updateEmployee(EmployeesUpdateDTO dto) {
+		this.editAuthority = MyRole.EMPLOYEE;
+		return null;
+	}
+	//퇴직 처리
+	public EmployeesEntity updateDeleteStatus(EmployeesDeleteDTO dto) {
+		this.deleteStatus = true;
+		this.resignDate = LocalDate.now();
+		return null;
+	}
+	//퇴직 처리 취소
+	public EmployeesEntity updateRollbackStatus(EmployeesUpdateDTO dto) {
+		this.deleteStatus = false;
+		this.resignDate = null;
+		return null;
+	}
+	//사원 정보 수정
+	public EmployeesEntity updateInfo(EmployeesUpdateDTO dto) {
+		DecimalFormat sformatter = new DecimalFormat("###,###"); //형식을 변환하여 저장
+		
+		this.departmentNo=DepartmentsEntity.builder().departmentNo(dto.getDepartmentNo()).build();
+		this.name = dto.getName();
+		this.email = dto.getEmail();
+		this.position = dto.getPosition();
+		this.positionRank = dto.getPosition().ordinal();
+		this.phone = dto.getPhone();
+		this.extension = dto.getExtension();
+		this.mainWork = dto.getMainWork();
+		this.joinDate = LocalDate.parse(dto.getJoinDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.birthDate = LocalDate.parse(dto.getBirthDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.salary = sformatter.format(dto.getSalary());
+		if(resignDate==null) return null; //퇴사일 입력안하면 method 종료
+		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		return null;
+		
+	}
+	
 	
 
 }
