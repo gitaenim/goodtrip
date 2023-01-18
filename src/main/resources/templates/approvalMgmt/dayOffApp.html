@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/approvalMgmt/dayOff.css">
+<link rel="stylesheet" href="/css/approvalMgmt/dayOffApp.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
@@ -45,9 +45,9 @@
 						<td>대표이사</td>
 					</tr>
 					<tr>
-						<td th:text="${detailEmp.name}"></td>
-						<td></td>
-						<td></td>
+						<td><span>[[${detailEmp.name}]]</span></td>
+						<td><span class="dep-stamp">[[${detailEmp.departmentNo.departmentHead}]]</span></td>
+						<td><span class="ceo-stamp">김대표</span></td>
 					</tr>
 				</table>
 			</section>

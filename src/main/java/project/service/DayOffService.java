@@ -17,9 +17,10 @@ public interface DayOffService {
 
 	void detail(long dayOffNo, Model model);
 
-	void appList(long department, Model model);
+	void appList(DepartmentsEntity departmentNo, Model model);
 
-	void appList2(long no, Model model);
+	void appDetail(long dayOffNo, Model model);
+
 
 
 }

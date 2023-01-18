@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import project.domain.DTO.DayOffInsertDTO;
+import project.domain.entity.DepartmentsEntity;
 import project.security.MyUserDetails;
 import project.service.DayOffService;
 import project.service.proc.DayOffServiceProcess;
@@ -56,27 +57,24 @@ public class ApprovalController {
 	}
 	
 	//내 결재 리스트
-	@GetMapping("/approvalList/{department}")
-    public String approvalList(@PathVariable long department, Model model) {
-		service.appList(department, model);
-        return "approvalMgmt/approvalList";
-    }
-	
-	//내 결재 리스트
 	@GetMapping("/approvalList")
     public String approvalList2(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-		long no = myUserDetails.getNo();
-		service.appList2(no, model);
+		service.appList(myUserDetails.getDepartmentNo(), model);
         return "approvalMgmt/approvalList";
     }
 	
-	//결재용 휴가 디테일
+	//직원별 휴가 디테일
 	@GetMapping("/dayoffApp")
 	public String dayOffApp(@RequestParam long dayOffNo, Model model) {
 		service.detail(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp";
   }
 
+	@GetMapping("/dayoffApp/{no}")
+	public String appDetail(@PathVariable long dayOffNo, Model model) {
+		service.appDetail(dayOffNo, model);
+		return "approvalMgmt/dayOffApp";
+	}
 	
 }
 

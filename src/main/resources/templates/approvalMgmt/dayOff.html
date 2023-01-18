@@ -6,7 +6,21 @@
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
+	$(function(){
+		stamp();
+		$(".btn-dayoff").click(dayoffClicked);
+	});
 	
+	function stamp() {
+		$(".head").hide();
+	}
+	
+	function dayoffClicked() {
+		if( $(".name").text() == $(".head").text() ){
+			$(".head").show();
+		}
+	}
+		
 	function endCalc(){
 		var end = $(".End-date").val();
 		//alert(end);
@@ -85,8 +99,8 @@
 						<td>대표이사</td>
 					</tr>
 					<tr>
-						<td th:text="${#authentication.principal.name}">[기안자 승인]</td>
-						<td></td>
+						<td><span class="name" th:text="${#authentication.principal.name}"></span></td>
+						<td><span class="head" th:text="${#authentication.principal.departmentNo.departmentHead}"></span></td>
 						<td></td>
 					</tr>
 				</table>
@@ -97,7 +111,6 @@
 					<td>
 						<select name="type">
 							<option value="연차">연차</option>
-							<option value="경조사">경조사</option>
 							<option value="공가">공가</option>
 							<option value="병가">병가</option>
 							<option value="출산휴가">출산휴가</option>
@@ -121,9 +134,9 @@
 							placeholder="휴가 사유를 입력해주세요"></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한아여
+					<td colspan="2">1. 연차의 사용은 근로 기준법에 따라 전년도에 발생한 개일별 잔여 연차에 한하여
 						사용함을 원칙으로 한다.<br> 단, 최초 입사시에는 근로 기준법에 따라 발생 예정된 연차를 차용하여 월 1회
-						사용할 수 있다.<br> 2. 경조사 휴가는 행사일을 증명할 수 있는 가족 관계증며서 또는 등본, 청첩장 등을
+						사용할 수 있다.<br> 2. 경조사 휴가는 행사일을 증명할 수 있는 가족 관계증명서 또는 등본, 청첩장 등을
 						제출 하여야 한다.
 					</td>
 				</tr>

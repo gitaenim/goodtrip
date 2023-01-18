@@ -18,4 +18,6 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 
 	List<DayOffEntity> findAllByEmployeeNo(EmployeesEntity findByDepartmentNo);
 
+	List<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno);
+
 }

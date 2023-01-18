@@ -19,6 +19,7 @@ import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.DayOffService;
 
@@ -33,6 +34,9 @@ public class DayOffServiceProcess implements DayOffService {
 	
 	@Autowired
 	private DaysOffNumbersEntityRepository daysOffNumbersRepo;
+	
+	@Autowired
+	private DepartmentsEntityRepository departmentsRepo;
 	
 	//휴가 등록
 	@Override
@@ -94,27 +98,20 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//내 결재 리스트
 	@Override
-	public void appList(long department, Model model) {		
-		//EmployeesEntity emp=employeesRepo.findById(no).orElseThrow();
-		//List<DayOffEntity> ent=dayOffRepo.findByEmployeeNo(emp);
-		EmployeesEntity emp = employeesRepo.findByDepartmentNo(department);
-		List<DayOffEntity> dayoff = dayOffRepo.findAllByDayOffNo(emp);
-		model.addAttribute("appList", dayoff);
+	public void appList(DepartmentsEntity departmentNo, Model model) {
+		//System.err.println(departmentNo.getDepartmentNo());
+		long dno=departmentNo.getDepartmentNo();
+		//List<EmployeesEntity> emp = employeesRepo.findAllById();
+		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno);
+		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
+		
 	}
 
-	/*
 	@Override
-	public void appList2(DepartmentsEntity departmentNo, Model model) {
+	public void appDetail(long dayOffNo, Model model) {
 		
-		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNo(employeesRepo.findByDepartmentNo(departmentNo)));		
-	}
-	*/
-	
-	@Override
-	public void appList2(long no, Model model) {
-		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNo(employeesRepo.findByDepartmentNo(no)));
 		
-	}
+	}	
 	
 
 	
