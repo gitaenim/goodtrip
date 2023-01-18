@@ -21,7 +21,6 @@ public class BoardCNCDTO {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate eventDate;
 	
-	
 	public BoardCNCEntity toEntityForSave(EmployeesEntity registNo) {
 		return BoardCNCEntity.builder()
 				.title(title).content(content).registNo(registNo).eventDate(eventDate)
@@ -36,5 +35,12 @@ public class BoardCNCDTO {
 				.build();
 	}
 
-
+	
+	/*  public BoardCNCDTO(BoardCNCEntity ent) {
+	  
+	  this.no = ent.getCncNo(); 
+	  this.title = ent.getTitle();
+	  this.content = ent.getContent();
+	  this.eventDate = ent.getEventDate(); }
+	 */
 }

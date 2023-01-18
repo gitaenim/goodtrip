@@ -44,11 +44,9 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
 							<td th:text="${list.mainWork}">주업무</td>							
-							<td style="color: red" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
+							<td style="color: rgb(1, 20, 190)" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
 							<td th:if="${list.empGrade != null}" th:text="${list.empGrade}" >등급</td>
-							
 							<td>
-							
 								<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
 							</td>
 						</tr>

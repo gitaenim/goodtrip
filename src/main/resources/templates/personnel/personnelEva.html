@@ -6,6 +6,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
+<script src="/js/personnerlEva/personnerlEvaMain.js"></script>
 <style type="text/css">
 </style>
 <script type="text/javascript">
@@ -68,7 +69,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	
 	
 	//	console.log(score, score1, score2, score3, score4);
-		
+		//점수를 등급으로! 
 		$("#checkResult").on('click',function(){
 			
 			var empGrade = "X";  
@@ -83,7 +84,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				empGrade = "C"
 			}else if(totalScore >= 10){
 				empGrade = "D"
-			}else if(totalScore >= 5 ){
+			}else if(totalScore >= 7 ){
 				empGrade = "E"
 			}
 			
@@ -103,7 +104,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			
 				console.log(dto)
 				
-				
+				//평가 완료 누를 때 
 				$.ajax({				
 					method:"POST",
 					url:"/personnelEva/save",			
@@ -176,7 +177,7 @@ function assessment() {
 				<table class="Eva-table">
 					<tr>
 						<th>주 업무 수행에 필요한 필수직업능력의 준비도</th>
-						<th><select id="checkScore" class="Eva-select" size="1" name="select1" >
+						<th><select id="checkScore" class="Eva-select" size="1" name="select1" required>
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -188,7 +189,7 @@ function assessment() {
 					</tr>
 					<tr>
 						<th>주 업무의 독자적인 수행능력</th>
-						<th><select id="checkScore1" class="Eva-select" size="1" name="select2" >
+						<th><select id="checkScore1" class="Eva-select" size="1" name="select2" required >
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -200,7 +201,7 @@ function assessment() {
 					</tr>
 					<tr>
 						<th>부수업무 수행력</th>
-						<th><select id="checkScore2" class="Eva-select" size="1" name="select3" >
+						<th><select id="checkScore2" class="Eva-select" size="1" name="select3"required >
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -211,8 +212,8 @@ function assessment() {
 						</th>
 					</tr>
 					<tr>
-						<th>하루 여가시간</th>
-						<th><select id="checkScore3" class="Eva-select" size="1" name="select4" >
+						<th>백두산</th>
+						<th><select id="checkScore3" class="Eva-select" size="1" name="select4" required>
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -223,8 +224,8 @@ function assessment() {
 						</th>
 					</tr>
 						<tr>
-						<th>하루 식사량</th>
-						<th><select id="checkScore4" class="Eva-select" size="1" name="select5">
+						<th>기린 목</th>
+						<th><select id="checkScore4" class="Eva-select" size="1" name="select5" required>
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -239,7 +240,6 @@ function assessment() {
 				총점&nbsp;<input id="totalScore" type="text" name="rescore" size=2 disabled value="">&nbsp;점
 			</div>	
 			<div class="wrap flex center Eva-button">
-					<input type=reset value="리셋">
 				<div class="Eva-button2">
 					<input type="button" id="checkResult" value="평가하기">
 				</div>
