@@ -37,15 +37,18 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						<th>인사평가</th>
 					</tr>
 					<tbody id="emp-list">
-						<tr th:if="${nullcheck == false}" th:each="list : ${list1}">
+						<tr th:if="${nullcheck == false  }" th:each="list : ${list1}">
 							<td><a>[[${list.name}]]</a></td>
 							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
-							<td th:text="${list.mainWork}">주업무</td>
-							<td>A</td>
+							<td th:text="${list.mainWork}">주업무</td>							
+							<td style="color: red" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
+							<td th:if="${list.empGrade != null}" th:text="${list.empGrade}" >등급</td>
+							
 							<td>
+							
 								<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
 							</td>
 						</tr>

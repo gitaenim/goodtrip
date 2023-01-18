@@ -15,4 +15,6 @@ public interface PersonnelEvaRepository extends JpaRepository<PersonnelEvaEntity
 	Optional<PersonnelEvaEntity> findByEmpNo(long no);
 	
 	PersonnelEvaEntity deleteByEmpNo(long no);
+	
+	
 }
