@@ -30,7 +30,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 		                                                                                            
 		
 		$("#checkScore").on('change',function(){
-			alert(this.value)
+			/* alert(this.value)  첫번째 평가 선택시 alert뜨길래!! 주석처리함 1/18 수민*/ 
 			score =this.value
 			total = parseInt(score)+parseInt(score1)+parseInt(score2)+parseInt(score3)+parseInt(score4);		
 			console.log("dd",parseInt(total))
@@ -78,11 +78,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			
 			if(totalScore >= 22){
 				empGrade = "A";
-			}else if(totalScore >= 19){
+			}else if(totalScore >= 20){
 				empGrade = "B";
-			}else if(totalScore >= 15){
+			}else if(totalScore >= 16){
 				empGrade = "C"
-			}else if(totalScore >= 10){
+			}else if(totalScore >= 12){
 				empGrade = "D"
 			}else if(totalScore >= 7 ){
 				empGrade = "E"
@@ -113,15 +113,15 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					data:JSON.stringify(dto),
 					success:function(result){									
 						console.log(result)
-						if(result.msg=='SUCCESS'){
-							alert("등록 성공 ");
+						if(result.msg =='SUCCESS'){
+							alert("등록 성공");
 							location.href="/personnelEvaList"						
 						}else{
 							alert("등록실패");
 						}
 					},
 					error:function(){
-						console.log("통신실패 ");
+						console.log("통신실패");
 					}
 					
 				});//ajax close
@@ -129,6 +129,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 		})
 		
 	});
+	
 /*
  * 
 function assessment() {
@@ -177,7 +178,7 @@ function assessment() {
 				<table class="Eva-table">
 					<tr>
 						<th>주 업무 수행에 필요한 필수직업능력의 준비도</th>
-						<th><select id="checkScore" class="Eva-select" size="1" name="select1" required>
+						<th><select id="checkScore" class="Eva-select" size="1" name="select1">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -189,7 +190,7 @@ function assessment() {
 					</tr>
 					<tr>
 						<th>주 업무의 독자적인 수행능력</th>
-						<th><select id="checkScore1" class="Eva-select" size="1" name="select2" required >
+						<th><select id="checkScore1" class="Eva-select" size="1" name="select2" >
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -201,7 +202,7 @@ function assessment() {
 					</tr>
 					<tr>
 						<th>부수업무 수행력</th>
-						<th><select id="checkScore2" class="Eva-select" size="1" name="select3"required >
+						<th><select id="checkScore2" class="Eva-select" size="1" name="select3">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -213,7 +214,7 @@ function assessment() {
 					</tr>
 					<tr>
 						<th>백두산</th>
-						<th><select id="checkScore3" class="Eva-select" size="1" name="select4" required>
+						<th><select id="checkScore3" class="Eva-select" size="1" name="select4">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>
@@ -225,7 +226,7 @@ function assessment() {
 					</tr>
 						<tr>
 						<th>기린 목</th>
-						<th><select id="checkScore4" class="Eva-select" size="1" name="select5" required>
+						<th><select id="checkScore4" class="Eva-select" size="1" name="select5">
 						    <option value="0">선택하세요</option>
 						    <option value="1">매우 낮음</option>
 						    <option value="2">낮음</option>

@@ -41,7 +41,6 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 			}
 			
 		}
-		
 				
 		model.addAttribute("list1", list1);
 		
