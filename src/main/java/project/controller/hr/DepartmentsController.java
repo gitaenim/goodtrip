@@ -42,15 +42,16 @@ public class DepartmentsController {
 		departmentsService.departmentEditMode(departmentNo, model);
 		return "organizationChart/departmentEditMode";
 	}
-	//수정완료
+	//부서수정완료
 	@GetMapping("/departments/edit/{departmentNo}")
 	public String editingDepartments(@PathVariable long departmentNo, DepartmentsUpdateDTO dto) {
 		departmentsService.editDepartment(departmentNo, dto);
 		return "redirect:/departments/manage";
+		//return "redirect:/departments/editdelete/{departmentNo}";
 	}
-	//삭제
-	@GetMapping("/departments/delete/{departmentNo}")
-	public String deletingDepartments(Model model, @PathVariable long departmentNo) {
+	//부서삭제
+	@PostMapping("/departments/delete/{departmentNo}")
+	public String deletingDepartments(@PathVariable long departmentNo) {
 		departmentRepo.deleteById(departmentNo);
 		return "redirect:/departments/manage";
 	}

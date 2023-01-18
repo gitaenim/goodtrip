@@ -2,7 +2,6 @@ package project.service;
 
 import org.springframework.ui.Model;
 
-import project.domain.DTO.DepartmentsDetailDTO;
 import project.domain.DTO.DepartmentsUpdateDTO;
 
 public interface DepartmentsService {

@@ -14,13 +14,16 @@
 	function removeCheck(no){
 		if (confirm("부서에 속한 사원이 없을 때만 부서가 삭제됩니다.\n정말 삭제하시겠습니까?")==true){    //확인
 			$.ajax({
-				url:`/departments/delete/${no}`
+				url:`/departments/delete/${no}`,
+				type:'post',
 			})
 			.done(function(){
 				alert("삭제가 완료되었습니다!");
+				location.href="/departments/manage";
 			})
 			.fail(function(){
 				alert("삭제에 실패하였습니다. 사원을 모두 제거한 후 부서 삭제가 가능합니다.")
+				location.href="/departments/manage";
 			})
 			
 		} else{   //취소
@@ -54,12 +57,13 @@
 						<!-- <td><input type="text" name="departmentHead" th:value="${departmentInfo.departmentHead}" size="15"></td> -->
 						<td>
 							<select name="departmentHead">
+								<option></option>
 								<option th:each="employees : ${employeesByDepartment}" th:value="${employees.name}" th:utext="${employees.name}" th:selected="${employees.name}==${departmentInfo.departmentHead}"></option>
 							</select>
 						</td>
 						<td class="">
 							<button type="submit">수정완료</button>
-							<button th:onclick="|removeCheck(${departmentInfo.departmentNo});|">삭제</button>
+							<button type="button" th:onclick="|removeCheck(${departmentInfo.departmentNo});|">삭제</button>
 						</td>
 					</form>
 					</tr>

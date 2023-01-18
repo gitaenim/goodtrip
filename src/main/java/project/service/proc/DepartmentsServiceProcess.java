@@ -26,9 +26,7 @@ public class DepartmentsServiceProcess implements DepartmentsService {
 	@Transactional
 	@Override
 	public void editDepartment(long no, DepartmentsUpdateDTO dto) {
-		departmentsRepo.findById(no).map(entity->entity.updateDepartment(dto));
-		
-		
+		departmentsRepo.findById(no).map(entity->entity.updateDepartment(dto)); //부서명, 부서장 변경
 	}
 	//부서 정보 편집모드
 	@Override

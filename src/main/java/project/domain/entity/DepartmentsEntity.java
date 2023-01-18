@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.domain.DTO.DepartmentsDetailDTO;
 import project.domain.DTO.DepartmentsUpdateDTO;
 
 @DynamicUpdate
