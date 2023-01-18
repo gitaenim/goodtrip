@@ -3,6 +3,11 @@ package project.service.proc;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -12,13 +17,12 @@ import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ReplySuggestionsEntity;
 import project.domain.repository.BoardSuggestionsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
-import project.domain.repository.ReplySuggestionsEntityRepository;
 import project.service.ReplySuggestionService;
 import project.service.SuggestionBoardService;
 
 @Service
 public class SuggestionBoardServiceProc implements SuggestionBoardService {
-	
+
 	/* 20230110 문대현 생성 */
 
 	@Autowired
@@ -26,15 +30,32 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 
 	@Autowired
 	EmployeesEntityRepository employeesRepository;
-	
+
 	@Autowired
 	ReplySuggestionService replySuggestionService;
 
 	// 건의사항 게시글 리스트페이지에 출력할 모든 데이터 조회 서비스
 	@Override
-	public void findAllList(Model model) {
+	public void findAllList(int pageNum, String search, String searchType, Model model) {
 
-		List<BoardSuggestionsEntity> list = suggestionsRepository.findAll();
+		int pageSize = 10;
+
+		Page<BoardSuggestionsEntity> list = null;
+
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "createDate");
+
+		if (search == null) {
+			list = suggestionsRepository.findAll(page);
+		} else {
+
+			if (searchType.equals("title")) {
+				list = suggestionsRepository.findByTitleContaining(search, page);
+			}else if(searchType.equals("content")) {
+				list = suggestionsRepository.findByContentContaining(search, page);
+			}else if(searchType.equals("name")) {
+				list = suggestionsRepository.findByRegistNo_nameContaining(search, page);
+			}
+		}
 
 		// false : 조회한 데이터가 있음
 		// true : 조회한 데이터가 없음
@@ -57,47 +78,45 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 		// 건의사항 테이블에 저장
 		suggestionsRepository.save(dto.toEntityForSave(emp));
 	}
-	
+
 	// 건의사항 게시글 내용 업데이트 기능
-		@Override
-		public void update(BoardSuggestionsDTO dto, long suggestNo) {
-			
-			// 사번으로 사원정보 조회
-			EmployeesEntity emp = employeesRepository.findById(dto.getNo()).orElseThrow();
-			
-			// 업데이트 기능
-			suggestionsRepository.save(dto.toEntityForUpdate(suggestNo, emp));
-		}
-	
+	@Override
+	public void update(BoardSuggestionsDTO dto, long suggestNo) {
+
+		// 사번으로 사원정보 조회
+		EmployeesEntity emp = employeesRepository.findById(dto.getNo()).orElseThrow();
+
+		// 업데이트 기능
+		suggestionsRepository.save(dto.toEntityForUpdate(suggestNo, emp));
+	}
+
 	// 건의사항 디테일 페이지 데이터 조회하는 서비스
 	@Override
 	public void detail(long suggestNo, Model model) {
-		
+
 		// 게시글번호로 해당 게시글 정보 조회
 		BoardSuggestionsEntity entityData = suggestionsRepository.findById(suggestNo).orElseThrow();
-		
+
 		model.addAttribute("suggestionDetail", entityData);
 	}
 
 	// 건의사항 게시글 삭제 기능
 	@Override
 	public void delete(long suggestNo) {
-		
+
 		// 게시글 번호로 게시글 정보 조회
 		BoardSuggestionsEntity suggestions = suggestionsRepository.findById(suggestNo).orElseThrow();
-		
+
 		// 조회된 게시글 번호로 해당 게시글을 참조하고 있는 모든 댓글리스트를 조회
 		List<ReplySuggestionsEntity> reply = replySuggestionService.findBySuggestNo(suggestions);
-	
+
 		// 해당 게시글의 댓글리스트를 모두 삭제해 주는 기능
 		for (ReplySuggestionsEntity list : reply) {
 			replySuggestionService.deleteById(list.getReplySuggestNo());
 		}
-		
+
 		// 해당 게시글을 삭제
 		suggestionsRepository.deleteById(suggestNo);
 	}
-
-	
 
 }

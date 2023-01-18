@@ -24,11 +24,13 @@ public class SuggestionBoardController {
 
 	// 건의 게시판 리스트
 	@GetMapping("/Board/suggestionList")
-	public String suggestionList(Model model) {
-		suggestionservice.findAllList(model);
+	public String suggestionList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
+			@RequestParam(value="search", required = false) String search,
+			@RequestParam(value="searchType", required = false) String searchType,Model model) {
+		suggestionservice.findAllList(pageNum,search,searchType,model);
 		return "Board/suggestionList";
-	} 
-
+	}
+	
 	// 건의사항 글쓰기 페이지 이동
 	@GetMapping("/Board/suggestionWrite")
 	public String suggestionWrite() {
@@ -52,13 +54,13 @@ public class SuggestionBoardController {
 	
 	// 건의사항 게시글에서 제목이 눌렀을 경우 해당 게시글 상세 페이지로 이동
 	@GetMapping("/suggestDetail")
-	public String suggestDetail(@RequestParam long suggestNo, Model model) {
+	public String suggestDetail(@RequestParam long suggestNo, @RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, Model model) {
 
 		// 게시글 정보를 가져오는 기능
 		suggestionservice.detail(suggestNo, model);
 
 		// 해당 게시글의 댓글정보를 가져오는 기능
-		replySuggestionService.findAllList(suggestNo, model);
+		replySuggestionService.findAllList(suggestNo,pageNum, model);
 
 		return "Board/suggestionDetail";
 	}

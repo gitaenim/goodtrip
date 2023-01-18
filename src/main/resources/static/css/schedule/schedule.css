@@ -1,4 +1,59 @@
 @charset "UTF-8";
+header>.wrap>ul>li:nth-child(2) {
+	left: -8px;
+}
+
+.logoImg {
+	background-position: left;
+}
+
+header>.wrap>ul>li:nth-child(3) {
+	margin-left: -18px;
+}
+
+header>.wrap>ul>li:nth-child(4) {
+	margin-left: -18px;
+}
+
+header>.wrap>ul>li:nth-child(5) {
+	margin-left: -18px;
+}
+
+header>.wrap ul>li dl>dt {
+	margin-left: 0;
+}
+
+header>.wrap ul>li dl>dd {
+	margin-left: 10px;
+}
+
+#headerBtn {
+	margin: 20px 10px;
+}
+
+#data-start {
+	margin-top: 140px;
+}
+
+#changeDate {
+	border: 1px solid #3B71CA;
+	border-radius :20px;
+	padding: 0 10px;
+}
+
+#changeDate:hover {
+	cursor: pointer;
+}
+#list {
+ counter-reset : numbering;
+}
+#num:after{
+    counter-increment : numbering; 
+    content : counter(numbering);
+}
+#calendarOnlyUse {
+	width: 240px;
+}
 
 .list-1{
 	padding: 1.5em;

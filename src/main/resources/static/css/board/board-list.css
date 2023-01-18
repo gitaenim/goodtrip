@@ -45,3 +45,10 @@ tr.list-2 th{
 	padding:10px;
 	height: 16px;
 }
+#list {
+ counter-reset : numbering;
+}
+#num:after{
+    counter-increment : numbering; 
+    content : counter(numbering);
+}

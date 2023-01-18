@@ -8,7 +8,7 @@ public interface SuggestionBoardService {
 
 	void save(BoardSuggestionsDTO dto);
 
-	void findAllList(Model model);
+	void findAllList(int pageNum, String search, String searchType, Model model);
 
 	void detail(long suggestNo, Model model);
 
