@@ -168,10 +168,10 @@ public class EmployeesEntity {
 		return null;
 	}
 	//부서장 부서 변경
-	public EmployeesEntity updateEmployeeDepartment(long no) {
-		this.departmentNo = DepartmentsEntity.builder().departmentNo(no).build();
-		return null;
-	}
+	//public EmployeesEntity updateEmployeeDepartment(long no) {
+	//	this.departmentNo = DepartmentsEntity.builder().departmentNo(no).build();
+	//	return null;
+	//}
 	
 	
 

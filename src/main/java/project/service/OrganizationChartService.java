@@ -1,5 +1,6 @@
 package project.service;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 
 import project.domain.DTO.EmployeesUpdateDTO;
@@ -12,15 +13,20 @@ public interface OrganizationChartService {
 
 	void findByIdEditMode(Model model, Long no);
 	
-	void findAllByDeleteStatusFalse(Model model);
+	//void findAllByDeleteStatusFalse(Model model);
+	
+	void findAllByDeleteStatusFalse(Model model, Pageable pageable);
 
 	void findAllByDeleteStatusTrue(Model model);
 
 	void editmode(Long no, EmployeesUpdateDTO dto);
+	
+	void findAllList(Model model); //eva
 
-	void findAllList(Model model);
+	void findCEO(Model model); //familyTree
 
-	void treelist(Model model, Long no);
+	void findDepartmentHead(Model model); //familyTree
+
 
 
 }

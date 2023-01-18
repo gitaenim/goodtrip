@@ -1,3 +1,4 @@
+/*한아 작성*/
 
 $(function(){
 	//var aaaa= $(".group-form>select>option").attr("value");
@@ -18,6 +19,7 @@ function getList(){
 		success:function(result){
 			
 			$("#emp-list").html(result);
+			$("#paging").hide();
 		}
 		,error:function(){
 			alert("다시 힘을 내요");

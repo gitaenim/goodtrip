@@ -9,8 +9,4 @@ import project.domain.entity.DepartmentsEntity;
 public interface DepartmentsEntityRepository extends JpaRepository<DepartmentsEntity, Long>{
 	/* 230116 한아 작성 */
 
-	
-
-
-
 }

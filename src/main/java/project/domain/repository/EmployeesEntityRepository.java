@@ -3,7 +3,10 @@ package project.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import project.domain.entity.EmployeesEntity;
@@ -20,9 +23,16 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	List<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b); //한아 작성
 
-	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
+	Page<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b, Pageable pageable); //한아 작성
 	
-	Optional<EmployeesEntity> findByName(String departmentHead);
+	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
+
+	EmployeesEntity findByPositionRank(long i);
+
+	
+	//Optional<EmployeesEntity> findByName(String departmentHead);
+
+
 
 
 
