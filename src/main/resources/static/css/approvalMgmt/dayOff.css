@@ -79,7 +79,7 @@
 }
 
 .head {
-	display: block;
+	display: none;
     line-height: 62px;
 	background: url("/image/icon/circle-red.png") no-repeat center;
 	color: #e60012;

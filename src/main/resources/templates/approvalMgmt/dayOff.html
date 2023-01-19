@@ -6,20 +6,11 @@
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
-	$(function(){
-		stamp();
-		$(".btn-dayoff").click(dayoffClicked);
-	});
-	
-	function stamp() {
-		$(".head").hide();
-	}
-	
-	function dayoffClicked() {
-		if( $(".name").text() == $(".head").text() ){
-			$(".head").show();
+	$(document).ready(function(){
+		if($(".name").text() == $(".head").text()){
+			$(".head").css("display", "block");
 		}
-	}
+	});
 		
 	function endCalc(){
 		var end = $(".End-date").val();

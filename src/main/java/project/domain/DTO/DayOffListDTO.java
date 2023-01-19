@@ -34,7 +34,7 @@ public class DayOffListDTO {
 	
 	private long useDays; //휴가일수
 	
-	private AuthorizeStatus approval; //승인여부
+	private AuthorizeStatus approval; //결재상태
 
 	public DayOffListDTO(DayOffEntity e) {
 		this.dayOffNo = e.getDayOffNo();

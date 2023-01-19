@@ -2,6 +2,7 @@ package project.service;
 
 import org.springframework.ui.Model;
 
+import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffInsertDTO;
 import project.domain.entity.DepartmentsEntity;
 
@@ -19,7 +20,7 @@ public interface DayOffService {
 
 	void appList(DepartmentsEntity departmentNo, Model model);
 
-	void appDetail(long dayOffNo, Model model);
+	//void approval(DayOffAppDTO dto, long dayOffNo);
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
@@ -35,8 +36,6 @@ public class DayOffServiceProcess implements DayOffService {
 	@Autowired
 	private DaysOffNumbersEntityRepository daysOffNumbersRepo;
 	
-	@Autowired
-	private DepartmentsEntityRepository departmentsRepo;
 	
 	//휴가 등록
 	@Override
@@ -101,18 +100,21 @@ public class DayOffServiceProcess implements DayOffService {
 	public void appList(DepartmentsEntity departmentNo, Model model) {
 		//System.err.println(departmentNo.getDepartmentNo());
 		long dno=departmentNo.getDepartmentNo();
-		//List<EmployeesEntity> emp = employeesRepo.findAllById();
 		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno);
 		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
 		
 	}
-
+	/*
+	//결재 승인처리
 	@Override
-	public void appDetail(long dayOffNo, Model model) {
+	public void approval(DayOffAppDTO dto, long dayOffNo) {
 		
+		EmployeesEntity emp = employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
 		
-	}	
-	
+		dayOffRepo.save(dto.toDayOffApproval(emp, dayOffNo));		
+		
+	}
+	*/
 
 	
 }

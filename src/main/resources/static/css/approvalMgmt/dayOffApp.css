@@ -78,8 +78,8 @@
 	font-size: 17px;
 }
 
-#table-2 tr:last-child>td>span.dep-stamp,
- #table-2 tr:last-child>td>span.ceo-stamp{
+#table-2 tr:last-child>td>span.head,
+ #table-2 tr:last-child>td>span.ceo{
 	display: none;
 }
 
