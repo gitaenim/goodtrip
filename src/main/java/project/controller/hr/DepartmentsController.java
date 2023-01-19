@@ -32,7 +32,7 @@ public class DepartmentsController {
 	public String registDepartments(Model model, String departmentName, String departmentHead) {
 		departmentRepo.save(DepartmentsEntity.builder()
 				.departmentName(departmentName)
-				.departmentHead(departmentHead)
+				.departmentHead("미정")
 				.build());
 		return "redirect:/departments/manage";
 	}

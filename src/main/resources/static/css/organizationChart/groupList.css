@@ -18,6 +18,12 @@
 .wrap-1{
 	position: relative;
 }
+.familytree{
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    color: #666;
+}
 .retired{
 	position: absolute;
 	right: 10px;

@@ -40,7 +40,10 @@ public class OrganizationChartController {
 	//@ResponseBody 페이지 이동하기 위해서는 이거 쓰면 안됨
 	@GetMapping("/ozc/groupList/{department}")
 	public String groupListByDepartmentNo(Model model, @PathVariable Long department) {
+		System.out.println(" >>>>> here?");
 		organizationChartService.findAllByDepartmentNo(model, department);
+		model.addAttribute("department", departmentRepo.findAll());
+		model.addAttribute("departmentNo", department);
 		return "organizationChart/groupListByDepartment";
 	}
 	//조직도 상세페이지

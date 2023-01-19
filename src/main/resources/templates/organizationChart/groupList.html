@@ -9,24 +9,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <script type="text/javascript">
 function departmentClicked(){
 	department=$("#department option:selected").val();
-	//alert(department);
-	if(department!=0) getList();
-	else location.href="/ozc/groupList";
-}
-
-function getList(){
-	$.ajax({
-		url:`/ozc/groupList/${department}`,
-		type:"get",
-		success:function(result){
-			
-			$("#emp-list").html(result);
-			$("#paging").hide();
-		}
-		,error:function(){
-			alert("다시 힘을 내요");
-		}
-	});
+	location.href="/ozc/groupList/"+department;
 }
 </script>
 </head>
@@ -46,7 +29,7 @@ function getList(){
 				</select>
 			      
 			    </form>
-			    <a class="" href="/ozc/familytree">Family Tree</a>
+			    <a class="familytree" href="/ozc/familytree">Family Tree</a>
 			    <a class="retired" href="/ozc/groupList/retirement">퇴직한 사원 조회</a>
 		    </div>
 			<div class="flex center back-list">
@@ -59,10 +42,6 @@ function getList(){
 						<th>주업무</th>
 					</tr>
 					<tbody id="emp-list">
-						<!-- <tr th:if="${nullcheck == true}">
-							<td colspan="5">해당 부서에 등록된 사원이 없습니다.</td>
-						</tr>
-						<tr th:if="${nullcheck == false}" th:each="list : ${list1}"> -->
 						<tr th:each="list : ${list1}">
 							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
 							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->

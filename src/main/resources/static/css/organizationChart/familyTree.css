@@ -9,7 +9,7 @@
 }
 
 .department-name{
-	width: 800px;
+	width: 1000px;
 	gap: 20px 2%;
 	flex-wrap: wrap;
 }
