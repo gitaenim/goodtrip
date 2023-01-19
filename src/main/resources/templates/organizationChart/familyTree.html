@@ -24,28 +24,36 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<div class="detail">
 					<img alt="" th:src="|${ceoImg}|" class="ceo-img">
 					<div>
-						<p>[[${ceo.departmentNo.DepartmentName}]]</p>
+						<p class="dname">[[${ceo.departmentNo.DepartmentName}]]</p>
 						<p>[[${ceo.name}]]</p>
 					</div>
 				</div>				
 			</div>
-			<div >
+			<div>
 				<div class="position">
 					<p>부서장</p>
 				</div>
-				<div>
-					<div th:each="img : ${images}" class="flex">
-						<img alt="" th:src="|${img}|" class="ceo-img">
-					</div>				
-					<div th:each="department : ${department}" class="flex">
-						<p th:value="${department.departmentHead}">[[${department.departmentHead}]]</p>
+				<div >
+					<div class="flex">
+						<div th:each="img : ${images}" class="department-head">
+							<img alt="" th:src="|${img}|" class="ceo-img">
+						</div>
+					</div>
+					<div class="flex">
+						<div th:each="department : ${department}" class="department-head">
+							<p th:value="${department.departmentName}" class="dname">[[${department.departmentName}]]</p>
+							<p th:value="${department.departmentHead}">[[${department.departmentHead}]]</p>
+						</div>
 					</div>
 				</div>				
 			</div>
 		</div>
+		<div>
+			<h4>부서원 조회 바로가기</h4>
+		</div>
 		<div class="department-name flex" >
 			<div th:each="department : ${department}" >
-				<a class="department" th:value="${department.departmentNo}">[[${department.departmentName}]]</a>
+				<a class="department" th:href="|/ozc/groupList/${department.departmentNo}|">[[${department.departmentName}]]</a>
 			</div>
 			
 		</div>

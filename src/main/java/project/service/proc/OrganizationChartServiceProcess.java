@@ -112,9 +112,10 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 				if(d.getDepartmentHead().equals(e.getName())) {
 					System.err.println(d.getDepartmentHead());
 					str.add(e.getImageNo().getUrl());
-				} else if(d.getDepartmentHead()=="미정"){
-					str.add("http://project.goodtrip.s3.ap-northeast-2.amazonaws.com/employees/upload/%EC%8B%AC%EC%88%A0%EA%B0%9C%EA%B5%AC%EB%A6%AC_24c769fd-0e41-4a73-82c6-95356a735d2a.png");
-				}
+				} 
+			}
+			if(d.getDepartmentHead().equals("미정")){
+				str.add("/image/icon/vacant.png");
 			}
 		}
 //		//System.err.println(str.toString());
