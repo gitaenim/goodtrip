@@ -1,25 +1,16 @@
 package project.domain.DTO;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.mvc.LastModified;
 
 import lombok.Data;
-import lombok.ToString;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
-import project.domain.repository.ImagesEntityRepository;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
-import project.utils.MyFileUtils;
 
 @Data
 public class EmployeesInsertDTO {
@@ -48,7 +39,7 @@ public class EmployeesInsertDTO {
 	private MyRole edit_authority;
 	
 	private DateTimeFormatter dformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	private DecimalFormat sformatter = new DecimalFormat("###,###");
+	
 
 	//employee 저장
 	public EmployeesEntity toEntity(PasswordEncoder pe, ImagesEntity imgNo) {

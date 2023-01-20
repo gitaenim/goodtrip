@@ -45,7 +45,6 @@ public class EmployeesController {
 	@GetMapping("/Organization/regist")
 	public String regist (Model model) {
 		model.addAttribute("department", departmentRepo.findAll());
-		System.out.println(model);
 		return "organization/regist.html";
 	}
 }

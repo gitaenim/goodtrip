@@ -1,7 +1,7 @@
 $(function() {
 	$(".board-edit-mode").hide();
 	$(".reply-edit-mode").hide();
-});
+});	
 function boardEditModeOn() {
 	$(".board-veiw-mode").hide();
 	$(".board-edit-mode").show();

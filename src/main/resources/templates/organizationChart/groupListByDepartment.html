@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
 	<tr th:if="${nullcheck == true}">
 		<td colspan="5">해당 부서에 등록된 사원이 없습니다.</td>
 	</tr>
@@ -10,5 +11,10 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	<td th:text="${list.position.label}">직급</td>
 	<td th:text="${list.extension}">내선번호</td>
 	<td th:text="${list.mainWork}">주업무</td>
-</tr>
+	<!-- 수민 추가! css 사용해서 조직도에는 안보이게 했습니다!  -->
+	<td class="group-non" style="color: rgb(1, 20, 190)" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
+	<td class="group-non" th:if="${list.empGrade != null}" th:text="${list.empGrade}" >등급</td>
+	<td class="group-non"> 
+		<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
+	</td>
 </html>

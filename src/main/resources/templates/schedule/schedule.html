@@ -59,6 +59,9 @@ header>.wrap ul>li dl>dd {
 	left: 1120px;
 	top: -10px;
 }
+#data-start{
+margin-top: 140px;
+}
 </style>
 </head>
 <main>
@@ -83,7 +86,7 @@ header>.wrap ul>li dl>dd {
 						<th>비고</th>
 					</tr>
 					<tr th:if="${nullcheck == true}">
-						<td colspan="5">오늘의 일정이 없습니다.</td>
+						<td colspan="6">오늘의 일정이 없습니다.</td>
 					</tr>
 					<tr th:if="${nullcheck == false}" th:each="list : ${todaySchedule}">
 						<form action="/scheduleUpdate" method="post">
@@ -154,7 +157,7 @@ header>.wrap ul>li dl>dd {
 					class="rounded-circle position-absolute top-0 start-50 translate-middle h-50" />
 				<form action="/schedulePlus" method="post">
 					<!-- select input -->
-					<p class="form-label">일정 종류 선택</p>
+					<p id="data-start" class="form-label">일정 종류 선택</p>
 					<div class="form-outline mb-4">
 						<select id="select" name="select">
 							<option value="미팅">미팅</option>
@@ -165,7 +168,6 @@ header>.wrap ul>li dl>dd {
 						</select>
 
 					</div>
-
 					<!-- title input -->
 					<p class="form-label">일정 상세 내용</p>
 					<div class="form-outline mb-4">

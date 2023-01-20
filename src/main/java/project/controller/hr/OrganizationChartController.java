@@ -62,6 +62,18 @@ public class OrganizationChartController {
 		organizationChartService.editmode(no, dto);
 		return "redirect:/ozc/groupDetail/{no}";
 	}
+	//Family Tree
+	@GetMapping("/ozc/familytree")
+	public String familytree(Model model) {
+		model.addAttribute("department", departmentRepo.findAll());
+		return "organizationChart/familytree";
+	}
+	//Family Tree
+	@GetMapping("/ozc/familytree/{no}")
+	public String familytree(Model model, @PathVariable Long no) {
+		organizationChartService.treelist(model,no);
+		return "organizationChart/familyTreeList";
+	}
 	
 }
 

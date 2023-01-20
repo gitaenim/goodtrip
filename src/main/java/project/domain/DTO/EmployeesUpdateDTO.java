@@ -1,8 +1,6 @@
 package project.domain.DTO;
 
 import lombok.Data;
-import project.domain.entity.DepartmentsEntity;
-import project.domain.entity.EmployeesEntity;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
