@@ -22,7 +22,15 @@ public class SuggestionBoardController {
 	@Autowired
 	ReplySuggestionService replySuggestionService;
 
-	// 건의 게시판 리스트
+	
+	/**건의 게시판 리스트 페이지 이동
+	 * 
+	 * @param pageNum		페이지번호
+	 * @param search		검색할 단어
+	 * @param searchType	검색할 종류(제목,내용,작성자)
+	 * @param model			페이지에 데이터 연결용
+	 * @return				페이지 주소
+	 */
 	@GetMapping("/Board/suggestionList")
 	public String suggestionList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
 			@RequestParam(value="search", required = false) String search,

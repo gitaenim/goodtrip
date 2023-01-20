@@ -48,10 +48,10 @@
 						<th>종료날짜</th>
 						<th>비고</th>
 					</tr>
-					<tr th:if="${nullcheck == true}">
+					<tr th:if="${todaySchedule.isEmpty()}">
 						<td colspan="6">오늘의 일정이 없습니다.</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${todaySchedule}">
+					<tr th:if="${todaySchedule.isEmpty()}==false" th:each="list : ${todaySchedule}">
 						<form action="/scheduleUpdate" method="post">
 							<td id="num"><!-- 일정번호 --></td>
 							<td th:text="${date}">날짜</td>

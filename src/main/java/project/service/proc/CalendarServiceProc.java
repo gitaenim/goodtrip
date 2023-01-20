@@ -117,8 +117,6 @@ public class CalendarServiceProc implements CalendarService {
 				hash.put("textColor", "#FFFFFF");
 			}
 
-			
-
 			jsonObj = new JSONObject(hash);
 			jsonArr.put(jsonObj);
 		}

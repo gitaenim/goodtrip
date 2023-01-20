@@ -90,7 +90,20 @@ header>.wrap ul>li dl>dd {
 .menuList dd {
 	margin-bottom: 10px;
 }
-
+.menuList dd>a {
+	white-space:nowrap;
+}
+.menuList dd>a>span{
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+	top : 1px;
+	margin-right: 5px;
+}
 .logoImg {
 	margin-left: 1px;
 	display: inline-block;

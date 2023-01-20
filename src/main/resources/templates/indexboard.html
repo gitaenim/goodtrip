@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+</head>
+<table class="list-table counting-list">
+	<tr class="list-2">
+		<th>번호</th>
+		<th>제목</th>
+		<th>작성자</th>
+		<th>날짜</th>
+	</tr>
+	<tr th:if="${boardPage.isEmpty()}">
+		<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
+	</tr>
+	<tr th:if="${boardPage.isEmpty()}==false" th:each="list : ${boardPage}">
+		<td class="counting-num">
+			<!-- 게시글 번호 -->
+		</td>
+		<td><a th:if="${boardNo}=='cncNo'"
+			th:href="@{${url}(${boardNo}=${list.cncNo})}">[[${list.title}]]</a>
+			<a th:if="${boardNo}=='noticeNo'"
+			th:href="@{${url}(${boardNo}=${list.noticeNo})}">[[${list.title}]]</a>
+			<a th:if="${boardNo}=='suggestNo'"
+			th:href="@{${url}(${boardNo}=${list.suggestNo})}">[[${list.title}]]</a>
+		</td>
+		<td th:text="${list.registNo.name}">관리자</td>
+		<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd HH:mm')}">2023.01.02</td>
+	</tr>
+</table>
+</html>

@@ -1,6 +1,7 @@
 package project.service;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.DTO.BoardSuggestionsDTO;
 
@@ -15,5 +16,7 @@ public interface SuggestionBoardService {
 	void update(BoardSuggestionsDTO dto, long suggestNo);
 
 	void delete(long suggestNo);
+
+	void findListForIndex(ModelAndView modelAndView);
 
 }

@@ -20,15 +20,15 @@
 			<div class="flex center back-list">
 				<table id="list" class="list-table">
 					<tr class="list-2">
-						<th>번호<th>
+						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>날짜</th>
 					</tr>
-					<tr th:if="${nullcheck == true}">
+					<tr th:if="${suggestionList.isEmpty()}">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${suggestionList}">
+					<tr th:if="${suggestionList.isEmpty()}==false" th:each="list : ${suggestionList}">
 						<td id="num"><!-- 게시글 번호 --><td>
 						<td><a th:href="@{/suggestDetail(suggestNo=${list.suggestNo})}">[[${list.title}]]</a></td>
 						<td th:text="${list.registNo.name}">관리자</td>
