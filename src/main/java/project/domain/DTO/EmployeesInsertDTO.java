@@ -36,7 +36,7 @@ public class EmployeesInsertDTO {
 	private String joinDate;//입사일
 	private String resignDate;//퇴사일
 	private String extension;//내선번호
-	private String salary;//급여
+	private long salary;//급여
 	private String birthDate;//생년월일
 	private String mainWork;//주 업무
 	private long departmentNo; //부서번호
@@ -67,7 +67,7 @@ public class EmployeesInsertDTO {
 				.phone(phone)
 				.extension(extension)
 				.joinDate(LocalDate.parse(joinDate, dformatter))
-				.salary(sformatter.format(salary))
+				.salary(salary)
 				.imageNo(imgNo)
 				.editAuthority(edit_authority)
 				.build()

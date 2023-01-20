@@ -21,7 +21,7 @@ public class EmployeesUpdateDTO {
 	private String extension;//내선번호
 	private String birthDate;//생년월일
 	private String mainWork;//주 업무
-	private String salary;//급여
+	private long salary;//급여
 	
 }
 

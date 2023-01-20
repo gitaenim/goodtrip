@@ -20,6 +20,12 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 				<button onclick="location.href = 'myWorkingDay'"><span class="small-circle"></span>근무</button>
 				<button onclick="location.href = 'myDayOff'"><span class="small-circle"></span>휴가</button>
 			</div>
+			<div>
+				<form>
+			    	<input id="keyword" type="date" name="keyword">
+			    	<button id="search" type="submit">검색</button>
+			    </form>
+		    </div>
 			<div class="flex center back-list">
 				<table class="list-table">
 					<thead>

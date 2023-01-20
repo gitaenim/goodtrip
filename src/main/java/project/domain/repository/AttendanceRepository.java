@@ -1,5 +1,6 @@
 package project.domain.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,7 @@ import project.domain.entity.EmployeesEntity;
 public interface AttendanceRepository extends JpaRepository<DailyWorkingHoursEntity, Long> {
 	List<DailyWorkingHoursEntity> findByEmployeeNo(EmployeesEntity emp);
 	
-	Page<DailyWorkingHoursEntity> findByEmployeeNoOrderByDateDesc(EmployeesEntity emp, Pageable pageable);
+	Page<DailyWorkingHoursEntity> findByEmployee_noOrderByDateDesc(long no, Pageable pageable);
 
 	List<DailyWorkingHoursEntity> findAllByClockInBetween(LocalDateTime startDatetime, LocalDateTime endDatetime);
 
@@ -26,5 +27,16 @@ public interface AttendanceRepository extends JpaRepository<DailyWorkingHoursEnt
 
 	Optional<DailyWorkingHoursEntity> findByClockInBetweenAndEmployeeNo(LocalDateTime startDatetime,
 			LocalDateTime endDatetime, EmployeesEntity emp);
+
+	Optional<DailyWorkingHoursEntity> findByEmployee_no(long no);
+
+	Optional<DailyWorkingHoursEntity> findByEmployee_noAndClockInBetween(long no, LocalDateTime startDatetime,
+			LocalDateTime endDatetime);
+
+	List<DailyWorkingHoursEntity> findByClockInBetweenAndEmployee_no(LocalDateTime startDatetime,
+			LocalDateTime endDatetime, long no);
+
+	Page<DailyWorkingHoursEntity> findByEmployee_noAndDateBetweenOrderByDateDesc(long no, LocalDate dateStart,
+			LocalDate dateEnd, Pageable pageable);
 
 }

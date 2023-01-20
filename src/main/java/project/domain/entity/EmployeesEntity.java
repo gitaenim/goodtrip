@@ -72,7 +72,7 @@ public class EmployeesEntity {
 	
 	private String extension;//내선번호
 	
-	private String salary;//급여
+	private long salary;//급여
 	
 	@Column(name = "birth_date")
 	private LocalDate birthDate;//생년월일
@@ -167,7 +167,7 @@ public class EmployeesEntity {
 		this.mainWork = dto.getMainWork();
 		this.joinDate = LocalDate.parse(dto.getJoinDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.birthDate = LocalDate.parse(dto.getBirthDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		this.salary = sformatter.format(dto.getSalary());
+		this.salary = dto.getSalary();
 		if(resignDate==null) return null; //퇴사일 입력안하면 method 종료
 		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		return null;
