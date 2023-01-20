@@ -1,6 +1,8 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +33,9 @@ public class PersonnelEvaController {
 	
 	// 인사관리 평가 메인리스트페이지  //변경햇슴  1/17 수민
 	@GetMapping("/personnelEvaList")
-	public String personnelEvaMain(Model model) {
+	public String personnelEvaMain(Model model, @PageableDefault(size = 10)Pageable pageable) {
 		model.addAttribute("department", departmentRepo.findAll());
-		organizationChartService.findAllByDeleteStatusFalse(model);	
+		organizationChartService.findAllByDeleteStatusFalse(model,pageable);	
 		return "personnel/persommelEvaList";
 	}
 	

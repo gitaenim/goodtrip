@@ -147,15 +147,6 @@ public class CncBoardServiceProc implements CNCBoardService {
 	
 	}*/
 
-	// 게시글 삭제
-	@Override
-	public void delete(long cncNo) {
-		// 게시글 번호로 게시글 정보 조회
-		BoardCNCEntity suggestions = CNCRepository.findById(cncNo).orElseThrow();
-		// 해당 게시글을 삭제
-		CNCRepository.deleteById(cncNo);
-	}
-
 	// 인덱스에 띄워줄 경조사 게시글 내용
 	@Override
 	public void findListForIndex(ModelAndView modelAndView) {

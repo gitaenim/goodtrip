@@ -29,7 +29,7 @@
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
 					<tr th:if="${suggestionList.isEmpty()}==false" th:each="list : ${suggestionList}">
-						<td id="num"><!-- 게시글 번호 --><td>
+						<td id="num"><!-- 게시글 번호 --></td>
 						<td><a th:href="@{/suggestDetail(suggestNo=${list.suggestNo})}">[[${list.title}]]</a></td>
 						<td th:text="${list.registNo.name}">관리자</td>
 						<td th:text="${#temporals.format(list.createDate,'yyyy/MM/dd HH:mm')}">2023.01.02</td>
