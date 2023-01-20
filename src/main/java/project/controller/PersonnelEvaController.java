@@ -39,6 +39,15 @@ public class PersonnelEvaController {
 		return "personnel/persommelEvaList";
 	}
 	
+	@GetMapping("/personnelEvaList/{department}")
+	public String groupListByDepartmentNo(Model model, @PathVariable Long department) {
+		System.out.println(" >>>>> here?");
+		organizationChartService.findAllByDepartmentNo(model, department);
+		model.addAttribute("department", departmentRepo.findAll());
+		model.addAttribute("departmentNo", department);
+		return "personnel/personnerlByDepartment";
+	}
+	
 	// 인사관리 평가 페이지
 	@GetMapping("/personnelEva/{no}")
 	public String personnelEva(Model model, @PathVariable Long no) {
