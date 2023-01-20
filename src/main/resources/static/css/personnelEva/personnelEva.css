@@ -20,18 +20,31 @@
 	font-size: 16px;
 	color: #817e83;
 	font-weight: 600;
+	padding: 41px;
 }
-.Eva-span2{
-	padding-left: 10px;
+.Eva-table2{
+	border-collapse: collapse;
 }
 .Eva-table{
 	padding: 10px;
 	border-collapse: collapse;
-	
 }
-.Eva-table tr th{
+.Eva-table tr th, .Eva-table2 tr td{
 	padding: 1.5em;
 	border: 3px solid  #bbbbbb;
+}
+.Eva-table2 tr td{
+	padding: 5px;
+	border: 2px solid  #909090;
+	text-align:center;
+}
+.Eva-table2 tr td:nth-child(1){
+	background:   #a4cdf2;
+	color: white;
+	text-align: center;
+}
+.Eva-table2 tr td:nth-child(2){
+	color: #4d4d4d;
 }
 .Eva-all{
 	padding-top: 3em;
@@ -54,8 +67,15 @@
 th select option, div input{
 	text-align: center;
 }
-
 .back-1{
 	 padding-bottom: 10px;
 	 color: #4b99da;
+}
+/* 등급순 정렬  */
+.list-thead tr.Evalist-tr th:not(:nth-child(6)){
+	display: none;
+}
+
+.list-thead tr th button{
+	padding: 10px;
 }

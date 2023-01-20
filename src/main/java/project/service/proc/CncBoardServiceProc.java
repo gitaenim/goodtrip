@@ -1,24 +1,33 @@
 package project.service.proc;
 
 import org.springframework.ui.Model;
-import javax.transaction.Transactional;
 
-import lombok.RequiredArgsConstructor;
+import project.domain.DTO.AttendanceMyListDTO;
 import project.domain.DTO.BoardCNCDTO;
 import project.domain.entity.BoardCNCEntity;
+import project.domain.entity.DailyWorkingHoursEntity;
 import project.domain.entity.EmployeesEntity;
+import project.domain.repository.AttendanceRepository;
 import project.domain.repository.BoardCNCEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.CNCBoardService;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CncBoardServiceProc implements CNCBoardService {
+	
+	@Autowired
+	private AttendanceRepository attRepo;
 	
 	@Autowired
 	BoardCNCEntityRepository CNCRepository;
@@ -26,9 +35,28 @@ public class CncBoardServiceProc implements CNCBoardService {
 	@Autowired
 	EmployeesEntityRepository employeesRepository;
 
+	//경조사 게시판 조회 및 검색!
 	@Override
-	public void findAllList(Model model) {
-		List<BoardCNCEntity> list = CNCRepository.findAll();
+	public void findAllList(int pageNum, String search, String searchType, Model model) {
+
+		int pageSize = 10;
+
+		Page<BoardCNCEntity> list = null;
+
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "eventDate");
+
+		if (search == null) {
+			list = CNCRepository.findAll(page);
+		} else {
+
+			if (searchType.equals("title")) {
+				list = CNCRepository.findByTitleContaining(search, page);
+			}else if(searchType.equals("content")) {
+				list = CNCRepository.findByContentContaining(search, page);
+			}else if(searchType.equals("name")) {
+				list = CNCRepository.findByRegistNo_nameContaining(search, page);
+			}
+		}
 
 		// false : 조회한 데이터가 있음
 		// true : 조회한 데이터가 없음
@@ -37,20 +65,28 @@ public class CncBoardServiceProc implements CNCBoardService {
 		if (list.isEmpty()) {
 			nullcheck = true;
 		}
-
 		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("cncList", list);
+		model.addAttribute("today", LocalDate.now()); //cncList 경조사 게시판에 경조사일 날짜를 비교가능하게해줌 (지난 경조사일 회색처리)
 	}
 	
+	//경조사 저장!
 	@Override
 	public void save(BoardCNCDTO cdto) {
-			
+		/* BoardCNCEntity entity=BoardEntity.builder()
+				.title(dto.getTitle()).content(dto.getContent())
+				.member(MemberEntity.builder().no(dto.getno()).build())
+				.build();
+		
+		repository.save(entity); */
+		
 		// 사번으로 사원정보 조회
 		EmployeesEntity emp = employeesRepository.findById(cdto.getNo()).orElseThrow();
 
 		// 경조사 테이블에 저장
 		CNCRepository.save(cdto.toEntityForSave(emp));
 	}
+	
 	@Override
 	public void detail(long cncNo, Model model) {
 		
@@ -86,6 +122,28 @@ public class CncBoardServiceProc implements CNCBoardService {
 			// 해당 게시글을 삭제
 			CNCRepository.deleteById(cncNo);
 		}
+	
+	/*
+    @Transactional
+    public Page<BoardCNCEntity> search(String keyword, Pageable pageable) {
+        Page<BoardCNCEntity> postsList = CNCRepository.findByTitleContaining(keyword, pageable);
+        return postsList;
+    }
+    
+	@Override
+	public void getListAll(int page, Model model) {
+		int size=10;
+		Sort sort=Sort.by(Direction.DESC, "cncNo");
+		Pageable pageable=PageRequest.of(page-1, size, sort);
+		Page<BoardCNCEntity> result=CNCRepository.findAll(pageable);
+		model.addAttribute("p", result);
+		model.addAttribute("list", result.stream()
+				.map(BoardCNCDTO::new)//Entity->DTO
+				.collect(Collectors.toList()));
+	
+	}*/
+
+
 
 }
 	

@@ -28,99 +28,99 @@
 		function resetPlusZero(i) {
 			if (i < 10) {
 				i = "0" + i
-			}
-			;
+			};
 			return i;
 		}
+		
+		/* status값 얻어오기 */
+		var status = $('#status').val();
+		console.log("status: " + status);
 
-		/* 출근시간 값이 있는지 확인용 */
-		var startTimeToday = $("#start-time-today").text(); //출근시간 값 가져오기
-		console.log(startTimeToday);
-		var intStartTime = parseInt(startTimeToday); //text를 int로 변환
-
-		/* 퇴근 버튼은 출근기록이 생기면 나오도록 */
-		$("#end-time").hide();
-		if (intStartTime > 0) {
-			$("#end-time").show();
+		/* 근무중일 때만 나오는 버튼들 */
+		$("#start-time-today").hide(); //출근시간
+		$("#end-time-today").hide(); //퇴근시간
+		if (status == '근무중') {
+			$("#start-time-today").show();
 		}
+		if (status == '근무종료'){
+			$("#start-time-today").show();
+			$("#end-time-today").show();
+		}
+
 		/* 출근 버튼 클릭 시 시작*/
-		$("#start-time")
-				.click(
-						function() {
-
-							if (intStartTime > 0) { //출근기록이 있으면
-								alert("이미 출근하였습니다.");
-							} else { //출근기록이 없으면
-
-								// 출근 버튼 누르면 나오는 팝업창
-								var startResult = confirm("현재 시각은 " + hours
-										+ "시 " + minutes + "분입니다. \n출근하시겠습니까?");
-
-								//출근 data 통신
-								if (startResult) {
-									$
-											.ajax({
-												async : false,
-												type : "post",
-												url : "/attendance/in",
-												contentType : "application/x-www-form-urlencoded; charset=utf-8",
-												dataType : "text",
-												success : function(data) {
-													console.log("성공 data:"
-															+ data);
-													if (data == "attinSuccess") { //데이터 리턴이 잘 됐으면
-														alert("출근완료");
-														location.reload(); //출근 완료 시 새로고침하여 출근기록 보이기
-													} else {
-														alert("이상발생");
-													}
-												},
-												error : function() {
-													console.log("실패");
-												}
-											})
-								} else {
-									alert("취소하였습니다."); // confirm창 취소 시 알림
-								}
-							}//출근기록 if else문 끝
-						});
-		/* 출근 버튼 클릭 시 끝*/
-		/* 퇴근 버튼 클릭 시 시작*/
-		$("#end-time")
-				.click(
-						function() {
-							var endTimeToday = $("#end-time-today").text();
-							console.log(endTimeToday);
-							// 퇴근 버튼 누르면 나오는 팝업창
-							var endResult = confirm("현재 시각은 " + hours + "시 "
-									+ minutes + "분입니다. \n퇴근하시겠습니까?");
-
-							//퇴근 data 통신
-							if (endResult) {
-								$
-										.ajax({
-											async : false,
-											type : "patch",
-											url : "/attendance/out",
-											contentType : "application/json-patch+json; charset=utf-8",
-											dataType : "text",
-											success : function(data) {
-												console.log("성공 data:" + data);
-												if (data == "attoutSuccess") { //데이터 리턴이 잘 됐으면
-													alert("퇴근완료");
-													location.reload(); //새로고침
-												} else {
-													alert("이상발생");
-												}
-											},
-											error : function() {
-												console.log("실패");
-											}
-										});
+		$("#start-time").click(function() {					
+			if (status == '근무중' || status =='근무종료') { //미출근시에만 출근가능하도록
+				alert("이미 출근하였습니다.");
+			} else { //출근기록이 없으면 */
+				
+				// 출근 버튼 누르면 나오는 팝업창
+				var startResult = confirm("현재 시각은 " + hours
+						+ "시 " + minutes + "분입니다. \n출근하시겠습니까?");
+			
+				//출근 data 통신
+				if (startResult) {
+					$.ajax({
+						async : false,
+						type : "post",
+						url : "/attendance/in",
+						contentType : "application/x-www-form-urlencoded; charset=utf-8",
+						dataType : "text",
+						success : function(data) {
+							console.log("성공 data:"
+									+ data);
+							if (data == "attinSuccess") { //데이터 리턴이 잘 됐으면
+								alert("출근완료");
+								location.reload(); //출근 완료 시 새로고침하여 출근기록 보이기
 							} else {
-								alert("취소하였습니다."); // confirm창 취소 시 알림
-							} //if문 끝
-						}); //퇴근버튼 클릭 끝
+								alert("이상발생");
+							}
+						},
+						error : function() {
+							console.log("실패");
+						}
+					})
+				} else {
+					alert("취소하였습니다."); // confirm창 취소 시 알림
+				}
+			}//출근기록 if else문 끝 */
+		});
+		/* 출근 버튼 클릭 시 끝*/
+		
+		/* 퇴근 버튼 클릭 시 시작*/
+		$("#end-time").click(function() {
+			if (status == null || status == '미출근') { //퇴근 조건
+				alert("출근 후 퇴근 가능합니다.");
+			} else{
+				// 퇴근 버튼 누르면 나오는 팝업창
+				var endResult = confirm("현재 시각은 " + hours + "시 "
+						+ minutes + "분입니다. \n퇴근하시겠습니까?");
+
+				//퇴근 data 통신
+				if (endResult) {
+					$.ajax({
+						async : false,
+						type : "patch",
+						url : "/attendance/out",
+						contentType : "application/json-patch+json; charset=utf-8",
+						dataType : "text",
+						success : function(data) {
+							console.log("성공 data:" + data);
+							if (data == "attoutSuccess") { //데이터 리턴이 잘 됐으면
+								alert("퇴근완료");
+								location.reload(); //새로고침
+							} else {
+								alert("이상발생");
+							}
+						},
+						error : function() {
+							console.log("실패");
+						}
+					});
+				} else {
+					alert("취소하였습니다."); // confirm창 취소 시 알림
+				} // endResult if문 끝
+			}//퇴근조건 if문 끝		
+		}); //퇴근버튼 클릭 끝
 	});//function 끝
 </script>
 <!-- 230111 출퇴근시간 스크립트 끝 안나 -->
@@ -137,11 +137,10 @@
 	<div sec:authorize="isAuthenticated()" id="clock-in-out"
 		th:each="dto:${list}">
 		<p>출근시간 :</p>
-		<p id="start-time-today"
-			th:text="${#temporals.format(dto.clockIn, 'HH:mm:SS')}"></p>
+		<input id="status" type="hidden" th:value="${dto.status}">
+		<p id="start-time-today" th:text="${#temporals.format(dto.clockIn, 'HH:mm:SS')}"></p>
 		<p>퇴근시간 :</p>
-		<p id="start-time-today" th:if="${dto.clockOut!=dto.clockIn}"
-			th:text="${#temporals.format(dto.clockOut, 'HH:mm:SS')}"></p>
+		<p id="end-time-today" th:text="${#temporals.format(dto.clockOut, 'HH:mm:SS')}"></p>
 	</div>
 	<!-- 230111 출퇴근버튼 끝 안나 -->
 	<!-- calendar 태그 -->

@@ -24,7 +24,7 @@ public class EmployeesDetailDTO {
 	private String extension;//내선번호
 	private LocalDate birthDate;//생년월일
 	private String mainWork;//주 업무
-	private String salary;//급여
+	private long salary;//급여
 	private boolean deleteStatus;//삭제여부
 	private int editAuthority;//수정권한
 	private String yesorno;//수정권한이있나요?
