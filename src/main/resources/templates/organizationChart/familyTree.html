@@ -15,15 +15,15 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	<!-- 230110 한아 작성 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<section>
-		<h2 class="title flex center">Good Trip</h2>
+		<h2 class="title flex center">Good Trip 조직도</h2>
 		<div class="image-tree">
 			<div class="ceo-info">
 				<div class="position flex center">
 					<p>CEO</p>
 				</div>
-				<div class="ceo-detail">
-					<img alt="" th:src="|${ceoImg}|" class="ceo-img">
-					<div>
+				<div class="ceo-detail" >
+					<img alt="" th:src="|${ceoImg}|" class="ceo-img" th:onclick="|location.href='/ozc/groupDetail/${ceo.no}'|">
+					<div th:onclick="|location.href='/ozc/groupDetail/${ceo.no}'|">
 						<p class="dname">[[${ceo.departmentNo.DepartmentName}]]</p>
 						<p>[[${ceo.name}]]</p>
 					</div>
@@ -33,7 +33,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<div class="position flex center">
 					<p>부서장</p>
 				</div>
-				<div >
+				<div>
 					<div class="flex">
 						<div th:each="img : ${images}" class="department-head" >
 							<img alt="" th:src="|${img}|" class="ceo-img">
@@ -45,6 +45,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 							<p th:value="${department.departmentHead}">[[${department.departmentHead}]]</p>
 						</div>
 					</div>
+				</div>
+				<div class="head-no flex">
+					<div th:each="no : ${no}" th:onclick="|location.href='/ozc/groupDetail/${no}'|">
+						<div th:value=${no}></div>
+					</div>
 				</div>				
 			</div>
 		</div>
@@ -52,6 +57,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			<h4>부서원 조회 바로가기</h4>
 		</div>
 		<div class="department-name flex" >
+			<div><a href="/ozc/groupList">전체</a></div>
 			<div th:each="department : ${department}" >
 				<a class="department" th:href="|/ozc/groupList/${department.departmentNo}|">[[${department.departmentName}]]</a>
 			</div>

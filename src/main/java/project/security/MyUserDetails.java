@@ -13,6 +13,7 @@ import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ImagesEntity;
 import project.enums.DepartmentRank;
+import project.enums.MyRole;
 
 @Getter
 public class MyUserDetails extends User{
@@ -25,6 +26,7 @@ public class MyUserDetails extends User{
 	private DepartmentsEntity departmentNo; //부서명
 	private DepartmentRank position; //직급
 	private ImagesEntity imageNo; //사원 이미지
+	private MyRole editAuthority;//수정권한
 	
 	//extends User
 	public MyUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -42,6 +44,7 @@ public class MyUserDetails extends User{
 		this.departmentNo = entity.getDepartmentNo();
 		this.position = entity.getPosition();
 		this.imageNo = entity.getImageNo();
+		this.editAuthority = entity.getEditAuthority();
 	}
 	
 	

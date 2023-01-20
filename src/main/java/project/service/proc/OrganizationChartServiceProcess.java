@@ -112,11 +112,14 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		List<EmployeesEntity> eent = employeesRepo.findAll();
 		
 		List<String> str = new ArrayList<>(); //사용 전에 초기화 꼬옥 시켜주자(자리 만들어주기)
+		List<Long> headinfo = new ArrayList<>(); //사용 전에 초기화 꼬옥 시켜주자(자리 만들어주기)
 		
 		for(DepartmentsEntity d : dent) {//부서장 이름과 동일한 이름을 가진 사원 이미지url 가져오기
 			for(EmployeesEntity e : eent) {
 				if(d.getDepartmentHead().equals(e.getName())) {
 					System.err.println(d.getDepartmentHead());
+					headinfo.add(e.getNo());
+					System.out.println(e.getNo());
 					str.add(e.getImageNo().getUrl());
 				} 
 			}
@@ -124,8 +127,8 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 				str.add("/image/icon/vacant.png");
 			}
 		}
-//		//System.err.println(str.toString());
 		model.addAttribute("images", str);
+		model.addAttribute("no", headinfo);
 
 	}
 

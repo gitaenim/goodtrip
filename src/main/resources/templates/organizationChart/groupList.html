@@ -30,7 +30,7 @@ function departmentClicked(){
 				</select>
 			    </form>
 			    <a class="familytree" href="/ozc/familytree">Family Tree</a>
-			    <a class="retired" href="/ozc/groupList/retirement">퇴직한 사원 조회</a>
+			    <a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
 		    </div>
 			<div class="flex center back-list">
 				<table class="list-table">
