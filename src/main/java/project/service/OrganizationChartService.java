@@ -27,6 +27,8 @@ public interface OrganizationChartService {
 
 	void findDepartmentHead(Model model); //familyTree
 
+	void treelist(Model model, Long no);
+
 
 
 }
