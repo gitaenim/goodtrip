@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 
 @Repository
@@ -23,7 +24,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	List<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b); //한아 작성
 
-	Object findAllByDepartmentNoDepartmentNo(Long department);
+	
 
 
 	/* List<EmployeesEntity> findAllByOrderByEmpGradeDesc(); //수민 잠깐 생성! 1/17*/

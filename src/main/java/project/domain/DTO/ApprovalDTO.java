@@ -1,21 +1,22 @@
 package project.domain.DTO;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import project.domain.entity.DayOffEntity;
-import project.domain.entity.DaysOffNumbersEntity;
+import project.domain.entity.EmployeesEntity;
 import project.enums.AuthorizeStatus;
 
 @Data
-//230109 재근 생성
-public class DayOffMyListDTO {
-	//내 휴가 리스트 DTO
+//230119 재근 생성
+public class ApprovalDTO {	
+	//결재 승인 DTO	
 	
 	private String type; //휴가종류
+
+	private long dayOffNo; //휴가번호
 	
 	private String reason; //휴가사유
 	
@@ -28,20 +29,11 @@ public class DayOffMyListDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
 	
+	private long employeeNo; //사원번호
+	
 	private long useDays; //휴가일수
 	
-	private AuthorizeStatus approval; //결재상태
+	private AuthorizeStatus approval; //승인여부
 
-	public DayOffMyListDTO(DayOffEntity e) {
-		this.type = e.getType();
-		this.reason = e.getReason();
-		this.startDate = e.getStartDate();
-		this.EndDate = e.getEndDate();
-		this.draftDate = e.getDraftDate();
-		this.useDays = e.getUseDays();
-		this.approval = e.getApproval();
-	}
-	
-	
 	
 }
