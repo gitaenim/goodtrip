@@ -17,7 +17,9 @@ import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DepartmentsEntityRepository;
+import project.domain.entity.PersonnelEvaEntity;
 import project.domain.repository.EmployeesEntityRepository;
+import project.domain.repository.PersonnelEvaRepository;
 import project.service.OrganizationChartService;
 
 @Service
@@ -29,6 +31,10 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	
 	@Autowired
 	DepartmentsEntityRepository departmentsRepo;
+
+	@Autowired
+	PersonnelEvaRepository personnelEvaRepo;
+
 
 	//근무중인 사원 조회(Default)
 	@Override
@@ -97,7 +103,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	//eva
 	@Override
 	public void findAllList(Model model) {
-		
+
 	}
 	//familyTree 부서장 정보
 	@Override
@@ -120,8 +126,13 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		}
 //		//System.err.println(str.toString());
 		model.addAttribute("images", str);
+
 	}
 
+  @Override
+	public void treelist(Model model, Long no) {
+		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 
+	}
 	
 }

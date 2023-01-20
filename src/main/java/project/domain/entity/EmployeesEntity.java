@@ -98,6 +98,17 @@ public class EmployeesEntity {
 	@Column(name = "position_rank")
 	private long positionRank;//직급순위
 	
+	//----------------230128수민 추가 
+	
+	@Column( name ="emp_grade" ,nullable = true)
+	private String empGrade; //인사평가 등급 
+	
+	public EmployeesEntity addEmpgrade(String grade) {
+		this.empGrade = grade;
+		return null;
+	}
+	
+	
 	//직급 position Enum
 	@Builder.Default
 	@CollectionTable(name = "employees_position")

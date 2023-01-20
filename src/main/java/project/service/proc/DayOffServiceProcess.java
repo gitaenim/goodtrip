@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
+import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.DayOffService;
 
@@ -32,6 +35,7 @@ public class DayOffServiceProcess implements DayOffService {
 	
 	@Autowired
 	private DaysOffNumbersEntityRepository daysOffNumbersRepo;
+	
 	
 	//휴가 등록
 	@Override
@@ -93,10 +97,24 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//내 결재 리스트
 	@Override
-	public void findByDepartmentNo(Long department, Model model) {
-		model.addAttribute("appList", employeesRepo.findAllByDepartmentNoDepartmentNo(department));
+	public void appList(DepartmentsEntity departmentNo, Model model) {
+		//System.err.println(departmentNo.getDepartmentNo());
+		long dno=departmentNo.getDepartmentNo();
+		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno);
+		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
 		
 	}
+	/*
+	//결재 승인처리
+	@Override
+	public void approval(DayOffAppDTO dto, long dayOffNo) {
+		
+		EmployeesEntity emp = employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
+		
+		dayOffRepo.save(dto.toDayOffApproval(emp, dayOffNo));		
+		
+	}
+	*/
 
 	
 }

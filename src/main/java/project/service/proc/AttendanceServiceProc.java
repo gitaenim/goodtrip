@@ -14,10 +14,15 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.AttendanceListDTO;
 import project.domain.DTO.AttendanceListEmpDTO;
@@ -27,6 +32,7 @@ import project.domain.DTO.AttendanceRegClockOutDTO;
 import project.domain.entity.DailyWorkingHoursEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.AttendanceRepository;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.AttendanceService;
 
@@ -42,116 +48,176 @@ public class AttendanceServiceProc implements AttendanceService{
 	
 	@Autowired
 	private EmployeesEntityRepository emRepo;
+	
+	@Autowired
+	private DepartmentsEntityRepository departmentRepo;
+	
+	//페이징 메서드
+	private void pagingE(Model model, Page<EmployeesEntity> result) {
+		model.addAttribute("pageNum", result.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
+		model.addAttribute("pageSize", result.getSize()); // 한 페이지의 게시글 수
+		model.addAttribute("pageTotal", result.getTotalPages()); // 총 페이지 수
+		model.addAttribute("endPage", 10); // 내비게이션 숫자 총 몇개로 할건지 : 1 ~ 10까지 10개 보여줄거야
+	}
+	
+	//페이징 메서드2
+	private void pagingD(Model model, Page<DailyWorkingHoursEntity> pageResult) {
+		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
+		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
+		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
+		model.addAttribute("endPage", 10); // 내비게이션 숫자 총 몇개로 할건지 : 1 ~ 10까지 10개 보여줄거야
+	}
 
 	//출근시간 저장 230111 안나 작성
 	@Transactional
 	@Override
 	public void saveAttIn(long no, AttendanceRegClockInDTO attendanceRegInDTO) {		
 		//DTO에 저장
-		attRepo.save(attendanceRegInDTO.clockInToDailyWorkingHoursEntity()
-				.employee(emRepo.findById(no).orElseThrow())
-				);
+		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndClockInBetween(no, startDatetime, endDatetime);
+
+		if(result.isEmpty()) { 	//데이터가 없으면 세이브
+			attRepo.save(attendanceRegInDTO.clockInToDailyWorkingHoursEntity()
+			.employee(emRepo.findById(no).orElseThrow())
+			);					
+		} else { //데이터가 있으면 업데이트
+			DailyWorkingHoursEntity entity=result.get();
+			entity.update(attendanceRegInDTO);
+		}
+				
 	}
 
 	//퇴근시간 저장 230111 안나 작성 230112 안나 수정
 	@Transactional
 	@Override
 	public void saveAttOut(long no, AttendanceRegClockOutDTO attendanceRegOutDTO) {
-		EmployeesEntity emp = emRepo.findById(no).orElseThrow();
-		Optional<DailyWorkingHoursEntity> result= attRepo.findByClockInBetweenAndEmployeeNo(startDatetime, endDatetime, emp);
+		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndClockInBetween(no, startDatetime, endDatetime);
 		DailyWorkingHoursEntity entity=result.get();
 		entity.update(attendanceRegOutDTO);
-		System.out.println("result : " + result);
 	}
 	
 	//출퇴근시간 가져오기 230111 안나 작성
 	@Override
 	public void attenList(long no, Model model) {
-		EmployeesEntity emp = emRepo.findById(no).orElseThrow();
-		List<DailyWorkingHoursEntity> list = attRepo.findByEmployeeNoAndClockInBetween(emp, startDatetime, endDatetime);
+		List<DailyWorkingHoursEntity> list = attRepo.findByClockInBetweenAndEmployee_no(startDatetime, endDatetime, no);
 		model.addAttribute("list",list);
-		//System.out.println("list: " + list);
 	}
 
 	//전체 근태 리스트 230115 안나 작성 : 휴가 미설정
 	@Override
-	public void listAtt(Model model) {
+	public void listAtt(Model model, Pageable pageable, String keyword) {
 		
-		List<EmployeesEntity> listEmployees = emRepo.findAll(); // 전체 리스트 가져오기
-		List<AttendanceListDTO> listEmployeesAtts = attRepo.findAllByClockInBetween(startDatetime, endDatetime) // 오늘날짜에 출근버튼 누른 사람 전체 리스트
-				.stream().map(AttendanceListDTO::new).collect(Collectors.toList()); //AttendanceListDTO에 담기
-		List<AttendanceListDTO> setAttList = new ArrayList<>(); // 빈 배열
-
-		for( EmployeesEntity employee : listEmployees ){
-
-		   for( AttendanceListDTO work : listEmployeesAtts ){
-		      
-		      if(employee.getNo() == work.getEmployeeNo()){
-		    	  setAttList.add(work); //전사 리스트와 출결리스트에 일치하는 이름이 있는경우 리스트에 담기
-		      }
-		      else{
-		         //출근 버튼 안 누른 사람은 업무시간 : "-", 출근상태 : "미출근" 으로 뜨게끔
-		    	  setAttList.add( AttendanceListDTO.builder().employeeNo(employee.getNo()).workingHour("-").status("미출근").build() );
-		      } 
-		   }
+		//int pageNo=1,size=10;
+		//Pageable page=PageRequest.of(pageNo-1, size, Direction.DESC, "no");
+		
+		Page<EmployeesEntity> result = null;
+		
+		int check;//페이징 체크용..
+		
+		if(keyword == null) {//검색어가 없을 때
+			result=emRepo.findAllByDeleteStatus(false, pageable);
+			check = 1;
+		} else {//검색어가 있을 때
+			result=emRepo.findAllByDeleteStatusAndNameContaining(false, keyword, pageable);
+			check = 2;
 		}
-
-		model.addAttribute("list", setAttList); // 업무시간 및 상태
 		
-		model.addAttribute("attListAll",emRepo.findAll().stream().map(AttendanceListEmpDTO::new)
-				.collect(Collectors.toList())); // 전체 직원 리스트 뿌려주기
+		model.addAttribute("list", result.stream()
+			.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndClockInBetween(e.getNo(),startDatetime,endDatetime)
+					//출근하지 않은사원은 빈객체생성
+					.orElseGet(()->attRepo.save(DailyWorkingHoursEntity.builder().date(LocalDate.now()).status("미출근").employee(e).build())))
+			)
+			.collect(Collectors.toList()) );
+		
+		pagingE(model, result);//페이징
+		model.addAttribute("check", check);
+		
+		model.addAttribute("department", departmentRepo.findAll());//부서 이름 뿌려줄거임
+		
+		model.addAttribute("keyword", keyword);
 
+	}
+	
+	//전체 근태리스트 뿌려주기 - 부서별 검색
+	@Override
+	public void findAllByDepartmentNo(Model model, Long department, Pageable pageable) {
+		Page<EmployeesEntity> result=emRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatus(department, false, pageable);
+		model.addAttribute("list2", result.stream()
+				.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndClockInBetween(e.getNo(),startDatetime,endDatetime)
+						//출근하지 않은사원은 빈객체생성
+						.orElseGet(()->attRepo.save(DailyWorkingHoursEntity.builder().date(LocalDate.now()).status("미출근").employee(e).build())))
+				)
+				.collect(Collectors.toList()) );
+		
+		boolean nullcheck = false;
+		if(result.isEmpty()) {
+			nullcheck = true;
+		}
+		model.addAttribute("nullcheck", nullcheck);
+		
+		pagingE(model, result);//페이징
 	}
 
 	//내 근태+휴가 230111 안나 작성 : 휴가 미설정 / 230117 페이징 추가 안나
 	@Override
 	public void myListAtt(long no, Model model,Pageable pageable) {
 		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployeeNoOrderByDateDesc(emRepo.findById(no).orElseThrow(), pageable);
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
 				
 		model.addAttribute("myAttList",pageResult
 				.stream()
 				.map(AttendanceMyListDTO::new)
 				.collect(Collectors.toList()));
 		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		pagingD(model, pageResult);//페이징
 	}
 
 	//내 근태만 리스트 230111 안나 작성 / 230117 페이징 추가 안나
 	@Override
 	public void myListAttOnly(long no, Model model, Pageable pageable) {
 		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployeeNoOrderByDateDesc(emRepo.findById(no).orElseThrow(), pageable);
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
 		
 		model.addAttribute("myAttList",pageResult
 				.stream()
 				.map(AttendanceMyListDTO::new)
 				.collect(Collectors.toList()));
 		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		pagingD(model, pageResult);//페이징
 	}
 
 	//사원별 근태 + 휴가 리스트 230111 안나 작성 : 휴가 미설정 / 230117 페이징 추가 안나
 	@Override
 	public void personalAtt(long no, Model model, Pageable pageable) {
 		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployeeNoOrderByDateDesc(emRepo.findById(no).orElseThrow(), pageable);
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
 		
 		model.addAttribute("attList", pageResult
 				.stream().map(AttendanceListDTO::new)
 				.collect(Collectors.toList()));
 		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		model.addAttribute("attListEmp",emRepo.findAll());
 		model.addAttribute("emNo", no);
+
+		pagingD(model, pageResult);//페이징
+		
+	}
+	
+	//사원별 근태 + 230119 날짜별 검색 안나
+	@Override
+	public void personalAttSearch(long no, Model model, Pageable pageable, LocalDate dateStart, LocalDate dateEnd) {
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noAndDateBetweenOrderByDateDesc(no, dateStart, dateEnd, pageable);
+		
+		model.addAttribute("attList", pageResult
+				.stream().map(AttendanceListDTO::new)
+				.collect(Collectors.toList()));
+		
+		model.addAttribute("attListEmp",emRepo.findAll());
+		model.addAttribute("emNo", no);
+		model.addAttribute("dateStart", dateStart);
+		model.addAttribute("dateEnd", dateEnd);
+		model.addAttribute("check", 2);
+
+		pagingD(model, pageResult);//페이징
 		
 	}
 
@@ -159,16 +225,38 @@ public class AttendanceServiceProc implements AttendanceService{
 	@Override
 	public void personalWork(long no, Model model, Pageable pageable) {
 		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployeeNoOrderByDateDesc(emRepo.findById(no).orElseThrow(), pageable);
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
 				
 		model.addAttribute("attList", pageResult
 				.stream().map(AttendanceListDTO::new)
 				.collect(Collectors.toList()));
 		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		model.addAttribute("attListEmp",emRepo.findAll());
 		model.addAttribute("emNo", no);
+		
+		pagingD(model, pageResult);//페이징
+		
 	}
+
+	//사원별 근태만 리스트 + 230119 날짜별 검색 안나
+	@Override
+	public void personalWorkingDaySearch(long no, Model model, Pageable pageable, LocalDate dateStart,
+			LocalDate dateEnd) {
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noAndDateBetweenOrderByDateDesc(no, dateStart, dateEnd, pageable);
+		
+		model.addAttribute("attList", pageResult
+				.stream().map(AttendanceListDTO::new)
+				.collect(Collectors.toList()));
+		
+		model.addAttribute("attListEmp",emRepo.findAll());
+		model.addAttribute("emNo", no);
+		model.addAttribute("dateStart", dateStart);
+		model.addAttribute("dateEnd", dateEnd);
+		model.addAttribute("check", 2);
+		
+		pagingD(model, pageResult);//페이징
+		
+	}
+
+
 }

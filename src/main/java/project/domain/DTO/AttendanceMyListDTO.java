@@ -26,7 +26,7 @@ public class AttendanceMyListDTO {
 	private String status; //근무상태
 		
 	public AttendanceMyListDTO(DailyWorkingHoursEntity e) {
-		this.date = e.getDate().toLocalDate();
+		this.date = e.getDate();
 		this.clockIn = e.getClockIn().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 		this.designatedWorkingHour = "8:00";
 		long workingHourS = Duration.between(e.getClockIn(), e.getClockOut()).toSeconds(); //근무시간 초단위로 계산

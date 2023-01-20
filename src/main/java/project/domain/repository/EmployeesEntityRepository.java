@@ -1,14 +1,17 @@
 package project.domain.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 
 @Repository
@@ -29,9 +32,18 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	EmployeesEntity findByPositionRank(long i);
 
-	
 	//Optional<EmployeesEntity> findByName(String departmentHead);
 
+	/* List<EmployeesEntity> findAllByOrderByEmpGradeDesc(); //수민 잠깐 생성! 1/17*/
+
+	List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNoDesc(boolean b);
+
+	Page<EmployeesEntity> findAllByDepartmentNoDepartmentNoAndDeleteStatus(Long department, boolean b,
+			Pageable pageable);
+
+	Page<EmployeesEntity> findAllByDeleteStatusAndNameContaining(boolean b, String keyword, Pageable pageable);
+
+	Page<EmployeesEntity> findAllByDeleteStatus(boolean b, Pageable pageable);
 
 
 

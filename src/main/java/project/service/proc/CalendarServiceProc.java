@@ -60,7 +60,8 @@ public class CalendarServiceProc implements CalendarService {
 			String date = DateTimeFormatter.ofPattern("MM-dd").format(empList.get(i).getBirthDate());
 			hash.put("start", year + "-" + date);
 			hash.put("title", empList.get(i).getName() + " 생일날");
-			hash.put("color", "#23A100");
+			hash.put("color", "#FFD700");
+			hash.put("textColor", "#191970");
 
 			jsonObj = new JSONObject(hash);
 			jsonArr.put(jsonObj);
@@ -78,8 +79,8 @@ public class CalendarServiceProc implements CalendarService {
 			String date = DateTimeFormatter.ofPattern("MM-dd").format(cncList.get(i).getEventDate());
 			hash.put("start", year + "-" + date);
 			hash.put("title", cncList.get(i).getRegistNo().getName() + "(님)의 경조사 날");
-			hash.put("color", "#FFE600");
-			hash.put("textColor", "#000000");
+			hash.put("color", "#C0C0C0");
+			hash.put("textColor", "#FFFFFF");
 
 			jsonObj = new JSONObject(hash);
 			jsonArr.put(jsonObj);
@@ -96,8 +97,25 @@ public class CalendarServiceProc implements CalendarService {
 			hash.put("start", scheduleList.get(i).getStartDate());
 			hash.put("end", scheduleList.get(i).getEndDate().plusDays(1));
 			hash.put("title",scheduleList.get(i).getScheduleName() + "-" + scheduleList.get(i).getEmployeeNo().getName());
-			hash.put("color", "#FF0000");
-			hash.put("textColor", "#000000");
+			if(scheduleList.get(i).getScheduleName().equals("출장")) {
+				hash.put("color", "#1E90FF");
+				hash.put("textColor", "#FFFFFF");
+			}else if(scheduleList.get(i).getScheduleName().equals("야근")) {
+				hash.put("color", "#1A252F");
+				hash.put("textColor", "#FFFFFF");
+			}
+			else if(scheduleList.get(i).getScheduleName().equals("미팅")) {
+				hash.put("color", "#23A100");
+				hash.put("textColor", "#FFFFFF");
+			}
+			else if(scheduleList.get(i).getScheduleName().equals("회의")) {
+				hash.put("color", "#708090");
+				hash.put("textColor", "#FFFFFF");
+			}
+			else {
+				hash.put("color", "#97C6F0");
+				hash.put("textColor", "#FFFFFF");
+			}
 
 			jsonObj = new JSONObject(hash);
 			jsonArr.put(jsonObj);

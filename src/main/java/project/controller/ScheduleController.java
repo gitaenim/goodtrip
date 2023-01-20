@@ -31,7 +31,7 @@ public class ScheduleController {
 		//로그인한 사원 정보
 		long empNo = myUserDetails.getNo();
 		
-		//인덱스의 캘린더에서 날짜 데이터를 눌러서 해당 페이로 온 경우
+		//인덱스의 캘린더에서 날짜 데이터를 눌러서 해당 페이지로 온 경우
 		if(clickedDate == null) {
 			date = LocalDate.now();
 		}

@@ -1,6 +1,8 @@
 package project.domain.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import lombok.Data;
 import project.domain.entity.DailyWorkingHoursEntity;
@@ -11,17 +13,18 @@ public class AttendanceRegClockInDTO {
 	
 	private long workNo;//근태번호
 	
-	private LocalDateTime date; //날짜
+	private LocalDate date; //날짜
 	
-	private LocalDateTime clockIn; //출근시간
+	private LocalDateTime clockIn = LocalDateTime.now(); //출근시간
 	
-	private long employeeNo; //사원번호
+	private String status = "근무중";
 
 	public DailyWorkingHoursEntity clockInToDailyWorkingHoursEntity() {
 		return DailyWorkingHoursEntity.builder()
 				.workNo(workNo)
 				.date(date)
 				.clockIn(clockIn)
+				.status(status)
 				.build();
 	}
 

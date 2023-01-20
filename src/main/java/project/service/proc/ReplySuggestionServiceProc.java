@@ -3,6 +3,10 @@ package project.service.proc;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -43,22 +47,20 @@ public class ReplySuggestionServiceProc implements ReplySuggestionService{
 
 	// 댓글 리스트 데이터 출력 기능
 	@Override
-	public void findAllList(long suggestNo, Model model) {
+	public void findAllList(long suggestNo,int pageNum, Model model) {
+		
+		int pageSize = 10;
+		
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "createDate");
 		
 		// 해당 게시글의 정보 조회
 		BoardSuggestionsEntity board = boardSuggestionsRepository.findById(suggestNo).orElseThrow();
 		
 		// 조회된 게시글 정보를 통해서 관련된 모든 댓글 정보 리스트로 조회
-		List<ReplySuggestionsEntity> list = replySuggestionsRepository.findBySuggestNo(board);
+		Page<ReplySuggestionsEntity> list = replySuggestionsRepository.findBySuggestNo(board,page);
 		
 		// 댓글 내용이 있는 유무 체크하는 변수
-		boolean nullcheck = false;
 		
-		if(list.isEmpty()) {
-			nullcheck = true;
-		}
-		
-		model.addAttribute("nullcheck", nullcheck);
 		model.addAttribute("replyList", list);
 	}
 

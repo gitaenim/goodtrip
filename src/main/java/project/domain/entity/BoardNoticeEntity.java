@@ -57,16 +57,5 @@ public class BoardNoticeEntity {
 		return this;
 	}
 
-	public void setTitle(String title2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setContent(String content2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }
 

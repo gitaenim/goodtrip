@@ -11,6 +11,7 @@ import lombok.Data;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 import project.domain.entity.EmployeesEntity;
+import project.enums.AuthorizeStatus;
 
 @Data
 //230105 재근 생성
@@ -34,6 +35,9 @@ public class DayOffInsertDTO {
 	
 	private long useDays; //휴가일수
 	
+	private AuthorizeStatus approval; //승인여부
+	
+	//휴가 save 편의메서드
 	public DayOffEntity toDayOffEntity(EmployeesEntity no) {
 		
 		return DayOffEntity.builder()
@@ -44,7 +48,9 @@ public class DayOffInsertDTO {
 				.useDays(useDays)
 				.draftDate(draftDate)
 				.employeeNo(no)
-				.build();		
+				.approval(AuthorizeStatus.UnderApproval)//신청시
+				.build()
+				.addApproval(approval);		
 	}
 	
 }

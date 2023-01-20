@@ -8,14 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
+import project.enums.AuthorizeStatus;
 
 @Data
-
-//230113 내 휴가리스트 재근 생성
 //230109 재근 생성
 public class DayOffMyListDTO {
 	//내 휴가 리스트 DTO
-
 	
 	private String type; //휴가종류
 	
@@ -31,6 +29,8 @@ public class DayOffMyListDTO {
 	private LocalDate draftDate; //기안일
 	
 	private long useDays; //휴가일수
+	
+	private AuthorizeStatus approval; //결재상태
 
 	public DayOffMyListDTO(DayOffEntity e) {
 		this.type = e.getType();
@@ -39,6 +39,7 @@ public class DayOffMyListDTO {
 		this.EndDate = e.getEndDate();
 		this.draftDate = e.getDraftDate();
 		this.useDays = e.getUseDays();
+		this.approval = e.getApproval();
 	}
 	
 	
