@@ -7,7 +7,12 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/organizationChart/groupList.css">
 <link rel="stylesheet" href="/css/organizationChart/groupList2.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
-<script src="/js/organization/organizationList.js"></script>
+<script type="text/javascript">
+function departmentClicked(){
+	department=$("#department option:selected").val();
+	location.href="/ozc/groupList/"+department;
+}
+</script>
 </head>
 <main>
 	<!-- 230110 한아 수정 -->
@@ -19,12 +24,12 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			</div>
 			<div class="wrap-1">
 				<form class="flex center group-form" >
-					<select id="department" onchange="departmentClicked()">
-						<option value="0" selected>부서별조회</option>
-						<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
-					</select>
+			      <select id="department" onchange="departmentClicked()">
+					<option value="0" selected>전체부서</option>
+					<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
+				</select>
 			    </form>
-			    <a class="" href="/ozc/familytree">Family Tree</a>
+			    <a class="familytree" href="/ozc/familytree">Family Tree</a>
 			    <a class="retired" href="/ozc/groupList/retirement">퇴직한 사원 조회</a>
 		    </div>
 			<div class="flex center back-list">
@@ -37,10 +42,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						<th>주업무</th>
 					</tr>
 					<tbody id="emp-list">
-						<tr th:if="${nullcheck == true}">
-							<td colspan="5">해당 부서에 등록된 사원이 없습니다.</td>
-						</tr>
-						<tr th:if="${nullcheck == false}" th:each="list : ${list1}">
+						<tr th:each="list : ${list1}">
 							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
 							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
@@ -50,14 +52,40 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						</tr>
 					</tbody>
 				</table>
-				<!-- <div th:if="${p.getNumberOfElements()>0}">
-	    			<a th:if="${p.hasPrevious()}" th:href="|/comm/board-list?page=${p.getNumber()}|">&lt;</a>
-	    			<span th:text="${p.getNumber()+1}">현재페이지</span>
-	    			/
-	    			<span th:text="${p.getTotalPages()}">총페이지수</span> 
-	    			<a th:if="${p.hasNext()}" th:href="|/comm/board-list?page=${p.getNumber()+2}|">&gt;</a>
-    			</div> -->
 			</div>
+			<!-- 페이징 시작 230117 안나 작성 230118 한아 수정-->
+			<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 한 페이지당 몇 개까지 보여줄건지 -->
+			<div id="paging">
+				<div th:if="${#lists.isEmpty(list1)}" style="text-align: center;">조회 결과가 없습니다.</div>
+				<div th:if="${!#lists.isEmpty(list1)}">
+					<ul th:with="start=${((pageNum-1)/endPage)*endPage+1}, end=${start + endPage - 1}" class="flex center">
+						<!-- 시작 페이지가 1보다 클 경우 -->
+						<li th:if="${start ne 1}">
+							<a th:href="|/ozc/groupList?page=0|">&lt;&lt;</a>
+						</li>
+						<!-- 시작 페이지가 1보다 클 경우 -->
+						<li th:if="${start ne 1}">
+							<a th:href="|/ozc/groupList?page=${start-endPage}|">&lt;</a>
+						</li>
+						<!-- 마지막 페이지가 아닐 경우 -->
+						<li th:if="${end lt pageTotal}" th:each="pageNo :${#numbers.sequence(start,end)}">
+							<a th:href="|/ozc/groupList?page=${pageNo-1}|">[[${pageNo}]]</a>
+						</li>
+						<!-- 마지막 페이지일 경우 -->
+						<li th:if="${end >= pageTotal}" th:each="pageNo :${#numbers.sequence(start,pageTotal)}">
+							<a th:href="|/ozc/groupList?page=${pageNo-1}|">[[${pageNo}]]</a>
+						</li>
+						<!-- 마지막 페이지가 아닐 경우 -->
+						<li th:if="${end lt pageTotal}">
+							<a th:href="|/ozc/groupList?page=${start+endPage}|">&gt;</a>
+						</li>
+						<li th:if="${end lt pageTotal}">
+							<a th:href="|/ozc/groupList?page=${pageTotal-1}|">&gt;&gt;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 페이징 끝-->
 		</section>
 	</div>
 </main>

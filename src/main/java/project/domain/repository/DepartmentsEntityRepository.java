@@ -14,11 +14,4 @@ public interface DepartmentsEntityRepository extends JpaRepository<DepartmentsEn
 
 	/* 230116 한아 작성 */
 
-
-
-
-	
-
-
-
 }

@@ -24,15 +24,6 @@
 .back-list{
 	position: relative;
 }
-.delete-notice{
-	display: none;
-	position: absolute;
-	right: 0px;
-	color: red;
-}
-.back-list:hover .delete-notice{
-	display: inline-block;
-}
 tr.list-2 th, .list-table tr td{
 	 text-align: center;
 	 padding: 10px;

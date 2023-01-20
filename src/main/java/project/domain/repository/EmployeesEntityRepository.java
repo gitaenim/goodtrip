@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import project.domain.entity.DepartmentsEntity;
@@ -23,15 +24,17 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	List<EmployeesEntity> findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(Long department, boolean b); //한아 작성
 
-	List<EmployeesEntity> findAllByDeleteStatus(boolean b); //한아 작성
-
 	List<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b); //한아 작성
 
+	Page<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b, Pageable pageable); //한아 작성
 	
+	List<EmployeesEntity> findAllByDepartmentNoDepartmentNo(Long department);
 
+	EmployeesEntity findByPositionRank(long i);
+
+	//Optional<EmployeesEntity> findByName(String departmentHead);
 
 	/* List<EmployeesEntity> findAllByOrderByEmpGradeDesc(); //수민 잠깐 생성! 1/17*/
-
 
 	List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNoDesc(boolean b);
 
@@ -41,6 +44,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	Page<EmployeesEntity> findAllByDeleteStatusAndNameContaining(boolean b, String keyword, Pageable pageable);
 
 	Page<EmployeesEntity> findAllByDeleteStatus(boolean b, Pageable pageable);
+
 
 
 
