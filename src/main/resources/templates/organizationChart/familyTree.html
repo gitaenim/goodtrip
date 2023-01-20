@@ -17,11 +17,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	<section>
 		<h2 class="title flex center">Good Trip</h2>
 		<div class="image-tree">
-			<div class="flex">
-				<div class="position">
+			<div class="ceo-info">
+				<div class="position flex center">
 					<p>CEO</p>
 				</div>
-				<div class="detail">
+				<div class="ceo-detail">
 					<img alt="" th:src="|${ceoImg}|" class="ceo-img">
 					<div>
 						<p class="dname">[[${ceo.departmentNo.DepartmentName}]]</p>
@@ -29,8 +29,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					</div>
 				</div>				
 			</div>
-			<div>
-				<div class="position">
+			<div class="departmenthead-info">
+				<div class="position flex center">
 					<p>부서장</p>
 				</div>
 				<div >
