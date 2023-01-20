@@ -31,7 +31,7 @@
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
 					<tr th:if="${nullcheck == false}" th:each="list : ${cncList}"  th:classappend="${list.eventDate < today}? 'today' "  >
-						<td id="num"><td>
+						<td th:text="${list.cncNo}">번호<td>
 						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
 					<!-- 	<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td> -->
 						<td th:text="${list.registNo.name}"></td>

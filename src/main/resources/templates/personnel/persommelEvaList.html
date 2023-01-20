@@ -57,14 +57,14 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 한 페이지당 몇 개까지 보여줄건지 -->
 			<div id="paging">
 				<div th:if="${#lists.isEmpty(list1)}" style="text-align: center;">조회 결과가 없습니다.</div>
-				<div th:if="${!#lists.isEmpty(list1)}">
+				<div class= "pageBTN"th:if="${!#lists.isEmpty(list1)}">
 					<ul th:with="start=${((pageNum-1)/endPage)*endPage+1}, end=${start + endPage - 1}" class="flex center">
 						<!-- 시작 페이지가 1보다 클 경우 -->
 						<li th:if="${start ne 1}">
 							<a th:href="|/personnelEvaList?page=0|">&lt;&lt;</a>
 						</li>
 						<!-- 시작 페이지가 1보다 클 경우 -->
-						<li th:if="${start ne 1}">
+						<li id="currentPage" th:if="${start ne 1}">
 							<a th:href="|/personnelEvaList?page=${start-endPage}|">&lt;</a>
 						</li>
 						<!-- 마지막 페이지가 아닐 경우 -->

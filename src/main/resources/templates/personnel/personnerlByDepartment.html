@@ -47,7 +47,7 @@ function departmentClicked(){
 							<td colspan="5">해당 부서에 등록된 사원이 없습니다.</td>
 						</tr>
 						<tr th:if="${nullcheck == false}" th:each="list : ${list2}">
-						<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
+						<td>[[${list.name}]]</td>
 						<td th:text="${list.departmentNo.departmentName}">부서</td>
 						<td th:text="${list.position.label}">직급</td>
 						<td th:text="${list.extension}">내선번호</td>
