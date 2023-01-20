@@ -1,37 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-<head>
-<link rel="stylesheet" href="/css/commons/common.css" />
-<link rel="stylesheet" href="/css/commons/reset.css" />
-<link rel="stylesheet" href="/css/organizationChart/groupList.css">
-<link rel="stylesheet" href="/css/organizationChart/groupList2.css">
-<th:block th:insert="~{/layout/sideMenu :: head}" />
-<script type="text/javascript">
-function departmentClicked(){
-	department=$("#department option:selected").val();
-	location.href="/ozc/groupList/"+department;
-}
-</script>
-</head>
-<main>
-	<!-- 230110 한아 수정 -->
-	<th:block th:insert="~{/layout/sideMenu :: header}" />
-	<div class="wrap list-1">
+
 		<section>
-			<div class="flex center">
-				<a href="/ozc/groupList">조직도</a>
-			</div>
-			<div class="wrap-1">
-				<form class="flex center group-form" >
-			      <select id="department" onchange="departmentClicked()">
-					<option value="0" selected>전체부서</option>
-					<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
-				</select>
-			    </form>
-			    <a class="familytree" href="/ozc/familytree">Family Tree</a>
-			    <a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
-		    </div>
+			
 			<div class="flex center back-list">
 				<table class="list-table">
 					<tr class="list-2">
@@ -53,40 +25,7 @@ function departmentClicked(){
 					</tbody>
 				</table>
 			</div>
-			<!-- 페이징 시작 230117 안나 작성 230118 한아 수정-->
-			<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 한 페이지당 몇 개까지 보여줄건지 -->
-			<div id="paging">
-				<div th:if="${#lists.isEmpty(list1)}" style="text-align: center;">조회 결과가 없습니다.</div>
-				<div th:if="${!#lists.isEmpty(list1)}">
-					<ul th:with="start=${((pageNum-1)/endPage)*endPage+1}, end=${start + endPage - 1}" class="flex center">
-						<!-- 시작 페이지가 1보다 클 경우 -->
-						<li th:if="${start ne 1}">
-							<a th:href="|/ozc/groupList?page=0|">&lt;&lt;</a>
-						</li>
-						<!-- 시작 페이지가 1보다 클 경우 -->
-						<li th:if="${start ne 1}">
-							<a th:href="|/ozc/groupList?page=${start-endPage}|">&lt;</a>
-						</li>
-						<!-- 마지막 페이지가 아닐 경우 -->
-						<li th:if="${end lt pageTotal}" th:each="pageNo :${#numbers.sequence(start,end)}">
-							<a th:href="|/ozc/groupList?page=${pageNo-1}|">[[${pageNo}]]</a>
-						</li>
-						<!-- 마지막 페이지일 경우 -->
-						<li th:if="${end >= pageTotal}" th:each="pageNo :${#numbers.sequence(start,pageTotal)}">
-							<a th:href="|/ozc/groupList?page=${pageNo-1}|">[[${pageNo}]]</a>
-						</li>
-						<!-- 마지막 페이지가 아닐 경우 -->
-						<li th:if="${end lt pageTotal}">
-							<a th:href="|/ozc/groupList?page=${start+endPage}|">&gt;</a>
-						</li>
-						<li th:if="${end lt pageTotal}">
-							<a th:href="|/ozc/groupList?page=${pageTotal-1}|">&gt;&gt;</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!-- 페이징 끝-->
+			
 		</section>
-	</div>
-</main>
+
 </html>

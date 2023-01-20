@@ -13,7 +13,8 @@ public interface OrganizationChartService {
 
 	void findByIdEditMode(Model model, Long no);
 	
-	void findAllByDeleteStatusFalse(Model model, Pageable pageable);
+	//void findAllByDeleteStatusFalse(Model model, Pageable pageable);
+	void findAllByDeleteStatusFalse(Model model);
 
 	void findAllByDeleteStatusTrue(Model model);
 
@@ -26,6 +27,7 @@ public interface OrganizationChartService {
 	void findDepartmentHead(Model model); //familyTree
 
 	void treelist(Model model, Long no);
+
 
 
 

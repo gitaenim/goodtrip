@@ -5,28 +5,31 @@
 	margin: 40px;
 }
 .department-head{
-	width: 100px;
+	width: 98px;
 	margin: 0 10px;
 }
 
 .department-name{
-	width: 1000px;
-	gap: 20px 2%;
+	/* width: 1200px; */
+	gap: 15px 0%;
 	flex-wrap: wrap;
 }
 
 .department-name>div{
 	border: 1px solid #e4e4e4;
-	padding: 10px 30px;
+	padding: 10px 20px;
 	border-radius: 5px;
 	margin: 0 10px;
-	font-size: 30px;
+	font-size: 20px;
 	margin-bottom: 20px;
+}
+.head-left{
+	margin-left:100px;
 }
 
 .ceo-img{
-	width: 100px;
-	height: 100px;
+	width: 90px;
+	height: 90px;
 	object-fit: cover;
 	border-radius: 30%;
 }
@@ -49,8 +52,8 @@
 	
 }
 .head-no>div{
-	width: 100px;
-	margin: 0 9px;
+	width: 95px;
+	margin: 0 10px;
 }
 .ceo-detail{
 	text-align: center;
@@ -62,12 +65,11 @@
 	font-size: 18px;
 	color: #222;
 }
+section{
+	width: 1200px;
+}
 
 p{
 	text-align: center;
 	color: #666;
-}
-
-h4{
-	margin: 50px 0 20px 20px;
 }

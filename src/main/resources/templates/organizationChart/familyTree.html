@@ -5,10 +5,35 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <link rel="stylesheet" href="/css/organizationChart/familyTree.css">
+<link rel="stylesheet" href="/css/organizationChart/groupList.css">
+<link rel="stylesheet" href="/css/organizationChart/groupList2.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
 	$(function(){
 	});
+	
+	function departmentAll(){
+		
+		$.ajax({
+			url:`/ozc/groupList`,
+			success: function(resultHTML){
+				$("#employees-list").html(resultHTML);
+			}
+		})
+		
+	}
+	function departmentList(departmentNo){
+		//alert(departmentNo);
+		$.ajax({
+			url:`/ozc/groupList/${departmentNo}`,
+			success: function(resultHTML){
+				$("#employees-list").html(resultHTML);
+			}
+			
+			
+		})
+		
+	}
 </script>
 </head>
 <main>
@@ -23,46 +48,49 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				</div>
 				<div class="ceo-detail" >
 					<img alt="" th:src="|${ceoImg}|" class="ceo-img" th:onclick="|location.href='/ozc/groupDetail/${ceo.no}'|">
-					<div th:onclick="|location.href='/ozc/groupDetail/${ceo.no}'|">
-						<p class="dname">[[${ceo.departmentNo.DepartmentName}]]</p>
+					<div>
+						<p class="dname" >[[${ceo.departmentNo.DepartmentName}]]</p>
 						<p>[[${ceo.name}]]</p>
 					</div>
 				</div>				
 			</div>
 			<div class="departmenthead-info">
 				<div class="position flex center">
-					<p>부서장</p>
+					<p>부서</p>
 				</div>
 				<div>
-					<div class="flex">
+					<div class="department-name flex" >
+						<div onclick="departmentAll()"><a>전체</a></div>
+						<div th:each="department : ${department}" >
+							<a class="department" th:onclick="|departmentList(${department.departmentNo});|">[[${department.departmentName}]]</a>
+						</div>
+					</div>
+					<div class="flex head-left">
 						<div th:each="img : ${images}" class="department-head" >
 							<img alt="" th:src="|${img}|" class="ceo-img">
 						</div>
 					</div>
-					<div class="flex">
+					<div class="flex head-left">
 						<div th:each="department : ${department}" class="department-head">
-							<p th:value="${department.departmentName}" class="dname">[[${department.departmentName}]]</p>
+							<p th:value="${department.departmentName}" class="dname">[[${department.departmentName}]]장</p>
 							<p th:value="${department.departmentHead}">[[${department.departmentHead}]]</p>
 						</div>
 					</div>
 				</div>
-				<div class="head-no flex">
+				<div class="head-no flex head-left">
 					<div th:each="no : ${no}" th:onclick="|location.href='/ozc/groupDetail/${no}'|">
 						<div th:value=${no}></div>
 					</div>
 				</div>				
 			</div>
 		</div>
-		<div>
-			<h4>부서원 조회 바로가기</h4>
+		<div class="wrap-1">
+			<a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
 		</div>
-		<div class="department-name flex" >
-			<div><a href="/ozc/groupList">전체</a></div>
-			<div th:each="department : ${department}" >
-				<a class="department" th:href="|/ozc/groupList/${department.departmentNo}|">[[${department.departmentName}]]</a>
-			</div>
-			
+		<div id="employees-list" class="wrap list-1">
+			<!-- 부서원 리스트가 들어갈 자리입니다. -->
 		</div>
+		
 	</section>
 </main>
 </html>

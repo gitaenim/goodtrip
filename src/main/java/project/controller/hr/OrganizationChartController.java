@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.repository.DepartmentsEntityRepository;
@@ -25,9 +26,9 @@ public class OrganizationChartController {
 	
 	//조직도 리스트
 	@GetMapping("/ozc/groupList")
-    public String groupList(Model model, @PageableDefault(size = 10)Pageable pageable) {
+    public String groupList(Model model) {
 		model.addAttribute("department", departmentRepo.findAll());
-		organizationChartService.findAllByDeleteStatusFalse(model, pageable);
+		organizationChartService.findAllByDeleteStatusFalse(model);
         return "organizationChart/groupList";
     }
 	//퇴직사원 리스트
@@ -37,7 +38,7 @@ public class OrganizationChartController {
 		return "organizationChart/groupListRetirement";
 	}
 	//부서별 조직도 리스트
-	//@ResponseBody 페이지 이동하기 위해서는 이거 쓰면 안됨
+	//@ResponseBody //페이지 이동(.html)하기 위해서는 이거 쓰면 안됨
 	@GetMapping("/ozc/groupList/{department}")
 	public String groupListByDepartmentNo(Model model, @PathVariable Long department) {
 		System.out.println(" >>>>> here?");

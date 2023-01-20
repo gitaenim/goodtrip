@@ -38,15 +38,15 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 
 	//근무중인 사원 조회(Default)
 	@Override
-	public void findAllByDeleteStatusFalse(Model model, Pageable pageable) {
-		Page<EmployeesEntity> pageResult = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pageable);
+	public void findAllByDeleteStatusFalse(Model model) {
 		
-		model.addAttribute("list1",pageResult);
 		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		model.addAttribute("list1",employeesRepo.findAllByDeleteStatusOrderByPositionRank(false));
+		
+		//model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
+		//model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
+		//model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
+		//model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
 	}
 	
 	//퇴직처리된 사원 조회
