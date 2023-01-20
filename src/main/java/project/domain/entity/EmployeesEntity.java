@@ -98,6 +98,17 @@ public class EmployeesEntity {
 	@Column(name = "position_rank")
 	private long positionRank;//직급순위
 	
+	//----------------230128수민 추가 
+	
+	@Column( name ="emp_grade" ,nullable = true)
+	private String empGrade; //인사평가 등급 
+	
+	public EmployeesEntity addEmpgrade(String grade) {
+		this.empGrade = grade;
+		return null;
+	}
+	
+	
 	//직급 position Enum
 	@Builder.Default
 	@CollectionTable(name = "employees_position")
@@ -166,8 +177,12 @@ public class EmployeesEntity {
 		if(resignDate==null) return null; //퇴사일 입력안하면 method 종료
 		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		return null;
-		
 	}
+	//부서장 부서 변경
+	//public EmployeesEntity updateEmployeeDepartment(long no) {
+	//	this.departmentNo = DepartmentsEntity.builder().departmentNo(no).build();
+	//	return null;
+	//}
 	
 	
 

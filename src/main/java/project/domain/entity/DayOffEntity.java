@@ -2,9 +2,16 @@ package project.domain.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +26,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.DayOffAppDTO;
+import project.enums.AuthorizeStatus;
+import project.enums.DepartmentRank;
+import project.enums.MyRole;
 
 @DynamicUpdate
 @Builder
@@ -35,6 +46,7 @@ public class DayOffEntity {
 	@Column(name = "day_off_no", unique = true, nullable = false)
 	private long dayOffNo; //휴가번호
 	
+	@Column(nullable = false)
 	private String type; //휴가종류 
 	
 	private String reason; //휴가사유
@@ -43,10 +55,7 @@ public class DayOffEntity {
 	private LocalDate startDate; //휴가시작일
 	
 	@Column(name = "end_date", nullable = false)
-	private LocalDate EndDate; //휴가종료일
-	
-	@Column(columnDefinition = "boolean default false")
-	private boolean approval; //결재 승인여부
+	private LocalDate EndDate; //휴가종료일	
 	
 	@JoinColumn(name = "employee_no", nullable = false)
 	@ManyToOne
@@ -70,6 +79,26 @@ public class DayOffEntity {
 	public DayOffEntity useDays(DaysOffNumbersEntity e) {
 		this.useDays = e.getUseDays();
 		return this;
+	}
+	
+	@Enumerated(EnumType.STRING)
+	private AuthorizeStatus approval; //결재상태
+	
+	//230118 재근 approval Enum
+	@Builder.Default
+	@CollectionTable(name = "authorize_status")
+	@Enumerated(EnumType.STRING) //설정하지 않으면 숫자(ORDINAL)
+	@ElementCollection(fetch = FetchType.EAGER) 
+	private Set<AuthorizeStatus> approvals = new HashSet<>();
+	public DayOffEntity addApproval(AuthorizeStatus approval) { 
+		approvals.add(approval);
+		return this;
+	}
+	
+	//결재 승인 처리
+	public DayOffEntity Approval(DayOffAppDTO dto) {
+		this.approval = AuthorizeStatus.FirstApproval;
+		return null;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package project.domain.DTO;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import lombok.Getter;
@@ -9,7 +8,7 @@ import project.domain.entity.EmployeesEntity;
 
 @Getter
 @Setter
-public class EmployeesDetailDTO {
+public class EmployeesDetailUpdateDTO {
 	/* 230113 한아 작성 */
 	
 	private String imgUrl; //이미지url
@@ -29,26 +28,20 @@ public class EmployeesDetailDTO {
 	private int editAuthority;//수정권한
 	private String yesorno;//수정권한이있나요?
 	
-	public String phone_format(String number) { //detail에서 보여질때 formatting
-	      String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
-	      return number.replaceAll(regEx, "$1-$2-$3");
-	}
-	public DecimalFormat sformatter = new DecimalFormat("###,###");
-
-	public EmployeesDetailDTO(EmployeesEntity ent) {
+	public EmployeesDetailUpdateDTO(EmployeesEntity ent) {
 		this.imgUrl = ent.getImageNo().getUrl();
 		this.no = ent.getNo();
 		this.departmentName = ent.getDepartmentNo().getDepartmentName();
 		this.name = ent.getName();
 		this.email = ent.getEmail();
 		this.position = ent.getPosition().label();
-		this.phone = phone_format(ent.getPhone());
+		this.phone = ent.getPhone();
 		this.joinDate = ent.getJoinDate();
 		this.resignDate = ent.getResignDate()==null ? LocalDate.now() : ent.getResignDate();
 		this.extension = ent.getExtension();
 		this.birthDate = ent.getBirthDate();
 		this.mainWork = ent.getMainWork();
-		this.salary = sformatter.format(ent.getSalary());
+		this.salary = ent.getSalary();
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
 		if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}

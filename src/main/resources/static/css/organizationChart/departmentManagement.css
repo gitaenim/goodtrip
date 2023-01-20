@@ -33,9 +33,22 @@ tr.list-2>th:nth-child(1){
 	width: 100px;
 }
 tr.list-2>th:nth-child(4){
-	width: 100px;
+	width: 80px;
 }
-
+.edit-button>a{
+	padding: 1px 3px;
+	border: 1px solid #666;
+	border-radius: 5px;
+	display: none;
+}
+.context-line:hover .edit-button>a{
+	padding: 1px 3px;
+	border: 1px solid #a4cdf2;
+	border-radius: 5px;
+	color: #fff;
+	background: #a4cdf2;
+	display: inline;
+}
 .list-button{
 	display:inline-block;
 	padding:10px;

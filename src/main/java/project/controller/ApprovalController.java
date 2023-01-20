@@ -1,5 +1,7 @@
 package project.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,17 +10,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffInsertDTO;
+import project.domain.repository.DayOffEntityRepository;
+import project.enums.AuthorizeStatus;
 import project.security.MyUserDetails;
 import project.service.DayOffService;
-import project.service.proc.DayOffServiceProcess;
 
 @Controller
 public class ApprovalController {
 	
 	@Autowired
 	private DayOffService service;
+	
+	@Autowired
+	DayOffEntityRepository dayOffRepo;
 	
 	//휴가신청 페이지
 	@GetMapping("/dayoff")
@@ -57,18 +65,27 @@ public class ApprovalController {
 	
 	//내 결재 리스트
 	@GetMapping("/approvalList")
-    public String approvalList(@PathVariable Long department, Model model) {
-		service.findByDepartmentNo(department, model); //no :  day off no
+    public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
+		service.appList(myUserDetails.getDepartmentNo(), model);
         return "approvalMgmt/approvalList";
     }
-		
-	//결재용 휴가 디테일
+	
+	//직원별 휴가 디테일
 	@GetMapping("/dayoffApp")
 	public String dayOffApp(@RequestParam long dayOffNo, Model model) {
 		service.detail(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp";
-  }
-
+	}
+	
+	//결재 승인처리
+	@Transactional
+	@GetMapping("/approval/{dayOffNo}")
+	public String approval(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		System.out.println(dayOffNo);
+		//dayOffRepo.findById(dayOffNo).get().addApproval(AuthorizeStatus.FirstApproval);
+		dayOffRepo.findById(dayOffNo).map(t -> t.Approval(dto));
+		return "redirect:/approvalList";
+	}
 	
 }
 

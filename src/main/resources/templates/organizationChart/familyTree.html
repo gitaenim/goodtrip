@@ -7,70 +7,56 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/organizationChart/familyTree.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
-$(function () {
-    $('.genealogy-tree ul').hide();
-    $('.genealogy-tree>ul').show();
-    $('.genealogy-tree ul.active').show();
-    $('.genealogy-tree li').on('click', function (e) {
-        var children = $(this).find('> ul');
-        if (children.is(":visible")) children.hide('fast').removeClass('active');
-        else children.show('fast').addClass('active'); 
-        e.stopPropagation();
-    });
-});
-
-function showlist(no){
-	alert(no);
-	$.ajax({
-		url:`/ozc/familytree/${no}`,
-		success:function(result){
-			$("#department-list:nth-child(2)").html(result);
-		},error:function(){
-			alert("error!");
-		}
-		
+	$(function(){
 	});
-}
-
 </script>
 </head>
 <main>
 	<!-- 230110 한아 작성 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
-	<div class="body genealogy-body genealogy-scroll">
-	    <div class="genealogy-tree">
-	        <ul class="flex">
-	            <li>
-	                <a href="">
-	                    <div class="member-view-box">
-	                        <div class="">
-	                            <div class="member-details">
-	                                <h2>Good Trip</h2>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </a>
-	                <ul class="active flex">
-	                    <li class="lv1" th:each="department : ${department}" th:value="${department.departmentNo}">
-	                        <a th:onclick="|showlist(${department.departmentNo})|">
-	                        <!-- <a th:href="|/ozc/familytree/${department.departmentNo}|"> -->
-	                            <div class="member-view-box">
-	                                <div class="">
-	                                    <div class="member-details">
-	                                        <h3>[[${department.departmentName}]]</h3>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </a>
-		                    <ul id="department-list">
-		                    	<!-- 리스트가 들어갈 자리 -->
-		                    	<!-- <li th:each="list:${treelist}" th:utext="${list.name}"></li> -->
-		                    </ul>
-	                    </li>
-	                </ul>
-	            </li>
-	        </ul>
-	    </div>
-	</div>
+	<section>
+		<h2 class="title flex center">Good Trip</h2>
+		<div class="image-tree">
+			<div class="flex">
+				<div class="position">
+					<p>CEO</p>
+				</div>
+				<div class="detail">
+					<img alt="" th:src="|${ceoImg}|" class="ceo-img">
+					<div>
+						<p class="dname">[[${ceo.departmentNo.DepartmentName}]]</p>
+						<p>[[${ceo.name}]]</p>
+					</div>
+				</div>				
+			</div>
+			<div>
+				<div class="position">
+					<p>부서장</p>
+				</div>
+				<div >
+					<div class="flex">
+						<div th:each="img : ${images}" class="department-head" >
+							<img alt="" th:src="|${img}|" class="ceo-img">
+						</div>
+					</div>
+					<div class="flex">
+						<div th:each="department : ${department}" class="department-head">
+							<p th:value="${department.departmentName}" class="dname">[[${department.departmentName}]]</p>
+							<p th:value="${department.departmentHead}">[[${department.departmentHead}]]</p>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div>
+			<h4>부서원 조회 바로가기</h4>
+		</div>
+		<div class="department-name flex" >
+			<div th:each="department : ${department}" >
+				<a class="department" th:href="|/ozc/groupList/${department.departmentNo}|">[[${department.departmentName}]]</a>
+			</div>
+			
+		</div>
+	</section>
 </main>
 </html>

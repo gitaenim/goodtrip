@@ -69,11 +69,18 @@
 	height: 25px;
 }
 
-#table-2 tr:last-child>td:first-child {
+#table-2 tr:last-child>td>span{
+	display: block;
+    line-height: 62px;
 	background: url("/image/icon/circle-red.png") no-repeat center;
 	color: #e60012;
 	font-weight: bold;
 	font-size: 17px;
+}
+
+#table-2 tr:last-child>td>span.head,
+ #table-2 tr:last-child>td>span.ceo{
+	display: none;
 }
 
 #table-3 {
@@ -83,10 +90,45 @@
 	background-color: white;
 }
 
-#table-3 tr {
-	float: left;
+#table-3 tr>td {
+	border: 1px solid black;
 }
 
+#table-3 tr>td:first-child:not(:last-child) {
+	display: inline-block;
+	line-height: 50px;
+	background-color: #a4cdf2;
+	height: 50px;
+	width: 100px;
+	text-align: center;
+	color: white;
+}
+
+#table-3 tr>td:nth-child(2) {
+	padding-left: 10px;
+}
+
+#table-3 tr:nth-child(4)>td:first-child {
+	height: 172px;
+	line-height: 172px;
+}
+
+#table-3 tr:nth-child(4)>td:nth-child(2)>textarea {
+	border: none;
+	padding-top: 10px;
+}
+
+#table-3 tr:nth-child(4)>td:nth-child(2)>textarea:focus {
+	outline: none;
+}
+#table-3 tr:nth-child(3)>td:nth-child(2) {
+	font-weight: 400;
+}
+.use-days {
+	border: none;
+	font-size: 16px;
+	font-weight: 400;
+}
 .btn-day-off {
 	width: 180px;
 	margin: 0 auto;
