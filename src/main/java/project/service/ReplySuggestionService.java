@@ -12,7 +12,7 @@ public interface ReplySuggestionService {
 
 	void save(ReplySuggestionsDTO dto);
 
-	void findAllList(long suggestNo, Model model);
+	void findAllList(long suggestNo, int pageNum, Model model);
 
 	void update(ReplySuggestionsDTO dto, long replySuggestNo);
 

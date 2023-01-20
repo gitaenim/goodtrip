@@ -52,6 +52,7 @@ tr.list-2 th{
     counter-increment : numbering; 
     content : counter(numbering);
 }
+
 .pageBTN {
 	text-align: center;
 }

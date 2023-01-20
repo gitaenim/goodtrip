@@ -21,4 +21,8 @@ public interface ScheduleService {
 
 	void update(ScheduleUpdateDTO dto, long empNo);
 
+	void findAllByTodayForIndex(LocalDate now, Model model, long empNo);
+
+	void findAllByTomorrowForIndex(LocalDate plusDays, Model model, long empNo);
+
 }
