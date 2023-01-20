@@ -1,5 +1,6 @@
 package project.domain.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -12,11 +13,13 @@ public class AttendanceRegClockOutDTO {
 	
 	private long workNo;//근태번호
 	
-	private LocalDateTime date; //날짜
+	private LocalDate date; //날짜
 	
 	private LocalDateTime clockIn; //출근시간
 
 	private LocalDateTime clockOut; //퇴근시간
+	
+	private String status = "근무종료";
 	
 	private long employeeNo; //사원번호
 	
@@ -25,6 +28,7 @@ public class AttendanceRegClockOutDTO {
 				.workNo(workNo)
 				.date(date)
 				.clockOut(clockOut)
+				.status(status)
 				.build();
 	}
 

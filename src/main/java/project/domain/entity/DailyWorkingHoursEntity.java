@@ -1,5 +1,6 @@
 package project.domain.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.domain.DTO.AttendanceRegClockInDTO;
 import project.domain.DTO.AttendanceRegClockOutDTO;
 
 
@@ -31,7 +33,7 @@ import project.domain.DTO.AttendanceRegClockOutDTO;
 @Table(name = "daily_working_hours")
 @Entity
 @Getter
-//230104 안나 생성
+//230104 안나 생성 230118 안나 수정 (clockIn수정, status추가)
 public class DailyWorkingHoursEntity {
 	
 	@Id
@@ -41,29 +43,42 @@ public class DailyWorkingHoursEntity {
 	
 	@Column(nullable = false)
 	@CreationTimestamp
-	private LocalDateTime date; //날짜
+	private LocalDate date; //날짜
 	
-	@Column(name = "clock_in", updatable = false)
 	@CreationTimestamp
+	@Column(name = "clock_in")
 	private LocalDateTime clockIn; //출근시간
 	
 	@UpdateTimestamp
 	@Column(name = "clock_out")
 	private LocalDateTime clockOut; //퇴근시간
 	
+	@Column
+	private String status;
+	
 	@JoinColumn(name = "employee_no")
 	@ManyToOne
-	private EmployeesEntity employeeNo; //사원번호
+	private EmployeesEntity employee; //사원번호
 	
 	public DailyWorkingHoursEntity employee(EmployeesEntity employee) {
-		this.employeeNo = employee;
+		this.employee = employee;
 		return this;
 	}
 	
-	public DailyWorkingHoursEntity update(AttendanceRegClockOutDTO dto) {
-		this.clockOut = dto.getClockOut();
+	//출근 업데이트
+	public DailyWorkingHoursEntity update(AttendanceRegClockInDTO dto) {
+		this.clockIn = dto.getClockIn();
+		this.status = dto.getStatus();		
 		return this;
 	}
+	
+	//퇴근 업데이트
+	public DailyWorkingHoursEntity update(AttendanceRegClockOutDTO dto) {
+		this.clockOut = dto.getClockOut();
+		this.status = dto.getStatus();
+		return this;
+	}
+
 
 
 

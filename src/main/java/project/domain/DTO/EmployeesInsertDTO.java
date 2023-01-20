@@ -58,7 +58,6 @@ public class EmployeesInsertDTO {
 				.phone(phone)
 				.extension(extension)
 				.joinDate(LocalDate.parse(joinDate, dformatter))
-				//.salary(sformatter.format(salary))
 				.salary(salary)
 				.imageNo(imgNo)
 				.editAuthority(edit_authority)
