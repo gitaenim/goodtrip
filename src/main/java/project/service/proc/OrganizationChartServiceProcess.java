@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.PersonnelEvaEntity;
 import project.domain.repository.EmployeesEntityRepository;
+import project.domain.repository.PersonnelEvaRepository;
 import project.service.OrganizationChartService;
 
 @Service
@@ -20,13 +22,31 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	
 	@Autowired
 	EmployeesEntityRepository employeesRepo;
+	
+	@Autowired
+	PersonnelEvaRepository personnelEvaRepo;
 
 	//근무중인 사원 조회(Default)
 	@Override
 	public void findAllByDeleteStatusFalse(Model model) {
 		
 		List<EmployeesEntity> list1 = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false);
+		List<PersonnelEvaEntity> list2 = personnelEvaRepo.findAll();
+		
+		for (EmployeesEntity employeesEntity : list1) {			
+			for (PersonnelEvaEntity personnelEvaEntity : list2) {				
+				if(employeesEntity.getNo() == personnelEvaEntity.getNo()) {
+					employeesEntity.addEmpgrade(personnelEvaEntity.getEmpGrade());
+				}
+			}
+			
+		}
+				
 		model.addAttribute("list1", list1);
+		
+		/*
+		 * List<EmployeesEntity> list2 = employeesRepo.findAllByOrderByEmpGradeDesc();
+		 */ //수민 잠깐 생성! 1/17
 		
 		boolean nullcheck = false;
 		if(list1.isEmpty()) {
@@ -77,6 +97,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	@Override
 	public void findAllList(Model model) {
 		// TODO Auto-generated method stub
+	}
 
   @Override
 	public void treelist(Model model, Long no) {

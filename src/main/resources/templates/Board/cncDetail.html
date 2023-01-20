@@ -41,7 +41,7 @@
 					
 					<tr>
 	    				<td>경조사일</td>
-	    				<td th:text="${cncDetail.eventDate}">2022.1.2</td>
+	    				<td th:text="${cncDetail.eventDate}"></td>
 	    			</tr>
 				</table>
 			</div>
@@ -71,13 +71,13 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><input th:value="${cncDetail.content}"
+						<td><input class="Cnc-content" th:value="${cncDetail.content}"
 							th:name="content"></td>
 					</tr>
 					<tr>
 	    				<td>경조사일</td>
 	    				<td><input th:value="${cncDetail.eventDate}"
-	    					th:name="eventDate" id="Date" th:type="date" min="yyy" max="zzz">2022.1.2</td>
+	    					th:name="eventDate" id="Date" th:type="date" min="yyy" max="zzz"></td>
 	    			</tr>
 				</table>
 			</div>
@@ -91,8 +91,8 @@
 		</form>
 		<div th:if="${#authentication.principal.no} == ${cncDetail.registNo.no}">
 			<form action="/cncboardDelete" method="post">
-				<input type="hidden" th:value="${cncDetail.cncNo}" th:name="cncNo">
-				<button class="detail-2">삭제</button>
+				<input type="hidden" th:value="${cncDetail.cncNo}" th:name="cncNo" >
+				<button class="detail-2" onclick="removeCheck()">삭제</button>
 			</form>
 		</div>
 <!-- //////////////////////////////////////// -->
