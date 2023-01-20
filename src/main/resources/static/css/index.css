@@ -1,1 +1,82 @@
 @charset "UTF-8";
+
+body {
+	width: 1440px;
+	padding-left: 240px;
+	background-color : #e9e9e9;
+	overflow-x: hidden;
+}
+#attendance {
+	background-color: white;
+	margin: 10px;
+	width: 320px;
+	height: 130px;
+	margin: 10px;
+}
+
+#calendar {
+	background-color: white;
+	margin: 10px;
+}
+
+#schedule {
+	display: block;
+	width: 470px;
+	height: 225px;
+	background-color: white;
+	margin: 10px;
+}
+
+#tomorrowSchedule {
+	display: block;
+	width: 470px;
+	height: 225px;
+	background-color: white;
+	margin: 10px;
+}
+
+#approval {
+	display: block;
+	width: 450px;
+	height: 460px;
+	background-color: white;
+	margin: 10px;
+}
+
+#boards {
+	display: block;
+	width: 660px;
+	height: 360px;
+	background-color: white;
+	margin: 10px;
+}
+#exchange{
+	display: block;
+	width: 600px;
+	height: 360px;
+	background-color: white;
+	margin: 10px;
+}
+#awardEmp {
+	display: block;
+	width: 630px;
+	height: 250px;
+	background-color: white;
+	margin: 10px;
+}
+
+#newEmp {
+	display: block;
+	width: 630px;
+	height: 250px;
+	background-color: white;
+	margin: 10px;
+}
+
+.counting-list {
+ counter-reset : numbering;
+}
+.counting-num:after{
+    counter-increment : numbering; 
+    content : counter(numbering);
+}

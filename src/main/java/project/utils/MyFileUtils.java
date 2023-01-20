@@ -38,9 +38,8 @@ public class MyFileUtils {
 		String newKey = uploadPath+newName;
 		amazonS3Client.copyObject(this.bucket, key, this.bucket, newKey);
 		amazonS3Client.deleteObject(this.bucket,key);
-		System.err.println("업로드 >>>>> " + amazonS3Client.getUrl(this.bucket, uploadPath+newName));
 		String url = amazonS3Client.getUrl(this.bucket, uploadPath+newName).toString();
-		
+		System.err.println("업로드 >>>>> " +  httpsToHttp(url));
 		return httpsToHttp(url);
 	}
 	
@@ -69,11 +68,11 @@ public class MyFileUtils {
 			System.err.println("오류발생");
 		}
 
-		System.err.println("임시파일 업로드 >>>>>" + amazonS3Client.getUrl(bucket, imgkey));
-
 		Map<String, String> tempFileInfo = new HashMap<>();
 		
 		String url = httpsToHttp(amazonS3Client.getUrl(bucket, imgkey).toString());
+		
+		System.err.println("임시파일 업로드 >>>>>" + url);
 		
 		tempFileInfo.put("url", url);
 		tempFileInfo.put("key", imgkey);

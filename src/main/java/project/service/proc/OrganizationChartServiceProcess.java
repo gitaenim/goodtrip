@@ -104,7 +104,6 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	@Override
 	public void findAllList(Model model) {
 
-		
 	}
 	//familyTree 부서장 정보
 	@Override
@@ -128,7 +127,6 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 //		//System.err.println(str.toString());
 		model.addAttribute("images", str);
 
-
 	}
 
   @Override
@@ -136,7 +134,5 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 
 	}
-
-
 	
 }

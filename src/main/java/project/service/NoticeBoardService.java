@@ -2,6 +2,7 @@ package project.service;
 
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.DTO.BoardNoticeDTO;
 
@@ -17,4 +18,6 @@ public interface NoticeBoardService {
 	void delete(long noticeNo);
 
 	void update(BoardNoticeDTO dto, long suggestNo);
+
+	void findListForIndex(ModelAndView modelAndView);
 }

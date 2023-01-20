@@ -1,5 +1,7 @@
 package project.domain.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.domain.DTO.DepartmentsUpdateDTO;
 
+@SuppressWarnings("serial")
 @DynamicUpdate
 @Builder
 @AllArgsConstructor
@@ -23,7 +26,7 @@ import project.domain.DTO.DepartmentsUpdateDTO;
 @Entity
 @Getter
 //230104 안나 생성
-public class DepartmentsEntity {
+public class DepartmentsEntity implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
