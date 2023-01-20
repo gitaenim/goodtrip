@@ -28,9 +28,9 @@ import lombok.NoArgsConstructor;
 public class PersonnelEvaEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "personnal_no" ,nullable = false, unique = true) 
-	private long no; //인사평가 기본넘버 pk
+	private long no; //인사평가 기본넘버 pk 
 	
 	@Column(name="prepare_score",nullable = false)
 	private int prepareScore; //업무 준비능력 점수
@@ -50,12 +50,12 @@ public class PersonnelEvaEntity {
 	@Column(name ="total_score" ,nullable = false)
 	private int totalScore; //총점
 	
-	@Column(name="emp_grade")
+	@Column(name="emp_grade" )
 	private String empGrade;
 	
 	
-	@JoinColumn(name = "regist_no", nullable = false)
-	@ManyToOne
-	private EmployeesEntity empNo; 
+	//@ManyToOne
+	@Column(name = "regist_no", nullable = false)
+	private long empNo; 
 	
 }
