@@ -25,6 +25,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	List<EmployeesEntity> findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(Long department, boolean b); //한아 작성
 
 	List<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b); //한아 작성
+	Page<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b, Pageable pa); //전체 리스트 페이징
 
 	//Page<EmployeesEntity> findAllByDeleteStatusOrderByPositionRank(boolean b, Pageable pageable); //한아 작성
 	
@@ -44,6 +45,10 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	Page<EmployeesEntity> findAllByDeleteStatusAndNameContaining(boolean b, String keyword, Pageable pageable);
 
 	Page<EmployeesEntity> findAllByDeleteStatus(boolean b, Pageable pageable);
+
+	int countAllByDeleteStatus(boolean b);
+
+	
 
 
 

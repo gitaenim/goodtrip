@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.repository.DepartmentsEntityRepository;
@@ -24,13 +25,14 @@ public class OrganizationChartController {
 	@Autowired
 	private DepartmentsEntityRepository departmentRepo;
 	
-	//조직도 리스트
-	@GetMapping("/ozc/groupList")
-    public String groupList(Model model) {
-		model.addAttribute("department", departmentRepo.findAll());
-		organizationChartService.findAllByDeleteStatusFalse(model);
-        return "organizationChart/groupList";
-    }
+	//조직도 리스트(페이징)
+	@ResponseBody //ModelAndView의 ViewName에 설정된 HTML 응답객체로 사용
+	@GetMapping("/ozc/groupList/all/{page}")
+	public ModelAndView groupList(@PathVariable int page, ModelAndView mv) {
+		organizationChartService.listForAjax(mv,page);
+		mv.setViewName("organizationChart/groupList");
+		return mv;
+	}
 	//퇴직사원 리스트
 	@GetMapping("/ozc/groupList/retirement")
 	public String groupListDeleted(Model model) {

@@ -7,17 +7,19 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.EmployeesDetailUpdateDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
+import project.domain.DTO.PageDTO;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DepartmentsEntityRepository;
-import project.domain.entity.PersonnelEvaEntity;
 import project.domain.repository.EmployeesEntityRepository;
 import project.domain.repository.PersonnelEvaRepository;
 import project.service.OrganizationChartService;
@@ -36,17 +38,18 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	PersonnelEvaRepository personnelEvaRepo;
 
 
-	//근무중인 사원 조회(Default)
+	//전체 리스트 페이징
 	@Override
-	public void findAllByDeleteStatusFalse(Model model) {
-		
-		
-		model.addAttribute("list1",employeesRepo.findAllByDeleteStatusOrderByPositionRank(false));
-		
-		//model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		//model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		//model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		//model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+	public void listForAjax(ModelAndView mv, int page) {
+		int rowTotal = employeesRepo.countAllByDeleteStatus(false); //총 사원 수
+		System.out.println("총 사원 수 : "+rowTotal);
+		int size = 10; //한 페이지에 보여줄 게시글 수
+		Pageable pa = PageRequest.of(page-1, size);
+		Page<EmployeesEntity> result = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pa);
+		//페이지정보
+		PageDTO pageInfo = PageDTO.getInstance(page, rowTotal, size, 5);
+		mv.addObject("list1", result.getContent());
+		mv.addObject("pi", pageInfo);
 	}
 	
 	//퇴직처리된 사원 조회
@@ -142,6 +145,8 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	public void findAllByDeleteStatusFalse(Model model, Pageable pageable) {
 		//페이징 다시 구현할게요
 	}
+
+	
 
 
 	

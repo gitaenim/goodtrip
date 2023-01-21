@@ -6,29 +6,11 @@
 .right {
 	justify-content: flex-end;
 }
-
-.list-1>section>div>a:first-child{
-	padding: 10px;
-    display: inline-block;
-    background-color: #4b99da;
-    border-radius: 15px;
-    font-size: 20px;
-    color: white;
-}
 .wrap-1{
-	position: relative;
-}
-.familytree{
-    position: absolute;
-    left: 10px;
-    top: 11px;
-    color: #666;
+	width: 1000px;
 }
 .retired{
-	position: absolute;
-	right: 10px;
-	top: 11px;
-	color: #666;
+	color: #888;
 }
 .list-table{
 	 border-collapse: collapse;
@@ -81,4 +63,21 @@
 	border-radius: 5px;
 	padding: 0px 5px;
 	background-color: #a4cdf2;
+}
+.back-list{
+	margin-top: 40px;
+}
+/***************** 페이징 css *****************/
+.paging{
+	margin-top: 40px;
+}
+.paging ol>li a{
+	display: inline-block;
+	padding: 0.5em 1em;
+	border: 1px solid #fff;
+	margin: 0 2px;
+}
+.select a{
+	color: #fff !important;
+	background-color: #a4cdf2; 
 }

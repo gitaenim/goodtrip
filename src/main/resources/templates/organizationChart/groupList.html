@@ -16,7 +16,6 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					<tbody id="emp-list">
 						<tr th:each="list : ${list1}">
 							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
-							<!-- <td th:onclick="|location.href='/ozc/groupDetail/${list.no}'|" th:text="${list.name}">사원명</td> -->
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
@@ -25,7 +24,40 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					</tbody>
 				</table>
 			</div>
-			
+			<!-- 페이징정보 시작-->
+			<div class="paging flex center">
+				<ol class="flex">
+					<!-- 첫 페이지로 -->
+					<li>
+						<a href="javascript:pageClicked(1)">&lt;&lt;</a>
+					</li>
+					<!-- Prev Sign -->
+					<li th:if="${pi.pageStart ne 1}"> <!-- ne(!=) -->
+						<a th:href="|javascript:pageClicked(${pi.pageStart - 1})|">&lt;</a>
+					</li>
+				</ol>
+				<ol class="page-list flex">
+					<!-- pageStart ~ pageEnd 반복 -->
+					<li th:each="pageNo:${#numbers.sequence(pi.pageStart,pi.pageEnd)}">
+						<a th:href="|javascript:pageClicked(${pageNo})|">[[${pageNo}]]</a>
+					</li>
+				</ol>
+				<ol class="flex">
+					<!-- Next Sign -->
+					<li th:if="${pi.pageEnd < pi.pageTotal}">
+						<a th:href="|javascript:pageClicked(${pi.pageEnd + 1})|">&gt;</a>
+					</li>
+					<!-- 마지막 페이지로 -->
+					<li>
+						<a th:href="|javascript:pageClicked(${pi.pageTotal})|">&gt;&gt;</a>
+					</li>
+				</ol>
+				<input type="hidden" id="p-length" th:value="${pi.pLength}">
+			</div>
+			<!-- 페이징정보 마지막-->
+			<div class="wrap-1 flex right">
+				<a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
+			</div>
 		</section>
 
 </html>

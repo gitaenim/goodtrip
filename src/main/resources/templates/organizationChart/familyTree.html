@@ -9,31 +9,39 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <link rel="stylesheet" href="/css/organizationChart/groupList2.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script type="text/javascript">
+	var page = 1;
+	
 	$(function(){
+		departmentAll();
 	});
 	
 	function departmentAll(){
-		
 		$.ajax({
-			url:`/ozc/groupList`,
+			url:`/ozc/groupList/all/${page}`,
 			success: function(resultHTML){
 				$("#employees-list").html(resultHTML);
+				var len = $("#p-length").val();
+				$(".page-list li").eq((page-1)% len ).addClass("select");
 			}
 		})
-		
 	}
+	
+	function pageClicked(pageNo){
+		page=pageNo;
+		departmentAll();
+	}
+	
 	function departmentList(departmentNo){
-		//alert(departmentNo);
 		$.ajax({
 			url:`/ozc/groupList/${departmentNo}`,
 			success: function(resultHTML){
 				$("#employees-list").html(resultHTML);
 			}
-			
-			
 		})
-		
 	}
+	
+	
+	
 </script>
 </head>
 <main>
@@ -84,12 +92,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				</div>				
 			</div>
 		</div>
-		<div class="wrap-1">
-			<a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
-		</div>
+		
 		<div id="employees-list" class="wrap list-1">
 			<!-- 부서원 리스트가 들어갈 자리입니다. -->
 		</div>
+		
 		
 	</section>
 </main>
