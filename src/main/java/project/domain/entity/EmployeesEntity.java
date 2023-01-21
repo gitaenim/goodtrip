@@ -180,5 +180,9 @@ public class EmployeesEntity {
 		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		return null;
 	}
+	public EmployeesEntity changeHeadPosition() {
+		this.position = DepartmentRank.DepartmentManager;
+		return null;
+	}
 
 }
