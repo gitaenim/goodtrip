@@ -137,5 +137,12 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 
 	}
+
+	@Override
+	public void findAllByDeleteStatusFalse(Model model, Pageable pageable) {
+		//페이징 다시 구현할게요
+	}
+
+
 	
 }

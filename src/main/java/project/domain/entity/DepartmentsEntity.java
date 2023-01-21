@@ -48,6 +48,12 @@ public class DepartmentsEntity implements Serializable{
 		else this.departmentHead = "미정";
 		return null;
 	}
+
+	//부서장 퇴직처리 되면 해당부서 부서장 '미정'
+	public DepartmentsEntity updateDepartmentHead(DepartmentsUpdateDTO udto) {
+		this.departmentHead = "미정";
+		return null;
+	}
 	
 
 }

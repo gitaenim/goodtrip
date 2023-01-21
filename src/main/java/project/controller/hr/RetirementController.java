@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import project.domain.DTO.DepartmentsUpdateDTO;
 import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
+import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.enums.MyRole;
 
@@ -19,12 +21,17 @@ public class RetirementController {
 	@Autowired
 	EmployeesEntityRepository employeesRepo;
 	
+	@Autowired
+	DepartmentsEntityRepository departmentsRepo;
+	
 	//퇴직처리
 	@Transactional
 	@GetMapping("/retirement/delete/{no}")
-	public String roleManager(@PathVariable long no, EmployeesDeleteDTO dto) {
+	public String roleManager(@PathVariable long no, EmployeesDeleteDTO dto, DepartmentsUpdateDTO udto) {
 		employeesRepo.findById(no).get().addRole(MyRole.NONE);
 		employeesRepo.findById(no).map(entity->entity.updateDeleteStatus(dto));
+		long departmentNo = employeesRepo.findById(no).get().getDepartmentNo().getDepartmentNo();
+		departmentsRepo.findById(departmentNo).map(entity->entity.updateDepartmentHead(udto)); //부서장 퇴직처리 되면 해당부서 부서장 '미정'
 		System.out.println("퇴직처리완료");
 		return "redirect:/ozc/groupDetail/{no}";
 	}

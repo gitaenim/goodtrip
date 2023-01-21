@@ -13,7 +13,8 @@ public interface OrganizationChartService {
 
 	void findByIdEditMode(Model model, Long no);
 	
-	//void findAllByDeleteStatusFalse(Model model, Pageable pageable);
+	void findAllByDeleteStatusFalse(Model model, Pageable pageable); //수민(PersonnelEvaController)
+	
 	void findAllByDeleteStatusFalse(Model model);
 
 	void findAllByDeleteStatusTrue(Model model);
