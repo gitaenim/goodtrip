@@ -54,8 +54,8 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 
 		// 페이징기능(페이지인덱스번호,페이지 사이즈,정렬방식,정렬할 컬럼이름)
 		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "createDate");
-
-		if (search == null) {
+		
+		if (search.equals("전체")){
 			// 만약 검색한 내용이 없다면 전체 리스트 정보 가져오기
 			list = suggestionsRepository.findAll(page);
 		} else {
@@ -71,7 +71,9 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 				list = suggestionsRepository.findByRegistNo_nameContaining(search, page);
 			}
 		}
-
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("search", search);
 		model.addAttribute("suggestionList", list);
 	}
 
@@ -136,5 +138,7 @@ public class SuggestionBoardServiceProc implements SuggestionBoardService {
 		modelAndView.addObject("boardNo", "suggestNo" );
 		
 	}
-
+	 static boolean isStringEmpty(String str) {
+	        return str == null || str.isEmpty();
+	    }
 }
