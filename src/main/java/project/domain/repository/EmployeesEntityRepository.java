@@ -42,6 +42,9 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	Optional<EmployeesEntity> findByName(String headname); //한아 부서장 변경시 직급 부장으로 변경
 
+	Page<EmployeesEntity> findByNameContaining(String search, Pageable page); //이름으로 검색
+	Page<EmployeesEntity> findByEmailContaining(String search, Pageable page); //이메일로 검색
+
 	
 
 

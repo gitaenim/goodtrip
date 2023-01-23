@@ -30,6 +30,9 @@ public interface OrganizationChartService {
 
 	void listForAjax(ModelAndView mv, int page); //한아 전체리스트 페이징
 
+	void findAllList(int pageNum, String search, String searchType, Model model); //검색하기
+
+
 
 
 

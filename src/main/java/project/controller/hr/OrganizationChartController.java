@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,6 +32,21 @@ public class OrganizationChartController {
 		organizationChartService.listForAjax(mv,page);
 		mv.setViewName("organizationChart/groupList");
 		return mv;
+	}
+	/** 검색하기
+	 * 
+	 * @param pageNum		페이지번호
+	 * @param search		검색할 단어
+	 * @param searchType	검색할 종류(사원명,부서,직급,내선번호,주업무)
+	 * @param model			페이지에 데이터 연결용
+	 * @return				페이지 주소
+	 */
+	@GetMapping("/ozc/groupList/search")
+	public String suggestionList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
+			@RequestParam(value="search", required = false) String search,
+			@RequestParam(value="searchType", required = false) String searchType,Model model) {
+		organizationChartService.findAllList(pageNum,search,searchType,model);
+		return "organizationChart/groupListSearch";
 	}
 	//퇴직사원 리스트
 	@GetMapping("/ozc/groupList/retirement")

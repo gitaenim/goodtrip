@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +49,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		Page<EmployeesEntity> result = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pa);
 		//페이지정보
 		PageDTO pageInfo = PageDTO.getInstance(page, rowTotal, size, 5);
+		
 		mv.addObject("list1", result.getContent());
 		mv.addObject("pi", pageInfo);
 	}
@@ -141,13 +143,42 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 
 	}
 
-	@Override
-	public void findAllByDeleteStatusFalse(Model model, Pageable pageable) {
-		//페이징 다시 구현할게요
-	}
-
+  //검색하기
+  @Override
+  public void findAllList(int pageNum, String search, String searchType, Model model) {
+	//한 페이지에 표현해줄 리스트 갯수
+	int pageSize = 10;
 	
+	// 리스트 페이지에 출력해줄 데이터리스트
+	Page<EmployeesEntity> list = null;
+	
+	// 페이징기능(페이지인덱스번호,페이지 사이즈,정렬방식,정렬할 컬럼이름)
+	Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.ASC, "positionRank");
+	
+	if (search == null) {
+		// 만약 검색한 내용이 없다면 전체 리스트 정보 가져오기
+		list = employeesRepo.findAll(page);
+	} else {
+	
+		if (searchType.equals("name")) {
+			// 만약 검색한 내용이 이름을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByNameContaining(search, page);
+		}else if(searchType.equals("email")) {
+			// 만약 검색한 내용이 이메일을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByEmailContaining(search, page);
+		}
+		/*else if(searchType.equals("name")) {
+			// 만약 검색한 내용이 직급을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByRegistNo_nameContaining(search, page);
+		}*/
+	}
+	
+	model.addAttribute("search", list);
+  }
 
-
+  @Override
+  public void findAllByDeleteStatusFalse(Model model, Pageable pageable) { //수민
+	
+  }
 	
 }
