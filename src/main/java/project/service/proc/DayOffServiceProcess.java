@@ -14,10 +14,12 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
+import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.ReplySuggestionsEntity;
 import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
@@ -115,6 +117,14 @@ public class DayOffServiceProcess implements DayOffService {
 		
 	}
 	*/
+
+	//결재 반려(삭제)
+	@Override
+	public void delete(long dayOffNo) {
+		
+		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
+		dayOffRepo.deleteById(dayOffNo);		
+	}
 
 	
 }
