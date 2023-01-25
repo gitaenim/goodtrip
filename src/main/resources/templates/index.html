@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
-<link rel="stylesheet" href="/css/commons/chat-bot.css">
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <style type="text/css">
 </style>
@@ -15,7 +14,6 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
 <script src="/js/index/indexcalendar.js"></script>
-<script src="/js/index/chat.js"></script>
 <!-- 230111 출퇴근시간 스크립트 시작 안나 -->
 <script type="text/javascript">
 	$(function() {
@@ -289,12 +287,5 @@
 			우수사원
 		</section>
 	</section>
-	<aside id="chat-bot">
-		<h1>챗봇</h1>
-		<div class="wrap">
-			<button type="button" id="btn-chat-open" onclick="openChat()">트립봇</button>
-			<th:block th:insert="~{chatbot/chat-bot::#chat-disp}" />
-		</div>
-	</aside>
 </body>
 </html>

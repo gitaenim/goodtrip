@@ -16,4 +16,5 @@ public class PhoneInfo {
 	private String deptName;
 	private String memberName;
 	private String phone;
+	private String extension; //내선번호
 }

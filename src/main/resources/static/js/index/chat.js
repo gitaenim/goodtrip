@@ -33,6 +33,9 @@ function setConnectStated(isTrue){
 }
 
 function disconnect() {
+	$("#chat-bot>.wrap").css({
+		"background-color": "#008aff"
+	})
     setConnectStated(false);
     console.log("Disconnected");
 }
@@ -54,8 +57,10 @@ function sendMessage(message){
 
 function inputTagString(text){
 	var now=new Date();
-	var ampm=(now.getHours()>11)?"오후":"오전";
-	var time= ampm + now.getHours()%12+":"+now.getMinutes();
+	var ampm=(now.getHours()>11)?"오후 ":"오전 ";
+	var minutes = now.getMinutes();
+	if(minutes<10) minutes="0"+now.getMinutes;
+	var time= ampm + now.getHours()%12+":"+minutes;
 	var message=`
 		<div class="msg user flex end">
 			<div class="message">

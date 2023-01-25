@@ -34,7 +34,7 @@ public class KomoranService {
 		Answer ar = analyzeToken(nouns);
 		if(ar!=null) {
 			answer = ar.getContent();
-			if(ar.getKeyword()!=null) answer += ", "+ar.getKeyword();
+			if(ar.getKeyword()!=null) answer += " "+ar.getKeyword();
 		}
 		return answer;		
 	}
@@ -59,7 +59,7 @@ public class KomoranService {
 					keyword = "입력한 사원을 찾을 수 없습니다.";
 				} else {
 					
-					keyword = phone.getDeptName()+" : "+phone.getMemberName()+" : "+phone.getPhone();
+					keyword = phone.getDeptName()+" : "+phone.getMemberName()+" : "+phone.getPhone()+" : "+phone.getExtension();
 				}
 			}
 			
@@ -84,10 +84,12 @@ public class KomoranService {
 			String deptName = m.get().getDepartmentNo().getDepartmentName();
 			String phone  = m.get().getPhone();
 			String memberName  = m.get().getName();
+			String extension = m.get().getExtension();
 			return PhoneInfo.builder()
 						.deptName(deptName)
 						.phone(phone)
 						.memberName(memberName)
+						.extension(extension)
 						.build();
 		}
 		return null;
