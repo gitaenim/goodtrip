@@ -56,8 +56,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 			</div>
 			<!-- 페이징정보 마지막-->
 			<div class="wrap-1 flex right">
-				<a class="search" href="/ozc/groupList/search">검색하기</a>
-				<a class="retired" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
+				<a class="listbutton" href="/ozc/groupList/search">검색하기</a>
+				<a class="listbutton resigned" href="/ozc/groupList/retirement" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직한 사원 조회</a>
 			</div>
 		</section>
 

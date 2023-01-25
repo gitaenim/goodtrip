@@ -97,7 +97,7 @@
 .search {
 	margin: 20px auto 10px auto;
 	padding: 4px 10px;
-	width: 500px;
+	width: 600px;
 	border: 2px solid #4B99DA;
 	border-radius: 10px;
 	color: #4B99DA;
@@ -140,4 +140,16 @@
 	background: #A4CDF2;
 	color: #FFFFFF;
 	padding: 3px 0;
+}
+.listbutton{
+	border: 2px solid #4B99DA;
+	border-radius: 10px;
+	color: #4B99DA;
+	text-align: center;
+	padding: 2px 5px;
+	margin: 0 3px;
+}
+.resigned{
+	color: #999;
+	border: 2px solid #999;
 }
