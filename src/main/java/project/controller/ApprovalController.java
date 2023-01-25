@@ -60,8 +60,11 @@ public class ApprovalController {
 	
 	//부서장 결재리스트
 	@GetMapping("/approvalList")
-    public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-		service.appList(myUserDetails.getDepartmentNo(), model);
+    public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, 
+    		@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
+    		@RequestParam(value="search", required = false) String search,
+    		@RequestParam(value="searchType", required = false) String searchType, Model model) {
+		service.appList(myUserDetails.getDepartmentNo(), pageNum, search, searchType, model);
         return "approvalMgmt/approvalList";
     }
 	
@@ -109,10 +112,11 @@ public class ApprovalController {
 //		service.delete(dayOffNo);
 //		return "redirect:/approvalList";
 //	}
-	//결재 반려(삭제)
-	@PostMapping("/approvalDelete/{dayOffNo}")
-	public String approvalDelete(@PathVariable long dayOffNo) {
-		dayOffRepo.deleteById(dayOffNo);
+	//결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn/{dayOffNo}")
+	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
 		return "redirect:/approvalList";
 	}
 	

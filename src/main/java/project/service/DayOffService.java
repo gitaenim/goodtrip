@@ -20,9 +20,9 @@ public interface DayOffService {
 
 	void detail(long dayOffNo, Model model);
 
-	void appList(DepartmentsEntity departmentNo, Model model);
+	void appList(DepartmentsEntity departmentNo, int pageNum, String search, String searchType, Model model);
 
-	void delete(long dayOffNo);
+	//void delete(long dayOffNo);
 
 	void approvalList2(Model model);
 

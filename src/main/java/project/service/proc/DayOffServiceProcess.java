@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -18,6 +20,7 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
+import project.domain.entity.BoardCNCEntity;
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
@@ -118,8 +121,7 @@ public class DayOffServiceProcess implements DayOffService {
 	@Override
 	public void mydayoff(long no, Model model) {
 		model.addAttribute("myDayOffList", dayOffRepo.findByEmployeeNo(employeesRepo.findById(no).orElseThrow())
-				.stream().map(DayOffMyListDTO::new).collect(Collectors.toList()));
-		
+				.stream().map(DayOffMyListDTO::new).collect(Collectors.toList()));		
 	}
 
 	//부서장 결재 디테일	
@@ -132,19 +134,47 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//부서장 결재리스트
 	@Override
-	public void appList(DepartmentsEntity departmentNo, Model model) {
+	public void appList(DepartmentsEntity departmentNo,int pageNum, String search, String searchType, Model model) {
+		int pageSize = 10;
+
+		Page<DayOffEntity> list = null;
+
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "draftDate");
+		
+		
+		
+		if (search == null) {
+			list = dayOffRepo.findAll(page);
+		} else {
+			if(searchType.equals("name")) {
+				list = dayOffRepo.findByEmployeeNoName(search, page);
+			}else if(searchType.equals("approval")) {
+				list = dayOffRepo.findByApproval(search, page);
+			}
+		}
+
+		// false : 조회한 데이터가 있음
+		// true : 조회한 데이터가 없음
+		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수
+
+		if (list.isEmpty()) {
+			nullcheck = true;
+		}
+		model.addAttribute("nullcheck", nullcheck);		
+		
 		long dno=departmentNo.getDepartmentNo();
-		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno);
-		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
+		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page);
+		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page));
 		
 	}
 
-	//결재 반려(삭제)
-	@Override
-	public void delete(long dayOffNo) {		
-		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
-		dayOffRepo.deleteById(dayOffNo);		
-	}
+	/*
+	 * //결재 반려(삭제)
+	 * 
+	 * @Override public void delete(long dayOffNo) { DayOffEntity dayoff =
+	 * dayOffRepo.findById(dayOffNo).orElseThrow(); dayOffRepo.deleteById(dayOffNo);
+	 * }
+	 */
 
 	//대표 결재리스트
 	@Override

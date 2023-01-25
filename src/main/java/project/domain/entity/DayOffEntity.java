@@ -55,7 +55,7 @@ public class DayOffEntity {
 	private LocalDate startDate; //휴가시작일
 	
 	@Column(name = "end_date", nullable = false)
-	private LocalDate EndDate; //휴가종료일	
+	private LocalDate endDate; //휴가종료일	
 	
 	@JoinColumn(name = "employee_no", nullable = false)
 	@ManyToOne
@@ -104,6 +104,12 @@ public class DayOffEntity {
 	//대표 결재 승인
 	public DayOffEntity finalApproval(DayOffAppDTO dto) {
 		this.approval = AuthorizeStatus.Approval;
+		return null;
+	}
+	
+	//결재 반려 처리
+	public DayOffEntity returnApproval(DayOffAppDTO dto) {
+		this.approval = AuthorizeStatus.Return;
 		return null;
 	}
 	
