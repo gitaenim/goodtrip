@@ -49,13 +49,13 @@
 			</form>
 		</div>
 		<div class="pageBTN" th:if="${suggestionList.getTotalPages}>0">
-	    	<a th:if="${suggestionList.hasPrevious()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()}|">[이전]</a>
-	    	<a th:if="${suggestionList.getNumber()-1}>0" th:text="${suggestionList.getNumber()-1}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()-1}|">현재페이지-2</a>
-	    	<a th:if="${suggestionList.getNumber()}>0" th:text="${suggestionList.getNumber()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()}|">현재페이지-1</a>
+	    	<a th:if="${suggestionList.hasPrevious()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()}&search=${search}&searchType=${searchType}|">[이전]</a>
+	    	<a th:if="${suggestionList.getNumber()-1}>0" th:text="${suggestionList.getNumber()-1}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()-1}&search=${search}&searchType=${searchType}|">현재페이지-2</a>
+	    	<a th:if="${suggestionList.getNumber()}>0" th:text="${suggestionList.getNumber()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()}&search=${search}&searchType=${searchType}|">현재페이지-1</a>
 	    	<a id="currentPage" th:text="${suggestionList.getNumber()+1}">현재페이지</a>
-	    	<a th:if="${suggestionList.getNumber()+2<=suggestionList.getTotalPages()}" th:text="${suggestionList.getNumber()+2}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+2}|">현재페이지+1</a>
-	    	<a th:if="${suggestionList.getNumber()+3<=suggestionList.getTotalPages()}" th:text="${suggestionList.getNumber()+3}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+3}|">현재페이지+2</a>
-	    	<a th:if="${suggestionList.hasNext()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+2}|">[다음]</a>
+	    	<a th:if="${suggestionList.getNumber()+2<=suggestionList.getTotalPages()}" th:text="${suggestionList.getNumber()+2}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+2}&search=${search}&searchType=${searchType}|">현재페이지+1</a>
+	    	<a th:if="${suggestionList.getNumber()+3<=suggestionList.getTotalPages()}" th:text="${suggestionList.getNumber()+3}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+3}&search=${search}&searchType=${searchType}|">현재페이지+2</a>
+	    	<a th:if="${suggestionList.hasNext()}" th:href="|/Board/suggestionList?pageNum=${suggestionList.getNumber()+2}&search=${search}&searchType=${searchType}|">[다음]</a>
     	</div> 
 	</div>
 </main>

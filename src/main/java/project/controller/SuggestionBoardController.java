@@ -33,7 +33,7 @@ public class SuggestionBoardController {
 	 */
 	@GetMapping("/Board/suggestionList")
 	public String suggestionList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
-			@RequestParam(value="search", required = false) String search,
+			@RequestParam(value="search", required = false, defaultValue = "전체") String search,
 			@RequestParam(value="searchType", required = false) String searchType,Model model) {
 		suggestionservice.findAllList(pageNum,search,searchType,model);
 		return "Board/suggestionList";
