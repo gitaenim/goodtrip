@@ -58,7 +58,7 @@ public class ApprovalController {
 	    return "AttendanceMgmt/myDayOff";
 	}
 	
-	//내 결재 리스트
+	//부서장 결재리스트
 	@GetMapping("/approvalList")
     public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
 		service.appList(myUserDetails.getDepartmentNo(), model);

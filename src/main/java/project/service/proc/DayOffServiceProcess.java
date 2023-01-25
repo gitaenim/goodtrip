@@ -130,10 +130,9 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("detailEmp", ent.getEmployeeNo());
 	}
 
-	//내 결재 리스트
+	//부서장 결재리스트
 	@Override
 	public void appList(DepartmentsEntity departmentNo, Model model) {
-		//System.err.println(departmentNo.getDepartmentNo());
 		long dno=departmentNo.getDepartmentNo();
 		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno);
 		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
