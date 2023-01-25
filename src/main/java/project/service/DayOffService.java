@@ -20,6 +20,8 @@ public interface DayOffService {
 
 	void appList(DepartmentsEntity departmentNo, Model model);
 
+	void delete(long dayOffNo);
+
 	//void approval(DayOffAppDTO dto, long dayOffNo);
 
 

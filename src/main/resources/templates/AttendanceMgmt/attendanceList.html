@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>근태리스트</title>
 <link rel="stylesheet" href="/css/attendance/attendance-list.css">
-
+<link rel="stylesheet" href="/css/attendance/paging.css">
 <script type="text/javascript">
 
 function departmentClicked(){
@@ -49,11 +49,13 @@ function getListDep(){
 						<option th:each="departments : ${department}" th:value="${departments.departmentNo}" th:utext="${departments.departmentName}"></option>
 					</select>
 			    </form>
-			    <form>
-			    	<input id="keyword" type="text" name="keyword">
-			    	<button type="submit">검색</button>
-			    </form>
 		    </div>
+ 			<div class="search center flex">
+			    <form>
+			    	<input id="keyword" class="search-input" type="text" name="keyword" placeholder="이름을 입력해 주세요.">
+			    	<button type="submit" class="list-button">검색</button>
+			    </form>
+	    	</div>
 		    <div id="emp-list">
 				<div class="flex center back-list">
 					<table class="list-table">
@@ -85,12 +87,12 @@ function getListDep(){
 				<!-- 페이징 시작 230117 안나 작성-->
 				<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 내비게이션 숫자 총 몇개로 할건지 -->
 				<div th:if="${#lists.isEmpty(list)}" style="text-align: center;">조회 결과가 없습니다.</div>
-				<div id="nav" th:if="${!#lists.isEmpty(list)}">
+				<div class="pageBTN" id="nav" th:if="${!#lists.isEmpty(list)}">
 					<ul th:with="start=${((pageNum-1)/endPage)*endPage+1}, end=${start + endPage - 1}" class="flex center">
 						<!-- 시작 페이지가 1보다 클 경우 -->
 						<li th:if="${start ne 1}">
 							<a th:if="${check == 1}" th:href="|/attendanceList?page=0|">&lt;&lt;</a>
-							<a th:if="${check == 2}" th:href="|/attendanceList?keyword=|+김+|&page=0|">&lt;&lt;</a>
+							<a th:if="${check == 2}" th:href="|/attendanceList?keyword=${keyword}&page=0|">&lt;&lt;</a>
 						</li>
 						<!-- 시작 페이지가 1보다 클 경우 -->
 						<li th:if="${start ne 1}">

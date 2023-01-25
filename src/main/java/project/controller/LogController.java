@@ -79,5 +79,10 @@ public class LogController {
 		return modelAndView;
 	}
 	
+	@GetMapping("/resigned")
+	public String resigned() {
+		return "login/relogin";
+	}
+	
 	
 }

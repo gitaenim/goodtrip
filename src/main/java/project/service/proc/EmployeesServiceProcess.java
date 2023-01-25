@@ -91,4 +91,13 @@ public class EmployeesServiceProcess implements EmployeesService {
 		model.addAttribute("NewEMPList",EMPlist);
 	}
 
+
+	@Override
+	public void findByEmpGrade(String empGrade, Model model) {
+	   List<EmployeesEntity> empList= employeesRepository.findAllByEmpGrade(empGrade);
+	   List<EmployeesDetailDTO> dto = empList.stream().map(EmployeesDetailDTO::new).collect(Collectors.toList());
+	   model.addAttribute("empList",dto);
+	}
+	
+	
 }

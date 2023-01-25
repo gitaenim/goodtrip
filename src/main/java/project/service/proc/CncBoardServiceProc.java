@@ -49,7 +49,7 @@ public class CncBoardServiceProc implements CNCBoardService {
 
 		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "eventDate");
 
-		if (search == null) {
+		if (search.equals("전체")){
 			list = CNCRepository.findAll(page);
 		} else {
 
@@ -62,14 +62,15 @@ public class CncBoardServiceProc implements CNCBoardService {
 			}
 		}
 
-		// false : 조회한 데이터가 있음
-		// true : 조회한 데이터가 없음
-		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수
-
-		if (list.isEmpty()) {
-			nullcheck = true;
-		}
-		model.addAttribute("nullcheck", nullcheck);
+		/*
+		 * // false : 조회한 데이터가 있음 // true : 조회한 데이터가 없음 boolean nullcheck = false; //
+		 * 조회한 데이터의 유무를 확인하는 변수
+		 * 
+		 * if (list.isEmpty()) { nullcheck = true; }
+		 */
+		/* model.addAttribute("nullcheck", nullcheck); */
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("search", search);
 		model.addAttribute("cncList", list);
 		model.addAttribute("today", LocalDate.now()); //cncList 경조사 게시판에 경조사일 날짜를 비교가능하게해줌 (지난 경조사일 회색처리)
 	}

@@ -95,9 +95,15 @@ public class DayOffEntity {
 		return this;
 	}
 	
-	//결재 승인 처리
-	public DayOffEntity Approval(DayOffAppDTO dto) {
+	//부서장 결재 승인
+	public DayOffEntity firstApproval(DayOffAppDTO dto) {
 		this.approval = AuthorizeStatus.FirstApproval;
+		return null;
+	}
+	
+	//대표 결재 승인
+	public DayOffEntity finalApproval(DayOffAppDTO dto) {
+		this.approval = AuthorizeStatus.Approval;
 		return null;
 	}
 	

@@ -33,13 +33,6 @@ public class ApprovalController {
     public String dayoff() {
         return "approvalMgmt/dayOff";
     }
-
-	/**
-	 * @author 재근
-	 * @param dto 휴가등록
-	 * @return 나의휴가일지
-	 * 등록 업데이트
-	 */
 	
 	//휴가신청 save
 	@PostMapping("/dayoff")
@@ -77,13 +70,34 @@ public class ApprovalController {
 		return "approvalMgmt/dayOffApp";
 	}
 	
-	//결재 승인처리
+	//부서장 결재승인
 	@Transactional
 	@GetMapping("/approval/{dayOffNo}")
 	public String approval(@PathVariable long dayOffNo, DayOffAppDTO dto) {
-		System.out.println(dayOffNo);
+		//System.out.println(dayOffNo);
 		//dayOffRepo.findById(dayOffNo).get().addApproval(AuthorizeStatus.FirstApproval);
-		dayOffRepo.findById(dayOffNo).map(t -> t.Approval(dto));
+		dayOffRepo.findById(dayOffNo).map(t -> t.firstApproval(dto));
+		return "redirect:/approvalList";
+	}
+	
+	//대표 결재승인
+	@Transactional
+	@GetMapping("/approval2/{dayOffNo}")
+	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
+		return "redirect:/approvalList";
+	}
+	
+	//결재 반려(삭제)
+//	@PostMapping("/approvalDelete")
+//	public String approvalDelete(long dayOffNo) {
+//		service.delete(dayOffNo);
+//		return "redirect:/approvalList";
+//	}
+	
+	@PostMapping("/approvalDelete/{dayOffNo}")
+	public String approvalDelete(@PathVariable long dayOffNo) {
+		dayOffRepo.deleteById(dayOffNo);
 		return "redirect:/approvalList";
 	}
 	

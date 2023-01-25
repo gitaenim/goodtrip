@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -229,7 +230,6 @@
 						$('.new-temp_max').append($temp_max);
 					}
 				})
-
 	});//function 끝
 </script>
 <!-- 230111 출퇴근시간 스크립트 끝 안나 -->
@@ -340,25 +340,24 @@
 			</div>
 			<div>
 				<section id="attendance">
-					<!-- 230111 출퇴근버튼 시작 안나 -->
+				<!-- 230111 출퇴근버튼 시작 안나 230120 수정 안나 -->
 					<p class="subtitle">출근/퇴근 버튼</p>
 					<div class="flex around">
 						<button id="start-time">출근</button>
 						<button id="end-time">퇴근</button>
+
 					</div>
 					<div sec:authorize="isAuthenticated()" id="clock-in-out"
-						th:each="dto:${list}" class="flex around">
-						<div>
-							<p>출근시간 :</p>
-							<p id="start-time-today"
-								th:text="[+${#temporals.format(dto.clockIn, 'HH:mm:SS')}+]"></p>
+					th:each="dto:${list}" class="flex around">
+					<div>
+						<p>출근시간 :</p>
+						<input id="status" type="hidden" th:value="${dto.status}">
+						<p id="start-time-today" th:text="${#temporals.format(dto.clockIn, 'HH:mm:SS')}"></p>
+					</div>
+					<div>
+						<p>퇴근시간 :</p>
+						<p id="end-time-today" th:text="${#temporals.format(dto.clockOut, 'HH:mm:SS')}"></p>
 						</div>
-						<div>
-							<p>퇴근시간 :</p>
-							<p id="start-time-today" th:if="${dto.clockOut!=dto.clockIn}"
-								th:text="[+${#temporals.format(dto.clockOut, 'HH:mm:SS')}+]"></p>
-						</div>
-
 					</div>
 					<!-- 230111 출퇴근버튼 끝 안나 -->
 				</section>

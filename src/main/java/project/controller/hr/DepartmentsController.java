@@ -47,7 +47,6 @@ public class DepartmentsController {
 	public String editingDepartments(@PathVariable long departmentNo, DepartmentsUpdateDTO dto) {
 		departmentsService.editDepartment(departmentNo, dto);
 		return "redirect:/departments/manage";
-		//return "redirect:/departments/editdelete/{departmentNo}";
 	}
 	//부서삭제
 	@PostMapping("/departments/delete/{departmentNo}")

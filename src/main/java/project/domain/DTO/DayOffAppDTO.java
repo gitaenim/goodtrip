@@ -47,7 +47,7 @@ private String type; //휴가종류
 				.useDays(useDays)
 				.draftDate(draftDate)
 				.employeeNo(no)
-				.approval(AuthorizeStatus.UnderApproval)//신청시
+				.approval(AuthorizeStatus.UnderApproval)
 				.build()
 				.addApproval(approval);		
 	}

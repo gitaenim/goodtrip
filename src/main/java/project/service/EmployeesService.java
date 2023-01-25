@@ -23,4 +23,6 @@ public interface EmployeesService {
 
 	void findAllByNewEMPForIndex(Model model);
 
+	void findByEmpGrade(String empGrade, Model model);
 }
+

@@ -27,6 +27,9 @@ public class DepartmentsServiceProcess implements DepartmentsService {
 	@Override
 	public void editDepartment(long no, DepartmentsUpdateDTO dto) {
 		departmentsRepo.findById(no).map(entity->entity.updateDepartment(dto)); //부서명, 부서장 변경
+		String headname = dto.getDepartmentHead();
+		employeesRepo.findByName(headname).map(e->e.changeHeadPosition()); //부서장 변경시 해당 사원의 직급을 부장으로 변경
+		System.out.println(dto.getDepartmentHead()+"의 직급이 부장으로 변경되었습니다.");
 	}
 	//부서 정보 편집모드
 	@Override
