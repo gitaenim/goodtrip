@@ -14,6 +14,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
     width: 100px;
     height: 100px;}
 </style>
+<script type="text/javascript">
+function historyback(){
+	history.back();
+}
+</script>
 </head>
 <main>
 	<!-- 230112 한아 수정 -->
@@ -66,7 +71,6 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<td>퇴사일</td>
 				<td>[[${list.resignDate}]]</td>
 			</tr>
-			
 			<tr>
 				<td>생년월일</td>
 				<td>[[${list.birthDate}]]</td>
@@ -75,7 +79,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<td>주업무</td>
 				<td>[[${list.mainWork}]]</td>
 			</tr>
-			<tr>
+			<tr sec:authorize="hasRole('ROLE_PERSONAL')">
 				<td>급여</td>
 				<td>연봉 [[${list.salary}]]원</td>
 			</tr>
@@ -86,8 +90,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 		</table>
 		<div class="back-1 flex between">
 			<div class="">
-				<a class="" href="/ozc/groupList">전체목록</a>
-				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}">퇴직사원목록</a>
+				<a class="" onclick="historyback()">뒤로가기</a>
+				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직사원목록</a>
 				<a th:href="|/ozc/groupDetail/edit/${list.no}|" sec:authorize="hasRole('ROLE_PERSONAL')">수정</a>
 			</div>
 			<div sec:authorize="hasRole('ROLE_PERSONAL')">

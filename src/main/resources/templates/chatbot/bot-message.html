@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+	<div class="flex center date" th:text="${today}"></div>
+	<div class="msg bot flex">
+		<div  class="icon">
+			<img src="/image/icon/robot.png">
+		</div>
+		<div class="message">
+			<div class="part">
+				<p th:text="${answer}"></p>
+			</div>
+			<div class="time" th:text="${time}">메세지 작성 시간</div>
+		</div>
+	</div>
+</html>

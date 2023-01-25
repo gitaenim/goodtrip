@@ -26,7 +26,7 @@ public class EmployeesDetailDTO {
 	private String extension;//내선번호
 	private LocalDate birthDate;//생년월일
 	private String mainWork;//주 업무
-	private long salary;//급여
+	private String salary;//급여
 	private boolean deleteStatus;//삭제여부
 	private int editAuthority;//수정권한
 	private String yesorno;//수정권한이있나요?
@@ -51,11 +51,14 @@ public class EmployeesDetailDTO {
 		this.extension = ent.getExtension();
 		this.birthDate = ent.getBirthDate();
 		this.mainWork = ent.getMainWork();
-		this.salary = ent.getSalary();
+		this.salary = sformatter.format(ent.getSalary());
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
-		if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
-		this.empGrade = ent.getEmpGrade();
+
+		if(this.editAuthority==1) {yesorno="Y";} else {yesorno="N";}
+		//if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
+		//this.empGrade = ent.getEmpGrade();
+
 	}
 	
 	
