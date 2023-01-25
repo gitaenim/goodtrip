@@ -1,12 +1,12 @@
 package project.domain.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import project.domain.entity.EmployeesEntity;
 
@@ -48,11 +48,6 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	Page<EmployeesEntity> findByNameContaining(String search, Pageable page); //이름으로 검색
 	Page<EmployeesEntity> findByEmailContaining(String search, Pageable page); //이메일로 검색
-
-	
-
-
-
 
 
 }
