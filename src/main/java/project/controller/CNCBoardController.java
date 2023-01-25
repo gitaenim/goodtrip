@@ -29,7 +29,7 @@ public class CNCBoardController {
 	 //경조사 리스트 페이지
 	@GetMapping("/Board/cncList")
 	public String cncList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
-		@RequestParam(value="search", required = false) String search,
+		@RequestParam(value="search", required = false, defaultValue = "전체") String search,
 		@RequestParam(value="searchType", required = false) String searchType,Model model) {
 		CNCservice.findAllList(pageNum,search,searchType, model);
 		return "Board/cncList";

@@ -2,6 +2,26 @@
 <html xmlns:th="https://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
+<head>
+<link rel="stylesheet" href="/css/commons/common.css" />
+<link rel="stylesheet" href="/css/commons/reset.css" />
+<link rel="stylesheet" href="/css/organizationChart/groupList.css">
+<link rel="stylesheet" href="/css/organizationChart/groupList2.css">
+<th:block th:insert="~{/layout/sideMenu :: head}" />
+<script type="text/javascript">
+function departmentClicked(){
+	department=$("#department option:selected").val();
+	if(department!=0)
+		location.href="/ozc/groupList/"+department;
+	else location.href="/ozc/groupList";
+}
+</script>
+</head>
+<main>
+	<!-- 230110 한아 수정 -->
+	<th:block th:insert="~{/layout/sideMenu :: header}" />
+	<div class="wrap list-1">
+
 		<section>
 			<div class="flex center back-list">
 				<table class="list-table">

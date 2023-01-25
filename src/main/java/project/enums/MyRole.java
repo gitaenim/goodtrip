@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MyRole {
 	
+
 	EMPLOYEE("ROLE_EMPLOYEE"),
 	PERSONALMANAGER("ROLE_PERSONAL"),
 	NONE("ROLE_RESIGNED"); //230120 한아 추가

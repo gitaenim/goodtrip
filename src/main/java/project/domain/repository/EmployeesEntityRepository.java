@@ -28,6 +28,10 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	EmployeesEntity findByPositionRank(long i);
 
 	/* List<EmployeesEntity> findAllByOrderByEmpGradeDesc(); //수민 잠깐 생성! 1/17*/
+	
+ 	List<EmployeesEntity> findAllByOrderByNoDesc();
+ 	
+ 	List<EmployeesEntity> findAllByEmpGrade(String empGrade);
 
 	List<EmployeesEntity> findAllByDeleteStatusOrderByDepartmentNoDesc(boolean b);
 
@@ -50,5 +54,5 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 
 
-}
 
+}
