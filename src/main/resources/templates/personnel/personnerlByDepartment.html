@@ -40,7 +40,7 @@ function departmentClicked(){
 						<th>내선번호</th>
 						<th>주업무</th>
 						<th>등급</th>
-						<th>인사평가</th>
+						<th sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">인사평가</th>
 					</tr>
 					<tbody id="emp-list">
 						<tr th:if="${nullcheck == true}">
@@ -55,9 +55,18 @@ function departmentClicked(){
 				            <!-- 수민 추가! css 사용해서 조직도에는 안보이게 했습니다!  -->
 				           	<td class="group-non" style="color: rgb(1, 20, 190)" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
 					        <td class="group-non" th:if="${list.empGrade != null}" th:text="${list.empGrade}" >등급</td>
-					        <td class="group-non"> 
-					        	<a th:href="|/personnelEva/${list.no}|">인사평가</a>					
-				          	</td>
+					       <td class="group-non" sec:authorize="hasAnyRole('ROLE_PERSONAL')"> 
+				           	    <a th:if="${#authentication.principal.departmentNo.departmentName} == ${list.departmentNo.departmentName}"
+				          	   	   th:unless="${#authentication.principal.Name} == ${list.name}"
+				          	       th:href="|/personnelEva/${list.no}|">인사평가
+				          	    </a>			
+				          	    <a th:if="${#authentication.principal.departmentNo.departmentName} != ${list.departmentNo.departmentName}" th:text="x"></a>
+							 </td>
+							 <td class="group-non" sec:authorize="hasAnyRole('ROLE_CEO')"> 
+				           	    <a th:unless="${#authentication.principal.Name} == ${list.name}"
+				          	       th:href="|/personnelEva/${list.no}|">인사평가
+				          	    </a>			
+							 </td>
 						</tr>
 					</tbody>
 				</table>

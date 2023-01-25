@@ -87,7 +87,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						<th>내선번호</th>
 						<th>주업무</th>
 						<th>등급</th>
-						<th>인사평가</th>
+						<th sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">인사평가</th>
 					</tr>
 					<tbody id="emp-list">
 						<tr th:each="list : ${list1}">
@@ -97,15 +97,24 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 							<td th:text="${list.position.label}">직급</td>
 							<td th:text="${list.extension}">내선번호</td>
 							<td th:text="${list.mainWork}">주업무</td>
-								<td class="group-non" style="color: rgb(1, 20, 190)" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
-				          <td class="group-non" th:if="${list.empGrade != null}" th:text="${list.empGrade}" >등급</td>
-				          <td class="group-non"> 
-				          	  <a th:href="|/personnelEva/${list.no}|">인사평가</a>					
-						  </td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+							<td class="group-non" style="color: rgb(1, 20, 190)" th:if="${list.empGrade == null}" th:text="평가안함">등급</td>
+				          	<td class="group-non" th:if="${list.empGrade != null}" th:text="${list.empGrade}">등급</td>
+				           	<td class="group-non" sec:authorize="hasAnyRole('ROLE_PERSONAL')"> 
+				           	    <a th:if="${#authentication.principal.departmentNo.departmentName} == ${list.departmentNo.departmentName}"
+				          	   	   th:unless="${#authentication.principal.Name} == ${list.name}"
+				          	       th:href="|/personnelEva/${list.no}|">인사평가
+				          	    </a>			
+				          	    <a th:if="${#authentication.principal.departmentNo.departmentName} != ${list.departmentNo.departmentName}" th:text="x"></a>
+							 </td>
+							 <td class="group-non" sec:authorize="hasAnyRole('ROLE_CEO')"> 
+				           	    <a th:unless="${#authentication.principal.Name} == ${list.name}"
+				          	       th:href="|/personnelEva/${list.no}|">인사평가
+				          	    </a>			
+							 </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			<!-- 페이징 시작 230117 안나 작성 230118 한아 수정-->
 			<!-- pageNum : 현재 페이지 번호, pageSize : 한 페이지의 게시글 수, pageTotal : 총 페이지 수, endPage : 한 페이지당 몇 개까지 보여줄건지 -->
 			<div id="paging">
