@@ -5,10 +5,12 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import project.domain.entity.EmployeesEntity;
 
 @Getter
 @Setter
+@ToString
 public class EmployeesDetailDTO {
 	/* 230113 한아 작성 */
 	
@@ -28,6 +30,7 @@ public class EmployeesDetailDTO {
 	private boolean deleteStatus;//삭제여부
 	private int editAuthority;//수정권한
 	private String yesorno;//수정권한이있나요?
+	private String empGrade; //인사평가 등급
 	
 	public String phone_format(String number) { //detail에서 보여질때 formatting
 	      String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
@@ -52,7 +55,7 @@ public class EmployeesDetailDTO {
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
 		if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
-		
+		this.empGrade = ent.getEmpGrade();
 	}
 	
 	
