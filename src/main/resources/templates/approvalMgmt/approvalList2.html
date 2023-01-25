@@ -41,6 +41,16 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 							<td th:text="${list.useDays}">3</td>
 							<td th:text="${list.approval.label}"></td>
 						</tr>
+						<tr th:each="list : ${appCEOList2}">
+							<td th:text="${listStat.count}"></td>
+							<td><a th:href="@{/dayoffApp2(dayOffNo=${list.dayOffNo})}">[[${list.employeeNo.name}]]</a></td>
+							<td th:text="${list.draftDate}"></td>
+							<td th:text="${list.type}">연차</td>
+							<td th:text="${list.startDate}">2023-01-09</td>
+							<td th:text="${list.EndDate}">2023-01-11</td>
+							<td th:text="${list.useDays}">3</td>
+							<td th:text="${list.approval.label}"></td>
+						</tr>
 					</tbody>
 				</table>
 				</form>

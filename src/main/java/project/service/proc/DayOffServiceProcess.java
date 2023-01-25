@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,6 +28,7 @@ import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
+import project.enums.AuthorizeStatus;
 import project.service.DayOffService;
 
 @Service
@@ -147,8 +150,10 @@ public class DayOffServiceProcess implements DayOffService {
 	//대표 결재리스트
 	@Override
 	public void approvalList2(Model model) {
-		List<DayOffEntity> appList = dayOffRepo.findAll();
-		model.addAttribute("appCEOList", appList);	
+		List<DayOffEntity> appList = dayOffRepo.findAllByApproval(AuthorizeStatus.FirstApproval);
+		List<DayOffEntity> appList2 = dayOffRepo.findAllByApproval(AuthorizeStatus.Approval);
+		appList.addAll(appList2);
+		model.addAttribute("appCEOList", appList);
 	}
 
 	//대표 결재 디테일
@@ -157,6 +162,13 @@ public class DayOffServiceProcess implements DayOffService {
 		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();		
 		model.addAttribute("dayOffDetail", ent);		
 		model.addAttribute("detailEmp", ent.getEmployeeNo());		
+	}
+
+	//상태별 대표 결재리스트
+	@Override
+	public void findAllByAuthorizeStatus(Model model, String status) {
+		System.out.println("status : "+status);
+		
 	}
 
 	

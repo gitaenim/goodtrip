@@ -3,6 +3,8 @@ package project.controller;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +68,6 @@ public class ApprovalController {
 	//대표 결재리스트
 	@GetMapping("/approvalList2")
     public String approvalList2(Model model) {
-		//System.err.println("정상");
 		service.approvalList2(model);
         return "approvalMgmt/approvalList2";
     }
@@ -100,7 +101,7 @@ public class ApprovalController {
 	@GetMapping("/approval2/{dayOffNo}")
 	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
-		return "redirect:/approvalList";
+		return "redirect:/approvalList2";
 	}
 	
 //	@PostMapping("/approvalDelete")

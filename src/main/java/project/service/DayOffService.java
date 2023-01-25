@@ -1,10 +1,12 @@
 package project.service;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 
 import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffInsertDTO;
 import project.domain.entity.DepartmentsEntity;
+import project.enums.AuthorizeStatus;
 
 public interface DayOffService {
 
@@ -26,7 +28,7 @@ public interface DayOffService {
 
 	void detail2(long dayOffNo, Model model);
 
-	//void approval(DayOffAppDTO dto, long dayOffNo);
+	void findAllByAuthorizeStatus(Model model, String status);
 
 
 

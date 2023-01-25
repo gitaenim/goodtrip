@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/approvalMgmt/dayOffApp.css">
+<link rel="stylesheet" href="/css/approvalMgmt/dayOffApp2.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
@@ -10,9 +10,12 @@
 		if($(".name").text() == $(".head").text() || $(".label").text()=="결재중"){
 			$(".head").css("display", "block");
 		}
+		if($(".label").text()=="승인"){
+			$(".ceo").css("display", "block");
+		}
 	});
-	function headClicked(){
-		$(".head").css("display", "block");
+	function ceoClicked(){
+		$(".ceo").css("display", "block");
 	}
 	
 </script>
@@ -57,8 +60,8 @@
 					</tr>
 					<tr>
 						<td><span class="name">[[${detailEmp.name}]]</span></td>
-						<td onclick="headClicked()"><span class="head">[[${detailEmp.departmentNo.departmentHead}]]</span></td>
-						<td><span class="ceo">김대표</span></td>
+						<td><span class="head">[[${detailEmp.departmentNo.departmentHead}]]</span></td>
+						<td onclick="ceoClicked()"><span class="ceo">김대표</span></td>
 						<td class="label">[[${dayOffDetail.approval.label}]]</td>
 					</tr>						
 				</table>
