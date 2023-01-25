@@ -111,7 +111,7 @@ public class AttendanceServiceProc implements AttendanceService{
 		
 		Page<EmployeesEntity> result = null;
 		
-		int check;//페이징 체크용..
+		int check = 0;
 		
 		if(keyword == null) {//검색어가 없을 때
 			result=emRepo.findAllByDeleteStatus(false, pageable);
@@ -129,11 +129,11 @@ public class AttendanceServiceProc implements AttendanceService{
 			.collect(Collectors.toList()) );
 		
 		pagingE(model, result);//페이징
-		model.addAttribute("check", check);
 		
 		model.addAttribute("department", departmentRepo.findAll());//부서 이름 뿌려줄거임
 		
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("check", check);
 
 	}
 	
@@ -157,33 +157,6 @@ public class AttendanceServiceProc implements AttendanceService{
 		pagingE(model, result);//페이징
 	}
 
-	//내 근태+휴가 230111 안나 작성 : 휴가 미설정 / 230117 페이징 추가 안나
-	@Override
-	public void myListAtt(long no, Model model,Pageable pageable) {
-		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
-				
-		model.addAttribute("myAttList",pageResult
-				.stream()
-				.map(AttendanceMyListDTO::new)
-				.collect(Collectors.toList()));
-		
-		pagingD(model, pageResult);//페이징
-	}
-
-	//내 근태만 리스트 230111 안나 작성 / 230117 페이징 추가 안나
-	@Override
-	public void myListAttOnly(long no, Model model, Pageable pageable) {
-		
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
-		
-		model.addAttribute("myAttList",pageResult
-				.stream()
-				.map(AttendanceMyListDTO::new)
-				.collect(Collectors.toList()));
-		
-		pagingD(model, pageResult);//페이징
-	}
 
 	//사원별 근태 + 휴가 리스트 230111 안나 작성 : 휴가 미설정 / 230117 페이징 추가 안나
 	@Override
@@ -215,48 +188,43 @@ public class AttendanceServiceProc implements AttendanceService{
 		model.addAttribute("emNo", no);
 		model.addAttribute("dateStart", dateStart);
 		model.addAttribute("dateEnd", dateEnd);
-		model.addAttribute("check", 2);
 
 		pagingD(model, pageResult);//페이징
 		
 	}
 
-	//사원별 근태만 리스트 230111 안나 작성 / 230117 페이징 추가 안나
+	//내 근태+휴가 230111 안나 작성 : 휴가 미설정 / 230117 페이징 추가 안나
 	@Override
-	public void personalWork(long no, Model model, Pageable pageable) {
+	public void myListAtt(long no, Model model,Pageable pageable) {
 		
 		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noOrderByDateDesc(no, pageable);
 				
-		model.addAttribute("attList", pageResult
-				.stream().map(AttendanceListDTO::new)
+		model.addAttribute("myAttList",pageResult
+				.stream()
+				.map(AttendanceMyListDTO::new)
 				.collect(Collectors.toList()));
 		
-		model.addAttribute("attListEmp",emRepo.findAll());
-		model.addAttribute("emNo", no);
+		pagingD(model, pageResult);//페이징
+	}
+	
+	//내 근태+휴가 230111 + 230120 날짜별 검색 안나
+	@Override
+	public void myListAttDaySearch(long no, Model model, Pageable pageable, LocalDate dateStart, LocalDate dateEnd) {
+		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noAndDateBetweenOrderByDateDesc(no, dateStart, dateEnd, pageable);
+		
+		model.addAttribute("myAttList",pageResult
+				.stream()
+				.map(AttendanceMyListDTO::new)
+				.collect(Collectors.toList()));
 		
 		pagingD(model, pageResult);//페이징
 		
-	}
-
-	//사원별 근태만 리스트 + 230119 날짜별 검색 안나
-	@Override
-	public void personalWorkingDaySearch(long no, Model model, Pageable pageable, LocalDate dateStart,
-			LocalDate dateEnd) {
-		Page<DailyWorkingHoursEntity> pageResult = attRepo.findByEmployee_noAndDateBetweenOrderByDateDesc(no, dateStart, dateEnd, pageable);
-		
-		model.addAttribute("attList", pageResult
-				.stream().map(AttendanceListDTO::new)
-				.collect(Collectors.toList()));
-		
-		model.addAttribute("attListEmp",emRepo.findAll());
-		model.addAttribute("emNo", no);
 		model.addAttribute("dateStart", dateStart);
 		model.addAttribute("dateEnd", dateEnd);
 		model.addAttribute("check", 2);
 		
-		pagingD(model, pageResult);//페이징
-		
 	}
+
 
 
 }
