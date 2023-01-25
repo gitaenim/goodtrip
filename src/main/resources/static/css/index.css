@@ -163,3 +163,11 @@ tr.list-2 th {
 	padding-bottom: 1px;
 	background-color: #e0ffff;
 }
+.newEmployeesImg{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}

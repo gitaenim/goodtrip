@@ -5,20 +5,18 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import project.security.MyUserDetails;
 import project.service.AttendanceService;
 import project.service.CNCBoardService;
+import project.service.EmployeesService;
 import project.service.NoticeBoardService;
 import project.service.ScheduleService;
 import project.service.SuggestionBoardService;
-
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -38,6 +36,9 @@ public class LogController {
 	
 	@Autowired
 	private SuggestionBoardService suggestionBoardService;
+	
+	@Autowired
+	private EmployeesService employeesService;
 	
 	//로그인 페이지
 	@GetMapping("/login")
@@ -60,8 +61,11 @@ public class LogController {
 		
 		scheduleService.findAllByTomorrowForIndex(LocalDate.now().plusDays(1), model,empNo);
 		
+		employeesService.findAllByNewEMPForIndex(model);
+		
 		return "/index";
 	}
+	//인덱스 게시판 AJAX 기능
 	@GetMapping("/indexboard")
 	public ModelAndView indexboard(String select, ModelAndView modelAndView) {
 		if(select.equals("공지사항")) {

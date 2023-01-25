@@ -1,17 +1,13 @@
 package project.domain.repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
-import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 
 @Repository
@@ -44,6 +40,7 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	Page<EmployeesEntity> findAllByDeleteStatusAndNameContaining(boolean b, String keyword, Pageable pageable);
 
 	Page<EmployeesEntity> findAllByDeleteStatus(boolean b, Pageable pageable);
+
 
 
 

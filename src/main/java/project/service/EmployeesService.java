@@ -21,4 +21,6 @@ public interface EmployeesService {
 
 	void findemployee(long no, Model model);
 
+	void findAllByNewEMPForIndex(Model model);
+
 }

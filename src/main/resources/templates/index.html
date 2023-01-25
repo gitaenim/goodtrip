@@ -412,6 +412,14 @@
 			<section id="newEmp">
 				<!-- 신입사원 -->
 				<p class="subtitle">화제의 신입사원</p>
+				<div class="flex">
+						<ul th:each="list : ${NewEMPList}">
+							<li class="newEmployeesImg" th:style="|background-image: url('${list.imageNo.url}');|"></li>
+							<li th:text="${list.name}"></li>
+							<li th:text="'입사일'+${list.joinDate}"></li>
+						</ul>
+				</div>
+
 			</section>
 			<section id="awardEmp">
 				<!-- 우수사원 -->
