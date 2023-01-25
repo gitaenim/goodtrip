@@ -218,7 +218,8 @@
 						$('.new-weather_icon')
 								.append(
 										'<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 80px; width : 80px;"></i>');
-						$('.new-weather_description').prepend($weather_description);
+						$('.new-weather_description').prepend(
+								$weather_description);
 						$('.new-current_temp').prepend($Temp);
 						$('.new-humidity').prepend($humidity);
 						$('.new-wind').prepend($wind);
@@ -238,41 +239,17 @@
 	<div id="backIMG">
 		<section class="flex">
 			<div>
-				<section id="attendance">
-					<!-- 230111 출퇴근버튼 시작 안나 -->
-					<p class="subtitle">출근/퇴근 버튼</p>
-					<div class="flex around">
-						<button id="start-time">출근</button>
-						<button id="end-time">퇴근</button>
-					</div>
-					<div sec:authorize="isAuthenticated()" id="clock-in-out"
-						th:each="dto:${list}" class="flex around">
-						<div>
-							<p>출근시간 :</p>
-							<p id="start-time-today"
-								th:text="[+${#temporals.format(dto.clockIn, 'HH:mm:SS')}+]"></p>
-						</div>
-						<div>
-							<p>퇴근시간 :</p>
-							<p id="start-time-today" th:if="${dto.clockOut!=dto.clockIn}"
-								th:text="[+${#temporals.format(dto.clockOut, 'HH:mm:SS')}+]"></p>
-						</div>
+				<section id="approval">
+					<!-- 결제 리스트 보드 -->
+					<p class="subtitle">내 결제 리스트</p>
 
-					</div>
-					<!-- 230111 출퇴근버튼 끝 안나 -->
-				</section>
-				<section id="calendar">
-					<!-- 230111 문대현 -->
-					<!-- calendar 태그 -->
-					<div id='calendar-container'>
-						<div id='calendar' style="width: 320px"></div>
-					</div>
 				</section>
 			</div>
 			<div>
 				<section id="schedule" class="counting-list textcenter">
 					<!-- 금일일정 -->
-					<p class="subtitle goto-detail" onclick="gotoTodaySchedule()">금일 일정</p>
+					<p class="subtitle goto-detail" onclick="gotoTodaySchedule()">금일
+						일정</p>
 					<input type="hidden" th:value="${today}" id="today">
 					<table id="list" class="list-table">
 						<tr class="list-2">
@@ -295,7 +272,8 @@
 				</section>
 				<section id="tomorrowSchedule" class="counting-list">
 					<!-- 내일일정 -->
-					<p class="subtitle goto-detail" onclick="gotoTomorrowSchedule()">익일 일정</p>
+					<p class="subtitle goto-detail" onclick="gotoTomorrowSchedule()">익일
+						일정</p>
 					<input type="hidden" th:value="${tomorrow}" id="tomorrowDate">
 					<script type="text/javascript">
 						function gotoTomorrowSchedule() {
@@ -334,7 +312,7 @@
 								}
 							})
 						}
-						function removeclassToBTN(){
+						function removeclassToBTN() {
 							$("#notice-board").removeClass("board-target");
 							$("#cnc-board").removeClass("board-target");
 							$("#suggest-board").removeClass("board-target");
@@ -361,10 +339,35 @@
 				</section>
 			</div>
 			<div>
-				<section id="approval">
-					<!-- 결제 리스트 보드 -->
-					<p class="subtitle">내 결제 리스트</p>
+				<section id="attendance">
+					<!-- 230111 출퇴근버튼 시작 안나 -->
+					<p class="subtitle">출근/퇴근 버튼</p>
+					<div class="flex around">
+						<button id="start-time">출근</button>
+						<button id="end-time">퇴근</button>
+					</div>
+					<div sec:authorize="isAuthenticated()" id="clock-in-out"
+						th:each="dto:${list}" class="flex around">
+						<div>
+							<p>출근시간 :</p>
+							<p id="start-time-today"
+								th:text="[+${#temporals.format(dto.clockIn, 'HH:mm:SS')}+]"></p>
+						</div>
+						<div>
+							<p>퇴근시간 :</p>
+							<p id="start-time-today" th:if="${dto.clockOut!=dto.clockIn}"
+								th:text="[+${#temporals.format(dto.clockOut, 'HH:mm:SS')}+]"></p>
+						</div>
 
+					</div>
+					<!-- 230111 출퇴근버튼 끝 안나 -->
+				</section>
+				<section id="calendar">
+					<!-- 230111 문대현 -->
+					<!-- calendar 태그 -->
+					<div id='calendar-container'>
+						<div id='calendar' style="width: 320px"></div>
+					</div>
 				</section>
 			</div>
 		</section>
@@ -418,7 +421,7 @@
 				<p class="subtitle"
 					th:text="${#temporals.format(today,'MM월 dd일')}+' 날씨'">오늘날씨</p>
 				<!-- 서울 날씨 -->
-				<div 
+				<div
 					style="background-color: rgb(101, 178, 255); color: #fff; height: 100px; width: 540px; border-radius: 20px;">
 					<div style="float: left; margin-top: 10px; margin-left: 30px">
 						<div class="weather_icon"></div>
@@ -436,7 +439,8 @@
 							<div class="cloud"></div>
 						</div>
 					</div>
-					<div class="flex" style="float: right; margin-top: -20px;">
+					<div class="flex"
+						style="float: right; margin-top: -70px; position: relative; right: 260px;">
 						<div class="current_temp"
 							style="font-size: 40pt; margin-right: 10px"></div>
 						<div>
@@ -465,7 +469,8 @@
 							<div class="new-cloud"></div>
 						</div>
 					</div>
-					<div class="flex" style="float: right; margin-top: -20px;">
+					<div class="flex"
+						style="float: right; margin-top: -20px; margin-left: 10px">
 						<div class="new-current_temp"
 							style="font-size: 40pt; margin-right: 10px"></div>
 						<div>
