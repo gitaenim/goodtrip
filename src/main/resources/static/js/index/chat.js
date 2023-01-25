@@ -59,7 +59,7 @@ function inputTagString(text){
 	var now=new Date();
 	var ampm=(now.getHours()>11)?"오후 ":"오전 ";
 	var minutes = now.getMinutes();
-	if(minutes<10) minutes="0"+now.getMinutes;
+	if(minutes<10) minutes="0"+minutes;
 	var time= ampm + now.getHours()%12+":"+minutes;
 	var message=`
 		<div class="msg user flex end">

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-	<div class="flex center date" th:text="${today}"></div>
+	<div class="flex center date" th:text="${today}" th:if="${answer}==안녕하세요"></div>
 	<div class="msg bot flex">
-		<div  class="icon">
+		<div class="icon">
 			<img src="/image/icon/robot.png">
 		</div>
 		<div class="message">
