@@ -1,10 +1,7 @@
 package project.service;
 
-import java.util.List;
-
 import org.springframework.ui.Model;
 
-import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.DTO.PersonnelEvaDTO;
 
@@ -21,5 +18,7 @@ public interface PersonnelEvaService {
 	void findAllByOrderByNoDesc(Model model);
 	
 	void findByEmpGrade(String empGrade);
+
+	void findAllByAwardEMPForIndex(Model model);
   
 }
