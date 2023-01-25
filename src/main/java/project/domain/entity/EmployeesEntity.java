@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.enums.DepartmentRank;
@@ -38,6 +39,7 @@ import project.enums.MyRole;
 @Table(name = "employees")
 @Entity
 @Getter
+@Setter
 //230104 안나 생성
 //230109 한아 수정 : phone, extension 데이터 타입 변경 long -> String
 //230109 한아 수정 : joinDate, resignDate, birthDate 데이터 타입 변경 LocalDateTime -> LocalDate

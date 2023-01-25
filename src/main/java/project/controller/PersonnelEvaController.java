@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import project.domain.DTO.EmployeesDetailDTO;
+import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.DTO.PersonnelEvaDTO;
 import project.domain.repository.DepartmentsEntityRepository;
+import project.service.EmployeesService;
 import project.service.OrganizationChartService;
 import project.service.PersonnelEvaService;
 
@@ -29,13 +34,17 @@ public class PersonnelEvaController {
 	private DepartmentsEntityRepository departmentRepo;
 	
 	@Autowired
-	PersonnelEvaService personnelEvaService;
+	private PersonnelEvaService personnelEvaService;
+	
+	@Autowired
+	private EmployeesService employeesService;
 	
 	// 인사관리 평가 메인리스트페이지  //변경햇슴  1/17 수민
 	@GetMapping("/personnelEvaList")
 	public String personnelEvaMain(Model model, @PageableDefault(size = 10)Pageable pageable) {
 		model.addAttribute("department", departmentRepo.findAll());
 		organizationChartService.findAllByDeleteStatusFalse(model,pageable);	
+		employeesService.findByEmpGrade("A", model);
 		return "personnel/persommelEvaList";
 	}
 	
@@ -59,11 +68,9 @@ public class PersonnelEvaController {
 	
 	@PostMapping("/personnelEva/save")
 	@ResponseBody
-	public String personnelEvaSave(@RequestBody PersonnelEvaDTO dto ) {
+	public String personnelEvaSave(@RequestBody PersonnelEvaDTO dto, EmployeesUpdateDTO empDto ) {
 		
-		
-		
-		int num = personnelEvaService.save(dto);
+		int num = personnelEvaService.save(dto , empDto);
 		Gson gson = new Gson();
 		
 		JsonObject jsonObject =new JsonObject();
@@ -78,6 +85,27 @@ public class PersonnelEvaController {
 		String result = gson.toJson(jsonObject);
 		
 		return result;
+	}
+	
+	/*
+	  @PostMapping("/personnelEva/bestEmp")
+	  
+	  @ResponseBody public String findEmpGet(@RequestBody PersonnelEvaDTO dto) {
+	  
+	  List<EmployeesDetailDTO> bestList = personnelEvaService.findByEmpGrade("A");
+	  
+	  if(bestList.size() == 0 ) return new String();
+	  
+	  Gson gson = new Gson(); String result = gson.toJson(bestList);
+	  
+	 * return result;
+	 * 
+	 * }
+	 */
+	
+	@GetMapping("/personnelEva/modal")
+	public String bestListModal() {
+		return"/personnel/bestEmpModal";
 	}
 	
 

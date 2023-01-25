@@ -71,15 +71,19 @@ th select option, div input{
 	 padding-bottom: 10px;
 	 color: #4b99da;
 }
-
-
-.pageBTN {
-	text-align: center;
+/* 등급순 정렬  */
+.list-thead tr.Evalist-tr th:not(:nth-child(6)){
+	display: none;
 }
-.pageBTN ul li{
+
+.list-thead tr th button{
 	padding: 10px;
 }
-.pageBTN ul li a{
-	color: #4B99DA;
+.Eva-ul>li a{
+	color:  #61a8e9;
 }
-
+.Eva-ul>li{
+	padding: 10px;
+	
+	
+}

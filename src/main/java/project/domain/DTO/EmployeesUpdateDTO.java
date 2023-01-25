@@ -1,6 +1,7 @@
 package project.domain.DTO;
 
 import lombok.Data;
+import project.domain.entity.EmployeesEntity;
 import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
@@ -20,6 +21,15 @@ public class EmployeesUpdateDTO {
 	private String birthDate;//생년월일
 	private String mainWork;//주 업무
 	private long salary;//급여
+	private String empGrade; //인사평가 등급
+	
+
+	public EmployeesEntity addEmpGrade(long no, String grade) {
+		return EmployeesEntity.builder()
+				.no(no)
+				.empGrade(grade)
+				.build();
+	}
+
 	
 }
-

@@ -13,10 +13,12 @@
 	<div class="wrap list-1">
 		<section>
 			<div class="flex center">
-				<p>경조사</p>
+				<a class="list-a" href="/Board/cncList">경조사</a>
 			</div>
 			<div class="block" sec:authorize="isAnonymous()"></div>
-			<a sec:authorize="isAuthenticated()" class="flex right list-button" href="/Board/cncWrite">글쓰기</a>
+			<div class="flex right">
+				<a sec:authorize="isAuthenticated()" class="list-button" href="/Board/cncWrite">글쓰기</a>
+			</div>
 			<div class="flex center back-list">
 				<table  id="list" class="list-table">
 					<tr class="list-2">
@@ -27,11 +29,11 @@
 						<th>경조사일</th>
 					</tr>
 					<tbody>
-					<tr th:if="${nullcheck == true}">
+					<tr th:if="${cncList.isEmpty()}">
 						<td colspan="5">해당 게시판에 등록된 글이 없습니다.</td>
 					</tr>
-					<tr th:if="${nullcheck == false}" th:each="list : ${cncList}"  th:classappend="${list.eventDate < today}? 'today' "  >
-						<td th:text="${list.cncNo}">번호<td>
+					<tr th:if="${cncList.isEmpty()}==false" th:each="list : ${cncList}" th:classappend="${list.eventDate < today}? 'today' ">
+						<td th:text="${list.cncNo}"><td>
 						<td><a th:href="@{/cncDetail(cncNo=${list.cncNo})}">[[${list.title}]]</a></td>
 					<!-- 	<td><a th:href="|/cncDetail?cncNo=${list.cncNo}|">[[${list.title}]]</a></td> -->
 						<td th:text="${list.registNo.name}"></td>
@@ -42,7 +44,7 @@
 				</table>
 			</div>
 		</section>
-		   <div class="search center">
+		  <div class="search center">
 			<form action="" method="get" class="flex around">
 				<select class="searchType" name="searchType">
 					<option value="title">제목으로 검색</option>
@@ -54,15 +56,13 @@
 				<div><a class="list-button" href="/Board/cncList">[전체보기]</a></div>
 			</form>
 		</div>
-		
 		<div class="pageBTN" th:if="${cncList.getTotalPages}>0">
-	    	<a th:if="${cncList.hasPrevious()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()}|">[이전]</a>
-	    	<a th:if="${cncList.getNumber()-1}>0" th:text="${cncList.getNumber()-1}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()-1}|">현재페이지-2</a>
-	    	<a th:if="${cncList.getNumber()}>0" th:text="${cncList.getNumber()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()}|">현재페이지-1</a>
+	    	<a th:if="${cncList.hasPrevious()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()}&search=${search}&searchType=${searchType}|">[이전]</a>
+	    	<a th:if="${cncList.getNumber()}>0" th:text="${cncList.getNumber()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()}&search=${search}&searchType=${searchType}|">현재페이지-1</a>
 	    	<a id="currentPage" th:text="${cncList.getNumber()+1}">현재페이지</a>
-	    	<a th:if="${cncList.getNumber()+2<=cncList.getTotalPages()}" th:text="${cncList.getNumber()+2}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+2}|">현재페이지+1</a>
-	    	<a th:if="${cncList.getNumber()+3<=cncList.getTotalPages()}" th:text="${cncList.getNumber()+3}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+3}|">현재페이지+2</a>
-	    	<a th:if="${cncList.hasNext()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+2}|">[다음]</a>
+	    	<a th:if="${cncList.getNumber()+2<=cncList.getTotalPages()}" th:text="${cncList.getNumber()+2}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+2}&search=${search}&searchType=${searchType}|">현재페이지+1</a>
+	    	<a th:if="${cncList.getNumber()+3<=cncList.getTotalPages()}" th:text="${cncList.getNumber()+3}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+3}&search=${search}&searchType=${searchType}|">현재페이지+2</a>
+	    	<a th:if="${cncList.hasNext()}" th:href="|/Board/cncList?pageNum=${cncList.getNumber()+2}&search=${search}&searchType=${searchType}|">[다음]</a>
     	</div> 
 	</div>
 </main>
