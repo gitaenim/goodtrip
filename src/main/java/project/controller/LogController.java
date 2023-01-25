@@ -15,6 +15,7 @@ import project.service.AttendanceService;
 import project.service.CNCBoardService;
 import project.service.EmployeesService;
 import project.service.NoticeBoardService;
+import project.service.PersonnelEvaService;
 import project.service.ScheduleService;
 import project.service.SuggestionBoardService;
 
@@ -40,6 +41,9 @@ public class LogController {
 	@Autowired
 	private EmployeesService employeesService;
 	
+	@Autowired
+	private PersonnelEvaService personnelEvaService;
+	
 	//로그인 페이지
 	@GetMapping("/login")
     public String login() {
@@ -62,6 +66,8 @@ public class LogController {
 		scheduleService.findAllByTomorrowForIndex(LocalDate.now().plusDays(1), model,empNo);
 		
 		employeesService.findAllByNewEMPForIndex(model);
+		
+		personnelEvaService.findAllByAwardEMPForIndex(model);
 		
 		return "/index";
 	}

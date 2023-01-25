@@ -82,6 +82,7 @@ public class EmployeesServiceProcess implements EmployeesService {
 		model.addAttribute("mypage",dto);
 	}
 
+	//인덱스에 뿌려 줄 신입사원 리스트 조회
 	@Override
 	public void findAllByNewEMPForIndex(Model model) {
 		Pageable page = PageRequest.of(0, 3, Direction.DESC, "joinDate");

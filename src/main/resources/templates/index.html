@@ -411,18 +411,24 @@
 			<section id="newEmp">
 				<!-- 신입사원 -->
 				<p class="subtitle">화제의 신입사원</p>
-				<div class="flex">
-						<ul th:each="list : ${NewEMPList}">
+				<div class="flex around textcenter">
+						<ul th:each="list : ${NewEMPList}" class="indexEMPInfo">
 							<li class="newEmployeesImg" th:style="|background-image: url('${list.imageNo.url}');|"></li>
 							<li th:text="${list.name}"></li>
-							<li th:text="'입사일'+${list.joinDate}"></li>
+							<li th:text="'입사일 : '+${#temporals.format(list.joinDate,'MM월 dd일')}"></li>
 						</ul>
 				</div>
-
 			</section>
 			<section id="awardEmp">
 				<!-- 우수사원 -->
 				<p class="subtitle">이달의 우수사원</p>
+				<div class="flex around textcenter">
+						<ul th:each="list : ${AwardEMPList}" class="indexEMPInfo">
+						<li class="newEmployeesImg" th:style="|background-image: url('${list.imageNo.url}');|"></li>
+							<li th:text="${list.name}"></li>
+						<li th:text="'입사일 : '+${#temporals.format(list.joinDate,'MM월 dd일')}"></li>
+						</ul>
+				</div>
 			</section>
 			<section id="Today-weather">
 				<p class="subtitle"

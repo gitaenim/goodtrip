@@ -1,10 +1,15 @@
 package project.service.proc;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -89,6 +94,22 @@ public class PersonnelServiceProc implements PersonnelEvaService {
 	
 	@Override
 	public void findByEmpGrade(String empGrade) {
+		
+	}
+
+	//인덱스에 출력할 우수사원 리스트 조회
+	@Override
+	public void findAllByAwardEMPForIndex(Model model) {
+		Pageable page = PageRequest.of(0, 3, Direction.DESC, "totalScore");
+		
+		Page<PersonnelEvaEntity> EMPlist = perRepo.findAll(page);
+		
+		List<EmployeesEntity> list = new ArrayList<>();
+		for (PersonnelEvaEntity personnelEvaEntity : EMPlist) {
+			EmployeesEntity data = empRepo.findById(personnelEvaEntity.getEmpNo()).orElseThrow();
+			list.add(data);
+		}
+		model.addAttribute("AwardEMPList", list);
 	}
 
 };
