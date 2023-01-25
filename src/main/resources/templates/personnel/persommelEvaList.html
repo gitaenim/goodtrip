@@ -106,11 +106,12 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				          	    </a>			
 				          	    <a th:if="${#authentication.principal.departmentNo.departmentName} != ${list.departmentNo.departmentName}" th:text="x"></a>
 							 </td>
-							 <td class="group-non" sec:authorize="hasAnyRole('ROLE_CEO')"> 
-				           	    <a th:unless="${#authentication.principal.Name} == ${list.name}"
-				          	       th:href="|/personnelEva/${list.no}|">인사평가
-				          	    </a>			
-							 </td>
+							 <td class="group-non" sec:authorize="hasAnyRole('ROLE_CEO')">
+								<a th:unless="${#authentication.principal.Name} == ${list.name}"
+									th:if="${list.positionRank} == 1"
+									th:href="|/personnelEva/${list.no}|">인사평가
+								</a>
+							</td>
 							</tr>
 						</tbody>
 					</table>
