@@ -23,17 +23,14 @@ public interface AttendanceService {
 
 	void myListAtt(long no, Model model, Pageable pageable);
 
-	void myListAttOnly(long no, Model model, Pageable pageable);
-
 	void personalAtt(long no, Model model, Pageable pageable);
-
-	void personalWork(long no, Model model, Pageable pageable);
 
 	void findAllByDepartmentNo(Model model, Long department, Pageable pageable);
 
 	void personalAttSearch(long no, Model model, Pageable pageable, LocalDate dateStart, LocalDate dateEnd);
 
-	void personalWorkingDaySearch(long no, Model model, Pageable pageable, LocalDate dateStart, LocalDate dateEnd);
+	void myListAttDaySearch(long no, Model model, Pageable pageable, LocalDate dateStart, LocalDate dateEnd);
+
 
 
 

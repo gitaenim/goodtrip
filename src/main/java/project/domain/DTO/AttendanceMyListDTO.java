@@ -41,15 +41,8 @@ public class AttendanceMyListDTO {
 				this.workingHour = Long.toString(workingHourS / 3600 - 1) + "시간" + Long.toString(workingHourS % 3600 / 60) + "분";
 			}
 		}
+		this.status =e.getStatus();
 		//휴가 넣어야함
-		if(clockIn==null) {
-			this.status = "미출근";
-		} else if(e.getClockOut().equals(e.getClockIn())){
-			this.status = "근무중";
-		} else {
-			this.status = "근무종료";
-		}
-		
 	}
 
 

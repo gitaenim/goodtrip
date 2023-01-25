@@ -121,7 +121,6 @@
 				} // endResult if문 끝
 			}//퇴근조건 if문 끝		
 		}); //퇴근버튼 클릭 끝
-    selectNotice();
 	});//function 끝
 </script>
 <!-- 230111 출퇴근시간 스크립트 끝 안나 -->
@@ -131,7 +130,7 @@
 	<section class="flex">
 		<div>
 			<section id="attendance">
-				<!-- 230111 출퇴근버튼 시작 안나 -->
+				<!-- 230111 출퇴근버튼 시작 안나 230120 수정 안나 -->
 				<div class="flex around">
 					<button id="start-time">출근</button>
 					<button id="end-time">퇴근</button>
@@ -140,13 +139,12 @@
 					th:each="dto:${list}" class="flex around">
 					<div>
 						<p>출근시간 :</p>
-						<p id="start-time-today"
-							th:text="[+${#temporals.format(dto.clockIn, 'HH:mm:SS')}+]"></p>
+						<input id="status" type="hidden" th:value="${dto.status}">
+						<p id="start-time-today" th:text="${#temporals.format(dto.clockIn, 'HH:mm:SS')}"></p>
 					</div>
 					<div>
 						<p>퇴근시간 :</p>
-						<p id="start-time-today" th:if="${dto.clockOut!=dto.clockIn}"
-							th:text="[+${#temporals.format(dto.clockOut, 'HH:mm:SS')}+]"></p>
+						<p id="end-time-today" th:text="${#temporals.format(dto.clockOut, 'HH:mm:SS')}"></p>
 					</div>
 
 				</div>

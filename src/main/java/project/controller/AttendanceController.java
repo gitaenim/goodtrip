@@ -79,14 +79,14 @@ public class AttendanceController {
 	//직원별 근태 뿌려주기 230111 수정 안나 230117 페이징 추가 안나
 	@GetMapping("/personalWorkingDay/{no}")
 	public String personalWorkingDay(@PathVariable long no, Model model, @PageableDefault(size = 10)Pageable pageable) {
-		service.personalWork(no, model, pageable);
+		service.personalAtt(no, model, pageable);
 		return "AttendanceMgmt/personalWorkingDay";
 	}
 	
 	//직원별 근태 뿌려주기 + 230119 날짜별 검색 안나
 	@GetMapping("/personalWorkingDay/dateSearch/{no}")
 	public String personalWorkingDayDateSearch(@PathVariable long no, Model model, @PageableDefault(size = 10)Pageable pageable, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateStart, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateEnd) {
-		service.personalWorkingDaySearch(no, model, pageable, dateStart, dateEnd);
+		service.personalAttSearch(no, model, pageable, dateStart, dateEnd);
 		return "AttendanceMgmt/personalWorkingDay";
 	}
 	
@@ -97,11 +97,27 @@ public class AttendanceController {
 		return "AttendanceMgmt/myAttendance";
 		
 	}
+	
+	//내 근태+휴가 뿌려주기 + 230120 날짜별 검색 안나
+	@GetMapping("/myAttendance/dateSearch")
+	public String myAttendanceDateSearch(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model, @PageableDefault(size = 10)Pageable pageable, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateStart, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateEnd) {
+		service.myListAttDaySearch(myUserDetails.getNo(), model, pageable, dateStart, dateEnd);
+		return "AttendanceMgmt/myAttendance";
+	}
 
 	//내 근태만 뿌려주기 230111 수정 안나 230117 페이징 추가 안나
 	@GetMapping("/myWorkingDay")
 	public String myWorkingDay(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model, @PageableDefault(size = 10)Pageable pageable) {
-		service.myListAttOnly(myUserDetails.getNo(), model, pageable);
+		service.myListAtt(myUserDetails.getNo(), model, pageable);
 		return "AttendanceMgmt/myWorkingDay";
 	}
+	
+	//내 근태만 뿌려주기 + 230120 날짜별 검색 안나
+	@GetMapping("/myWorkingDay/dateSearch")
+	public String myWorkingDayDateSearch(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model, @PageableDefault(size = 10)Pageable pageable, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateStart, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate dateEnd) {
+		service.myListAttDaySearch(myUserDetails.getNo(), model, pageable, dateStart, dateEnd); //근태+휴가와 동일 서비스
+		return "AttendanceMgmt/myWorkingDay";
+	}
+	
+	
 }
