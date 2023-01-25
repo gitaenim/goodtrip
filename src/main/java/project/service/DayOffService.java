@@ -20,6 +20,12 @@ public interface DayOffService {
 
 	void appList(DepartmentsEntity departmentNo, Model model);
 
+	void delete(long dayOffNo);
+
+	void approvalList2(Model model);
+
+	void detail2(long dayOffNo, Model model);
+
 	//void approval(DayOffAppDTO dto, long dayOffNo);
 
 

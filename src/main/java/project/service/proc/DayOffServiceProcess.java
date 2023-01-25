@@ -1,5 +1,7 @@
 package project.service.proc;
 
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
@@ -14,10 +16,12 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
+import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
+import project.domain.entity.ReplySuggestionsEntity;
 import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DaysOffNumbersEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
@@ -42,13 +46,42 @@ public class DayOffServiceProcess implements DayOffService {
 	public void save(DayOffInsertDTO dto) {
 		
 		EmployeesEntity emp=employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
+		
 		DaysOffNumbersEntity numbers=daysOffNumbersRepo.findByNo(emp);		
 		if(numbers==null) {
 			numbers=daysOffNumbersRepo.save(DaysOffNumbersEntity.builder()
 				 .no(emp).totalDays(15).useDays(dto.getUseDays()).build()); 
 		}
-		
-		dayOffRepo.save(dto.toDayOffEntity(emp));
+		//신청시 휴가시작일이 이미 등록되있는 휴가날짜사이에 들어있는지 체크해서 없을경우 저장
+		boolean check=true;		
+		List<DayOffEntity> list = dayOffRepo.findByEmployeeNo(emp);		
+		for (DayOffEntity dayOffEntity : list) {
+			List<LocalDate> days = getDatesBetweenTwoDates(dayOffEntity.getStartDate(), dayOffEntity.getEndDate());
+			for (LocalDate localDate : days) {
+				if(localDate.isEqual(dto.getStartDate())) {
+					check=false;
+				}
+			}
+			if(dayOffEntity.getEndDate().isEqual(dto.getStartDate())) {
+				check=false;
+			}
+		}
+		if(check) {
+			dayOffRepo.save(dto.toDayOffEntity(emp));
+		}else {
+			
+		}
+	}
+	
+	/**
+	 * 두 날짜 사이의 모든 날짜를 받아오는 기능(시작날짜부터 종료일 전날까지 리스트로 받아짐)
+	 * 
+	 * @param startDate 시작일(LoclaDate 타입)
+	 * @param endDate   종료일(LoclaDate 타입)
+	 * @return 두 날짜 사이의 모든 날짜 리스트를 반환
+	 */
+	public List<LocalDate> getDatesBetweenTwoDates(LocalDate startDate, LocalDate endDate) {
+		return startDate.datesUntil(endDate).collect(Collectors.toList());
 	}
 	
 	//휴가 신청일수 업데이트
@@ -86,10 +119,9 @@ public class DayOffServiceProcess implements DayOffService {
 		
 	}
 
-	//결재용 휴가 디테일	
+	//부서장 결재 디테일	
 	@Override
-	public void detail(long dayOffNo, Model model) {
-		
+	public void detail(long dayOffNo, Model model) {		
 		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();		
 		model.addAttribute("dayOffDetail", ent);		
 		model.addAttribute("detailEmp", ent.getEmployeeNo());
@@ -104,17 +136,28 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno));
 		
 	}
-	/*
-	//결재 승인처리
+
+	//결재 반려(삭제)
 	@Override
-	public void approval(DayOffAppDTO dto, long dayOffNo) {
-		
-		EmployeesEntity emp = employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
-		
-		dayOffRepo.save(dto.toDayOffApproval(emp, dayOffNo));		
-		
+	public void delete(long dayOffNo) {		
+		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
+		dayOffRepo.deleteById(dayOffNo);		
 	}
-	*/
+
+	//대표 결재리스트
+	@Override
+	public void approvalList2(Model model) {
+		List<DayOffEntity> appList = dayOffRepo.findAll();
+		model.addAttribute("appCEOList", appList);	
+	}
+
+	//대표 결재 디테일
+	@Override
+	public void detail2(long dayOffNo, Model model) {
+		DayOffEntity ent=dayOffRepo.findById(dayOffNo).orElseThrow();		
+		model.addAttribute("dayOffDetail", ent);		
+		model.addAttribute("detailEmp", ent.getEmployeeNo());		
+	}
 
 	
 }

@@ -21,7 +21,7 @@
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="day-off-main">
 		<p>휴가 신청서</p>
-		<form th:action="|/approval/${dayOffDetail.dayOffNo}|">
+		<form th:action="|/approval2/${dayOffDetail.dayOffNo}|">
 			<section class="flex between">
 				<table id="table-1">
 					<tr>
@@ -95,7 +95,7 @@
 		<form th:action="|/approvalDelete/${dayOffDetail.dayOffNo}|" method="post">
 			<ul class="btn-return">
 				<li><button>반려하기</button></li>
-				<li><a href="/approvalList">뒤로가기</a></li>
+				<li><a href="/approvalList2">뒤로가기</a></li>
 			</ul>
 		</form>
 	</div>

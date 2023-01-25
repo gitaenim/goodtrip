@@ -26,7 +26,7 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 			<div class="flex att-btn">
 				<button><span class="small-circle-selected"></span>근태</button>
 				<a th:href="|/personalWorkingDay/${emNo}|"><button><span class="small-circle"></span>근무</button></a>
-				<button onclick="location.href = 'personalDayOff'"><span class="small-circle"></span>휴가</button>
+				<a th:href="|/personalDayOff/${emNo}|"><button><span class="small-circle"></span>휴가</button></a>
 			</div>
 			<div class="search center flex">
 				<form th:action="|/personalAttendance/dateSearch/${emNo}|" method="get">

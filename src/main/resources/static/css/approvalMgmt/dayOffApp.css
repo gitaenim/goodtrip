@@ -75,7 +75,7 @@
 	background: url("/image/icon/circle-red.png") no-repeat center;
 	color: #e60012;
 	font-weight: bold;
-	font-size: 17px;
+	font-size: 14px;
 }
 
 #table-2 tr:last-child>td>span.head,
@@ -151,22 +151,43 @@
 	display: block;
 }
 .btn-approval {
-	width: 280px;
-	margin: 0 auto;
-	justify-content: space-between;
+	position: relative;
 }
-.btn-approval li {
+.btn-approval button {
+	position: absolute;
+	left: 37%;
+	line-height: 36px;
+	background-color: #4b99da;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 20px;
+	width: 5em;
+	color: #fff;
+}
+.btn-return {
+	position: relative;
+}
+.btn-return li button {
+	position: absolute;
+	left: 47%;
+	line-height: 36px;
+	background-color: #4b99da;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 20px;
+	width: 5em;
+	color: #fff;
+}
+.btn-return li:last-child {
+	position: absolute;
+	left: 57%;
 	line-height: 36px;
 	background-color: #4b99da;
 	border-radius: 10px;
 	text-align: center;
 	margin-top: 20px;
 }
-.btn-approval li button {
-	width: 5em;
-	color: #fff;
-}
-.btn-approval li a {
+.btn-return li a {
 	width: 5em;
 	color: #fff;
 	display: block;
