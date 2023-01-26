@@ -26,9 +26,11 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' } //komoran
 }
 
 dependencies {
+	implementation 'com.github.shin285:KOMORAN:3.3.4' //komoran
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'

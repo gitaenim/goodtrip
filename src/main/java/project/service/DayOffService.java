@@ -32,6 +32,11 @@ public interface DayOffService {
 
 	void findAllByAuthorizeStatus(Model model, String status);
 
+	void delete(long dayOffNo);
+
+	//void approval(DayOffAppDTO dto, long dayOffNo);
+
+
 
 
 }

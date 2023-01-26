@@ -5,10 +5,12 @@ import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import project.domain.entity.EmployeesEntity;
 
 @Getter
 @Setter
+@ToString
 public class EmployeesDetailDTO {
 	/* 230113 한아 작성 */
 	
@@ -24,10 +26,11 @@ public class EmployeesDetailDTO {
 	private String extension;//내선번호
 	private LocalDate birthDate;//생년월일
 	private String mainWork;//주 업무
-	private long salary;//급여
+	private String salary;//급여
 	private boolean deleteStatus;//삭제여부
 	private int editAuthority;//수정권한
 	private String yesorno;//수정권한이있나요?
+	private String empGrade; //인사평가 등급
 	
 	public String phone_format(String number) { //detail에서 보여질때 formatting
 	      String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
@@ -48,11 +51,12 @@ public class EmployeesDetailDTO {
 		this.extension = ent.getExtension();
 		this.birthDate = ent.getBirthDate();
 		this.mainWork = ent.getMainWork();
-		this.salary = ent.getSalary();
+		this.salary = sformatter.format(ent.getSalary());
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
-		if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
-		
+		if(this.editAuthority==1||this.editAuthority==3) {yesorno="Y";} else {yesorno="N";}
+		//this.empGrade = ent.getEmpGrade();
+
 	}
 	
 	

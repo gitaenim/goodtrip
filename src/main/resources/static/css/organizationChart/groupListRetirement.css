@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .list-1{
-	padding: 1.5em;
+	padding: 4.5em;
 }
 .right {
 	justify-content: flex-end;
@@ -10,7 +10,7 @@
 .list-1>section>div:first-child>a{
 	padding: 10px;
     display: inline-block;
-    background-color: #4b99da;
+    background-color: #888;
     border-radius: 15px;
     font-size: 20px;
     color: white;

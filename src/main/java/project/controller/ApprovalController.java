@@ -94,7 +94,7 @@ public class ApprovalController {
 		service.detail2(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp2";
 	}
-	
+
 	//부서장 결재승인
 	@Transactional
 	@GetMapping("/approval/{dayOffNo}")
@@ -109,6 +109,27 @@ public class ApprovalController {
 	@Transactional
 	@GetMapping("/approval2/{dayOffNo}")
 	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
+		return "redirect:/approvalList";
+	}
+	
+	//결재 반려(삭제)
+//	@PostMapping("/approvalDelete")
+//	public String approvalDelete(long dayOffNo) {
+//		service.delete(dayOffNo);
+//		return "redirect:/approvalList";
+//	}
+	
+	@PostMapping("/approvalDelete/{dayOffNo}")
+	public String approvalDelete(@PathVariable long dayOffNo) {
+		dayOffRepo.deleteById(dayOffNo);
+		return "redirect:/approvalList";
+	}
+	
+	//대표 결재승인
+	@Transactional
+	@GetMapping("/approval2/{dayOffNo}")
+	public String approval23(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
 		return "redirect:/approvalList2";
 	}

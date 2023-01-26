@@ -20,7 +20,9 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
+
 import project.domain.entity.BoardCNCEntity;
+
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
@@ -217,6 +219,14 @@ public class DayOffServiceProcess implements DayOffService {
 	public void findAllByAuthorizeStatus(Model model, String status) {
 		System.out.println("status : "+status);
 		
+	}
+
+	//결재 반려(삭제)
+	@Override
+	public void delete(long dayOffNo) {
+		
+		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
+		dayOffRepo.deleteById(dayOffNo);		
 	}
 
 	

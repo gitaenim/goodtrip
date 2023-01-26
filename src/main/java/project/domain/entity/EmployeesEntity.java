@@ -26,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.enums.DepartmentRank;
@@ -38,6 +39,7 @@ import project.enums.MyRole;
 @Table(name = "employees")
 @Entity
 @Getter
+@Setter
 //230104 안나 생성
 //230109 한아 수정 : phone, extension 데이터 타입 변경 long -> String
 //230109 한아 수정 : joinDate, resignDate, birthDate 데이터 타입 변경 LocalDateTime -> LocalDate
@@ -153,12 +155,14 @@ public class EmployeesEntity {
 	public EmployeesEntity updateDeleteStatus(EmployeesDeleteDTO dto) {
 		this.deleteStatus = true;
 		this.resignDate = LocalDate.now();
+		this.editAuthority = MyRole.NONE;
 		return null;
 	}
 	//퇴직 처리 취소
 	public EmployeesEntity updateRollbackStatus(EmployeesUpdateDTO dto) {
 		this.deleteStatus = false;
 		this.resignDate = null;
+		this.editAuthority = MyRole.EMPLOYEE;
 		return null;
 	}
 	//사원 정보 수정
@@ -178,12 +182,10 @@ public class EmployeesEntity {
 		this.resignDate = LocalDate.parse(dto.getResignDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		return null;
 	}
-	//부서장 부서 변경
-	//public EmployeesEntity updateEmployeeDepartment(long no) {
-	//	this.departmentNo = DepartmentsEntity.builder().departmentNo(no).build();
-	//	return null;
-	//}
-	
-	
+	public EmployeesEntity changeHeadPosition() {
+		this.position = DepartmentRank.DepartmentManager;
+		this.positionRank = 1;
+		return null;
+	}
 
 }

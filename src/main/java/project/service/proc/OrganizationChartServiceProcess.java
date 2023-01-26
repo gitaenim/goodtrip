@@ -7,17 +7,20 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import project.domain.DTO.EmployeesDetailDTO;
 import project.domain.DTO.EmployeesDetailUpdateDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
+import project.domain.DTO.PageDTO;
 import project.domain.entity.DepartmentsEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.DepartmentsEntityRepository;
-import project.domain.entity.PersonnelEvaEntity;
 import project.domain.repository.EmployeesEntityRepository;
 import project.domain.repository.PersonnelEvaRepository;
 import project.service.OrganizationChartService;
@@ -36,17 +39,19 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	PersonnelEvaRepository personnelEvaRepo;
 
 
-	//근무중인 사원 조회(Default)
+	//전체 리스트 페이징
 	@Override
-	public void findAllByDeleteStatusFalse(Model model, Pageable pageable) {
-		Page<EmployeesEntity> pageResult = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pageable);
+	public void listForAjax(ModelAndView mv, int page) {
+		int rowTotal = employeesRepo.countAllByDeleteStatus(false); //총 사원 수
+		System.out.println("총 사원 수 : "+rowTotal);
+		int size = 10; //한 페이지에 보여줄 게시글 수
+		Pageable pa = PageRequest.of(page-1, size);
+		Page<EmployeesEntity> result = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pa);
+		//페이지정보
+		PageDTO pageInfo = PageDTO.getInstance(page, rowTotal, size, 5);
 		
-		model.addAttribute("list1",pageResult);
-		
-		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
-		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
-		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
-		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+		mv.addObject("list1", result.getContent());
+		mv.addObject("pi", pageInfo);
 	}
 	
 	//퇴직처리된 사원 조회
@@ -112,20 +117,24 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		List<EmployeesEntity> eent = employeesRepo.findAll();
 		
 		List<String> str = new ArrayList<>(); //사용 전에 초기화 꼬옥 시켜주자(자리 만들어주기)
+		List<Long> headinfo = new ArrayList<>(); //사용 전에 초기화 꼬옥 시켜주자(자리 만들어주기)
 		
 		for(DepartmentsEntity d : dent) {//부서장 이름과 동일한 이름을 가진 사원 이미지url 가져오기
 			for(EmployeesEntity e : eent) {
 				if(d.getDepartmentHead().equals(e.getName())) {
 					System.err.println(d.getDepartmentHead());
+					headinfo.add(e.getNo());
+					System.out.println(e.getNo());
 					str.add(e.getImageNo().getUrl());
-				} 
+				}
 			}
 			if(d.getDepartmentHead().equals("미정")){
 				str.add("/image/icon/vacant.png");
+				headinfo.add(0L);
 			}
 		}
-//		//System.err.println(str.toString());
 		model.addAttribute("images", str);
+		model.addAttribute("no", headinfo);
 
 	}
 
@@ -134,5 +143,48 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 		model.addAttribute("treelist", employeesRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(no, false));
 
 	}
+
+  //검색하기
+  @Override
+  public void findAllList(int pageNum, String search, String searchType, Model model) {
+	//한 페이지에 표현해줄 리스트 갯수
+	int pageSize = 10;
+	
+	// 리스트 페이지에 출력해줄 데이터리스트
+	Page<EmployeesEntity> list = null;
+	
+	// 페이징기능(페이지인덱스번호,페이지 사이즈,정렬방식,정렬할 컬럼이름)
+	Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.ASC, "positionRank");
+	
+	if (search == null) {
+		// 만약 검색한 내용이 없다면 전체 리스트 정보 가져오기
+		list = employeesRepo.findAll(page);
+	} else {
+	
+		if (searchType.equals("name")) {
+			// 만약 검색한 내용이 이름을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByNameContaining(search, page);
+		}else if(searchType.equals("email")) {
+			// 만약 검색한 내용이 이메일을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByEmailContaining(search, page);
+		}
+		/*else if(searchType.equals("name")) {
+			// 만약 검색한 내용이 직급을 검색한 것이라면 해당 리스트를 가져오기
+			list = employeesRepo.findByRegistNo_nameContaining(search, page);
+		}*/
+	}
+	
+	model.addAttribute("search", list);
+  }
+
+  @Override
+  public void findAllByDeleteStatusFalse(Model model, Pageable pageable) { //수민 인사평가 리스트
+	  Page<EmployeesEntity> pageResult = employeesRepo.findAllByDeleteStatusOrderByPositionRank(false, pageable);
+		model.addAttribute("list1",pageResult);
+		model.addAttribute("pageNum", pageResult.getNumber()+1 ); // 현재 페이지 번호 0번부터 시작하기 때문에 +1
+		model.addAttribute("pageSize", pageResult.getSize()); // 한 페이지의 게시글 수
+		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
+		model.addAttribute("endPage", 10); // 페이징 10개까지 보여줄거야
+  }
 	
 }

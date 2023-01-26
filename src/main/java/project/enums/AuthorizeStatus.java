@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum AuthorizeStatus {
 	
+
 	UnderApproval("결재대기"),
 	FirstApproval("결재중"),
 	Approval("승인"),

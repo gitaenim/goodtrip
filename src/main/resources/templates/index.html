@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -13,6 +14,11 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
 <script src="/js/index/indexcalendar.js"></script>
+<!--아이콘 -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.15.2/js/all.js"
+	integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF"
+	crossorigin="anonymous"></script>
 <!-- 230111 출퇴근시간 스크립트 시작 안나 -->
 <script type="text/javascript">
 	$(function() {
@@ -28,10 +34,11 @@
 		function resetPlusZero(i) {
 			if (i < 10) {
 				i = "0" + i
-			};
+			}
+			;
 			return i;
 		}
-		
+
 		/* status값 얻어오기 */
 		var status = $('#status').val();
 		console.log("status: " + status);
@@ -42,100 +49,305 @@
 		if (status == '근무중') {
 			$("#start-time-today").show();
 		}
-		if (status == '근무종료'){
+		if (status == '근무종료') {
 			$("#start-time-today").show();
 			$("#end-time-today").show();
 		}
 
 		/* 출근 버튼 클릭 시 시작*/
-		$("#start-time").click(function() {					
-			if (status == '근무중' || status =='근무종료') { //미출근시에만 출근가능하도록
-				alert("이미 출근하였습니다.");
-			} else { //출근기록이 없으면 */
-				
-				// 출근 버튼 누르면 나오는 팝업창
-				var startResult = confirm("현재 시각은 " + hours
-						+ "시 " + minutes + "분입니다. \n출근하시겠습니까?");
-			
-				//출근 data 통신
-				if (startResult) {
-					$.ajax({
-						async : false,
-						type : "post",
-						url : "/attendance/in",
-						contentType : "application/x-www-form-urlencoded; charset=utf-8",
-						dataType : "text",
-						success : function(data) {
-							console.log("성공 data:"
-									+ data);
-							if (data == "attinSuccess") { //데이터 리턴이 잘 됐으면
-								alert("출근완료");
-								location.reload(); //출근 완료 시 새로고침하여 출근기록 보이기
-							} else {
-								alert("이상발생");
-							}
-						},
-						error : function() {
-							console.log("실패");
-						}
-					})
-				} else {
-					alert("취소하였습니다."); // confirm창 취소 시 알림
-				}
-			}//출근기록 if else문 끝 */
-		});
-		/* 출근 버튼 클릭 시 끝*/
-		
-		/* 퇴근 버튼 클릭 시 시작*/
-		$("#end-time").click(function() {
-			if (status == null || status == '미출근') { //퇴근 조건
-				alert("출근 후 퇴근 가능합니다.");
-			} else{
-				// 퇴근 버튼 누르면 나오는 팝업창
-				var endResult = confirm("현재 시각은 " + hours + "시 "
-						+ minutes + "분입니다. \n퇴근하시겠습니까?");
+		$("#start-time")
+				.click(
+						function() {
+							if (status == '근무중' || status == '근무종료') { //미출근시에만 출근가능하도록
+								alert("이미 출근하였습니다.");
+							} else { //출근기록이 없으면 */
 
-				//퇴근 data 통신
-				if (endResult) {
-					$.ajax({
-						async : false,
-						type : "patch",
-						url : "/attendance/out",
-						contentType : "application/json-patch+json; charset=utf-8",
-						dataType : "text",
-						success : function(data) {
-							console.log("성공 data:" + data);
-							if (data == "attoutSuccess") { //데이터 리턴이 잘 됐으면
-								alert("퇴근완료");
-								location.reload(); //새로고침
+								// 출근 버튼 누르면 나오는 팝업창
+								var startResult = confirm("현재 시각은 " + hours
+										+ "시 " + minutes + "분입니다. \n출근하시겠습니까?");
+
+								//출근 data 통신
+								if (startResult) {
+									$
+											.ajax({
+												async : false,
+												type : "post",
+												url : "/attendance/in",
+												contentType : "application/x-www-form-urlencoded; charset=utf-8",
+												dataType : "text",
+												success : function(data) {
+													console.log("성공 data:"
+															+ data);
+													if (data == "attinSuccess") { //데이터 리턴이 잘 됐으면
+														alert("출근완료");
+														location.reload(); //출근 완료 시 새로고침하여 출근기록 보이기
+													} else {
+														alert("이상발생");
+													}
+												},
+												error : function() {
+													console.log("실패");
+												}
+											})
+								} else {
+									alert("취소하였습니다."); // confirm창 취소 시 알림
+								}
+							}//출근기록 if else문 끝 */
+						});
+		/* 출근 버튼 클릭 시 끝*/
+
+		/* 퇴근 버튼 클릭 시 시작*/
+		$("#end-time")
+				.click(
+						function() {
+							if (status == null || status == '미출근') { //퇴근 조건
+								alert("출근 후 퇴근 가능합니다.");
 							} else {
-								alert("이상발생");
-							}
-						},
-						error : function() {
-							console.log("실패");
-						}
-					});
-				} else {
-					alert("취소하였습니다."); // confirm창 취소 시 알림
-				} // endResult if문 끝
-			}//퇴근조건 if문 끝		
-		}); //퇴근버튼 클릭 끝
+								// 퇴근 버튼 누르면 나오는 팝업창
+								var endResult = confirm("현재 시각은 " + hours
+										+ "시 " + minutes + "분입니다. \n퇴근하시겠습니까?");
+
+								//퇴근 data 통신
+								if (endResult) {
+									$
+											.ajax({
+												async : false,
+												type : "patch",
+												url : "/attendance/out",
+												contentType : "application/json-patch+json; charset=utf-8",
+												dataType : "text",
+												success : function(data) {
+													console.log("성공 data:"
+															+ data);
+													if (data == "attoutSuccess") { //데이터 리턴이 잘 됐으면
+														alert("퇴근완료");
+														location.reload(); //새로고침
+													} else {
+														alert("이상발생");
+													}
+												},
+												error : function() {
+													console.log("실패");
+												}
+											});
+								} else {
+									alert("취소하였습니다."); // confirm창 취소 시 알림
+								} // endResult if문 끝
+							}//퇴근조건 if문 끝		
+						}); //퇴근버튼 클릭 끝
+		selectNotice();
+
+		var weatherIcon = {
+			'01' : 'fas fa-sun',
+			'02' : 'fas fa-cloud-sun',
+			'03' : 'fas fa-cloud',
+			'04' : 'fas fa-cloud-meatball',
+			'09' : 'fas fa-cloud-sun-rain',
+			'10' : 'fas fa-cloud-showers-heavy',
+			'11' : 'fas fa-poo-storm',
+			'13' : 'far fa-snowflake',
+			'50' : 'fas fa-smog'
+		};
+
+		// 날씨 api - 서울
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="
+				+ 'Seoul' + "&lang=" + "kr" + "&appid="
+				+ "6c768b2acf055ef8e01410959d996966";
+		$
+				.ajax({
+					url : apiURI,
+					dataType : "json",
+					type : "GET",
+					async : "false",
+					success : function(resp) {
+
+						var $Icon = (resp.weather[0].icon).substr(0, 2);
+						var $weather_description = resp.weather[0].main;
+						var $Temp = Math.floor(resp.main.temp - 273.15) + 'º';
+						var $humidity = '습도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.main.humidity + ' %';
+						var $wind = '바람&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.wind.speed + ' m/s';
+						var $city = '서울';
+						var $cloud = '구름&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.clouds.all + "%";
+						var $temp_min = '최저 온도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ Math.floor(resp.main.temp_min - 273.15) + 'º';
+						var $temp_max = '최고 온도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ Math.floor(resp.main.temp_max - 273.15) + 'º';
+
+						$('.weather_icon')
+								.append(
+										'<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 80px; width : 80px;"></i>');
+						$('.weather_description').prepend($weather_description);
+						$('.current_temp').prepend($Temp);
+						$('.humidity').prepend($humidity);
+						$('.wind').prepend($wind);
+						$('.city').append($city);
+						$('.cloud').append($cloud);
+						$('.temp_min').append($temp_min);
+						$('.temp_max').append($temp_max);
+					}
+				})
+		// 날씨 api - 뉴욕
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="
+				+ 'New York' + "&lang=" + "kr" + "&appid="
+				+ "6c768b2acf055ef8e01410959d996966";
+		$
+				.ajax({
+					url : apiURI,
+					dataType : "json",
+					type : "GET",
+					async : "false",
+					success : function(resp) {
+
+						var $Icon = (resp.weather[0].icon).substr(0, 2);
+						var $weather_description = resp.weather[0].main;
+						var $Temp = Math.floor(resp.main.temp - 273.15) + 'º';
+						var $humidity = '습도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.main.humidity + ' %';
+						var $wind = '바람&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.wind.speed + ' m/s';
+						var $city = '뉴욕';
+						var $cloud = '구름&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ resp.clouds.all + "%";
+						var $temp_min = '최저 온도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ Math.floor(resp.main.temp_min - 273.15) + 'º';
+						var $temp_max = '최고 온도&nbsp;&nbsp;&nbsp;&nbsp;'
+								+ Math.floor(resp.main.temp_max - 273.15) + 'º';
+
+						$('.new-weather_icon')
+								.append(
+										'<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 80px; width : 80px;"></i>');
+						$('.new-weather_description').prepend(
+								$weather_description);
+						$('.new-current_temp').prepend($Temp);
+						$('.new-humidity').prepend($humidity);
+						$('.new-wind').prepend($wind);
+						$('.new-city').append($city);
+						$('.new-cloud').append($cloud);
+						$('.new-temp_min').append($temp_min);
+						$('.new-temp_max').append($temp_max);
+					}
+				})
 	});//function 끝
 </script>
 <!-- 230111 출퇴근시간 스크립트 끝 안나 -->
 </head>
 <body>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
-	<section class="flex">
-		<div>
-			<section id="attendance">
+	<div id="backIMG">
+		<section class="flex">
+			<div>
+				<section id="approval">
+					<!-- 결제 리스트 보드 -->
+					<p class="subtitle">내 결제 리스트</p>
+
+				</section>
+			</div>
+			<div>
+				<section id="schedule" class="counting-list textcenter">
+					<!-- 금일일정 -->
+					<p class="subtitle goto-detail" onclick="gotoTodaySchedule()">금일
+						일정</p>
+					<input type="hidden" th:value="${today}" id="today">
+					<table id="list" class="list-table">
+						<tr class="list-2">
+							<th width="50px" height="30px">번호</th>
+							<th width="100px">종류</th>
+							<th width="450px">상세내용</th>
+						</tr>
+						<tr th:if="${todaySchedule.isEmpty()}">
+							<td height="30px" colspan="3">오늘 일정이 없습니다</td>
+						</tr>
+						<tr th:if="${not #strings.isEmpty(todaySchedule)}" class="list-2"
+							th:each="todaySchedule : ${todaySchedule}">
+							<th height="30px" class="counting-num">
+								<!-- 글번호 -->
+							</th>
+							<th th:text="${todaySchedule.scheduleName}">[종류]</th>
+							<th th:text="${todaySchedule.title}">[상세내용]</th>
+						</tr>
+					</table>
+				</section>
+				<section id="tomorrowSchedule" class="counting-list">
+					<!-- 내일일정 -->
+					<p class="subtitle goto-detail" onclick="gotoTomorrowSchedule()">익일
+						일정</p>
+					<input type="hidden" th:value="${tomorrow}" id="tomorrowDate">
+					<script type="text/javascript">
+						function gotoTomorrowSchedule() {
+							var date = $("#tomorrowDate").val() + "";
+							window.location.href = "/scheduleList?clickedDate="
+									+ date;
+						};
+						function gotoTodaySchedule() {
+							var date = $("#today").val() + "";
+							window.location.href = "/scheduleList?clickedDate="
+									+ date;
+						};
+						function selectNotice() {
+							var select = "공지사항";
+							removeclassToBTN();
+							$("#notice-board").addClass("board-target");
+							indexBoard(select);
+						}
+						function selectCNC() {
+							var select = "경조사";
+							removeclassToBTN();
+							$("#cnc-board").addClass("board-target");
+							indexBoard(select);
+						}
+						function selectsuggest() {
+							var select = "건의사항";
+							removeclassToBTN();
+							$("#suggest-board").addClass("board-target");
+							indexBoard(select);
+						}
+						function indexBoard(selectBoard) {
+							$.ajax({
+								url : "/indexboard?select=" + selectBoard,
+								success : function(result) {
+									$("#indexBoardShow").html(result);
+								}
+							})
+						}
+						function removeclassToBTN() {
+							$("#notice-board").removeClass("board-target");
+							$("#cnc-board").removeClass("board-target");
+							$("#suggest-board").removeClass("board-target");
+						}
+					</script>
+					<table id="list" class="list-table textcenter">
+						<tr class="list-2">
+							<th width="50px" height="30px" class="textcenter">번호</th>
+							<th width="100px">종류</th>
+							<th width="450px">상세내용</th>
+						</tr>
+						<tr th:if="${tomorrowSchedule.isEmpty()}">
+							<td height="30px" colspan="3">내일 일정이 없습니다</td>
+						</tr>
+						<tr th:if="${not #strings.isEmpty(tomorrowSchedule)}"
+							class="list-2" th:each="tomorrowSchedule : ${tomorrowSchedule}">
+							<th height="30px" class="counting-num">
+								<!-- 글번호 -->
+							</th>
+							<th th:text="${tomorrowSchedule.scheduleName}">[종류]</th>
+							<th th:text="${tomorrowSchedule.title}">[상세내용]</th>
+						</tr>
+					</table>
+				</section>
+			</div>
+			<div>
+				<section id="attendance">
 				<!-- 230111 출퇴근버튼 시작 안나 230120 수정 안나 -->
-				<div class="flex around">
-					<button id="start-time">출근</button>
-					<button id="end-time">퇴근</button>
-				</div>
-				<div sec:authorize="isAuthenticated()" id="clock-in-out"
+					<p class="subtitle">출근/퇴근 버튼</p>
+					<div class="flex around">
+						<button id="start-time">출근</button>
+						<button id="end-time">퇴근</button>
+
+					</div>
+					<div sec:authorize="isAuthenticated()" id="clock-in-out"
 					th:each="dto:${list}" class="flex around">
 					<div>
 						<p>출근시간 :</p>
@@ -145,146 +357,144 @@
 					<div>
 						<p>퇴근시간 :</p>
 						<p id="end-time-today" th:text="${#temporals.format(dto.clockOut, 'HH:mm:SS')}"></p>
+						</div>
 					</div>
+					<!-- 230111 출퇴근버튼 끝 안나 -->
+				</section>
+				<section id="calendar">
+					<!-- 230111 문대현 -->
+					<!-- calendar 태그 -->
+					<div id='calendar-container'>
+						<div id='calendar' style="width: 320px"></div>
+					</div>
+				</section>
+			</div>
+		</section>
+		<section class="flex">
+			<section id="boards">
+				<p class="subtitle">게시판</p>
+				<div class="flex">
+					<button type="button" id="notice-board" onclick="selectNotice()">공지사항</button>
+					<button type="button" id="cnc-board" onclick="selectCNC()">경조사</button>
+					<button type="button" id="suggest-board" onclick="selectsuggest()">건의사항</button>
+				</div>
+				<section id="indexBoardShow">
+					<!-- 게시글 보여줄 곳 -->
+				</section>
+			</section>
+			<section id="exchange">
+				<p class="subtitle"
+					th:text="${#temporals.format(today,'yy년 MM월 dd일')}+' 환율'">오늘자
+					환율</p>
+				<div class="flex between" style="padding-left: 5px">
+					<iframe
+						src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0002&rc=0&divType=1&lang=KOR"
+						frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
+						name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
+					<iframe
+						src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0006&rc=0&divType=1&lang=KOR"
+						frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
+						name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
+					<iframe
+						src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0002&rc=0&divType=6&lang=KOR"
+						frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
+						name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
 
 				</div>
-				<!-- 230111 출퇴근버튼 끝 안나 -->
+				<iframe
+					src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0007&rc=0&divType=1&lang=KOR"
+					frameBorder=0 width=600 scrolling=no height=184 topmargin="0"
+					name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
 			</section>
-			<section id="calendar">
-				<!-- 230111 문대현 -->
-				<!-- calendar 태그 -->
-				<div id='calendar-container'>
-					<div id='calendar' style="width: 320px"></div>
+		</section>
+		<section class="flex">
+			<section id="newEmp">
+				<!-- 신입사원 -->
+				<p class="subtitle">화제의 신입사원</p>
+				<div class="flex around textcenter">
+						<ul th:each="list : ${NewEMPList}" class="indexEMPInfo">
+							<li class="newEmployeesImg" th:style="|background-image: url('${list.imageNo.url}');|"></li>
+							<li th:text="${list.name}"></li>
+							<li th:text="'입사일 : '+${#temporals.format(list.joinDate,'MM월 dd일')}"></li>
+						</ul>
 				</div>
 			</section>
-		</div>
-		<div>
-			<section id="schedule" class="counting-list">
-				<!-- 금일일정 -->
-				<p class="sybtitle" onclick="gotoTodaySchedule()">금일 일정</p>
-				<input type="hidden" th:value="${today}" id="today">
-				<table id="list" class="list-table">
-					<tr class="list-2">
-						<th>번호</th>
-						<th>종류</th>
-						<th>상세내용</th>
-					</tr>
-					<tr th:if="${todaySchedule.isEmpty()}">
-						<td colspan="3">오늘 일정이 없습니다</td>
-					</tr>
-					<tr th:if="${not #strings.isEmpty(todaySchedule)}" class="list-2"
-						th:each="todaySchedule : ${todaySchedule}">
-						<th class="counting-num">
-							<!-- 글번호 -->
-						</th>
-						<th th:text="${todaySchedule.scheduleName}">[종류]</th>
-						<th th:text="${todaySchedule.title}">[상세내용]</th>
-					</tr>
-				</table>
+			<section id="awardEmp">
+				<!-- 우수사원 -->
+				<p class="subtitle">이달의 우수사원</p>
+				<div class="flex around textcenter">
+						<ul th:each="list : ${AwardEMPList}" class="indexEMPInfo">
+						<li class="newEmployeesImg" th:style="|background-image: url('${list.imageNo.url}');|"></li>
+							<li th:text="${list.name}"></li>
+						<li th:text="'입사일 : '+${#temporals.format(list.joinDate,'MM월 dd일')}"></li>
+						</ul>
+				</div>
 			</section>
-			<section id="tomorrowSchedule" class="counting-list">
-				<!-- 내일일정 -->
-				<p class="subtitle" onclick="gotoTomorrowSchedule()">익일 일정</p>
-				<input type="hidden" th:value="${tomorrow}" id="tomorrowDate">
-				<script type="text/javascript">
-					function gotoTomorrowSchedule() {
-						var date = $("#tomorrowDate").val() + "";
-						window.location.href = "/scheduleList?clickedDate="
-								+ date;
-					};
-					function gotoTodaySchedule() {
-						var date = $("#today").val() + "";
-						window.location.href = "/scheduleList?clickedDate="
-								+ date;
-					};
-					function selectNotice() {
-						var select = "공지사항";
-						indexBoard(select);
-					}
-					function selectCNC() {
-						var select = "경조사";
-						indexBoard(select);
-					}
-					function selectsuggest() {
-						var select = "건의사항";
-						indexBoard(select);
-					}
-					function indexBoard(selectBoard) {
-						$.ajax({
-							url : "/indexboard?select=" + selectBoard,
-							success : function(result) {
-								$("#indexBoardShow").html(result);
-							}
-						})
-					}
-				</script>
-				<table id="list" class="list-table">
-					<tr class="list-2">
-						<th>번호</th>
-						<th>종류</th>
-						<th>상세내용</th>
-					</tr>
-					<tr th:if="${tomorrowSchedule.isEmpty()}">
-						<td colspan="3">내일 일정이 없습니다</td>
-					</tr>
-					<tr th:if="${not #strings.isEmpty(tomorrowSchedule)}"
-						class="list-2" th:each="tomorrowSchedule : ${tomorrowSchedule}">
-						<th class="counting-num">
-							<!-- 글번호 -->
-						</th>
-						<th th:text="${tomorrowSchedule.scheduleName}">[종류]</th>
-						<th th:text="${tomorrowSchedule.title}">[상세내용]</th>
-					</tr>
-				</table>
-			</section>
-		</div>
-		<div>
-			<section id="approval"></section>
-		</div>
-	</section>
-	<section class="flex">
-		<section id="boards">
-			<div class="flex">
-				<button type="button" onclick="selectNotice()">공지사항</button>
-				<button type="button" onclick="selectCNC()">경조사</button>
-				<button type="button" onclick="selectsuggest()">건의사항</button>
-			</div>
-			<section id="indexBoardShow">
-				<!-- 게시글 보여줄 곳 -->
+			<section id="Today-weather">
+				<p class="subtitle"
+					th:text="${#temporals.format(today,'MM월 dd일')}+' 날씨'">오늘날씨</p>
+				<!-- 서울 날씨 -->
+				<div
+					style="background-color: rgb(101, 178, 255); color: #fff; height: 100px; width: 540px; border-radius: 20px;">
+					<div style="float: left; margin-top: 10px; margin-left: 30px">
+						<div class="weather_icon"></div>
+					</div>
+					<br>
+					<div class="flex"
+						style="float: right; margin: -10px 0px 0px 30px; padding-right: 20px; font-size: 11pt">
+						<div style="margin-right: 20px;">
+							<div class="temp_min"></div>
+							<div class="temp_max"></div>
+							<div class="humidity"></div>
+						</div>
+						<div>
+							<div class="wind"></div>
+							<div class="cloud"></div>
+						</div>
+					</div>
+					<div class="flex"
+						style="float: right; margin-top: -70px; position: relative; right: 260px;">
+						<div class="current_temp"
+							style="font-size: 40pt; margin-right: 10px"></div>
+						<div>
+							<div class="weather_description"
+								style="font-size: 16pt; margin-top: 10px;"></div>
+							<div class="city" style="font-size: 13pt"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 뉴욕 날씨 -->
+				<div
+					style="background-color: #4b99da; color: #fff; height: 100px; width: 540px; border-radius: 20px;">
+					<div style="float: left; margin-top: 10px; margin-left: 30px">
+						<div class="new-weather_icon"></div>
+					</div>
+					<br>
+					<div class="flex"
+						style="float: right; margin: -10px 0px 0px 30px; padding-right: 20px; font-size: 11pt">
+						<div style="margin-right: 20px;">
+							<div class="new-temp_min"></div>
+							<div class="new-temp_max"></div>
+							<div class="new-humidity"></div>
+						</div>
+						<div>
+							<div class="new-wind"></div>
+							<div class="new-cloud"></div>
+						</div>
+					</div>
+					<div class="flex"
+						style="float: right; margin-top: -20px; margin-left: 10px">
+						<div class="new-current_temp"
+							style="font-size: 40pt; margin-right: 10px"></div>
+						<div>
+							<div class="new-weather_description"
+								style="font-size: 16pt; margin-top: 10px;"></div>
+							<div class="new-city" style="font-size: 13pt"></div>
+						</div>
+					</div>
+				</div>
 			</section>
 		</section>
-		<section id="exchange">
-			<p th:text="${today}+'의 환율'">오늘자 환율</p>
-			<div class="flex between">
-				<iframe
-					src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0002&rc=0&divType=1&lang=KOR"
-					frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
-					name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
-				<iframe
-					src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0006&rc=0&divType=1&lang=KOR"
-					frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
-					name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
-				<iframe
-					src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0002&rc=0&divType=6&lang=KOR"
-					frameBorder=0 width="210px" scrolling=no height=184 topmargin="0"
-					name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
-
-			</div>
-			<iframe
-				src="https://sbiz.wooribank.com/biz/Dream?withyou=FXCNT0007&rc=0&divType=1&lang=KOR"
-				frameBorder=0 width=600 scrolling=no height=184 topmargin="0"
-				name=irate marginWidth=0 marginHeight=0 title="무료환율표A형"></iframe>
-		</section>
-	</section>
-	<section class="flex">
-		<section id="newEmp">
-			<!-- 신입사원 -->
-			신입사원
-		</section>
-		<section id="awardEmp">
-			<!-- 우수사원 -->
-			우수사원
-		</section>
-	</section>
+	</div>
 </body>
 </html>

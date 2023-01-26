@@ -107,6 +107,7 @@ public class DayOffEntity {
 		return null;
 	}
 	
+
 	//결재 반려 처리
 	public DayOffEntity returnApproval(DayOffAppDTO dto) {
 		this.approval = AuthorizeStatus.Return;
