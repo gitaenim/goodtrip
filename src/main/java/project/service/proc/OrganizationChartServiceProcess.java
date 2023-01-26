@@ -126,10 +126,11 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 					headinfo.add(e.getNo());
 					System.out.println(e.getNo());
 					str.add(e.getImageNo().getUrl());
-				} 
+				}
 			}
 			if(d.getDepartmentHead().equals("미정")){
 				str.add("/image/icon/vacant.png");
+				headinfo.add(0L);
 			}
 		}
 		model.addAttribute("images", str);

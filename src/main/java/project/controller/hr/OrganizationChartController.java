@@ -67,6 +67,7 @@ public class OrganizationChartController {
 	//조직도 상세페이지
 	@GetMapping("/ozc/groupDetail/{no}")
     public String groupDetail(Model model, @PathVariable Long no) {
+		if(no==0) return "redirect:/departments/manage";
 		organizationChartService.findById(model, no);
         return "organizationChart/groupDetail";
     }
