@@ -12,6 +12,7 @@ import project.domain.DTO.EmployeesDeleteDTO;
 import project.domain.DTO.EmployeesUpdateDTO;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
+import project.enums.DepartmentRank;
 import project.enums.MyRole;
 
 @Controller
@@ -40,7 +41,11 @@ public class RetirementController {
 	@Transactional
 	@GetMapping("/retirement/rollback/{no}")
 	public String roleEmployee(@PathVariable long no, EmployeesUpdateDTO dto) {
-		employeesRepo.findById(no).get().addRole(MyRole.EMPLOYEE);
+		MyRole role = null;
+		if(employeesRepo.findById(no).get().getPosition() == DepartmentRank.DepartmentManager) role = MyRole.PERSONALMANAGER;
+		else if(employeesRepo.findById(no).get().getPosition() == DepartmentRank.CEO) role = MyRole.CEO;
+		else role = MyRole.EMPLOYEE;
+		employeesRepo.findById(no).get().addRole(role);
 		employeesRepo.findById(no).map(entity->entity.updateRollbackStatus(dto));
 		System.out.println("퇴직처리취소");
 		return "redirect:/ozc/groupDetail/{no}";
