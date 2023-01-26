@@ -65,8 +65,8 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 	    	<a th:if="${appCEOList.getNumber()-1}>0" th:text="${appCEOList.getNumber()-1}" th:href="|/approvalList2?pageNum=${appCEOList.getNumber()-1}|">현재페이지-2</a>
 	    	<a th:if="${appCEOList.getNumber()}>0" th:text="${appCEOList.getNumber()}" th:href="|/approvalList2?pageNum=${appCEOList.getNumber()}|">현재페이지-1</a>
 	    	<a id="currentPage" th:text="${appCEOList.getNumber()+1}">현재페이지</a>
-	    	<a th:if="${appCEOList.getNumber()+2<=appCEOList.getTotalPages()}" th:text="${appCEOList.getNumber()+2}" th:href="|/approvalList2?pageNum=${appList.getNumber()+2}|">현재페이지+1</a>
-	    	<a th:if="${appCEOList.getNumber()+3<=appCEOList.getTotalPages()}" th:text="${appCEOList.getNumber()+3}" th:href="|/approvalList2?pageNum=${appList.getNumber()+3}|">현재페이지+2</a>
+	    	<a th:if="${appCEOList.getNumber()+2<=appCEOList.getTotalPages()}" th:text="${appCEOList.getNumber()+2}" th:href="|/approvalList2?pageNum=${appCEOList.getNumber()+2}|">현재페이지+1</a>
+	    	<a th:if="${appCEOList.getNumber()+3<=appCEOList.getTotalPages()}" th:text="${appCEOList.getNumber()+3}" th:href="|/approvalList2?pageNum=${appCEOList.getNumber()+3}|">현재페이지+2</a>
 	    	<a th:if="${appCEOList.hasNext()}" th:href="|/approvalList2?pageNum=${appCEOList.getNumber()+2}|">[다음]</a>
     	</div>
 	</div>
