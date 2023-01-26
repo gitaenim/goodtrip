@@ -162,7 +162,8 @@ public class EmployeesEntity {
 	public EmployeesEntity updateRollbackStatus(EmployeesUpdateDTO dto) {
 		this.deleteStatus = false;
 		this.resignDate = null;
-		this.editAuthority = MyRole.EMPLOYEE;
+		if(this.position == DepartmentRank.DepartmentManager||this.position == DepartmentRank.CEO) this.editAuthority = MyRole.PERSONALMANAGER;
+		else this.editAuthority = MyRole.EMPLOYEE;
 		return null;
 	}
 	//사원 정보 수정
