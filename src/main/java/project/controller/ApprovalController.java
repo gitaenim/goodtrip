@@ -73,8 +73,11 @@ public class ApprovalController {
 	
 	//대표 결재리스트
 	@GetMapping("/approvalList2")
-    public String approvalList2(Model model) {
-		service.approvalList2(model);
+    public String approvalList2(
+    		@RequestParam(value="pageNum", required = false, defaultValue="1") int pageNum, 
+    		@RequestParam(value="search", required = false) String search,
+    		@RequestParam(value="searchType", required = false) String searchType, Model model) {
+		service.approvalList2(pageNum, search, searchType, model);
         return "approvalMgmt/approvalList2";
     }
 	

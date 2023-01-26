@@ -174,14 +174,33 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//대표 결재리스트
 	@Override
-	public void approvalList2(Model model) {
-		List<DayOffEntity> appList = dayOffRepo.findAllByApprovalNotOrderByApprovalAsc(AuthorizeStatus.UnderApproval);
-		/*
-		 * List<DayOffEntity> appList2 =
-		 * dayOffRepo.findAllByApproval(AuthorizeStatus.Approval); List<DayOffEntity>
-		 * appList3 = dayOffRepo.findAllByApproval(AuthorizeStatus.Return);
-		 * appList.addAll(appList2); appList.addAll(appList3);
-		 */
+	public void approvalList2(int pageNum, String search, String searchType, Model model) {
+		int pageSize = 10;
+
+		Page<DayOffEntity> list = null;
+
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "approval");
+		
+		if (search == null) {
+			list = dayOffRepo.findAll(page);
+		} else {
+			if(searchType.equals("name")) {
+				list = dayOffRepo.findByEmployeeNoNameContaining(search, page);
+			}else if(searchType.equals("approval")) {
+				list = dayOffRepo.findByApprovalContaining(search, page);
+			}
+		}
+		// false : 조회한 데이터가 있음
+		// true : 조회한 데이터가 없음
+		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수
+
+		if (list.isEmpty()) {
+			nullcheck = true;
+		}
+		model.addAttribute("nullcheck", nullcheck);
+		
+		Page<DayOffEntity> appList = dayOffRepo.findAllByApprovalNot(AuthorizeStatus.UnderApproval, page);
+		
 		model.addAttribute("appCEOList", appList);
 	}
 

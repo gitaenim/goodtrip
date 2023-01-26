@@ -26,7 +26,7 @@ public interface DayOffService {
 
 	//void delete(long dayOffNo);
 
-	void approvalList2(Model model);
+	void approvalList2(int pageNum, String search, String searchType, Model model);
 
 	void detail2(long dayOffNo, Model model);
 
