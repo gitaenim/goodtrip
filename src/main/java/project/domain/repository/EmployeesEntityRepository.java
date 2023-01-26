@@ -50,5 +50,9 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 	Page<EmployeesEntity> findByNameContaining(String search, Pageable page); //이름으로 검색
 	Page<EmployeesEntity> findByEmailContaining(String search, Pageable page); //이메일로 검색
 
+	List<EmployeesEntity> findAllByDeleteStatus(boolean b);
+
+	Optional<EmployeesEntity> findByNo(long dayOffNo);
+
 
 }

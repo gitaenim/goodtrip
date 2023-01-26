@@ -6,9 +6,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/sideMenu/sideMenu.css">
-<link rel="stylesheet" href="/css/commons/chat-bot.css">
 <script src="/js/sideMenu/sideMenu.js"></script>
-<script src="/js/index/chat.js"></script>
 </head>
 <header>
 	<div class="wrap" id="calendarOnlyUse">
@@ -101,12 +99,5 @@
 			</div>
 		</ul>
 	</div>
-	<aside id="chat-bot">
-		<h1>챗봇</h1>
-		<div class="wrap">
-			<button type="button" id="btn-chat-open" onclick="openChat()">트립봇</button>
-			<th:block th:insert="~{chatbot/chat-bot::#chat-disp}" />
-		</div>
-	</aside>
 </header>
 </html>

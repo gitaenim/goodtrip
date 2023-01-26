@@ -1,8 +1,14 @@
 package project.controller;
 
+import java.time.LocalDate;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +23,7 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.repository.DayOffEntityRepository;
 import project.enums.AuthorizeStatus;
 import project.security.MyUserDetails;
+import project.service.AttendanceService;
 import project.service.DayOffService;
 
 @Controller
@@ -24,6 +31,9 @@ public class ApprovalController {
 	
 	@Autowired
 	private DayOffService service;
+	
+	@Autowired
+	private AttendanceService aService;
 	
 	@Autowired
 	DayOffEntityRepository dayOffRepo;
@@ -56,20 +66,39 @@ public class ApprovalController {
 	    return "AttendanceMgmt/myDayOff";
 	}
 	
-	//내 결재 리스트
+	//부서장 결재리스트
 	@GetMapping("/approvalList")
-    public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
-		service.appList(myUserDetails.getDepartmentNo(), model);
+    public String approvalList(@AuthenticationPrincipal MyUserDetails myUserDetails, 
+    		@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
+    		@RequestParam(value="search", required = false) String search,
+    		@RequestParam(value="searchType", required = false) String searchType, Model model) {
+		service.appList(myUserDetails.getDepartmentNo(), pageNum, search, searchType, model);
         return "approvalMgmt/approvalList";
     }
 	
-	//직원별 휴가 디테일
+	//대표 결재리스트
+	@GetMapping("/approvalList2")
+    public String approvalList2(
+    		@RequestParam(value="pageNum", required = false, defaultValue="1") int pageNum, 
+    		@RequestParam(value="search", required = false) String search,
+    		@RequestParam(value="searchType", required = false) String searchType, Model model) {
+		service.approvalList2(pageNum, search, searchType, model);
+        return "approvalMgmt/approvalList2";
+    }
+	
+	//부서장 결재 디테일
 	@GetMapping("/dayoffApp")
 	public String dayOffApp(@RequestParam long dayOffNo, Model model) {
 		service.detail(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp";
 	}
 	
+	//대표 결재 디테일
+	@GetMapping("/dayoffApp2")
+	public String dayOffApp2(@RequestParam long dayOffNo, Model model) {
+		service.detail2(dayOffNo, model); //no :  day off no
+		return "approvalMgmt/dayOffApp2";
+	}
 	//부서장 결재승인
 	@Transactional
 	@GetMapping("/approval/{dayOffNo}")
@@ -85,20 +114,38 @@ public class ApprovalController {
 	@GetMapping("/approval2/{dayOffNo}")
 	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
-		return "redirect:/approvalList";
+		LocalDate startDate = dto.getStartDate();
+		LocalDate endDate = dto.getEndDate();
+		aService.saveDayOff(dayOffNo, startDate, endDate);
+		return "redirect:/approvalList2";
 	}
 	
-	//결재 반려(삭제)
 //	@PostMapping("/approvalDelete")
 //	public String approvalDelete(long dayOffNo) {
 //		service.delete(dayOffNo);
 //		return "redirect:/approvalList";
 //	}
 	
-	@PostMapping("/approvalDelete/{dayOffNo}")
-	public String approvalDelete(@PathVariable long dayOffNo) {
-		dayOffRepo.deleteById(dayOffNo);
+	//부서장 결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn/{dayOffNo}")
+	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
 		return "redirect:/approvalList";
+	}
+	
+//	@PostMapping("/approvalDelete")
+//	public String approvalDelete(long dayOffNo) {
+//		service.delete(dayOffNo);
+//		return "redirect:/approvalList";
+//	}
+
+	//대표 결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn2/{dayOffNo}")
+	public String approvalReturn2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
+		return "redirect:/approvalList2";
 	}
 	
 }

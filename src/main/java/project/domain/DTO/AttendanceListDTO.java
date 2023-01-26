@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.domain.entity.DailyWorkingHoursEntity;
+import project.domain.entity.DayOffEntity;
 import project.domain.entity.EmployeesEntity;
 
 //230111 전체 근태리스트 뿌려주기용 DTO 안나작성
@@ -65,6 +66,7 @@ public class AttendanceListDTO {
 				this.workingHour = Long.toString(workingHourS / 3600 - 1) + "시간" + Long.toString(workingHourS % 3600 / 60) + "분" + Long.toString(workingHourS % 60) + "초";
 			}
 		}
-	}
+		
 
+	}
 }

@@ -13,7 +13,7 @@ public interface NoticeBoardService {
 	
 	void detail(long noticeNo, Model model);
 
-	void findAll(Model model);
+	void findAll(int pageNum, String search, String searchType, Model model);
 
 	void delete(long noticeNo);
 

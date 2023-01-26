@@ -2,7 +2,9 @@ package project.domain.entity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -17,6 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -85,6 +88,9 @@ public class EmployeesEntity {
 	@JoinColumn(name = "department_no")
 	@ManyToOne
 	private DepartmentsEntity departmentNo; //부서번호
+	
+	@OneToMany(mappedBy = "employeeNo")
+	private List<DayOffEntity> dayOff = new ArrayList<>();
 
 	//---------------230109 한아 수정---------------
 	
