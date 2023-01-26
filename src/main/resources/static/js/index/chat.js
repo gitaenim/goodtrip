@@ -16,7 +16,7 @@ function openChat(){
 
 function showMessage(message) {
     $("#chat-content").append(message);
-	//대화창 스크롤을 항상 최하위에 배치   
+	//대화창 스크롤을 항상 최하위에 배치
     $("#chat-content").scrollTop($("#chat-content").prop("scrollHeight"));
 }
 
@@ -59,8 +59,11 @@ function inputTagString(text){
 	var now=new Date();
 	var ampm=(now.getHours()>11)?"오후 ":"오전 ";
 	var minutes = now.getMinutes();
-	if(minutes<10) minutes="0"+now.getMinutes;
-	var time= ampm + now.getHours()%12+":"+minutes;
+	if(minutes<10) minutes="0"+minutes;
+	var hours = now.getHours()%12
+	if(now.getHours()%12==0) hours=12;
+	
+	var time= ampm + hours + ":" + minutes;
 	var message=`
 		<div class="msg user flex end">
 			<div class="message">
