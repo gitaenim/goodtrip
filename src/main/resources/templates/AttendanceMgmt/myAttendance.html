@@ -41,26 +41,20 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 							<th>일근무시간</th>
 							<th>지정근무시간</th>
 							<th>근태항목</th>
-							<th>휴가기간</th>
-							<th>휴가일수</th>
-							<th>적요</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="myAttList:${myAttList}">
 							<td th:text="${myAttListStat.count}">4</td>
 							<td th:text="${myAttList.date}">2023-01-09</td>
-							<td th:if="${myAttList.status != '미출근'}" th:text="${myAttList.clockIn}"></td>
-							<td th:if="${myAttList.status == '미출근'}">-</td>
+							<td th:if="${myAttList.status != '미출근' and myAttList.status !='휴가'}" th:text="${myAttList.clockIn}"></td>
+							<td th:if="${myAttList.status == '미출근' or myAttList.status =='휴가'}">-</td>
 							<td th:if="${myAttList.status == '근무종료'}" th:text="${myAttList.clockOut}"></td>
 							<td th:if="${myAttList.status != '근무종료'}">-</td>
 							<td th:if="${myAttList.status == '근무종료'}" th:text="${myAttList.workingHour}"></td>
 							<td th:if="${myAttList.status != '근무종료'}">-</td>
 							<td th:text="${myAttList.designatedWorkingHour}"></td>
 							<td th:text="${myAttList.status}">휴가</td>
-							<td>2023-01-09 ~ 2023-01-11</td>
-							<td>3</td>
-							<td>우수사원포상휴가</td>
 						</tr>
 					</tbody>
 				</table>

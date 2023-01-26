@@ -181,3 +181,12 @@ tr.list-2 th {
 	border-radius: 10px;
 	padding: 5px;
 }
+
+.att-btn {
+	padding: 8px;
+    display: inline-block;
+    background-color: #4b99da;
+    border-radius: 15px;
+    font-size: 15px;
+    color: white;
+}

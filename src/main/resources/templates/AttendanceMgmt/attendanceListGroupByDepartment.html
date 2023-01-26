@@ -11,7 +11,6 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<th>직급</th>
 				<th>업무시간</th>
 				<th>상태</th>
-				<th>휴가기간</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,7 +22,6 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				<td th:if="${list.status} == '근무종료'" th:text="${list.workingHour}"></td>
 				<td th:if="${list.status} != '근무종료'"></td>
 				<td th:text="${list.status}"></td>
-				<td>${휴가시작일} ~ ${휴가종료일}</td>
 			</tr>
 		</tbody>
 	</table>

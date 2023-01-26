@@ -54,5 +54,8 @@ public interface EmployeesEntityRepository extends JpaRepository<EmployeesEntity
 
 	Optional<EmployeesEntity> findByNo(long dayOffNo);
 
+	Page<EmployeesEntity> findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(Long department,
+			boolean b, Pageable pageable);
+
 
 }
