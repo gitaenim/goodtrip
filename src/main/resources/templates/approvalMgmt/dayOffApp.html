@@ -10,6 +10,12 @@
 		if($(".name").text() == $(".head").text() || $(".label").text()=="결재중"){
 			$(".head").css("display", "block");
 		}
+		if($(".label").text()=="결재대기"){
+			$(".btn-approval").css("display", "block");
+		}
+		if($(".label").text()=="결재대기" || $(".label").text()=="결재중"){
+			$(".return").css("display", "block");
+		}
 	});
 	function headClicked(){
 		$(".head").css("display", "block");
@@ -94,7 +100,7 @@
 		</form>
 		<form th:action="|/approvalReturn/${dayOffDetail.dayOffNo}|" method="post">
 			<ul class="btn-return">
-				<li><button>반려하기</button></li>
+				<li><button class="return">반려하기</button></li>
 				<li><a href="/approvalList">뒤로가기</a></li>
 			</ul>
 		</form>

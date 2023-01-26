@@ -152,6 +152,7 @@
 }
 .btn-approval {
 	position: relative;
+	display: none;
 }
 .btn-approval button {
 	position: absolute;
@@ -168,6 +169,7 @@
 	position: relative;
 }
 .btn-return li button {
+	display: none;
 	position: absolute;
 	left: 47%;
 	line-height: 36px;

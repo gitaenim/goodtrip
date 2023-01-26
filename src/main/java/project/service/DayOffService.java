@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import java.time.LocalDate;
 
 import org.springframework.data.domain.Pageable;
@@ -21,7 +23,7 @@ import project.security.MyUserDetails;
 
 public interface DayOffService {
 
-	void save(DayOffInsertDTO dto);
+	void save(DayOffInsertDTO dto, HttpServletResponse response);
 
 	void update(DayOffInsertDTO dto);
 
