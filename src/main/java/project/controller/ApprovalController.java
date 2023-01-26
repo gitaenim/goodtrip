@@ -1,6 +1,7 @@
 package project.controller;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -114,9 +115,11 @@ public class ApprovalController {
 	@GetMapping("/approval2/{dayOffNo}")
 	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
-		LocalDate startDate = dto.getStartDate();
-		LocalDate endDate = dto.getEndDate();
-		aService.saveDayOff(dayOffNo, startDate, endDate);
+//		LocalDate startDate = dto.getStartDate();
+//		LocalDate endDate = dto.getEndDate();
+//		System.out.println("startDate: " + startDate);
+//		System.out.println("endDate: " + endDate);
+		aService.saveDayOff(dayOffNo, dto);
 		return "redirect:/approvalList2";
 	}
 	
