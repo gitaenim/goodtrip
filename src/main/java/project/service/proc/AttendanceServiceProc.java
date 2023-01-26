@@ -14,24 +14,21 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import project.domain.DTO.AttendanceListDTO;
-import project.domain.DTO.AttendanceListEmpDTO;
 import project.domain.DTO.AttendanceMyListDTO;
 import project.domain.DTO.AttendanceRegClockInDTO;
 import project.domain.DTO.AttendanceRegClockOutDTO;
+import project.domain.DTO.AttendanceStatusDTO;
+import project.domain.DTO.DayOffListDTO;
 import project.domain.entity.DailyWorkingHoursEntity;
+import project.domain.entity.DayOffEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.repository.AttendanceRepository;
+import project.domain.repository.DayOffEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.service.AttendanceService;
@@ -42,6 +39,8 @@ public class AttendanceServiceProc implements AttendanceService{
 	//오늘 날짜 BETWEEN 검색용 변수 230111 안나 작성
 	LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
 	LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(23,59,59));
+	LocalDate yesterday = LocalDate.now().minusDays(1);
+	LocalDate tomorrow = LocalDate.now().plusDays(1);
 	
 	@Autowired
 	private AttendanceRepository attRepo;
@@ -51,6 +50,9 @@ public class AttendanceServiceProc implements AttendanceService{
 	
 	@Autowired
 	private DepartmentsEntityRepository departmentRepo;
+	
+	@Autowired
+	private DayOffEntityRepository dayOffRepo;
 	
 	//페이징 메서드
 	private void pagingE(Model model, Page<EmployeesEntity> result) {
@@ -67,7 +69,7 @@ public class AttendanceServiceProc implements AttendanceService{
 		model.addAttribute("pageTotal", pageResult.getTotalPages()); // 총 페이지 수
 		model.addAttribute("endPage", 10); // 내비게이션 숫자 총 몇개로 할건지 : 1 ~ 10까지 10개 보여줄거야
 	}
-
+	
 	//출근시간 저장 230111 안나 작성
 	@Transactional
 	@Override
@@ -106,9 +108,6 @@ public class AttendanceServiceProc implements AttendanceService{
 	@Override
 	public void listAtt(Model model, Pageable pageable, String keyword) {
 		
-		//int pageNo=1,size=10;
-		//Pageable page=PageRequest.of(pageNo-1, size, Direction.DESC, "no");
-		
 		Page<EmployeesEntity> result = null;
 		
 		int check = 0;
@@ -120,7 +119,7 @@ public class AttendanceServiceProc implements AttendanceService{
 			result=emRepo.findAllByDeleteStatusAndNameContaining(false, keyword, pageable);
 			check = 2;
 		}
-		
+				
 		model.addAttribute("list", result.stream()
 			.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndClockInBetween(e.getNo(),startDatetime,endDatetime)
 					//출근하지 않은사원은 빈객체생성
@@ -134,9 +133,10 @@ public class AttendanceServiceProc implements AttendanceService{
 		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("check", check);
-
 	}
+
 	
+
 	//전체 근태리스트 뿌려주기 - 부서별 검색
 	@Override
 	public void findAllByDepartmentNo(Model model, Long department, Pageable pageable) {
@@ -223,6 +223,18 @@ public class AttendanceServiceProc implements AttendanceService{
 		model.addAttribute("dateEnd", dateEnd);
 		model.addAttribute("check", 2);
 		
+	}
+
+	//대표 결재완료 시 휴가중으로 저장
+	@Override
+	public void saveDayOff(long dayOffNo, LocalDate startDate, LocalDate endDate) {
+		Optional<EmployeesEntity> result = emRepo.findByNo(dayOffNo);
+
+		List<LocalDate> days = startDate.datesUntil(endDate).collect(Collectors.toList());
+		 for (LocalDate localDate : days) {
+			attRepo.save(DailyWorkingHoursEntity.builder().date(localDate).status("휴가중").employee(result.get()).build());		 
+		 }
+	
 	}
 
 

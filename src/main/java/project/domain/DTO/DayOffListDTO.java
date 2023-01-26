@@ -27,7 +27,7 @@ public class DayOffListDTO {
 	private LocalDate startDate; //휴가시작일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate EndDate; //휴가종료일
+	private LocalDate endDate; //휴가종료일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
@@ -42,7 +42,7 @@ public class DayOffListDTO {
 		this.type = e.getType();
 		this.reason = e.getReason();
 		this.startDate = e.getStartDate();
-		this.EndDate = e.getEndDate();
+		this.endDate = e.getEndDate();
 		this.draftDate = e.getDraftDate();
 		this.useDays = e.getUseDays();
 		this.approval = e.getApproval();

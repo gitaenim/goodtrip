@@ -6,9 +6,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/sideMenu/sideMenu.css">
-<link rel="stylesheet" href="/css/commons/chat-bot.css">
 <script src="/js/sideMenu/sideMenu.js"></script>
-<script src="/js/index/chat.js"></script>
 </head>
 <header>
 	<div class="wrap" id="calendarOnlyUse">
@@ -30,7 +28,7 @@
 				<dl class="menuList">
 					<dt>조직도</dt>
 					<dd>
-						<a href="/ozc/familytree"><span style="background-image: url('/image/icon/list-icon.png');"></span>리스트</a>
+						<a href="/ozc/groupList"><span style="background-image: url('/image/icon/list-icon.png');"></span>리스트</a>
 					</dd>
 					<dd>
 						<a href="/Organization/regist"><span style="background-image: url('/image/icon/regist-icon.png');"></span>등록</a>
@@ -69,6 +67,9 @@
 					<dd sec:authorize="hasRole('ROLE_PERSONAL')">
 						<a href="/approvalList"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
 					</dd>
+					<dd sec:authorize="hasRole('ROLE_CEO')">
+						<a href="/approvalList2"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
+					</dd>
 				</dl>
 			</li>
 			<li>
@@ -96,12 +97,5 @@
 			</li>
 		</ul>
 	</div>
-	<aside id="chat-bot">
-		<h1>챗봇</h1>
-		<div class="wrap">
-			<button type="button" id="btn-chat-open" onclick="openChat()">트립봇</button>
-			<th:block th:insert="~{chatbot/chat-bot::#chat-disp}" />
-		</div>
-	</aside>
 </header>
 </html>

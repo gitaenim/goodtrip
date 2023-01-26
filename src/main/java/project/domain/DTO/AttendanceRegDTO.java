@@ -19,11 +19,14 @@ public class AttendanceRegDTO {
 	private String clockOut;
 	
 	private long employeeNo;
+	
+	private String status;
 
 	public DailyWorkingHoursEntity toDailyWorkingHoursEntity() {
 		return DailyWorkingHoursEntity.builder()
 				.workNo(workNo)
 				.date(date)
+				.status("휴가중")
 				.build();
 	}
 
