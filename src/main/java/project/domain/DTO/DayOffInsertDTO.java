@@ -44,7 +44,7 @@ public class DayOffInsertDTO {
 				.type(type)
 				.reason(reason)
 				.startDate(startDate)
-				.EndDate(EndDate)
+				.endDate(EndDate)
 				.useDays(useDays)
 				.draftDate(draftDate)
 				.employeeNo(no)
