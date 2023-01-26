@@ -2,7 +2,7 @@ package project.domain.DTO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.time.LocalTime;
 
 import lombok.Data;
 import project.domain.entity.DailyWorkingHoursEntity;
@@ -15,9 +15,9 @@ public class AttendanceRegClockOutDTO {
 	
 	private LocalDate date; //날짜
 	
-	private LocalDateTime clockIn; //출근시간
+	private LocalTime clockIn; //출근시간
 
-	private LocalDateTime clockOut; //퇴근시간
+	private LocalTime clockOut; //퇴근시간
 	
 	private String status = "근무종료";
 	

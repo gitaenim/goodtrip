@@ -1,10 +1,13 @@
 package project.service.proc;
 
 import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 
@@ -56,7 +59,7 @@ public class DayOffServiceProcess implements DayOffService {
 	
 	//휴가 등록
 	@Override
-	public void save(DayOffInsertDTO dto) {
+	public void save(DayOffInsertDTO dto, HttpServletResponse response) {
 		
 		EmployeesEntity emp=employeesRepo.findById(dto.getEmployeeNo()).orElseThrow();
 		
@@ -79,12 +82,35 @@ public class DayOffServiceProcess implements DayOffService {
 				check=false;
 			}
 		}
-		if(check) {
-			dayOffRepo.save(dto.toDayOffEntity(emp));
-		}else {
-			
+		if (dto.getUseDays()==null) {
+			alertAndBack(response, "신청일수가 없습니다. 날짜를 다시 선택하세요");
 		}
+		if(check) {
+			if(emp.getPosition()==DepartmentRank.DepartmentManager) {
+				dayOffRepo.save(dto.toDayOffEntity(emp, AuthorizeStatus.FirstApproval));
+			}else if (emp.getPosition()==DepartmentRank.CEO) {
+				dayOffRepo.save(dto.toDayOffEntity(emp, AuthorizeStatus.Approval));
+			}
+			else {
+				dayOffRepo.save(dto.toDayOffEntity(emp, AuthorizeStatus.UnderApproval));
+			}
+		}else {
+		  String err404Meassge = "해당 날짜는 이미 존재합니다. 날짜를 다시 선택하세요";
+	         alertAndBack(response, err404Meassge);
+		}
+		
 	}
+	private static void alertAndBack(HttpServletResponse response, String msg) {
+      try {
+         response.setContentType("text/html; charset=utf-8");
+         PrintWriter w = response.getWriter();
+         w.write("<script>alert('" + msg + "');history.go(-1);</script>");
+         w.flush();
+         w.close();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
 	
 	/**
 	 * 두 날짜 사이의 모든 날짜를 받아오는 기능(시작날짜부터 종료일 전날까지 리스트로 받아짐)
@@ -127,7 +153,7 @@ public class DayOffServiceProcess implements DayOffService {
 	//내 휴가 리스트
 	@Override
 	public void mydayoff(long no, Model model) {
-		model.addAttribute("myDayOffList", dayOffRepo.findByEmployeeNo(employeesRepo.findById(no).orElseThrow())
+		model.addAttribute("myDayOffList", dayOffRepo.findByEmployeeNoOrderByStartDate(employeesRepo.findById(no).orElseThrow())
 				.stream().map(DayOffMyListDTO::new).collect(Collectors.toList()));		
 	}
 

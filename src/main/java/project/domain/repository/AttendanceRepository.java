@@ -17,26 +17,15 @@ public interface AttendanceRepository extends JpaRepository<DailyWorkingHoursEnt
 	
 	Page<DailyWorkingHoursEntity> findByEmployee_noOrderByDateDesc(long no, Pageable pageable);
 
-	List<DailyWorkingHoursEntity> findAllByClockInBetween(LocalDateTime startDatetime, LocalDateTime endDatetime);
-
-	List<DailyWorkingHoursEntity> findByEmployeeNoAndClockInBetween(EmployeesEntity emp, LocalDateTime startDatetime,
-			LocalDateTime endDatetime);
-	
-
-	Optional<DailyWorkingHoursEntity> findByClockInBetween(LocalDateTime startDatetime, LocalDateTime endDatetime);
-
-	Optional<DailyWorkingHoursEntity> findByClockInBetweenAndEmployeeNo(LocalDateTime startDatetime,
-			LocalDateTime endDatetime, EmployeesEntity emp);
-
 	Optional<DailyWorkingHoursEntity> findByEmployee_no(long no);
-
-	Optional<DailyWorkingHoursEntity> findByEmployee_noAndClockInBetween(long no, LocalDateTime startDatetime,
-			LocalDateTime endDatetime);
-
-	List<DailyWorkingHoursEntity> findByClockInBetweenAndEmployee_no(LocalDateTime startDatetime,
-			LocalDateTime endDatetime, long no);
 
 	Page<DailyWorkingHoursEntity> findByEmployee_noAndDateBetweenOrderByDateDesc(long no, LocalDate dateStart,
 			LocalDate dateEnd, Pageable pageable);
+
+	Optional<DailyWorkingHoursEntity> findByEmployee_noAndDateBetween(long no, LocalDate today, LocalDate tomorrow);
+
+	List<DailyWorkingHoursEntity> findByDateBetweenAndEmployee_no(LocalDate today, LocalDate tomorrow, long no);
+
+	Optional<DailyWorkingHoursEntity> findByEmployee_noAndClockInBetween(long no, LocalDate today, LocalDate tomorrow);
 
 }

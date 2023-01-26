@@ -23,7 +23,9 @@ import project.domain.DTO.AttendanceMyListDTO;
 import project.domain.DTO.AttendanceRegClockInDTO;
 import project.domain.DTO.AttendanceRegClockOutDTO;
 import project.domain.DTO.AttendanceStatusDTO;
+import project.domain.DTO.DayOffAppDTO;
 import project.domain.DTO.DayOffListDTO;
+import project.domain.entity.AuthorizeEntity;
 import project.domain.entity.DailyWorkingHoursEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.EmployeesEntity;
@@ -37,8 +39,7 @@ import project.service.AttendanceService;
 public class AttendanceServiceProc implements AttendanceService{
 
 	//오늘 날짜 BETWEEN 검색용 변수 230111 안나 작성
-	LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0));
-	LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(23,59,59));
+	LocalDate today = LocalDate.now();
 	LocalDate yesterday = LocalDate.now().minusDays(1);
 	LocalDate tomorrow = LocalDate.now().plusDays(1);
 	
@@ -75,7 +76,7 @@ public class AttendanceServiceProc implements AttendanceService{
 	@Override
 	public void saveAttIn(long no, AttendanceRegClockInDTO attendanceRegInDTO) {		
 		//DTO에 저장
-		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndClockInBetween(no, startDatetime, endDatetime);
+		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndDateBetween(no, today, tomorrow);
 
 		if(result.isEmpty()) { 	//데이터가 없으면 세이브
 			attRepo.save(attendanceRegInDTO.clockInToDailyWorkingHoursEntity()
@@ -92,7 +93,7 @@ public class AttendanceServiceProc implements AttendanceService{
 	@Transactional
 	@Override
 	public void saveAttOut(long no, AttendanceRegClockOutDTO attendanceRegOutDTO) {
-		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndClockInBetween(no, startDatetime, endDatetime);
+		Optional<DailyWorkingHoursEntity> result= attRepo.findByEmployee_noAndDateBetween(no, today, tomorrow);
 		DailyWorkingHoursEntity entity=result.get();
 		entity.update(attendanceRegOutDTO);
 	}
@@ -100,7 +101,7 @@ public class AttendanceServiceProc implements AttendanceService{
 	//출퇴근시간 가져오기 230111 안나 작성
 	@Override
 	public void attenList(long no, Model model) {
-		List<DailyWorkingHoursEntity> list = attRepo.findByClockInBetweenAndEmployee_no(startDatetime, endDatetime, no);
+		List<DailyWorkingHoursEntity> list = attRepo.findByDateBetweenAndEmployee_no(today, tomorrow, no);
 		model.addAttribute("list",list);
 	}
 
@@ -121,7 +122,7 @@ public class AttendanceServiceProc implements AttendanceService{
 		}
 				
 		model.addAttribute("list", result.stream()
-			.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndClockInBetween(e.getNo(),startDatetime,endDatetime)
+			.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndDateBetween(e.getNo(),today, tomorrow)
 					//출근하지 않은사원은 빈객체생성
 					.orElseGet(()->attRepo.save(DailyWorkingHoursEntity.builder().date(LocalDate.now()).status("미출근").employee(e).build())))
 			)
@@ -140,9 +141,9 @@ public class AttendanceServiceProc implements AttendanceService{
 	//전체 근태리스트 뿌려주기 - 부서별 검색
 	@Override
 	public void findAllByDepartmentNo(Model model, Long department, Pageable pageable) {
-		Page<EmployeesEntity> result=emRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatus(department, false, pageable);
+		Page<EmployeesEntity> result=emRepo.findAllByDepartmentNoDepartmentNoAndDeleteStatusOrderByPositionRank(department, false, pageable);
 		model.addAttribute("list2", result.stream()
-				.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndClockInBetween(e.getNo(),startDatetime,endDatetime)
+				.map(e->new AttendanceListDTO(attRepo.findByEmployee_noAndDateBetween(e.getNo(),today, tomorrow)
 						//출근하지 않은사원은 빈객체생성
 						.orElseGet(()->attRepo.save(DailyWorkingHoursEntity.builder().date(LocalDate.now()).status("미출근").employee(e).build())))
 				)
@@ -227,12 +228,19 @@ public class AttendanceServiceProc implements AttendanceService{
 
 	//대표 결재완료 시 휴가중으로 저장
 	@Override
-	public void saveDayOff(long dayOffNo, LocalDate startDate, LocalDate endDate) {
-		Optional<EmployeesEntity> result = emRepo.findByNo(dayOffNo);
+	public void saveDayOff(long dayOffNo, DayOffAppDTO dto) {
+		
+		DayOffEntity dayList = dayOffRepo.findByDayOffNo(dayOffNo);
+				
+		LocalDate startDate = dayList.getStartDate();
+		LocalDate endDate = dayList.getEndDate();
 
+		System.out.println("startDate: " + startDate);
+		System.out.println("endDate: " + endDate);
+		
 		List<LocalDate> days = startDate.datesUntil(endDate).collect(Collectors.toList());
 		 for (LocalDate localDate : days) {
-			attRepo.save(DailyWorkingHoursEntity.builder().date(localDate).status("휴가중").employee(result.get()).build());		 
+			attRepo.save(DailyWorkingHoursEntity.builder().date(localDate).status("휴가").employee(dayList.getEmployeeNo()).build());		 
 		 }
 	
 	}

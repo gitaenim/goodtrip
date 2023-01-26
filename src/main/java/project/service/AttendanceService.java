@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import project.domain.DTO.AttendanceRegClockInDTO;
 import project.domain.DTO.AttendanceRegClockOutDTO;
 import project.domain.DTO.AttendanceRegDTO;
+import project.domain.DTO.DayOffAppDTO;
 import project.security.MyUserDetails;
 
 public interface AttendanceService {
@@ -31,7 +32,7 @@ public interface AttendanceService {
 
 	void listAtt(Model model, Pageable pageable, String keyword);
 
-	void saveDayOff(long dayOffNo, LocalDate startDate, LocalDate endDate);
+	void saveDayOff(long dayOffNo, DayOffAppDTO dto);
 
 
 

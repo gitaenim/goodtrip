@@ -151,10 +151,14 @@ public class CncBoardServiceProc implements CNCBoardService {
 	// 인덱스에 띄워줄 경조사 게시글 내용
 	@Override
 	public void findListForIndex(ModelAndView modelAndView) {
-
 		Pageable page = PageRequest.of(0, 5, Direction.DESC, "createDate");
-
-		modelAndView.addObject("boardPage", CNCRepository.findAll(page));
+		List<BoardCNCEntity> list= CNCRepository.findByEventDateAfter(LocalDate.now().minusDays(1));
+		if(list.size()>5) {
+			list= list.subList(0, 5);
+		}else {
+			list = list.subList(0, list.size());
+		}
+		modelAndView.addObject("boardPage", list);
 		modelAndView.addObject("url", "/cncDetail" );
 		modelAndView.addObject("boardNo", "cncNo" );
 
