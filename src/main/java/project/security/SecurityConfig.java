@@ -16,9 +16,9 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(
 
 				authorize -> authorize
-					.antMatchers("/js/**", "/image/**", "/css/**")
+					.antMatchers("/js/**", "/image/**", "/css/**", "/resigned")
 					.permitAll() // 허용해야하는 url
-					//.hasRole("EMPLOYEE,PERSONALMANAGER")
+					//.hasRole("EMPLOYEE,PERSONALMANAGER,CEO")
 					.anyRequest().authenticated())
 				.formLogin(formLogin -> formLogin
 					.loginPage("/login")

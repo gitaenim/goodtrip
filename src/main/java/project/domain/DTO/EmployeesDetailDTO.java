@@ -54,9 +54,7 @@ public class EmployeesDetailDTO {
 		this.salary = sformatter.format(ent.getSalary());
 		this.deleteStatus = ent.isDeleteStatus();
 		this.editAuthority = ent.getEditAuthority().ordinal();
-
-		if(this.editAuthority==1) {yesorno="Y";} else {yesorno="N";}
-		//if(this.editAuthority==0) {yesorno="N";} else {yesorno="Y";}
+		if(this.editAuthority==1||this.editAuthority==3) {yesorno="Y";} else {yesorno="N";}
 		//this.empGrade = ent.getEmpGrade();
 
 	}

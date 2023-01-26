@@ -1,14 +1,23 @@
 package project;
 
+import java.time.LocalDate;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import project.chatbot.Answer;
 import project.chatbot.AnswerRepository;
 import project.chatbot.ChatBotIntention;
 import project.chatbot.ChatBotIntentionRepository;
+import project.domain.entity.DepartmentsEntity;
+import project.domain.entity.EmployeesEntity;
+import project.domain.repository.EmployeesEntityRepository;
 import project.domain.repository.PersonnelEvaRepository;
+import project.enums.DepartmentRank;
+import project.enums.MyRole;
 
 @SpringBootTest
 class PinkBalloonApplicationTests {
@@ -65,7 +74,7 @@ class PinkBalloonApplicationTests {
 				.build());
 		;
 	}
-	@Test
+	//@Test
 	void 휴가의도() {
 		/*
 		answer.save(Answer.builder()
@@ -80,6 +89,37 @@ class PinkBalloonApplicationTests {
 						.build()))
 				.answer(answer.findByKeyword("휴가신청").get())
 				.build());
+		
+		
+	}
+	
+	@Autowired
+	EmployeesEntityRepository employees;
+	
+	//@Test
+	void 사원추가() {
+		IntStream.rangeClosed(1, 50).forEach(i->{
+			employees.save(EmployeesEntity.builder()
+					.name("트립"+i)
+					.email("trip"+i+"@test.com")
+					.departmentNo(DepartmentsEntity.builder().departmentNo(1).build())
+					.position(DepartmentRank.Staff)
+					.positionRank(DepartmentRank.Staff.ordinal())
+					.password("1234")
+					.birthDate(LocalDate.now())
+					.mainWork("여행")
+					.phone("01000000000")
+					.extension("000")
+					.joinDate(LocalDate.now())
+					.salary(10000)
+					.editAuthority(MyRole.EMPLOYEE)
+					.build()
+					.addposition(DepartmentRank.Staff)
+					.addRole(MyRole.EMPLOYEE)
+					);
+			
+		});
+		
 		
 		
 	}
