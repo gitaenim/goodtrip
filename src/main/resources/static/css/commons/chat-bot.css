@@ -94,12 +94,13 @@
 }
 #chat-question{
 	position: absolute;
-	bottom: 0;
+	bottom: -24px;
 	width: 330px;
 	padding: 10px 15px;
 	font-size: 16px;
-	height: 35px;
+	height: 60px;
 	background-color: #fff;
+	box-sizing: unset;
 }
 #chat-question #question{
 	border: none;
@@ -109,6 +110,7 @@
 	vertical-align: middle;
 	width: calc(100% - 80px);
 	padding: 0 1em;
+	text-align: unset;
 }
 #chat-question span{
 	width: 40px;
@@ -132,8 +134,11 @@
 	color: #fff;
 	font-weight: 400;
 	font-size: 12px;
+	height: 36px;
 }
-
+.part>p{
+	margin-bottom: 0;
+}
 /*
 #chat-content .bot .message{
 	width: 100%;

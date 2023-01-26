@@ -1,7 +1,10 @@
 package project.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import project.domain.entity.DayOffEntity;
@@ -19,8 +22,6 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 
 	List<DayOffEntity> findAllByEmployeeNo(EmployeesEntity findByDepartmentNo);
 
-	List<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno);
-
 	DayOffEntity findByDayOffNo(long dayOffNo);
 
 	List<DayOffEntity> findByEmployeeNoOrEmployeeNo_DepartmentNoAndApproval(EmployeesEntity emp, DepartmentsEntity departmentNo,
@@ -29,5 +30,14 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 	List<DayOffEntity> findByEmployeeNoOrApproval(EmployeesEntity emp, AuthorizeStatus firstapproval);
 
 	List<DayOffEntity> findByApproval(AuthorizeStatus approval);
+
+	Page<DayOffEntity> findByEmployeeNoNameContaining(String search, Pageable page);
+
+	Page<DayOffEntity> findByApprovalContaining(String search, Pageable page);
+
+	Page<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno, Pageable page);
+
+	Page<DayOffEntity> findAllByApprovalNot(AuthorizeStatus underapproval, Pageable page);
+
 
 }
