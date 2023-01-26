@@ -45,10 +45,6 @@ public interface DayOffService {
 
 	void approvalList2(Model model);
 
-	void detail2(long dayOffNo, Model model);
-
-	void findAllByAuthorizeStatus(Model model, String status);
-
 	void findbyApproval(MyUserDetails myUserDetails, Model model);
 
 	List<DayOffEntity> findbyApproval(AuthorizeStatus approval);
