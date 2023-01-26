@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.util.Streamable;
 
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DepartmentsEntity;
@@ -40,5 +42,7 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 	Page<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno, Pageable page);
 
 	Page<DayOffEntity> findAllByApprovalNot(AuthorizeStatus underapproval, Pageable page);
+
+	List<DayOffEntity> findByEmployeeNoOrderByStartDate(EmployeesEntity orElseThrow);
 
 }

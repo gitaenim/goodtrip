@@ -2,6 +2,7 @@ package project.controller;
 
 import java.time.LocalDate;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class ApprovalController {
 	
 	//휴가신청 save
 	@PostMapping("/dayoff")
-	public String dayOff(DayOffInsertDTO dto) {
-		service.save(dto); //휴가등록
+	public String dayOff(DayOffInsertDTO dto, HttpServletResponse response) {
+		service.save(dto, response); //휴가등록
 		service.update(dto); //휴가일수 업데이트
 		return "redirect:/myDayOff";
 	}

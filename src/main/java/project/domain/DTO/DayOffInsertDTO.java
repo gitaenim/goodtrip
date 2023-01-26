@@ -33,12 +33,12 @@ public class DayOffInsertDTO {
 	
 	private long employeeNo; //사원번호
 	
-	private long useDays; //휴가일수
+	private Long useDays; //휴가일수
 	
 	private AuthorizeStatus approval; //승인여부
 	
 	//휴가 save 편의메서드
-	public DayOffEntity toDayOffEntity(EmployeesEntity no) {
+	public DayOffEntity toDayOffEntity(EmployeesEntity no, AuthorizeStatus auth) {
 		
 		return DayOffEntity.builder()
 				.type(type)
@@ -48,9 +48,10 @@ public class DayOffInsertDTO {
 				.useDays(useDays)
 				.draftDate(draftDate)
 				.employeeNo(no)
-				.approval(AuthorizeStatus.UnderApproval)//신청시
+				.approval(auth)//신청시
 				.build()
 				.addApproval(approval);		
 	}
+	
 	
 }
