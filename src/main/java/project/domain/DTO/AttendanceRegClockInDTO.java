@@ -15,7 +15,7 @@ public class AttendanceRegClockInDTO {
 	
 	private LocalDate date; //날짜
 	
-	private LocalDateTime clockIn = LocalDateTime.now(); //출근시간
+	private LocalTime clockIn = LocalTime.now(); //출근시간
 	
 	private String status = "근무중";
 
