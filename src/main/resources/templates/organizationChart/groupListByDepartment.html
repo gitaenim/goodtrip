@@ -16,14 +16,14 @@ function departmentClicked(){
 	else location.href="/ozc/groupList";
 }
 </script>
+
 </head>
-<main>
+<main id="listbydepartment">
 	<!-- 230110 한아 수정 -->
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
 	<div class="wrap list-1">
-
 		<section>
-			<div class="flex center back-list">
+			<div class="flex back-list">
 				<table class="list-table">
 					<tr class="list-2">
 						<th>사원명</th>
@@ -53,5 +53,6 @@ function departmentClicked(){
 				</table>
 			</div>
 		</section>
-	
+	</div>
+</main>
 </html>

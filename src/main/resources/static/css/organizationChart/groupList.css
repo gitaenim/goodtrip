@@ -1,7 +1,10 @@
 @charset "UTF-8";
 
 .list-1{
-	padding: 4.5em;
+	padding: 1.5em;
+}
+#listbydepartment{
+	padding-left: 175px;
 }
 .right {
 	justify-content: flex-end;
