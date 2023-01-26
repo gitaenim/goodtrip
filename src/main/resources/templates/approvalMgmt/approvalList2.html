@@ -31,10 +31,21 @@ th:replace="layout/layout :: layout(~{this::head}, ~{this::main})">
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${nullcheck == true}">
+						<tr th:each="list : ${appCEOList}">
+							<td th:text="${listStat.count}"></td>
+							<td><a th:href="@{/dayoffApp2(dayOffNo=${list.dayOffNo})}">[[${list.employeeNo.name}]]</a></td>
+							<td th:text="${list.draftDate}"></td>
+							<td th:text="${list.type}">연차</td>
+							<td th:text="${list.startDate}">2023-01-09</td>
+							<td th:text="${list.EndDate}">2023-01-11</td>
+							<td th:text="${list.useDays}">3</td>
+							<td th:text="${list.approval.label}"></td>
+						</tr>
+						<tr th:each="list : ${appCEOList2}">
+						<!-- <tr th:if="${nullcheck == true}">
 							<td colspan="5">해당 결재리스트에 등록된 결재가 없습니다.</td>
 						</tr>
-						<tr th:if="${nullcheck == false}" th:each="list : ${appCEOList}">
+						<tr th:if="${nullcheck == false}" th:each="list : ${appCEOList}"> -->
 							<td th:text="${listStat.count}"></td>
 							<td><a th:href="@{/dayoffApp2(dayOffNo=${list.dayOffNo})}">[[${list.employeeNo.name}]]</a></td>
 							<td th:text="${list.draftDate}"></td>

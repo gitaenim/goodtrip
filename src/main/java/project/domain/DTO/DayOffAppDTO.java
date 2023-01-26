@@ -24,7 +24,7 @@ private String type; //휴가종류
 	private LocalDate startDate; //휴가시작일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate EndDate; //휴가종료일
+	private LocalDate endDate; //휴가종료일
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate draftDate; //기안일
@@ -43,7 +43,7 @@ private String type; //휴가종류
 				.type(type)
 				.reason(reason)
 				.startDate(startDate)
-				.endDate(EndDate)
+				.endDate(endDate)
 				.useDays(useDays)
 				.draftDate(draftDate)
 				.employeeNo(no)

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.repository.DayOffEntityRepository;
 import project.enums.AuthorizeStatus;
 import project.security.MyUserDetails;
+import project.service.AttendanceService;
 import project.service.DayOffService;
 
 @Controller
@@ -29,6 +31,9 @@ public class ApprovalController {
 	
 	@Autowired
 	private DayOffService service;
+	
+	@Autowired
+	private AttendanceService aService;
 	
 	@Autowired
 	DayOffEntityRepository dayOffRepo;
@@ -94,7 +99,6 @@ public class ApprovalController {
 		service.detail2(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp2";
 	}
-
 	//부서장 결재승인
 	@Transactional
 	@GetMapping("/approval/{dayOffNo}")
@@ -110,22 +114,27 @@ public class ApprovalController {
 	@GetMapping("/approval2/{dayOffNo}")
 	public String approval2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
-		return "redirect:/approvalList";
+		LocalDate startDate = dto.getStartDate();
+		LocalDate endDate = dto.getEndDate();
+		aService.saveDayOff(dayOffNo, startDate, endDate);
+		return "redirect:/approvalList2";
 	}
 	
-	//결재 반려(삭제)
 //	@PostMapping("/approvalDelete")
 //	public String approvalDelete(long dayOffNo) {
 //		service.delete(dayOffNo);
 //		return "redirect:/approvalList";
 //	}
 	
-	@PostMapping("/approvalDelete/{dayOffNo}")
-	public String approvalDelete(@PathVariable long dayOffNo) {
-		dayOffRepo.deleteById(dayOffNo);
+	//부서장 결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn/{dayOffNo}")
+	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
 		return "redirect:/approvalList";
 	}
 	
+
 	//대표 결재승인
 	@Transactional
 	@GetMapping("/approval2/{dayOffNo}")
@@ -148,6 +157,7 @@ public class ApprovalController {
 		return "redirect:/approvalList";
 	}
 	
+
 	//대표 결재 반려
 	@Transactional
 	@PostMapping("/approvalReturn2/{dayOffNo}")

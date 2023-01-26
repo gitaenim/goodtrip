@@ -1,8 +1,6 @@
 package project.service.proc;
 
-
 import java.util.ArrayList;
-
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -167,7 +165,7 @@ public class DayOffServiceProcess implements DayOffService {
 			nullcheck = true;
 		}
 		model.addAttribute("nullcheck", nullcheck);		
-		
+
 		long dno=departmentNo.getDepartmentNo();
 		Page<DayOffEntity> appList = dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page);
 		model.addAttribute("appList", appList);
@@ -183,6 +181,16 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//대표 결재리스트
 	@Override
+	public void approvalList2(Model model) {
+		List<DayOffEntity> appList = dayOffRepo.findAllByApproval(AuthorizeStatus.FirstApproval);
+		List<DayOffEntity> appList2 = dayOffRepo.findAllByApproval(AuthorizeStatus.Approval);
+		List<DayOffEntity> appList3 = dayOffRepo.findAllByApproval(AuthorizeStatus.Return);
+		appList.addAll(appList2);
+		appList.addAll(appList3);
+    model.addAttribute("appCEOList", appList);
+	}
+  
+  @Override
 	public void approvalList2(int pageNum, String search, String searchType, Model model) {
 		int pageSize = 10;
 
@@ -209,7 +217,7 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("nullcheck", nullcheck);
 		
 		Page<DayOffEntity> appList = dayOffRepo.findAllByApprovalNot(AuthorizeStatus.UnderApproval, page);
-		
+
 		model.addAttribute("appCEOList", appList);
 	}
 
@@ -226,14 +234,6 @@ public class DayOffServiceProcess implements DayOffService {
 	public void findAllByAuthorizeStatus(Model model, String status) {
 		System.out.println("status : "+status);
 		
-	}
-
-	//결재 반려(삭제)
-	@Override
-	public void delete(long dayOffNo) {
-		
-		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
-		dayOffRepo.deleteById(dayOffNo);		
 	}
 
 	@Override
