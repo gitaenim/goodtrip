@@ -67,9 +67,8 @@ public class PersonnelEvaController {
 		return "personnel/personnelEva";
 	}
 	
-	
-	@PostMapping("/personnelEva/save")
 	@ResponseBody
+	@PostMapping("/personnelEva/save")
 	public String personnelEvaSave(@RequestBody PersonnelEvaDTO dto, EmployeesUpdateDTO empDto ) {
 		
 		int num = personnelEvaService.save(dto , empDto);
