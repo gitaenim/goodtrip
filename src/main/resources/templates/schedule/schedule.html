@@ -49,7 +49,7 @@
 						<th>비고</th>
 					</tr>
 					<tr th:if="${todaySchedule.isEmpty()}">
-						<td colspan="6">오늘의 일정이 없습니다.</td>
+						<td colspan="7">오늘의 일정이 없습니다.</td>
 					</tr>
 					<tr th:if="${todaySchedule.isEmpty()}==false" th:each="list : ${todaySchedule}">
 						<form action="/scheduleUpdate" method="post">

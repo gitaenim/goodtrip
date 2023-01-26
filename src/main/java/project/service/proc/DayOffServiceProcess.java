@@ -1,5 +1,8 @@
 package project.service.proc;
 
+
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +37,10 @@ import project.domain.repository.DaysOffNumbersEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.enums.AuthorizeStatus;
+
+import project.enums.DepartmentRank;
+import project.security.MyUserDetails;
+
 import project.service.DayOffService;
 
 @Service
@@ -227,6 +234,38 @@ public class DayOffServiceProcess implements DayOffService {
 		
 		DayOffEntity dayoff = dayOffRepo.findById(dayOffNo).orElseThrow();
 		dayOffRepo.deleteById(dayOffNo);		
+	}
+
+	@Override
+	public void findbyApproval(MyUserDetails myUserDetails, Model model) {
+		
+		EmployeesEntity emp = employeesRepo.findById(myUserDetails.getNo()).orElseThrow();
+		
+		List<DayOffEntity> approvalList = new ArrayList<>();
+		
+		if(myUserDetails.getPosition() == DepartmentRank.CEO){
+			 approvalList = dayOffRepo.findByEmployeeNoOrApproval(emp,AuthorizeStatus.FirstApproval);
+		}else if(myUserDetails.getPosition() == DepartmentRank.DepartmentManager) {
+			System.err.println("부장입니다");
+			 approvalList = dayOffRepo.findByEmployeeNoOrEmployeeNo_DepartmentNoAndApproval(emp,emp.getDepartmentNo(),AuthorizeStatus.UnderApproval);
+		}else {
+			System.err.println("테스트");
+			 approvalList =  dayOffRepo.findByEmployeeNo(emp);
+		}
+		
+		if(approvalList.size()>10) {
+			model.addAttribute("approvalList",approvalList.subList(0, 10));
+		}else {
+			model.addAttribute("approvalList",approvalList.subList(0, approvalList.size()));
+		}
+		
+
+	}
+
+	@Override
+	public List<DayOffEntity> findbyApproval(AuthorizeStatus approval) {
+		
+		return dayOffRepo.findByApproval(approval);
 	}
 
 	

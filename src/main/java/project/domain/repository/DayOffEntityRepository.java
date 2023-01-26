@@ -24,7 +24,12 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 
 	DayOffEntity findByDayOffNo(long dayOffNo);
 
-	//List<DayOffEntity> findAllByApproval(AuthorizeStatus firstapproval);
+	List<DayOffEntity> findByEmployeeNoOrEmployeeNo_DepartmentNoAndApproval(EmployeesEntity emp, DepartmentsEntity departmentNo,
+			AuthorizeStatus approval);
+
+	List<DayOffEntity> findByEmployeeNoOrApproval(EmployeesEntity emp, AuthorizeStatus firstapproval);
+
+	List<DayOffEntity> findByApproval(AuthorizeStatus approval);
 
 	Page<DayOffEntity> findByEmployeeNoNameContaining(String search, Pageable page);
 
@@ -33,5 +38,6 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 	Page<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno, Pageable page);
 
 	Page<DayOffEntity> findAllByApprovalNot(AuthorizeStatus underapproval, Pageable page);
+
 
 }

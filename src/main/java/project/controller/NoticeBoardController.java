@@ -25,8 +25,10 @@ public class NoticeBoardController {
 	
 	//공지사항 게시판 리스트 이동
 	@GetMapping("/Board/noticeList")
-    public String noticeList(Model model) {
-		noticeservice.findAll(model);
+    public String noticeList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
+			@RequestParam(value="search", required = false, defaultValue = "전체") String search,
+			@RequestParam(value="searchType", required = false) String searchType,Model model) {
+		noticeservice.findAll(pageNum,search,searchType,model);
         return "Board/noticeList";
     }
 	

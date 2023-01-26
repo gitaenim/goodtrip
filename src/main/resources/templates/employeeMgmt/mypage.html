@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/sideMenu/mypage.css">
 <link rel="stylesheet" href="/css/commons/common.css" />
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
+<script src="/js/mypage/mypage.js"></script>
 <style type="text/css">
 </style>
 </head>
@@ -14,55 +17,60 @@
 		<div class="flex center">
 			<p>마이페이지</p>
 		</div>
-		<table class="mypage-table">
-			<tr th:each="e:${mypage}"><td>사진</td>
-				<td><img th:src="${e.imgUrl}"></td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>사원번호</td>
-				<td>[[${e.no}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>부서이름</td>
-				<td>[[${e.departmentName}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>이름</td>
-				<td>[[${e.name}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>이메일</td>
-				<td>[[${e.email}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>직급</td>
-				<td>[[${e.position}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>연락처</td>
-				<td>[[${e.phone}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>입사일</td>
-				<td>[[${e.joinDate}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>내선번호</td>
-				<td>[[${e.extension}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>급여</td>
-				<td>[[${e.salary}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>생년월일</td>
-				<td>[[${e.birthDate}]]</td>
-			</tr>
-			<tr th:each="e:${mypage}">
-				<td>주업무</td>
-				<td>[[${e.mainWork}]]</td>
-			</tr>
-		</table>
+		<form >
+			<table class="mypage-table">
+				<tr>
+					<td>사진</td>
+					<td><img th:src="|${mypage.imageNo.url}|"></td>
+				</tr>
+				<tr >
+					<td>사원번호</td>
+					<td th:text="${mypage.no}">사원번호</td>
+				</tr>
+				<tr>
+					<td>부서이름</td>
+					<td th:text="${mypage.departmentNo.departmentName}">부서이름</td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td th:text="${mypage.name}">이름</td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td th:text="${mypage.email}">이메일</td>
+				</tr>
+				<tr>
+					<td>직급</td>
+					<td th:text="${mypage.position}">직급</td>
+				</tr>
+				<tr>
+					<td>연락처</td>
+					<td th:text="${mypage.phone}">연락처</td>
+				</tr>
+				<tr>
+					<td>입사일</td>
+					<td th:text="${mypage.joinDate}">입사일</td>
+				</tr>
+				<tr>
+					<td>내선번호</td>
+					<td th:text="${mypage.extension}">내선번호</td>
+				</tr>
+				<tr>
+					<td>급여</td>
+					<td th:text="${mypage.salary}" >급여</td>
+				</tr>
+				<tr>
+					<td>생년월일</td>
+					<td th:text="${mypage.birthDate}">생년월일</td>
+				</tr>
+				<tr>
+					<td>주업무</td>
+					<td th:text="${mypage.mainWork}">주업무</td>
+				</tr>
+			</table>
+			<input type="hidden" th:value="${#authentication.principal.no}" id="empNo">
+			<button style="margin-top: 10px;" class="updateBtn" sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')" type="button" onclick="EditModeclicked()">수정하기</button>
+		</form>
 	</div>
 </main>
 </html>

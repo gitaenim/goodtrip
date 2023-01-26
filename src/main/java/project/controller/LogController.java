@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import project.security.MyUserDetails;
 import project.service.AttendanceService;
 import project.service.CNCBoardService;
+import project.service.DayOffService;
 import project.service.EmployeesService;
 import project.service.NoticeBoardService;
 import project.service.PersonnelEvaService;
@@ -44,6 +45,9 @@ public class LogController {
 	@Autowired
 	private PersonnelEvaService personnelEvaService;
 	
+	@Autowired
+	private DayOffService dayOffService;
+	
 	//로그인 페이지
 	@GetMapping("/login")
     public String login() {
@@ -68,6 +72,8 @@ public class LogController {
 		employeesService.findAllByNewEMPForIndex(model);
 		
 		personnelEvaService.findAllByAwardEMPForIndex(model);
+		
+		dayOffService.findbyApproval(myUserDetails, model);
 		
 		return "/index";
 	}
