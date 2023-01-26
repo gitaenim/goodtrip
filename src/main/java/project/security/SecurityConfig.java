@@ -18,8 +18,8 @@ public class SecurityConfig {
 				authorize -> authorize
 					.antMatchers("/js/**", "/image/**", "/css/**", "/resigned")
 					.permitAll() // 허용해야하는 url
-					//.hasRole("EMPLOYEE,PERSONALMANAGER,CEO")
-					.anyRequest().authenticated())
+					//.anyRequest().authenticated())
+					.anyRequest().hasAnyAuthority("ROLE_PERSONAL", "ROLE_EMPLOYEE", "ROLE_CEO")) //퇴직한 사원은 접근불가 230126한아
 				.formLogin(formLogin -> formLogin
 					.loginPage("/login")
 					.loginProcessingUrl("/login") // form action
