@@ -13,7 +13,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	
 	$(function(){
 		departmentAll();
-		$(".department-name>div").eq(0).addClass("target")
+		$(".department-name>div").eq(0).addClass("targett")
 		$(".department-name>div").click(departmentClicked);
 	});
 	
@@ -34,8 +34,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	}
 	
 	function departmentClicked(){
-		$(".department-name>div").removeClass("target");
-		$(this).addClass("target");
+		$(".department-name>div").removeClass("targett");
+		$(this).addClass("targett");
 	}
 	
 	function departmentList(departmentNo){
