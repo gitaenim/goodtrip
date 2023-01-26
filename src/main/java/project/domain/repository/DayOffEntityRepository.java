@@ -22,16 +22,16 @@ public interface DayOffEntityRepository extends JpaRepository<DayOffEntity, Long
 
 	List<DayOffEntity> findAllByEmployeeNo(EmployeesEntity findByDepartmentNo);
 
-	List<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno);
-
 	DayOffEntity findByDayOffNo(long dayOffNo);
 
-	List<DayOffEntity> findAllByApproval(AuthorizeStatus firstapproval);
+	//List<DayOffEntity> findAllByApproval(AuthorizeStatus firstapproval);
 
-	Page<DayOffEntity> findByEmployeeNoName(String search, Pageable page);
+	Page<DayOffEntity> findByEmployeeNoNameContaining(String search, Pageable page);
 
-	Page<DayOffEntity> findByApproval(String search, Pageable page);
+	Page<DayOffEntity> findByApprovalContaining(String search, Pageable page);
 
 	Page<DayOffEntity> findAllByEmployeeNoDepartmentNoDepartmentNo(long dno, Pageable page);
+
+	List<DayOffEntity> findAllByApprovalNotOrderByApprovalAsc(AuthorizeStatus underapproval);
 
 }

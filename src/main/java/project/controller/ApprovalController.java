@@ -1,10 +1,13 @@
 package project.controller;
 
+import java.time.LocalDate;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,12 +115,21 @@ public class ApprovalController {
 //		service.delete(dayOffNo);
 //		return "redirect:/approvalList";
 //	}
-	//결재 반려
+	
+	//부서장 결재 반려
 	@Transactional
 	@PostMapping("/approvalReturn/{dayOffNo}")
 	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
 		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
 		return "redirect:/approvalList";
+	}
+	
+	//대표 결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn2/{dayOffNo}")
+	public String approvalReturn2(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
+		return "redirect:/approvalList2";
 	}
 	
 }

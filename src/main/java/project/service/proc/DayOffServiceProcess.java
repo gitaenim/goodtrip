@@ -134,25 +134,22 @@ public class DayOffServiceProcess implements DayOffService {
 
 	//부서장 결재리스트
 	@Override
-	public void appList(DepartmentsEntity departmentNo,int pageNum, String search, String searchType, Model model) {
+	public void appList(DepartmentsEntity departmentNo, int pageNum, String search, String searchType, Model model) {
 		int pageSize = 10;
 
 		Page<DayOffEntity> list = null;
 
-		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "draftDate");
-		
-		
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "approval");
 		
 		if (search == null) {
 			list = dayOffRepo.findAll(page);
 		} else {
 			if(searchType.equals("name")) {
-				list = dayOffRepo.findByEmployeeNoName(search, page);
+				list = dayOffRepo.findByEmployeeNoNameContaining(search, page);
 			}else if(searchType.equals("approval")) {
-				list = dayOffRepo.findByApproval(search, page);
+				list = dayOffRepo.findByApprovalContaining(search, page);
 			}
 		}
-
 		// false : 조회한 데이터가 있음
 		// true : 조회한 데이터가 없음
 		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수
@@ -163,9 +160,8 @@ public class DayOffServiceProcess implements DayOffService {
 		model.addAttribute("nullcheck", nullcheck);		
 		
 		long dno=departmentNo.getDepartmentNo();
-		dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page);
-		model.addAttribute("appList", dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page));
-		
+		Page<DayOffEntity> appList = dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page);
+		model.addAttribute("appList", appList);
 	}
 
 	/*
@@ -179,9 +175,13 @@ public class DayOffServiceProcess implements DayOffService {
 	//대표 결재리스트
 	@Override
 	public void approvalList2(Model model) {
-		List<DayOffEntity> appList = dayOffRepo.findAllByApproval(AuthorizeStatus.FirstApproval);
-		List<DayOffEntity> appList2 = dayOffRepo.findAllByApproval(AuthorizeStatus.Approval);
-		appList.addAll(appList2);
+		List<DayOffEntity> appList = dayOffRepo.findAllByApprovalNotOrderByApprovalAsc(AuthorizeStatus.UnderApproval);
+		/*
+		 * List<DayOffEntity> appList2 =
+		 * dayOffRepo.findAllByApproval(AuthorizeStatus.Approval); List<DayOffEntity>
+		 * appList3 = dayOffRepo.findAllByApproval(AuthorizeStatus.Return);
+		 * appList.addAll(appList2); appList.addAll(appList3);
+		 */
 		model.addAttribute("appCEOList", appList);
 	}
 
