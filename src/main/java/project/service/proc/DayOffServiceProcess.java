@@ -1,5 +1,6 @@
 package project.service.proc;
 
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +21,9 @@ import project.domain.DTO.DayOffInsertDTO;
 import project.domain.DTO.DayOffListDTO;
 import project.domain.DTO.DayOffListEmpDTO;
 import project.domain.DTO.DayOffMyListDTO;
+
 import project.domain.entity.BoardCNCEntity;
+
 import project.domain.entity.BoardSuggestionsEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.DaysOffNumbersEntity;
@@ -32,6 +35,10 @@ import project.domain.repository.DaysOffNumbersEntityRepository;
 import project.domain.repository.DepartmentsEntityRepository;
 import project.domain.repository.EmployeesEntityRepository;
 import project.enums.AuthorizeStatus;
+
+import project.enums.DepartmentRank;
+import project.security.MyUserDetails;
+
 import project.service.DayOffService;
 
 @Service
@@ -158,7 +165,7 @@ public class DayOffServiceProcess implements DayOffService {
 			nullcheck = true;
 		}
 		model.addAttribute("nullcheck", nullcheck);		
-		
+
 		long dno=departmentNo.getDepartmentNo();
 		Page<DayOffEntity> appList = dayOffRepo.findAllByEmployeeNoDepartmentNoDepartmentNo(dno, page);
 		model.addAttribute("appList", appList);
@@ -180,6 +187,37 @@ public class DayOffServiceProcess implements DayOffService {
 		List<DayOffEntity> appList3 = dayOffRepo.findAllByApproval(AuthorizeStatus.Return);
 		appList.addAll(appList2);
 		appList.addAll(appList3);
+    model.addAttribute("appCEOList", appList);
+	}
+  
+  @Override
+	public void approvalList2(int pageNum, String search, String searchType, Model model) {
+		int pageSize = 10;
+
+		Page<DayOffEntity> list = null;
+
+		Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.DESC, "approval");
+		
+		if (search == null) {
+			list = dayOffRepo.findAll(page);
+		} else {
+			if(searchType.equals("name")) {
+				list = dayOffRepo.findByEmployeeNoNameContaining(search, page);
+			}else if(searchType.equals("approval")) {
+				list = dayOffRepo.findByApprovalContaining(search, page);
+			}
+		}
+		// false : 조회한 데이터가 있음
+		// true : 조회한 데이터가 없음
+		boolean nullcheck = false; // 조회한 데이터의 유무를 확인하는 변수
+
+		if (list.isEmpty()) {
+			nullcheck = true;
+		}
+		model.addAttribute("nullcheck", nullcheck);
+		
+		Page<DayOffEntity> appList = dayOffRepo.findAllByApprovalNot(AuthorizeStatus.UnderApproval, page);
+
 		model.addAttribute("appCEOList", appList);
 	}
 
@@ -196,6 +234,38 @@ public class DayOffServiceProcess implements DayOffService {
 	public void findAllByAuthorizeStatus(Model model, String status) {
 		System.out.println("status : "+status);
 		
+	}
+
+	@Override
+	public void findbyApproval(MyUserDetails myUserDetails, Model model) {
+		
+		EmployeesEntity emp = employeesRepo.findById(myUserDetails.getNo()).orElseThrow();
+		
+		List<DayOffEntity> approvalList = new ArrayList<>();
+		
+		if(myUserDetails.getPosition() == DepartmentRank.CEO){
+			 approvalList = dayOffRepo.findByEmployeeNoOrApproval(emp,AuthorizeStatus.FirstApproval);
+		}else if(myUserDetails.getPosition() == DepartmentRank.DepartmentManager) {
+			System.err.println("부장입니다");
+			 approvalList = dayOffRepo.findByEmployeeNoOrEmployeeNo_DepartmentNoAndApproval(emp,emp.getDepartmentNo(),AuthorizeStatus.UnderApproval);
+		}else {
+			System.err.println("테스트");
+			 approvalList =  dayOffRepo.findByEmployeeNo(emp);
+		}
+		
+		if(approvalList.size()>10) {
+			model.addAttribute("approvalList",approvalList.subList(0, 10));
+		}else {
+			model.addAttribute("approvalList",approvalList.subList(0, approvalList.size()));
+		}
+		
+
+	}
+
+	@Override
+	public List<DayOffEntity> findbyApproval(AuthorizeStatus approval) {
+		
+		return dayOffRepo.findByApproval(approval);
 	}
 
 	

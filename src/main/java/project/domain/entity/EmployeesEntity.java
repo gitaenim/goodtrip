@@ -190,6 +190,7 @@ public class EmployeesEntity {
 	}
 	public EmployeesEntity changeHeadPosition() {
 		this.position = DepartmentRank.DepartmentManager;
+		this.positionRank = 1;
 		return null;
 	}
 

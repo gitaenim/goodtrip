@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,8 +78,11 @@ public class ApprovalController {
 	
 	//대표 결재리스트
 	@GetMapping("/approvalList2")
-    public String approvalList2(Model model) {
-		service.approvalList2(model);
+    public String approvalList2(
+    		@RequestParam(value="pageNum", required = false, defaultValue="1") int pageNum, 
+    		@RequestParam(value="search", required = false) String search,
+    		@RequestParam(value="searchType", required = false) String searchType, Model model) {
+		service.approvalList2(pageNum, search, searchType, model);
         return "approvalMgmt/approvalList2";
     }
 	
@@ -94,7 +99,6 @@ public class ApprovalController {
 		service.detail2(dayOffNo, model); //no :  day off no
 		return "approvalMgmt/dayOffApp2";
 	}
-	
 	//부서장 결재승인
 	@Transactional
 	@GetMapping("/approval/{dayOffNo}")
@@ -130,6 +134,30 @@ public class ApprovalController {
 		return "redirect:/approvalList";
 	}
 	
+
+	//대표 결재승인
+	@Transactional
+	@GetMapping("/approval2/{dayOffNo}")
+	public String approval23(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
+		return "redirect:/approvalList2";
+	}
+	
+//	@PostMapping("/approvalDelete")
+//	public String approvalDelete(long dayOffNo) {
+//		service.delete(dayOffNo);
+//		return "redirect:/approvalList";
+//	}
+	
+	//부서장 결재 반려
+	@Transactional
+	@PostMapping("/approvalReturn/{dayOffNo}")
+	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
+		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
+		return "redirect:/approvalList";
+	}
+	
+
 	//대표 결재 반려
 	@Transactional
 	@PostMapping("/approvalReturn2/{dayOffNo}")

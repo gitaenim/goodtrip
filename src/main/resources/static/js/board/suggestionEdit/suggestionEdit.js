@@ -45,7 +45,7 @@ function ReplyEditCheck(el) {
 function replyRemoveCheck(el) {
 
  if (confirm("댓글을 정말 삭제하시겠습니까?") == true){    //확인
-     $(el).parents('td').children(document.replyRemove).submit();
+     $(el).parents(document.replyRemove).submit();
  }else{   //취소
      return false;
  }

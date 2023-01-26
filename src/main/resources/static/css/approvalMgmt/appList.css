@@ -67,9 +67,18 @@ tr.list-2 th{
     margin-right: 10px;
     margin-bottom: 1px;
 }
-
-
 .att-btn button{
 	font-size: 17px;
 	color: #222;
+}
+.pageBTN {
+	text-align: center;
+}
+
+.pageBTN>a {
+	color: #4B99DA;
+}
+#currentPage {
+	color:#1a3fd5;
+	font-weight: bold;
 }

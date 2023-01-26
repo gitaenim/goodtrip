@@ -29,5 +29,11 @@ public class Answer {
 		this.keyword = keyword;
 		return this;
 	}
+	
+	public AnswerDTO toAnswerDTO() {
+		return AnswerDTO.builder()
+				.no(no).content(content).keyword(keyword)
+				.build();
+	}
 
 }
