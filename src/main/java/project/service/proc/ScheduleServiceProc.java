@@ -72,8 +72,8 @@ public class ScheduleServiceProc implements ScheduleService {
 		
 		int size = findAllByDate(now,model,empNo).size();
 		
-		if(size>5) {
-		model.addAttribute("todaySchedule",findAllByDate(now,model,empNo).subList(0, 2));
+		if(size>4) {
+		model.addAttribute("todaySchedule",findAllByDate(now,model,empNo).subList(0, 4));
 		}else {
 		model.addAttribute("todaySchedule",findAllByDate(now,model,empNo).subList(0, size));
 		}
@@ -86,8 +86,8 @@ public class ScheduleServiceProc implements ScheduleService {
 
 		int size = findAllByDate(plusDays,model,empNo).size();
 		
-		if(size>5) {
-		model.addAttribute("tomorrowSchedule",findAllByDate(plusDays,model,empNo).subList(0, 2));
+		if(size>4) {
+		model.addAttribute("tomorrowSchedule",findAllByDate(plusDays,model,empNo).subList(0, 4));
 		}else {
 		model.addAttribute("tomorrowSchedule",findAllByDate(plusDays,model,empNo).subList(0, size));
 		}

@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.domain.DTO.AttendanceRegClockInDTO;
 import project.domain.DTO.AttendanceRegClockOutDTO;
+import project.domain.DTO.AttendanceStatusDTO;
 
 
 @DynamicInsert
@@ -60,6 +61,9 @@ public class DailyWorkingHoursEntity {
 	@ManyToOne
 	private EmployeesEntity employee; //사원번호
 	
+	
+	
+	
 	public DailyWorkingHoursEntity employee(EmployeesEntity employee) {
 		this.employee = employee;
 		return this;
@@ -78,8 +82,12 @@ public class DailyWorkingHoursEntity {
 		this.status = dto.getStatus();
 		return this;
 	}
-
-
+	
+	//퇴근 업데이트
+	public DailyWorkingHoursEntity update(AttendanceStatusDTO dto) {
+		this.status = dto.getStatus();
+		return this;
+	}
 
 
 }

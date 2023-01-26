@@ -1,5 +1,7 @@
 package project.domain.DTO;
 
+import java.time.LocalDateTime;
+
 import lombok.Data;
 import project.domain.entity.BoardNoticeEntity;
 import project.domain.entity.EmployeesEntity;
@@ -24,8 +26,9 @@ public class BoardNoticeDTO {
 
 	//업데이트 메서드
 	public BoardNoticeEntity toEntityForUpdate(long noticeNo, EmployeesEntity registNo) {
+		LocalDateTime today = LocalDateTime.now();
 		return BoardNoticeEntity.builder()
-				.noticeNo(noticeNo).title(title).content(content).registNo(registNo)
+				.noticeNo(noticeNo).title(title).content(content).registNo(registNo).createDate(today)
 				.build();
 	}
 

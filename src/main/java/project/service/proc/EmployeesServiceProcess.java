@@ -77,9 +77,10 @@ public class EmployeesServiceProcess implements EmployeesService {
 	//로그인한 사원정보 마이페이지에 조회 기능
 	@Override
 	public void findemployee(long no , Model model) {
-		Optional<EmployeesEntity> list = employeesRepository.findById(no);
-		List<EmployeesDetailDTO> dto = list.stream().map(EmployeesDetailDTO::new).collect(Collectors.toList());
-		model.addAttribute("mypage",dto);
+	
+		EmployeesEntity emp = employeesRepository.findById(no).orElseThrow();
+		
+		model.addAttribute("mypage",emp);
 	}
 
 	//인덱스에 뿌려 줄 신입사원 리스트 조회
