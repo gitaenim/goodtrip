@@ -24,77 +24,79 @@
 			<li sec:authorize="isAuthenticated()"
 				th:text="${#authentication.principal.departmentNo.departmentName} + '/' + ${#authentication.principal.position.label}">[담당부서]/[직급]</li>
 			<li sec:authorize="isAuthenticated()"><a href="/logout">로그아웃</a></li>
-			<li>
-				<dl class="menuList">
-					<dt>조직도</dt>
-					<dd>
-						<a href="/ozc/groupList"><span style="background-image: url('/image/icon/list-icon.png');"></span>리스트</a>
-					</dd>
-					<dd>
-						<a href="/Organization/regist"><span style="background-image: url('/image/icon/regist-icon.png');"></span>등록</a>
-					</dd>
-					<dd>
-						<a href="/calendar"><span style="background-image: url('/image/icon/calendar-icon.png');"></span>캘린더</a>
-					</dd>
-					<dd>
-						<a href="/departments/manage"><span style="background-image: url('/image/icon/organization-icon.png');"></span>부서관리</a>
-					</dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>인사 관리</dt>
-					<dd>
-						<a href="/scheduleList"><span style="background-image: url('/image/icon/schedule-icon.png');"></span>일정관리</a>
-					</dd>
-					<dd>
-						<a  href="/personnelEvaList"><span style="background-image: url('/image/icon/emp-mgmt.png');"></span>인사관리</a>
-					</dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>근태 및 결재</dt>
-					<dd>
-						<a href="/attendanceList"><span style="background-image: url('/image/icon/attendance-icon.png');"></span>근태 리스트</a>
-					</dd>
-					<dd>
-						<a href="/myAttendance"><span style="background-image: url('/image/icon/my-working-icon.png');"></span>내 근태 및 휴가</a>
-					</dd>
-					<dd>
-						<a href="/dayoff"><span style="background-image: url('/image/icon/dayoff-icon.png');"></span>휴가신청 작성</a>
-					</dd>
-					<dd sec:authorize="hasRole('ROLE_PERSONAL')">
-						<a href="/approvalList"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
-					</dd>
-					<dd sec:authorize="hasRole('ROLE_CEO')">
-						<a href="/approvalList2"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
-					</dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>게시판</dt>
-					<dd>
-						<a href="/Board/noticeList"><span style="background-image: url('/image/icon/notice-icon.png');"></span>공지사항</a>
-					</dd>
-					<dd>
-						<a href="/Board/cncList"><span style="background-image: url('/image/icon/cnc-icon.png');"></span>경조사</a>
-					</dd>
-					<dd>
-						<a href="/Board/suggestionList"><span style="background-image: url('/image/icon/request-icon.png');"></span>건의 게시판</a>
-					</dd>
-				</dl>
-			</li>
-			<li>
-				<dl class="menuList">
-					<dt>마이페이지</dt>
-					<dd>
-						<a href="/employeeMgmt/mypage"><span style="background-image: url('/image/icon/mypage-icon.png');"></span>마이페이지</a>
-					</dd>
-					<dd><a href="https://togla1382.ncpworkplace.com/v/home/"><span style="background-image: url('/image/icon/works-icon.png');"></span>네이버웍스</a></dd>
-				</dl>
-			</li>
+			<div id="sidemenulist">
+				<li>
+					<dl class="menuList">
+						<dt>조직도</dt>
+						<dd>
+							<a href="/ozc/familytree"><span style="background-image: url('/image/icon/list-icon.png');"></span>리스트</a>
+						</dd>
+						<dd>
+							<a href="/Organization/regist"><span style="background-image: url('/image/icon/regist-icon.png');"></span>등록</a>
+						</dd>
+						<dd>
+							<a href="/calendar"><span style="background-image: url('/image/icon/calendar-icon.png');"></span>캘린더</a>
+						</dd>
+						<dd>
+							<a href="/departments/manage"><span style="background-image: url('/image/icon/organization-icon.png');"></span>부서관리</a>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl class="menuList">
+						<dt>인사 관리</dt>
+						<dd>
+							<a href="/scheduleList"><span style="background-image: url('/image/icon/schedule-icon.png');"></span>일정관리</a>
+						</dd>
+						<dd>
+							<a href="/personnelEvaList"><span style="background-image: url('/image/icon/emp-mgmt.png');"></span>인사관리</a>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl class="menuList">
+						<dt>근태 및 결재</dt>
+						<dd>
+							<a href="/attendanceList"><span style="background-image: url('/image/icon/attendance-icon.png');"></span>근태 리스트</a>
+						</dd>
+						<dd>
+							<a href="/myAttendance"><span style="background-image: url('/image/icon/my-working-icon.png');"></span>내 근태 및 휴가</a>
+						</dd>
+						<dd>
+							<a href="/dayoff"><span style="background-image: url('/image/icon/dayoff-icon.png');"></span>휴가신청 작성</a>
+						</dd>
+						<dd sec:authorize="hasRole('ROLE_PERSONAL')">
+							<a href="/approvalList"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
+						</dd>
+						<dd sec:authorize="hasRole('ROLE_CEO')">
+							<a href="/approvalList2"><span style="background-image: url('/image/icon/approve-icon.png');"></span>내 결재 리스트</a>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl class="menuList">
+						<dt>게시판</dt>
+						<dd>
+							<a href="/Board/noticeList"><span style="background-image: url('/image/icon/notice-icon.png');"></span>공지사항</a>
+						</dd>
+						<dd>
+							<a href="/Board/cncList"><span style="background-image: url('/image/icon/cnc-icon.png');"></span>경조사</a>
+						</dd>
+						<dd>
+							<a href="/Board/suggestionList"><span style="background-image: url('/image/icon/request-icon.png');"></span>건의 게시판</a>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl class="menuList">
+						<dt>마이페이지</dt>
+						<dd>
+							<a href="/employeeMgmt/mypage"><span style="background-image: url('/image/icon/mypage-icon.png');"></span>마이페이지</a>
+						</dd>
+						<dd><a href="https://togla1382.ncpworkplace.com/v/home/"><span style="background-image: url('/image/icon/works-icon.png');"></span>네이버웍스</a></dd>
+					</dl>
+				</li>
+			</div>
 		</ul>
 	</div>
 </header>

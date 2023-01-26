@@ -13,6 +13,8 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	
 	$(function(){
 		departmentAll();
+		$(".department-name>div").eq(0).addClass("target")
+		$(".department-name>div").click(departmentClicked);
 	});
 	
 	function departmentAll(){
@@ -29,6 +31,11 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 	function pageClicked(pageNo){
 		page=pageNo;
 		departmentAll();
+	}
+	
+	function departmentClicked(){
+		$(".department-name>div").removeClass("target");
+		$(this).addClass("target");
 	}
 	
 	function departmentList(departmentNo){
@@ -68,9 +75,9 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 				</div>
 				<div>
 					<div class="department-name flex" >
-						<div onclick="departmentAll()"><a>전체</a></div>
-						<div th:each="department : ${department}" >
-							<a class="department" th:onclick="|departmentList(${department.departmentNo});|">[[${department.departmentName}]]</a>
+						<div onclick="departmentAll()" class="all-list"><a>전체</a></div>
+						<div th:each="department : ${department}" th:onclick="|departmentList(${department.departmentNo});|">
+							<a class="department" >[[${department.departmentName}]]</a>
 						</div>
 					</div>
 					<div class="flex head-left">
