@@ -252,7 +252,7 @@
 							<th width="150px" height="30px">결재상태</th>
 						</tr>
 						<tr th:if="${approvalList.isEmpty()}">
-							<td height="30px" colspan="3">오늘 일정이 없습니다</td>
+							<td height="30px" colspan="6">결제할 내역이 없습니다</td>
 						</tr>
 						<tr th:if="${not #strings.isEmpty(approvalList)}" class="list-2"
 							th:each="approvalList : ${approvalList}">
