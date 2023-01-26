@@ -11,11 +11,14 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import project.domain.entity.BoardCNCEntity;
+import project.domain.entity.DayOffEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ScheduleEntity;
 import project.domain.repository.BoardCNCEntityRepository;
+import project.enums.AuthorizeStatus;
 import project.service.CNCBoardService;
 import project.service.CalendarService;
+import project.service.DayOffService;
 import project.service.EmployeesService;
 import project.service.ScheduleService;
 
@@ -42,6 +45,9 @@ public class CalendarServiceProc implements CalendarService {
 
 	@Autowired
 	ScheduleService scheduleService;
+	
+	@Autowired
+	DayOffService dayOffService;
 
 	// 캘린더에 출력할 이벤트 데이터를 처리하는 기능
 	@Override
@@ -87,7 +93,21 @@ public class CalendarServiceProc implements CalendarService {
 		}
 
 		// 사원 휴가 정보 조회해서 ajax로 전송해 주는 기능 넣을 곳
+		List<DayOffEntity> dayoffList = dayOffService.findbyApproval(AuthorizeStatus.Approval);
+		
+		for (int i = 0; i < dayoffList.size(); i++) {
+			HashMap<String, Object> hash = new HashMap<>();
+			JSONObject jsonObj = new JSONObject();
 
+			hash.put("start", dayoffList.get(i).getStartDate());
+			hash.put("end", dayoffList.get(i).getEndDate().plusDays(1));
+			hash.put("title",dayoffList.get(i).getType() + "-" + dayoffList.get(i).getEmployeeNo().getName());
+			hash.put("color", "#FF8C00");
+			hash.put("textColor", "#FFFFFF");
+
+			jsonObj = new JSONObject(hash);
+			jsonArr.put(jsonObj);
+		}
 		// 사원 일정 정보 조회해서 ajax로 전송해 주는 기능
 		List<ScheduleEntity> scheduleList = scheduleService.findAll();
 		for (int i = 0; i < scheduleList.size(); i++) {

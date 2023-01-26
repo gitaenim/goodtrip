@@ -48,3 +48,11 @@
 .right {
 	justify-content: flex-end;
 }
+.updateBtn{
+	background-color: #4b99da;
+    width: 5em;
+    margin: 0 auto;
+    border-radius: 5px;
+    color: white;
+    padding: 1px 8px;
+}
