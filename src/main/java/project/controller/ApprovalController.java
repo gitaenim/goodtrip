@@ -134,29 +134,11 @@ public class ApprovalController {
 		return "redirect:/approvalList";
 	}
 	
-
-	//대표 결재승인
-	@Transactional
-	@GetMapping("/approval2/{dayOffNo}")
-	public String approval23(@PathVariable long dayOffNo, DayOffAppDTO dto) {
-		dayOffRepo.findById(dayOffNo).map(t -> t.finalApproval(dto));
-		return "redirect:/approvalList2";
-	}
-	
 //	@PostMapping("/approvalDelete")
 //	public String approvalDelete(long dayOffNo) {
 //		service.delete(dayOffNo);
 //		return "redirect:/approvalList";
 //	}
-	
-	//부서장 결재 반려
-	@Transactional
-	@PostMapping("/approvalReturn/{dayOffNo}")
-	public String approvalReturn(@PathVariable long dayOffNo, DayOffAppDTO dto) {
-		dayOffRepo.findById(dayOffNo).map(t -> t.returnApproval(dto));
-		return "redirect:/approvalList";
-	}
-	
 
 	//대표 결재 반려
 	@Transactional
