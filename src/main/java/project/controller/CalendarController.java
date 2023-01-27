@@ -26,7 +26,7 @@ public class CalendarController {
 	//Ajax로 캘린더에 출력할 이벤트 데이터들 전송 해 주는 기능
 	@ResponseBody
 	@PostMapping("/calendar/data")
-	public String calendarData() throws JSONException {
+	public String calendarData(){
 		
 		return calendarService.findCalendarEventData();
 	}
