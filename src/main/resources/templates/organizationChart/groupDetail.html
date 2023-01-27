@@ -90,7 +90,8 @@ function historyback(){
 		</table>
 		<div class="back-1 flex between">
 			<div class="">
-				<a class="" onclick="historyback()">뒤로가기</a>
+				<a class="" href="/ozc/familytree">조직도</a>
+				<a class=""  href="/ozc/groupList/search">검색하기</a>
 				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직사원목록</a>
 				<a th:href="|/ozc/groupDetail/edit/${list.no}|" sec:authorize="hasRole('ROLE_PERSONAL')">수정</a>
 			</div>

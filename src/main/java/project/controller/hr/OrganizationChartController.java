@@ -42,7 +42,7 @@ public class OrganizationChartController {
 	 */
 	@GetMapping("/ozc/groupList/search")
 	public String suggestionList(@RequestParam(value="pageNum", required = false, defaultValue="1")int pageNum, 
-			@RequestParam(value="search", required = false) String search,
+			@RequestParam(value="search", required = false, defaultValue = "전체") String search,
 			@RequestParam(value="searchType", required = false) String searchType,Model model) {
 		organizationChartService.findAllList(pageNum,search,searchType,model);
 		return "organizationChart/groupListSearch";
@@ -90,7 +90,7 @@ public class OrganizationChartController {
 		organizationChartService.findCEO(model); //대표이사정보
 		model.addAttribute("department", departmentRepo.findAll()); //부서정보불러오기
 		organizationChartService.findDepartmentHead(model);//부서장이미지가져오기
-		return "organizationChart/familytree";
+		return "organizationChart/familyTree";
 	}
 }
 
