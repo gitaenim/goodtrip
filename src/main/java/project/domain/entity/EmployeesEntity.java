@@ -168,7 +168,9 @@ public class EmployeesEntity {
 	public EmployeesEntity updateRollbackStatus(EmployeesUpdateDTO dto) {
 		this.deleteStatus = false;
 		this.resignDate = null;
-		if(this.position == DepartmentRank.DepartmentManager||this.position == DepartmentRank.CEO) this.editAuthority = MyRole.PERSONALMANAGER;
+		System.out.println(">>>>>>>"+this.position);
+		if(this.position == DepartmentRank.DepartmentManager) this.editAuthority = MyRole.PERSONALMANAGER;
+		else if(this.position == DepartmentRank.CEO) this.editAuthority = MyRole.CEO;
 		else this.editAuthority = MyRole.EMPLOYEE;
 		return null;
 	}

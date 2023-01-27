@@ -28,7 +28,7 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 						<th>주업무</th>
 					</tr>
 					<tbody id="emp-list">
-						<tr th:each="list : ${search}">
+						<tr th:each="list : ${searchlist}">
 							<td><a th:href="|/ozc/groupDetail/${list.no}|">[[${list.name}]]</a></td>
 							<td th:text="${list.departmentNo.departmentName}">부서</td>
 							<td th:text="${list.email}">이메일</td>
@@ -51,14 +51,20 @@ xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 					<button class="list-button" onclick="location.href='/ozc/familytree'">[조직도]</button>
 				</form>
 			</div>
-			<div class="pageBTN" th:if="${search.getTotalPages}>0">
-		    	<a th:if="${search.hasPrevious()}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()}|">[이전]</a>
-		    	<a th:if="${search.getNumber()-1}>0" th:text="${search.getNumber()-1}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()-1}|">현재페이지-2</a>
-		    	<a th:if="${search.getNumber()}>0" th:text="${search.getNumber()}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()}|">현재페이지-1</a>
-		    	<a id="currentPage" th:text="${search.getNumber()+1}">현재페이지</a>
-		    	<a th:if="${search.getNumber()+2<=search.getTotalPages()}" th:text="${search.getNumber()+2}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()+2}|">현재페이지+1</a>
-		    	<a th:if="${search.getNumber()+3<=search.getTotalPages()}" th:text="${search.getNumber()+3}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()+3}|">현재페이지+2</a>
-		    	<a th:if="${search.hasNext()}" th:href="|/ozc/groupList/search?pageNum=${search.getNumber()+2}|">[다음]</a>
+			<div class="pageBTN" th:if="${searchlist.getTotalPages}>0">
+		    	<a th:if="${searchlist.hasPrevious()}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()}&search=${search}&searchType=${searchType}|">[이전]</a>
+		    	<a th:if="${searchlist.getNumber()-1}>0" th:text="${searchlist.getNumber()-1}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()-1}&search=${search}&searchType=${searchType}|">현재페이지-2</a>
+		    	<a th:if="${searchlist.getNumber()}>0" th:text="${searchlist.getNumber()}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()}&search=${search}&searchType=${searchType}|">현재페이지-1</a>
+		    	<a id="currentPage" th:text="${searchlist.getNumber()+1}">현재페이지</a>
+		    	<a th:if="${searchlist.getNumber()+2<=searchlist.getTotalPages()}" th:text="${searchlist.getNumber()+2}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()+2}&search=${search}&searchType=${searchType}|">현재페이지+1</a>
+		    	<a th:if="${searchlist.getNumber()+3<=searchlist.getTotalPages()}" th:text="${searchlist.getNumber()+3}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()+3}&search=${search}&searchType=${searchType}|">현재페이지+2</a>
+		    	<a th:if="${searchlist.hasNext()}"
+		    	th:href="|/ozc/groupList/search?pageNum=${searchlist.getNumber()+2}&search=${search}&searchType=${searchType}|">[다음]</a>
 	    	</div> 
 		</section>
 	</div>
