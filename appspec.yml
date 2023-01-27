@@ -13,8 +13,8 @@ permissions:
 hooks:
   AfterInstall:
     - location: scripts/stop
-      timeout: 60
+      timeout: 120
   ApplicationStart:
     - location: scripts/start
-      timeout: 60
+      timeout: 120
  
