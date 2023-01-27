@@ -96,6 +96,16 @@
                      <a th:href="|/ozc/groupDetail/${#authentication.principal.no}|"><span style="background-image: url('/image/icon/mypage-icon.png');"></span>마이페이지</a>
                   </dd>
                   <dd><a href="https://togla1382.ncpworkplace.com/v/home/"><span style="background-image: url('/image/icon/works-icon.png');"></span>네이버웍스</a></dd>
+                  <dd>
+                  	<form action="https://auth.worksmobile.com/oauth2/v2.0/authorize" method="get">
+						<input type="hidden" name="client_id" value="7wBC6EgGh34W2yN1BL1J"> 
+						<input type="hidden" name="redirect_uri" value="http://localhost:8080/naver/auth2"> 
+						<input type="hidden" name="scope" value="directory,directory.read,orgunit,orgunit.read">
+						<input type="hidden" name="response_type" value="code">
+						<input type="hidden" name="state" value="test">
+						<button>네이버API 조직인증</button>
+					</form>
+				</dd>
                </dl>
             </li>
          </div>

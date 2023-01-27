@@ -30,6 +30,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.json:json:20200518'
 	implementation 'com.github.shin285:KOMORAN:3.3.4' //komoran
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
