@@ -79,7 +79,7 @@ function historyback(){
 				<td>주업무</td>
 				<td>[[${list.mainWork}]]</td>
 			</tr>
-			<tr sec:authorize="hasRole('ROLE_PERSONAL')">
+			<tr sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">
 				<td>급여</td>
 				<td>연봉 [[${list.salary}]]원</td>
 			</tr>
@@ -92,10 +92,10 @@ function historyback(){
 			<div class="">
 				<a class="" href="/ozc/familytree">조직도</a>
 				<a class=""  href="/ozc/groupList/search">검색하기</a>
-				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}" sec:authorize="hasRole('ROLE_PERSONAL')">퇴직사원목록</a>
-				<a th:href="|/ozc/groupDetail/edit/${list.no}|" sec:authorize="hasRole('ROLE_PERSONAL')">수정</a>
+				<a class="" href="/ozc/groupList/retirement" th:if="${list.deleteStatus}" sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">퇴직사원목록</a>
+				<a th:href="|/ozc/groupDetail/edit/${list.no}|" sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">수정</a>
 			</div>
-			<div sec:authorize="hasRole('ROLE_PERSONAL')">
+			<div sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')">
 				<a th:href="|/role/manager/${list.no}|" th:if="${list.yesorno}==N">수정권한부여</a>
 				<a th:href="|/role/employee/${list.no}|" th:if="${list.yesorno}==Y">수정권한제거</a>
 				<a th:href="|/retirement/delete/${list.no}|" th:if="!${list.deleteStatus}">퇴직처리</a>
