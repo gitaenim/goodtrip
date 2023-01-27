@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="/css/commons/reset.css" />
 <th:block th:insert="~{/layout/sideMenu :: head}" />
 <script src="/js/mypage/mypage.js"></script>
-<style type="text/css">
-</style>
+<title>마이페이지</title>
 </head>
 <main>
 	<th:block th:insert="~{/layout/sideMenu :: header}" />
@@ -17,7 +16,6 @@
 		<div class="flex center">
 			<p>마이페이지</p>
 		</div>
-		<form >
 			<table class="mypage-table">
 				<tr>
 					<td>사진</td>
@@ -67,10 +65,7 @@
 					<td>주업무</td>
 					<td th:text="${mypage.mainWork}">주업무</td>
 				</tr>
-			</table>
-			<input type="hidden" th:value="${#authentication.principal.no}" id="empNo">
-			<button style="margin-top: 10px;" class="updateBtn" sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')" type="button" onclick="EditModeclicked()">수정하기</button>
-		</form>
+		</table>
 	</div>
 </main>
 </html>

@@ -5,16 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import project.domain.entity.BoardCNCEntity;
 import project.domain.entity.DayOffEntity;
 import project.domain.entity.EmployeesEntity;
 import project.domain.entity.ScheduleEntity;
-import project.domain.repository.BoardCNCEntityRepository;
 import project.enums.AuthorizeStatus;
 import project.service.CNCBoardService;
 import project.service.CalendarService;
@@ -52,6 +51,7 @@ public class CalendarServiceProc implements CalendarService {
 	// 캘린더에 출력할 이벤트 데이터를 처리하는 기능
 	@Override
 	public String findCalendarEventData() {
+		
 		JSONArray jsonArr = new JSONArray();
 
 		// 사원 정보중 생일 날짜를 조회해서 ajax로 전송해 주는 기능
