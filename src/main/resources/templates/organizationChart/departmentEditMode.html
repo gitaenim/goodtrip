@@ -40,7 +40,7 @@
 			<div class="flex center">
 				<p class="title">부서관리</p>
 			</div>
-				<a sec:authorize="hasRole('ROLE_PERSONAL')" class="list-button flex right"
+				<a sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')" class="list-button flex right"
 					onclick="location.href='/departments/manage'">돌아가기</a>
 			<div class="back-list">
 				<table class="list-table">

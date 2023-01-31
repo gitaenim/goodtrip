@@ -156,7 +156,7 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 	// 페이징기능(페이지인덱스번호,페이지 사이즈,정렬방식,정렬할 컬럼이름)
 	Pageable page = PageRequest.of(pageNum - 1, pageSize, Direction.ASC, "positionRank");
 	
-	if (search == null) {
+	if (search.equals("전체")) {
 		// 만약 검색한 내용이 없다면 전체 리스트 정보 가져오기
 		list = employeesRepo.findAll(page);
 	} else {
@@ -168,13 +168,10 @@ public class OrganizationChartServiceProcess implements OrganizationChartService
 			// 만약 검색한 내용이 이메일을 검색한 것이라면 해당 리스트를 가져오기
 			list = employeesRepo.findByEmailContaining(search, page);
 		}
-		/*else if(searchType.equals("name")) {
-			// 만약 검색한 내용이 직급을 검색한 것이라면 해당 리스트를 가져오기
-			list = employeesRepo.findByRegistNo_nameContaining(search, page);
-		}*/
 	}
-	
-	model.addAttribute("search", list);
+	model.addAttribute("searchType", searchType);
+	model.addAttribute("search", search);
+	model.addAttribute("searchlist", list);
   }
 
   @Override

@@ -61,7 +61,7 @@
 						</tr>
 					</table>
 					<div class="flex right">
-						<a sec:authorize="hasRole('ROLE_PERSONAL')" class="list-button" id="insert-button"
+						<a sec:authorize="hasAnyRole('ROLE_PERSONAL','ROLE_CEO')" class="list-button" id="insert-button"
 						onclick="insertDepartments()">추가</a>
 						<div id="complete-mode">
 							<input type="submit" class="list-button" value="등록">
